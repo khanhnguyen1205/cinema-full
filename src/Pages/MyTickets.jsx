@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getBookings, getMovie } from "../Services/api";
+import { getBookings, getMovie, getShowtime, getCinema, getRoom } from "../Services/api";
 import { useAuth } from "../Context/AuthContext";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
@@ -28,7 +28,7 @@ function QRCode() {
   );
 }
 
-function TicketCard({ booking, movie, showtime }) {
+function TicketCard({ booking, movie, showtime, cinema, room }) {
   const formatDate = (iso) =>
     new Date(iso).toLocaleDateString("vi-VN", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase();
   const formatTime = (iso) =>
@@ -38,7 +38,7 @@ function TicketCard({ booking, movie, showtime }) {
     <div className="ticket-card">
       <div className="ticket-poster">
         <span className="ticket-poster-initial">{movie?.title?.[0] || "?"}</span>
-        {showtime?.price > 100000 && <span className="ticket-badge">IMAX</span>}
+        {room?.type && <span className="ticket-badge">{room.type}</span>}
       </div>
 
       <div className="ticket-body">
@@ -50,6 +50,9 @@ function TicketCard({ booking, movie, showtime }) {
         </div>
 
         <h3 className="ticket-title">{movie?.title || `Movie #${booking.movieId}`}</h3>
+        {(cinema || room) && (
+          <div className="ticket-cinema-line">{cinema?.name}{room ? ` · ${room.name}` : ""}</div>
+        )}
 
         <div className="ticket-info-row">
           <div className="ticket-info-cell">
@@ -99,11 +102,13 @@ export default function MyTickets() {
       // Filter to only this user's bookings
       const mine = data.filter(b => b.userId === user.id);
       const rich = await Promise.all(mine.map(async b => {
-        const [movie, showtime] = await Promise.all([
+        const [movie, showtime, cinema, room] = await Promise.all([
           getMovie(b.movieId).catch(() => null),
-          fetch(`http://localhost:9999/showtimes/${b.showtimeId}`).then(r => r.json()).catch(() => null)
+          getShowtime(b.showtimeId).catch(() => null),
+          b.cinemaId ? getCinema(b.cinemaId).catch(() => null) : Promise.resolve(null),
+          b.roomId ? getRoom(b.roomId).catch(() => null) : Promise.resolve(null)
         ]);
-        return { ...b, movie, showtime };
+        return { ...b, movie, showtime, cinema, room };
       }));
       setEnriched(rich);
       setLoading(false);
@@ -156,7 +161,7 @@ export default function MyTickets() {
         ) : (
           <div className="tickets-grid">
             {filtered.map(b => (
-              <TicketCard key={b.id} booking={b} movie={b.movie} showtime={b.showtime} />
+              <TicketCard key={b.id} booking={b} movie={b.movie} showtime={b.showtime} cinema={b.cinema} room={b.room} />
             ))}
           </div>
         )}
