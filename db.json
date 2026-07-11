@@ -14,11 +14,11 @@
     { "id": 4, "title": "The Conjuring", "poster": "https://via.placeholder.com/200x300", "description": "A horror story based on real events.", "duration": 120, "genre": "Horror" }
   ],
   "showtimes": [
-    { "id": 1, "movieId": 1, "time": "2026-03-30T18:00:00", "room": "Room 1", "price": 90000 },
-    { "id": 2, "movieId": 1, "time": "2026-03-30T21:00:00", "room": "Room 2", "price": 100000 },
-    { "id": 3, "movieId": 2, "time": "2026-03-30T19:00:00", "room": "Room 1", "price": 95000 },
-    { "id": 4, "movieId": 3, "time": "2026-03-30T20:00:00", "room": "Room 3", "price": 110000 },
-    { "id": 5, "movieId": 4, "time": "2026-03-30T22:00:00", "room": "Room 2", "price": 85000 }
+    { "id": 1, "movieId": 1, "time": "2026-07-15T18:00:00", "room": "Room 1", "price": 90000 },
+    { "id": 2, "movieId": 1, "time": "2026-07-15T21:00:00", "room": "Room 2", "price": 100000 },
+    { "id": 3, "movieId": 2, "time": "2026-07-16T19:00:00", "room": "Room 1", "price": 95000 },
+    { "id": 4, "movieId": 3, "time": "2026-07-17T20:00:00", "room": "Room 3", "price": 110000 },
+    { "id": 5, "movieId": 4, "time": "2026-07-18T22:00:00", "room": "Room 2", "price": 85000 }
   ],
   "seats": [
     { "id": 1, "showtimeId": 1, "seatNumber": "A1", "row": "A", "col": 1, "isBooked": false },
@@ -40,7 +40,31 @@
     { "id": 17, "showtimeId": 3, "seatNumber": "A1", "row": "A", "col": 1, "isBooked": false },
     { "id": 18, "showtimeId": 3, "seatNumber": "A2", "row": "A", "col": 2, "isBooked": true },
     { "id": 19, "showtimeId": 3, "seatNumber": "A3", "row": "A", "col": 3, "isBooked": false },
-    { "id": 20, "showtimeId": 3, "seatNumber": "A4", "row": "A", "col": 4, "isBooked": false }
+    { "id": 20, "showtimeId": 3, "seatNumber": "A4", "row": "A", "col": 4, "isBooked": false },
+    { "id": 21, "showtimeId": 4, "seatNumber": "A1", "row": "A", "col": 1, "isBooked": false },
+    { "id": 22, "showtimeId": 4, "seatNumber": "A2", "row": "A", "col": 2, "isBooked": false },
+    { "id": 23, "showtimeId": 4, "seatNumber": "A3", "row": "A", "col": 3, "isBooked": true },
+    { "id": 24, "showtimeId": 4, "seatNumber": "A4", "row": "A", "col": 4, "isBooked": false },
+    { "id": 25, "showtimeId": 4, "seatNumber": "A5", "row": "A", "col": 5, "isBooked": false },
+    { "id": 26, "showtimeId": 4, "seatNumber": "A6", "row": "A", "col": 6, "isBooked": false },
+    { "id": 27, "showtimeId": 4, "seatNumber": "B1", "row": "B", "col": 1, "isBooked": false },
+    { "id": 28, "showtimeId": 4, "seatNumber": "B2", "row": "B", "col": 2, "isBooked": false },
+    { "id": 29, "showtimeId": 4, "seatNumber": "B3", "row": "B", "col": 3, "isBooked": false },
+    { "id": 30, "showtimeId": 4, "seatNumber": "B4", "row": "B", "col": 4, "isBooked": true },
+    { "id": 31, "showtimeId": 4, "seatNumber": "B5", "row": "B", "col": 5, "isBooked": false },
+    { "id": 32, "showtimeId": 4, "seatNumber": "B6", "row": "B", "col": 6, "isBooked": false },
+    { "id": 33, "showtimeId": 5, "seatNumber": "A1", "row": "A", "col": 1, "isBooked": false },
+    { "id": 34, "showtimeId": 5, "seatNumber": "A2", "row": "A", "col": 2, "isBooked": false },
+    { "id": 35, "showtimeId": 5, "seatNumber": "A3", "row": "A", "col": 3, "isBooked": false },
+    { "id": 36, "showtimeId": 5, "seatNumber": "A4", "row": "A", "col": 4, "isBooked": false },
+    { "id": 37, "showtimeId": 5, "seatNumber": "A5", "row": "A", "col": 5, "isBooked": true },
+    { "id": 38, "showtimeId": 5, "seatNumber": "A6", "row": "A", "col": 6, "isBooked": false },
+    { "id": 39, "showtimeId": 5, "seatNumber": "B1", "row": "B", "col": 1, "isBooked": false },
+    { "id": 40, "showtimeId": 5, "seatNumber": "B2", "row": "B", "col": 2, "isBooked": false },
+    { "id": 41, "showtimeId": 5, "seatNumber": "B3", "row": "B", "col": 3, "isBooked": false },
+    { "id": 42, "showtimeId": 5, "seatNumber": "B4", "row": "B", "col": 4, "isBooked": false },
+    { "id": 43, "showtimeId": 5, "seatNumber": "B5", "row": "B", "col": 5, "isBooked": false },
+    { "id": 44, "showtimeId": 5, "seatNumber": "B6", "row": "B", "col": 6, "isBooked": false }
   ],
   "bookings": [
     { "id": 1, "movieId": 1, "showtimeId": 1, "seats": ["A2"], "userId": 1, "userName": "Nguyen Van A", "totalPrice": 90000, "createdAt": "2026-03-25T10:00:00" },

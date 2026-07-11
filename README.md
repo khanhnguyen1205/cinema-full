@@ -9,32 +9,30 @@ A full-stack cinema booking app with a cinematic dark UI built with React + json
 npm install
 ```
 
-### 2. Start the mock API (json-server)
+### 2. Start the mock API (json-server) — terminal 1
 ```bash
-npx json-server --watch db.json --port 3000
+npx json-server --watch db.json --port 9999
 ```
 
-### 3. Start the React app (in a new terminal)
+### 3. Start the React app — terminal 2
 ```bash
 npm start
 ```
 
-App runs at **http://localhost:3000** (React) and API at **http://localhost:3000** (json-server).
+Open **http://localhost:3000** to view the site. The React dev server runs on **port 3000** (CRA default) and the json-server mock API runs on **port 9999**.
 
-> **Note:** Both use port 3000 by default. To avoid conflicts, run React on a different port:
-> ```bash
-> PORT=3001 npm start
-> ```
-> Then update `BASE_URL` in `src/Services/api.js` to `http://localhost:3000`.
+> **Note:** The API base URL is hardcoded as `http://localhost:9999`. If you change the json-server port, update `BASE_URL` in **both** `src/Services/api.js` and `src/Services/auth.js` (and the inline `fetch` host in `src/Pages/MyTickets.jsx`).
 
 ## Pages
 
 | Route | Page |
 |-------|------|
 | `/` | Home — featured movie hero + trending grid |
+| `/movies` | Movies — full catalog with search & genre filter |
 | `/movie/:id` | Movie Detail — showtimes panel + date/time picker |
-| `/seats/:showtimeId` | Seat Selection — interactive seat map + booking panel |
-| `/tickets` | My Tickets — booked ticket cards + QR codes |
+| `/login` · `/register` | Authentication |
+| `/seats/:showtimeId` | Seat Selection — interactive seat map + booking panel *(requires login)* |
+| `/tickets` | My Tickets — booked ticket cards *(requires login)* |
 
 ## Tech Stack
 - React 18 + React Router v6

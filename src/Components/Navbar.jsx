@@ -41,9 +41,9 @@ export default function Navbar({ back }) {
       </div>
 
       <div className="navbar-links">
-        <Link to="/" className={location.pathname === "/" ? "active" : ""}>Home</Link>
-        <Link to="/" className="">Movies</Link>
-        <Link to="/tickets" className={location.pathname === "/tickets" ? "active" : ""}>Tickets</Link>
+        <Link to="/" className={location.pathname === "/" ? "active" : ""}>Trang chủ</Link>
+        <Link to="/movies" className={location.pathname === "/movies" ? "active" : ""}>Phim</Link>
+        <Link to="/tickets" className={location.pathname === "/tickets" ? "active" : ""}>Vé</Link>
       </div>
 
       <div className="navbar-icons">

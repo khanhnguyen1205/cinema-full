@@ -44,14 +44,14 @@ export default function Home() {
 
         <div className="hero-content">
           <div className="hero-meta">
-            <span className="tag">Top Pick This Week</span>
+            <span className="tag">Lựa chọn hàng đầu tuần</span>
             <span className="hero-rating">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="#e63030" stroke="none">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
               </svg>
-              8.9 Rating
+              8.9 Điểm
             </span>
-            <span className="hero-genre">{featured.genre} · {featured.duration} MIN</span>
+            <span className="hero-genre">{featured.genre} · {featured.duration} PHÚT</span>
           </div>
 
           <h1 className="hero-title">
@@ -67,9 +67,9 @@ export default function Home() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="white" style={{ marginRight: 8 }}>
                 <polygon points="5 3 19 12 5 21 5 3" />
               </svg>
-              Book Now
+              Đặt vé
             </button>
-            <button className="btn-secondary" onClick={() => navigate(`/movie/${featured.id}`)}>Details</button>
+            <button className="btn-secondary" onClick={() => navigate(`/movie/${featured.id}`)}>Chi tiết</button>
           </div>
         </div>
 
@@ -80,10 +80,10 @@ export default function Home() {
       <section className="trending-section">
         <div className="section-header">
           <div>
-            <div className="section-label">Now Showing</div>
-            <h2 className="section-title">Trending Now</h2>
+            <div className="section-label">Đang chiếu</div>
+            <h2 className="section-title">Thịnh hành</h2>
           </div>
-          <button className="view-all">View All</button>
+          <button className="view-all" onClick={() => navigate("/movies")}>Xem tất cả</button>
         </div>
 
         <div className="movie-grid">
@@ -105,7 +105,7 @@ export default function Home() {
               </div>
               <div className="movie-card-info">
                 <h3 className="movie-card-title">{movie.title}</h3>
-                <p className="movie-card-meta">{movie.genre} · {movie.duration} min</p>
+                <p className="movie-card-meta">{movie.genre} · {movie.duration} phút</p>
               </div>
             </div>
           ))}
@@ -114,10 +114,10 @@ export default function Home() {
 
       {/* NEW RELEASES FEATURE SECTION */}
       <section className="releases-section">
-        <div className="section-label">New Releases</div>
-        <h2 className="section-title" style={{ marginBottom: 8, marginTop: 4 }}>Latest Blockbusters</h2>
+        <div className="section-label">Phim mới</div>
+        <h2 className="section-title" style={{ marginBottom: 8, marginTop: 4 }}>Bom tấn mới nhất</h2>
         <p style={{ color: "var(--text-muted)", fontSize: 14, marginBottom: 32 }}>
-          Experience the latest blockbusters in our state-of-the-art cinematic halls.
+          Trải nghiệm những bom tấn mới nhất trong các phòng chiếu hiện đại của chúng tôi.
         </p>
 
         <div className="releases-grid">
@@ -128,7 +128,7 @@ export default function Home() {
               <h3 className="release-featured-title">{movies[2]?.title || "Interstellar"}</h3>
               <p className="release-featured-desc">{movies[2]?.description}</p>
               <button className="btn-secondary" style={{ marginTop: 20, padding: "10px 20px", fontSize: 12 }}>
-                Select Seats
+                Chọn ghế
               </button>
             </div>
           </div>
@@ -143,7 +143,7 @@ export default function Home() {
                   <h4>{m.title}</h4>
                   <p>{m.description}</p>
                   <span className="section-label" style={{ fontSize: 10, color: "var(--red)" }}>
-                    Book Now →
+                    Đặt vé →
                   </span>
                 </div>
               </div>
