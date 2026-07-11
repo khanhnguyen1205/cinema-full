@@ -4,7 +4,15 @@
       "id": 1,
       "fullName": "Nguyen Van A",
       "email": "a@cinema.vn",
-      "password": "123456"
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": 2,
+      "fullName": "Quản trị viên",
+      "email": "admin@cinema.vn",
+      "password": "admin123",
+      "role": "admin"
     }
   ],
   "movies": [

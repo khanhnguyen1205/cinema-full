@@ -31,3 +31,20 @@ export const createBooking = (booking) =>
   }).then(r => r.json());
 
 export const getBookings = () => fetch(`${BASE_URL}/bookings`).then(r => r.json());
+
+// --- Admin CRUD ---
+const post = (path, body) => fetch(`${BASE_URL}${path}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then(r => r.json());
+const patch = (path, body) => fetch(`${BASE_URL}${path}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then(r => r.json());
+const del = (path) => fetch(`${BASE_URL}${path}`, { method: "DELETE" });
+
+export const createMovie = (b) => post("/movies", b);
+export const updateMovie = (id, p) => patch(`/movies/${id}`, p);
+export const deleteMovie = (id) => del(`/movies/${id}`);
+
+export const createRoom = (b) => post("/rooms", b);
+export const updateRoom = (id, p) => patch(`/rooms/${id}`, p);
+export const deleteRoom = (id) => del(`/rooms/${id}`);
+
+export const createShowtime = (b) => post("/showtimes", b);
+export const updateShowtime = (id, p) => patch(`/showtimes/${id}`, p);
+export const deleteShowtime = (id) => del(`/showtimes/${id}`);
