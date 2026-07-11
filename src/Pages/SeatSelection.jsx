@@ -69,7 +69,7 @@ export default function SeatSelection() {
 
   const formatDate = (iso) => {
     if (!iso) return "";
-    return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    return new Date(iso).toLocaleDateString("vi-VN", { day: "numeric", month: "short", year: "numeric" });
   };
 
   const formatTime = (iso) => {
@@ -83,8 +83,8 @@ export default function SeatSelection() {
   if (booked) return (
     <div className="page" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 16 }}>
       <div className="booked-icon">✓</div>
-      <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 36, letterSpacing: 2 }}>Booking Confirmed!</h2>
-      <p style={{ color: "var(--text-muted)" }}>Redirecting to your tickets...</p>
+      <h2 style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 36, letterSpacing: 2 }}>Đặt vé thành công!</h2>
+      <p style={{ color: "var(--text-muted)" }}>Đang chuyển tới trang vé của bạn...</p>
     </div>
   );
 
@@ -97,7 +97,7 @@ export default function SeatSelection() {
         <div className="seat-map-container">
           <div className="screen-container">
             <div className="screen-glow" />
-            <div className="screen-label">THE CINEMATIC SCREEN</div>
+            <div className="screen-label">MÀN HÌNH CHIẾU</div>
           </div>
 
           <div className="seat-map">
@@ -128,15 +128,15 @@ export default function SeatSelection() {
           <div className="seat-legend">
             <div className="legend-item">
               <div className="legend-dot available" />
-              <span>Available</span>
+              <span>Trống</span>
             </div>
             <div className="legend-item">
               <div className="legend-dot selected-dot" />
-              <span>Selected</span>
+              <span>Đang chọn</span>
             </div>
             <div className="legend-item">
               <div className="legend-dot reserved" />
-              <span>Reserved</span>
+              <span>Đã đặt</span>
             </div>
           </div>
         </div>
@@ -152,23 +152,23 @@ export default function SeatSelection() {
               </div>
               <div>
                 <h2 className="booking-movie-title">{movie.title}</h2>
-                <p className="booking-movie-meta">{movie.genre.toUpperCase()} · {movie.duration} MIN</p>
+                <p className="booking-movie-meta">{movie.genre.toUpperCase()} · {movie.duration} PHÚT</p>
 
                 <div className="booking-info-grid">
                   <div className="booking-info-cell">
-                    <span className="booking-info-label">Date</span>
+                    <span className="booking-info-label">Ngày</span>
                     <span className="booking-info-value">{formatDate(showtime?.time)}</span>
                   </div>
                   <div className="booking-info-cell">
-                    <span className="booking-info-label">Time</span>
+                    <span className="booking-info-label">Giờ</span>
                     <span className="booking-info-value">{formatTime(showtime?.time)}</span>
                   </div>
                 </div>
 
                 <div className="booking-info-cell" style={{ marginTop: 12 }}>
-                  <span className="booking-info-label">Selected Seats</span>
+                  <span className="booking-info-label">Ghế đã chọn</span>
                   <span className="booking-info-value selected-seats-display">
-                    {selected.length > 0 ? selected.map(s => s.seatNumber).join(", ") : "None"}
+                    {selected.length > 0 ? selected.map(s => s.seatNumber).join(", ") : "Chưa chọn"}
                   </span>
                 </div>
               </div>
@@ -176,7 +176,7 @@ export default function SeatSelection() {
           )}
 
           <div className="booking-name-field">
-            <label className="section-label" style={{ display: "block", marginBottom: 10 }}>Your Name</label>
+            <label className="section-label" style={{ display: "block", marginBottom: 10 }}>Tên của bạn</label>
             <input
               className="name-input"
               placeholder="Tên của bạn"
@@ -188,15 +188,15 @@ export default function SeatSelection() {
 
           <div className="price-breakdown">
             <div className="price-row">
-              <span>Adult Ticket (×{selected.length})</span>
+              <span>Vé người lớn (×{selected.length})</span>
               <span>{(selected.length * (showtime?.price || 0)).toLocaleString("vi-VN")}₫</span>
             </div>
             <div className="price-row">
-              <span>Service Fee</span>
+              <span>Phí dịch vụ</span>
               <span>{serviceFee.toLocaleString("vi-VN")}₫</span>
             </div>
             <div className="price-row total">
-              <span>TOTAL</span>
+              <span>TỔNG CỘNG</span>
               <span className="total-amount">{(total + serviceFee).toLocaleString("vi-VN")}₫</span>
             </div>
           </div>
@@ -206,7 +206,7 @@ export default function SeatSelection() {
             disabled={selected.length === 0 || !name.trim() || loading}
             onClick={handleBooking}
           >
-            {loading ? "Processing..." : "Confirm Booking"}
+            {loading ? "Đang xử lý..." : "Xác nhận đặt vé"}
           </button>
         </div>
       </div>

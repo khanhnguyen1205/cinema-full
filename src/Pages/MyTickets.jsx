@@ -30,7 +30,7 @@ function QRCode() {
 
 function TicketCard({ booking, movie, showtime }) {
   const formatDate = (iso) =>
-    new Date(iso).toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" }).toUpperCase();
+    new Date(iso).toLocaleDateString("vi-VN", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase();
   const formatTime = (iso) =>
     new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
 
@@ -53,18 +53,18 @@ function TicketCard({ booking, movie, showtime }) {
 
         <div className="ticket-info-row">
           <div className="ticket-info-cell">
-            <span className="ticket-info-label">DATE</span>
+            <span className="ticket-info-label">NGÀY</span>
             <span className="ticket-info-value">{showtime ? formatDate(showtime.time) : "—"}</span>
           </div>
           <div className="ticket-info-cell">
-            <span className="ticket-info-label">TIME</span>
+            <span className="ticket-info-label">GIỜ</span>
             <span className="ticket-info-value">{showtime ? formatTime(showtime.time) : "—"}</span>
           </div>
         </div>
 
         <div className="ticket-info-row">
           <div className="ticket-info-cell">
-            <span className="ticket-info-label">THEATER</span>
+            <span className="ticket-info-label">PHÒNG</span>
             <span className="ticket-info-value">{showtime?.room || "—"}</span>
           </div>
           <div className="ticket-info-cell">

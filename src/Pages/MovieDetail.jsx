@@ -27,7 +27,7 @@ export default function MovieDetail() {
     </div>
   );
 
-  const dates = ["MON 28", "TUE 29", "WED 30", "THU 31"];
+  const dates = ["T2 28", "T3 29", "T4 30", "T5 31"];
 
   const formatTime = (iso) => {
     const d = new Date(iso);
@@ -45,14 +45,14 @@ export default function MovieDetail() {
 
         <div className="detail-hero-content">
           <div className="detail-meta-top">
-            <span className="tag">Now Showing</span>
+            <span className="tag">Đang chiếu</span>
             <span className="detail-rating">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="#e63030">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
               </svg>
-              8.9 Rating
+              8.9 Điểm
             </span>
-            <span className="detail-genre-badge">{movie.genre} · {movie.duration} MIN</span>
+            <span className="detail-genre-badge">{movie.genre} · {movie.duration} PHÚT</span>
           </div>
 
           <h1 className="detail-title">
@@ -71,15 +71,15 @@ export default function MovieDetail() {
 
           <div className="detail-credits">
             <div className="credit-item">
-              <span className="credit-label">Genre</span>
+              <span className="credit-label">Thể loại</span>
               <span className="credit-value">{movie.genre}</span>
             </div>
             <div className="credit-item">
-              <span className="credit-label">Duration</span>
-              <span className="credit-value">{movie.duration} min</span>
+              <span className="credit-label">Thời lượng</span>
+              <span className="credit-value">{movie.duration} phút</span>
             </div>
             <div className="credit-item">
-              <span className="credit-label">Format</span>
+              <span className="credit-label">Định dạng</span>
               <span className="credit-value" style={{ color: "var(--red)" }}>IMAX 4K</span>
             </div>
           </div>
@@ -94,7 +94,7 @@ export default function MovieDetail() {
               <line x1="8" y1="2" x2="8" y2="6" />
               <line x1="3" y1="10" x2="21" y2="10" />
             </svg>
-            Showtimes
+            Lịch chiếu
           </div>
 
           <div className="date-selector">
@@ -104,13 +104,13 @@ export default function MovieDetail() {
                 className={`date-btn ${selectedDate === i ? "active" : ""}`}
                 onClick={() => setSelectedDate(i)}
               >
-                <span className="date-month">OCT</span>
+                <span className="date-month">Thg 3</span>
                 <span className="date-day">{d.split(" ")[1]}</span>
               </button>
             ))}
           </div>
 
-          <div className="times-label section-label">Available Times</div>
+          <div className="times-label section-label">Giờ chiếu</div>
 
           <div className="times-grid">
             {showtimes.length > 0 ? showtimes.map(s => (
@@ -123,14 +123,14 @@ export default function MovieDetail() {
               </button>
             )) : (
               <p style={{ color: "var(--text-muted)", fontSize: 13, gridColumn: "span 2" }}>
-                No showtimes available
+                Chưa có suất chiếu
               </p>
             )}
           </div>
 
           {selectedTime && (
             <div className="showtime-price">
-              {showtimes.find(s => s.id === selectedTime)?.price?.toLocaleString("vi-VN")}₫ / seat
+              {showtimes.find(s => s.id === selectedTime)?.price?.toLocaleString("vi-VN")}₫ / ghế
             </div>
           )}
 
@@ -139,7 +139,7 @@ export default function MovieDetail() {
             disabled={!selectedTime}
             onClick={() => selectedTime && navigate(`/seats/${selectedTime}`)}
           >
-            Book Tickets
+            Đặt vé
           </button>
         </div>
       </div>
