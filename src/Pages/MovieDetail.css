@@ -235,3 +235,59 @@
   opacity: 0.4;
   cursor: not-allowed;
 }
+
+/* Multi-cinema: city/cinema selects + adapted date/time buttons */
+.detail-select-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.detail-select {
+  background: var(--bg-card2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+}
+
+.detail-select:hover {
+  border-color: rgba(230,48,48,0.3);
+}
+
+.date-selector {
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.date-btn {
+  flex: 0 0 auto;
+  min-width: 68px;
+}
+
+.date-btn .date-day {
+  font-size: 13px;
+  margin-top: 0;
+  text-transform: none;
+  letter-spacing: 0.3px;
+}
+
+.time-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.time-btn .time-type {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+  text-transform: none;
+}
