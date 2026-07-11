@@ -1,0 +1,93 @@
+.cinema-detail-section {
+  padding: 100px 40px 60px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.cinema-detail-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 5vw, 56px);
+  letter-spacing: 2px;
+  line-height: 1;
+  margin: 6px 0 6px;
+}
+
+.cinema-detail-addr {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+
+.cinema-movie-block {
+  border-top: 1px solid var(--border);
+  padding: 24px 0;
+}
+
+.cinema-movie-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.cinema-movie-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cinema-movie-title:hover {
+  color: var(--red);
+}
+
+.cinema-movie-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.cinema-date-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.cinema-date-label {
+  min-width: 90px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  padding-top: 8px;
+  text-transform: capitalize;
+}
+
+.cinema-times {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cinema-times .time-btn {
+  min-width: 90px;
+}
+
+.cinema-times .time-type {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.cinema-empty {
+  padding: 60px 0;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+@media (max-width: 600px) {
+  .cinema-detail-section { padding: 90px 20px 40px; }
+  .cinema-date-row { flex-direction: column; gap: 6px; }
+}

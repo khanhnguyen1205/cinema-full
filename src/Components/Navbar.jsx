@@ -43,6 +43,7 @@ export default function Navbar({ back }) {
       <div className="navbar-links">
         <Link to="/" className={location.pathname === "/" ? "active" : ""}>Trang chủ</Link>
         <Link to="/movies" className={location.pathname === "/movies" ? "active" : ""}>Phim</Link>
+        <Link to="/cinemas" className={location.pathname.startsWith("/cinema") ? "active" : ""}>Rạp</Link>
         <Link to="/tickets" className={location.pathname === "/tickets" ? "active" : ""}>Vé</Link>
       </div>
 

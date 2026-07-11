@@ -4,6 +4,8 @@ import { AuthProvider } from "./Context/AuthContext";
 import PrivateRoute from "./Components/PrivateRoute";
 import Home from "./Pages/Home";
 import Movies from "./Pages/Movies";
+import Cinemas from "./Pages/Cinemas";
+import CinemaDetail from "./Pages/CinemaDetail";
 import MovieDetail from "./Pages/MovieDetail";
 import SeatSelection from "./Pages/SeatSelection";
 import MyTickets from "./Pages/MyTickets";
@@ -17,6 +19,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
+          <Route path="/cinemas" element={<Cinemas />} />
+          <Route path="/cinema/:id" element={<CinemaDetail />} />
           <Route path="/movie/:id" element={<MovieDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
