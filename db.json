@@ -8,56 +8,419 @@
     }
   ],
   "movies": [
-    { "id": 1, "title": "Avengers: Endgame", "poster": "https://via.placeholder.com/200x300", "description": "Marvel superheroes unite to defeat Thanos.", "duration": 180, "genre": "Action" },
-    { "id": 2, "title": "Spider-Man: No Way Home", "poster": "https://via.placeholder.com/200x300", "description": "Spider-Man faces multiverse villains.", "duration": 150, "genre": "Action" },
-    { "id": 3, "title": "Interstellar", "poster": "https://via.placeholder.com/200x300", "description": "A journey through space and time.", "duration": 170, "genre": "Sci-Fi" },
-    { "id": 4, "title": "The Conjuring", "poster": "https://via.placeholder.com/200x300", "description": "A horror story based on real events.", "duration": 120, "genre": "Horror" }
+    {
+      "id": 1,
+      "title": "Avengers: Endgame",
+      "poster": "https://via.placeholder.com/200x300",
+      "description": "Marvel superheroes unite to defeat Thanos.",
+      "duration": 180,
+      "genre": "Action"
+    },
+    {
+      "id": 2,
+      "title": "Spider-Man: No Way Home",
+      "poster": "https://via.placeholder.com/200x300",
+      "description": "Spider-Man faces multiverse villains.",
+      "duration": 150,
+      "genre": "Action"
+    },
+    {
+      "id": 3,
+      "title": "Interstellar",
+      "poster": "https://via.placeholder.com/200x300",
+      "description": "A journey through space and time.",
+      "duration": 170,
+      "genre": "Sci-Fi"
+    },
+    {
+      "id": 4,
+      "title": "The Conjuring",
+      "poster": "https://via.placeholder.com/200x300",
+      "description": "A horror story based on real events.",
+      "duration": 120,
+      "genre": "Horror"
+    }
   ],
   "cities": [
-    { "id": 1, "name": "TP. Hồ Chí Minh" },
-    { "id": 2, "name": "Hà Nội" },
-    { "id": 3, "name": "Đà Nẵng" }
+    {
+      "id": 1,
+      "name": "TP. Hồ Chí Minh"
+    },
+    {
+      "id": 2,
+      "name": "Hà Nội"
+    },
+    {
+      "id": 3,
+      "name": "Đà Nẵng"
+    }
   ],
   "cinemas": [
-    { "id": 1, "cityId": 1, "name": "CGV Vincom Đồng Khởi", "address": "72 Lê Thánh Tôn, Quận 1, TP.HCM" },
-    { "id": 2, "cityId": 1, "name": "Lotte Cinema Nam Sài Gòn", "address": "Nguyễn Hữu Thọ, Quận 7, TP.HCM" },
-    { "id": 3, "cityId": 2, "name": "BHD Star Phạm Ngọc Thạch", "address": "Số 1 Phạm Ngọc Thạch, Đống Đa, Hà Nội" },
-    { "id": 4, "cityId": 2, "name": "CGV Vincom Bà Triệu", "address": "191 Bà Triệu, Hai Bà Trưng, Hà Nội" },
-    { "id": 5, "cityId": 3, "name": "Galaxy Đà Nẵng", "address": "16 Lê Duẩn, Hải Châu, Đà Nẵng" }
+    {
+      "id": 1,
+      "cityId": 1,
+      "name": "CGV Vincom Đồng Khởi",
+      "address": "72 Lê Thánh Tôn, Quận 1, TP.HCM"
+    },
+    {
+      "id": 2,
+      "cityId": 1,
+      "name": "Lotte Cinema Nam Sài Gòn",
+      "address": "Nguyễn Hữu Thọ, Quận 7, TP.HCM"
+    },
+    {
+      "id": 3,
+      "cityId": 2,
+      "name": "BHD Star Phạm Ngọc Thạch",
+      "address": "Số 1 Phạm Ngọc Thạch, Đống Đa, Hà Nội"
+    },
+    {
+      "id": 4,
+      "cityId": 2,
+      "name": "CGV Vincom Bà Triệu",
+      "address": "191 Bà Triệu, Hai Bà Trưng, Hà Nội"
+    },
+    {
+      "id": 5,
+      "cityId": 3,
+      "name": "Galaxy Đà Nẵng",
+      "address": "16 Lê Duẩn, Hải Châu, Đà Nẵng"
+    }
   ],
   "rooms": [
-    { "id": 1, "cinemaId": 1, "name": "Phòng 1", "type": "2D", "rows": 8, "cols": 12, "vipRows": ["E", "F"] },
-    { "id": 2, "cinemaId": 1, "name": "Phòng IMAX", "type": "IMAX", "rows": 10, "cols": 14, "vipRows": ["F", "G", "H"] },
-    { "id": 3, "cinemaId": 2, "name": "Phòng 1", "type": "2D", "rows": 8, "cols": 12, "vipRows": ["E", "F"] },
-    { "id": 4, "cinemaId": 2, "name": "Phòng 2", "type": "3D", "rows": 8, "cols": 12, "vipRows": ["E", "F", "G"] },
-    { "id": 5, "cinemaId": 3, "name": "Phòng 1", "type": "2D", "rows": 8, "cols": 12, "vipRows": ["E", "F"] },
-    { "id": 6, "cinemaId": 3, "name": "Phòng 2", "type": "3D", "rows": 8, "cols": 12, "vipRows": ["E", "F", "G"] },
-    { "id": 7, "cinemaId": 4, "name": "Phòng 1", "type": "3D", "rows": 8, "cols": 12, "vipRows": ["E", "F", "G"] },
-    { "id": 8, "cinemaId": 4, "name": "Phòng IMAX", "type": "IMAX", "rows": 10, "cols": 14, "vipRows": ["F", "G", "H"] },
-    { "id": 9, "cinemaId": 5, "name": "Phòng 1", "type": "2D", "rows": 8, "cols": 12, "vipRows": ["E", "F"] },
-    { "id": 10, "cinemaId": 5, "name": "Phòng 2", "type": "3D", "rows": 8, "cols": 12, "vipRows": ["E", "F", "G"] }
+    {
+      "id": 1,
+      "cinemaId": 1,
+      "name": "Phòng 1",
+      "type": "2D",
+      "rows": 8,
+      "cols": 12,
+      "vipRows": [
+        "E",
+        "F"
+      ]
+    },
+    {
+      "id": 2,
+      "cinemaId": 1,
+      "name": "Phòng IMAX",
+      "type": "IMAX",
+      "rows": 10,
+      "cols": 14,
+      "vipRows": [
+        "F",
+        "G",
+        "H"
+      ]
+    },
+    {
+      "id": 3,
+      "cinemaId": 2,
+      "name": "Phòng 1",
+      "type": "2D",
+      "rows": 8,
+      "cols": 12,
+      "vipRows": [
+        "E",
+        "F"
+      ]
+    },
+    {
+      "id": 4,
+      "cinemaId": 2,
+      "name": "Phòng 2",
+      "type": "3D",
+      "rows": 8,
+      "cols": 12,
+      "vipRows": [
+        "E",
+        "F",
+        "G"
+      ]
+    },
+    {
+      "id": 5,
+      "cinemaId": 3,
+      "name": "Phòng 1",
+      "type": "2D",
+      "rows": 8,
+      "cols": 12,
+      "vipRows": [
+        "E",
+        "F"
+      ]
+    },
+    {
+      "id": 6,
+      "cinemaId": 3,
+      "name": "Phòng 2",
+      "type": "3D",
+      "rows": 8,
+      "cols": 12,
+      "vipRows": [
+        "E",
+        "F",
+        "G"
+      ]
+    },
+    {
+      "id": 7,
+      "cinemaId": 4,
+      "name": "Phòng 1",
+      "type": "3D",
+      "rows": 8,
+      "cols": 12,
+      "vipRows": [
+        "E",
+        "F",
+        "G"
+      ]
+    },
+    {
+      "id": 8,
+      "cinemaId": 4,
+      "name": "Phòng IMAX",
+      "type": "IMAX",
+      "rows": 10,
+      "cols": 14,
+      "vipRows": [
+        "F",
+        "G",
+        "H"
+      ]
+    },
+    {
+      "id": 9,
+      "cinemaId": 5,
+      "name": "Phòng 1",
+      "type": "2D",
+      "rows": 8,
+      "cols": 12,
+      "vipRows": [
+        "E",
+        "F"
+      ]
+    },
+    {
+      "id": 10,
+      "cinemaId": 5,
+      "name": "Phòng 2",
+      "type": "3D",
+      "rows": 8,
+      "cols": 12,
+      "vipRows": [
+        "E",
+        "F",
+        "G"
+      ]
+    }
   ],
   "showtimes": [
-    { "id": 1, "movieId": 1, "roomId": 1, "time": "2026-07-15T18:00:00", "price": 75000, "bookedSeats": ["A3", "E5", "E6"] },
-    { "id": 2, "movieId": 1, "roomId": 2, "time": "2026-07-15T21:00:00", "price": 120000, "bookedSeats": ["F7", "G7"] },
-    { "id": 3, "movieId": 1, "roomId": 3, "time": "2026-07-16T19:00:00", "price": 75000, "bookedSeats": [] },
-    { "id": 4, "movieId": 1, "roomId": 7, "time": "2026-07-16T20:00:00", "price": 95000, "bookedSeats": ["E4", "F4"] },
-    { "id": 5, "movieId": 1, "roomId": 9, "time": "2026-07-17T17:00:00", "price": 75000, "bookedSeats": [] },
-    { "id": 6, "movieId": 2, "roomId": 1, "time": "2026-07-15T15:00:00", "price": 75000, "bookedSeats": ["A2"] },
-    { "id": 7, "movieId": 2, "roomId": 4, "time": "2026-07-16T20:30:00", "price": 95000, "bookedSeats": ["E6", "E7"] },
-    { "id": 8, "movieId": 2, "roomId": 3, "time": "2026-07-17T19:00:00", "price": 75000, "bookedSeats": [] },
-    { "id": 9, "movieId": 2, "roomId": 8, "time": "2026-07-18T21:00:00", "price": 120000, "bookedSeats": [] },
-    { "id": 10, "movieId": 3, "roomId": 2, "time": "2026-07-16T20:00:00", "price": 120000, "bookedSeats": ["F5", "G5", "H5"] },
-    { "id": 11, "movieId": 3, "roomId": 5, "time": "2026-07-17T18:30:00", "price": 75000, "bookedSeats": [] },
-    { "id": 12, "movieId": 3, "roomId": 10, "time": "2026-07-18T20:00:00", "price": 95000, "bookedSeats": [] },
-    { "id": 13, "movieId": 4, "roomId": 6, "time": "2026-07-17T22:00:00", "price": 95000, "bookedSeats": ["E3", "F3"] },
-    { "id": 14, "movieId": 4, "roomId": 4, "time": "2026-07-18T22:30:00", "price": 95000, "bookedSeats": [] },
-    { "id": 15, "movieId": 4, "roomId": 7, "time": "2026-07-19T21:30:00", "price": 95000, "bookedSeats": [] },
-    { "id": 16, "movieId": 4, "roomId": 9, "time": "2026-07-19T20:00:00", "price": 75000, "bookedSeats": [] }
+    {
+      "id": 1,
+      "movieId": 1,
+      "roomId": 1,
+      "time": "2026-07-15T18:00:00",
+      "price": 75000,
+      "bookedSeats": [
+        "A3",
+        "E5",
+        "E6"
+      ]
+    },
+    {
+      "id": 2,
+      "movieId": 1,
+      "roomId": 2,
+      "time": "2026-07-15T21:00:00",
+      "price": 120000,
+      "bookedSeats": [
+        "F7",
+        "G7"
+      ]
+    },
+    {
+      "id": 3,
+      "movieId": 1,
+      "roomId": 3,
+      "time": "2026-07-16T19:00:00",
+      "price": 75000,
+      "bookedSeats": []
+    },
+    {
+      "id": 4,
+      "movieId": 1,
+      "roomId": 7,
+      "time": "2026-07-16T20:00:00",
+      "price": 95000,
+      "bookedSeats": [
+        "E4",
+        "F4"
+      ]
+    },
+    {
+      "id": 5,
+      "movieId": 1,
+      "roomId": 9,
+      "time": "2026-07-17T17:00:00",
+      "price": 75000,
+      "bookedSeats": []
+    },
+    {
+      "id": 6,
+      "movieId": 2,
+      "roomId": 1,
+      "time": "2026-07-15T15:00:00",
+      "price": 75000,
+      "bookedSeats": [
+        "A2"
+      ]
+    },
+    {
+      "id": 7,
+      "movieId": 2,
+      "roomId": 4,
+      "time": "2026-07-16T20:30:00",
+      "price": 95000,
+      "bookedSeats": [
+        "E6",
+        "E7"
+      ]
+    },
+    {
+      "id": 8,
+      "movieId": 2,
+      "roomId": 3,
+      "time": "2026-07-17T19:00:00",
+      "price": 75000,
+      "bookedSeats": []
+    },
+    {
+      "id": 9,
+      "movieId": 2,
+      "roomId": 8,
+      "time": "2026-07-18T21:00:00",
+      "price": 120000,
+      "bookedSeats": []
+    },
+    {
+      "id": 10,
+      "movieId": 3,
+      "roomId": 2,
+      "time": "2026-07-16T20:00:00",
+      "price": 120000,
+      "bookedSeats": [
+        "F5",
+        "G5",
+        "H5"
+      ]
+    },
+    {
+      "id": 11,
+      "movieId": 3,
+      "roomId": 5,
+      "time": "2026-07-17T18:30:00",
+      "price": 75000,
+      "bookedSeats": []
+    },
+    {
+      "id": 12,
+      "movieId": 3,
+      "roomId": 10,
+      "time": "2026-07-18T20:00:00",
+      "price": 95000,
+      "bookedSeats": []
+    },
+    {
+      "id": 13,
+      "movieId": 4,
+      "roomId": 6,
+      "time": "2026-07-17T22:00:00",
+      "price": 95000,
+      "bookedSeats": [
+        "E3",
+        "F3"
+      ]
+    },
+    {
+      "id": 14,
+      "movieId": 4,
+      "roomId": 4,
+      "time": "2026-07-18T22:30:00",
+      "price": 95000,
+      "bookedSeats": []
+    },
+    {
+      "id": 15,
+      "movieId": 4,
+      "roomId": 7,
+      "time": "2026-07-19T21:30:00",
+      "price": 95000,
+      "bookedSeats": []
+    },
+    {
+      "id": 16,
+      "movieId": 4,
+      "roomId": 9,
+      "time": "2026-07-19T20:00:00",
+      "price": 75000,
+      "bookedSeats": []
+    }
   ],
   "bookings": [
-    { "id": 1, "movieId": 1, "showtimeId": 1, "cinemaId": 1, "roomId": 1, "seats": ["A2"], "seatTypes": { "standard": 1, "vip": 0 }, "userId": 1, "userName": "Nguyen Van A", "totalPrice": 90000, "createdAt": "2026-07-10T10:00:00" },
-    { "id": 2, "movieId": 1, "showtimeId": 1, "cinemaId": 1, "roomId": 1, "seats": ["B3"], "seatTypes": { "standard": 1, "vip": 0 }, "userId": 1, "userName": "Nguyen Van A", "totalPrice": 90000, "createdAt": "2026-07-10T11:00:00" },
-    { "id": 3, "movieId": 2, "showtimeId": 6, "cinemaId": 1, "roomId": 1, "seats": ["A5"], "seatTypes": { "standard": 1, "vip": 0 }, "userId": 1, "userName": "Nguyen Van A", "totalPrice": 90000, "createdAt": "2026-07-10T12:00:00" }
+    {
+      "id": 1,
+      "movieId": 1,
+      "showtimeId": 1,
+      "cinemaId": 1,
+      "roomId": 1,
+      "seats": [
+        "A2"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0
+      },
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "totalPrice": 90000,
+      "createdAt": "2026-07-10T10:00:00"
+    },
+    {
+      "id": 2,
+      "movieId": 1,
+      "showtimeId": 1,
+      "cinemaId": 1,
+      "roomId": 1,
+      "seats": [
+        "B3"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0
+      },
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "totalPrice": 90000,
+      "createdAt": "2026-07-10T11:00:00"
+    },
+    {
+      "id": 3,
+      "movieId": 2,
+      "showtimeId": 6,
+      "cinemaId": 1,
+      "roomId": 1,
+      "seats": [
+        "A5"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0
+      },
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "totalPrice": 90000,
+      "createdAt": "2026-07-10T12:00:00"
+    }
   ]
 }

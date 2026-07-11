@@ -28,11 +28,17 @@ Open **http://localhost:3000** to view the site. The React dev server runs on **
 | Route | Page |
 |-------|------|
 | `/` | Home — featured movie hero + trending grid |
-| `/movies` | Movies — full catalog with search & genre filter |
-| `/movie/:id` | Movie Detail — showtimes panel + date/time picker |
+| `/movies` | Movies — full catalog with search, genre filter & sort |
+| `/movie/:id` | Movie Detail — pick city → cinema → date → showtime |
+| `/cinemas` | Cinemas — browse cinemas by city |
+| `/cinema/:id` | Cinema Detail — movies & showtimes at one cinema |
 | `/login` · `/register` | Authentication |
-| `/seats/:showtimeId` | Seat Selection — interactive seat map + booking panel *(requires login)* |
-| `/tickets` | My Tickets — booked ticket cards *(requires login)* |
+| `/seats/:showtimeId` | Seat Selection — seat map from room layout, VIP pricing *(requires login)* |
+| `/tickets` | My Tickets — booked ticket cards with cinema/room *(requires login)* |
+
+## Data model
+
+`db.json` collections: `users`, `movies`, `cities`, `cinemas` (→ city), `rooms` (→ cinema; has `type` 2D/3D/IMAX, `rows`, `cols`, `vipRows`), `showtimes` (→ movie + room; `price` = standard-seat price, `bookedSeats` = pre-sold seat numbers), `bookings`. **There is no `seats` collection** — the seat map is generated from the room's `rows×cols` layout and "booked" seats are derived from `showtime.bookedSeats` ∪ matching bookings. Standard price comes from room type (2D 75k · 3D 95k · IMAX 120k); VIP = `round(price×1.3)` to the nearest 1,000. Pricing/layout helpers live in `src/lib/pricing.js`.
 
 ## Tech Stack
 - React 18 + React Router v6
