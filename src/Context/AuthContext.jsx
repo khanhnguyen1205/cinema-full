@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
 
   const login = (userData) => {
     // Never store password in localStorage
-    const safe = { id: userData.id, fullName: userData.fullName, email: userData.email };
+    const safe = { id: userData.id, fullName: userData.fullName, email: userData.email, role: userData.role || "user" };
     localStorage.setItem("cinema_user", JSON.stringify(safe));
     setUser(safe);
   };

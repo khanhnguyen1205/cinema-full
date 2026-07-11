@@ -70,6 +70,14 @@ export default function Navbar({ back }) {
                   </svg>
                   Vé của tôi
                 </Link>
+                {user.role === "admin" && (
+                  <Link to="/admin" className="user-dropdown-item" onClick={() => setDropOpen(false)}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z" />
+                    </svg>
+                    Quản trị
+                  </Link>
+                )}
                 <div className="user-dropdown-divider" />
                 <button className="user-dropdown-item user-dropdown-logout" onClick={handleLogout}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

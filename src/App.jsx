@@ -11,6 +11,13 @@ import SeatSelection from "./Pages/SeatSelection";
 import MyTickets from "./Pages/MyTickets";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
+import AdminRoute from "./Components/AdminRoute";
+import AdminLayout from "./Pages/Admin/AdminLayout";
+import AdminOverview from "./Pages/Admin/AdminOverview";
+import AdminMovies from "./Pages/Admin/AdminMovies";
+import AdminRooms from "./Pages/Admin/AdminRooms";
+import AdminShowtimes from "./Pages/Admin/AdminShowtimes";
+import AdminBookings from "./Pages/Admin/AdminBookings";
 
 function App() {
   return (
@@ -30,6 +37,13 @@ function App() {
           <Route path="/tickets" element={
             <PrivateRoute><MyTickets /></PrivateRoute>
           } />
+          <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
+            <Route index element={<AdminOverview />} />
+            <Route path="movies" element={<AdminMovies />} />
+            <Route path="rooms" element={<AdminRooms />} />
+            <Route path="showtimes" element={<AdminShowtimes />} />
+            <Route path="bookings" element={<AdminBookings />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </AuthProvider>
