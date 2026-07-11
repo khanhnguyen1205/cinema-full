@@ -1,0 +1,329 @@
+/* SEAT SELECTION */
+.seat-page {
+  background: var(--bg);
+}
+
+.seat-layout {
+  display: flex;
+  gap: 0;
+  min-height: calc(100vh - 60px);
+  padding-top: 60px;
+}
+
+/* LEFT: SEAT MAP */
+.seat-map-container {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.screen-container {
+  width: 100%;
+  max-width: 560px;
+  margin-bottom: 48px;
+  position: relative;
+}
+
+.screen-glow {
+  position: absolute;
+  top: -20px;
+  left: 10%;
+  right: 10%;
+  height: 80px;
+  background: radial-gradient(ellipse, rgba(230,48,48,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.screen-label {
+  background: linear-gradient(to bottom, rgba(180,30,30,0.4), rgba(100,10,10,0.2));
+  border-top: 3px solid var(--red);
+  border-radius: 4px 4px 0 0;
+  padding: 14px;
+  text-align: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  box-shadow: 0 0 40px rgba(230,48,48,0.2);
+}
+
+.seat-map {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 560px;
+}
+
+.seat-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.row-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dim);
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.seats-in-row {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  justify-content: center;
+}
+
+.seat {
+  width: 34px;
+  height: 34px;
+  border-radius: 6px 6px 3px 3px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.seat::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 4px;
+  right: 4px;
+  height: 4px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 0 0 3px 3px;
+}
+
+.seat:hover:not(.booked):not(.selected) {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.3);
+  transform: translateY(-2px);
+}
+
+.seat.selected {
+  background: var(--red);
+  border-color: var(--red);
+  box-shadow: 0 0 12px rgba(230,48,48,0.5);
+}
+
+.seat.booked {
+  background: rgba(255,255,255,0.03);
+  border-color: rgba(255,255,255,0.05);
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* LEGEND */
+.seat-legend {
+  display: flex;
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.legend-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.legend-dot.available {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.legend-dot.selected-dot {
+  background: var(--red);
+  border: 1px solid var(--red);
+}
+
+.legend-dot.reserved {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  opacity: 0.4;
+}
+
+/* RIGHT: BOOKING PANEL */
+.booking-panel {
+  width: 320px;
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border);
+  padding: 40px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: sticky;
+  top: 60px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+}
+
+.booking-movie-info {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.booking-movie-poster {
+  width: 80px;
+  height: 110px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #1a0808, #1a1a1a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+
+.booking-movie-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+  line-height: 1.1;
+}
+
+.booking-movie-meta {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.booking-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.booking-info-cell {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+
+.booking-info-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.booking-info-value {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  display: block;
+}
+
+.selected-seats-display {
+  color: var(--red);
+}
+
+.name-input {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  color: var(--text);
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.name-input:focus {
+  border-color: var(--red);
+}
+
+.name-input::placeholder {
+  color: var(--text-dim);
+}
+
+.price-breakdown {
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.price-row.total {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  margin-top: 4px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text);
+}
+
+.total-amount {
+  color: var(--red);
+}
+
+.confirm-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 13px;
+  margin-top: auto;
+}
+
+.confirm-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* BOOKED SUCCESS */
+.booked-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  color: white;
+  box-shadow: 0 0 40px var(--red-glow);
+  animation: popIn 0.5s ease both;
+}
+
+@keyframes popIn {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}

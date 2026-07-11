@@ -1,0 +1,50 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "fullName": "Nguyen Van A",
+      "email": "a@cinema.vn",
+      "password": "123456"
+    }
+  ],
+  "movies": [
+    { "id": 1, "title": "Avengers: Endgame", "poster": "https://via.placeholder.com/200x300", "description": "Marvel superheroes unite to defeat Thanos.", "duration": 180, "genre": "Action" },
+    { "id": 2, "title": "Spider-Man: No Way Home", "poster": "https://via.placeholder.com/200x300", "description": "Spider-Man faces multiverse villains.", "duration": 150, "genre": "Action" },
+    { "id": 3, "title": "Interstellar", "poster": "https://via.placeholder.com/200x300", "description": "A journey through space and time.", "duration": 170, "genre": "Sci-Fi" },
+    { "id": 4, "title": "The Conjuring", "poster": "https://via.placeholder.com/200x300", "description": "A horror story based on real events.", "duration": 120, "genre": "Horror" }
+  ],
+  "showtimes": [
+    { "id": 1, "movieId": 1, "time": "2026-03-30T18:00:00", "room": "Room 1", "price": 90000 },
+    { "id": 2, "movieId": 1, "time": "2026-03-30T21:00:00", "room": "Room 2", "price": 100000 },
+    { "id": 3, "movieId": 2, "time": "2026-03-30T19:00:00", "room": "Room 1", "price": 95000 },
+    { "id": 4, "movieId": 3, "time": "2026-03-30T20:00:00", "room": "Room 3", "price": 110000 },
+    { "id": 5, "movieId": 4, "time": "2026-03-30T22:00:00", "room": "Room 2", "price": 85000 }
+  ],
+  "seats": [
+    { "id": 1, "showtimeId": 1, "seatNumber": "A1", "row": "A", "col": 1, "isBooked": false },
+    { "id": 2, "showtimeId": 1, "seatNumber": "A2", "row": "A", "col": 2, "isBooked": true },
+    { "id": 3, "showtimeId": 1, "seatNumber": "A3", "row": "A", "col": 3, "isBooked": false },
+    { "id": 4, "showtimeId": 1, "seatNumber": "A4", "row": "A", "col": 4, "isBooked": false },
+    { "id": 5, "showtimeId": 1, "seatNumber": "A5", "row": "A", "col": 5, "isBooked": false },
+    { "id": 6, "showtimeId": 1, "seatNumber": "A6", "row": "A", "col": 6, "isBooked": false },
+    { "id": 7, "showtimeId": 1, "seatNumber": "B1", "row": "B", "col": 1, "isBooked": false },
+    { "id": 8, "showtimeId": 1, "seatNumber": "B2", "row": "B", "col": 2, "isBooked": false },
+    { "id": 9, "showtimeId": 1, "seatNumber": "B3", "row": "B", "col": 3, "isBooked": true },
+    { "id": 10, "showtimeId": 1, "seatNumber": "B4", "row": "B", "col": 4, "isBooked": false },
+    { "id": 11, "showtimeId": 1, "seatNumber": "B5", "row": "B", "col": 5, "isBooked": false },
+    { "id": 12, "showtimeId": 1, "seatNumber": "B6", "row": "B", "col": 6, "isBooked": false },
+    { "id": 13, "showtimeId": 2, "seatNumber": "A1", "row": "A", "col": 1, "isBooked": false },
+    { "id": 14, "showtimeId": 2, "seatNumber": "A2", "row": "A", "col": 2, "isBooked": false },
+    { "id": 15, "showtimeId": 2, "seatNumber": "A3", "row": "A", "col": 3, "isBooked": false },
+    { "id": 16, "showtimeId": 2, "seatNumber": "A4", "row": "A", "col": 4, "isBooked": false },
+    { "id": 17, "showtimeId": 3, "seatNumber": "A1", "row": "A", "col": 1, "isBooked": false },
+    { "id": 18, "showtimeId": 3, "seatNumber": "A2", "row": "A", "col": 2, "isBooked": true },
+    { "id": 19, "showtimeId": 3, "seatNumber": "A3", "row": "A", "col": 3, "isBooked": false },
+    { "id": 20, "showtimeId": 3, "seatNumber": "A4", "row": "A", "col": 4, "isBooked": false }
+  ],
+  "bookings": [
+    { "id": 1, "movieId": 1, "showtimeId": 1, "seats": ["A2"], "userId": 1, "userName": "Nguyen Van A", "totalPrice": 90000, "createdAt": "2026-03-25T10:00:00" },
+    { "id": 2, "movieId": 1, "showtimeId": 1, "seats": ["B3"], "userId": 1, "userName": "Nguyen Van A", "totalPrice": 90000, "createdAt": "2026-03-25T11:00:00" },
+    { "id": 3, "movieId": 2, "showtimeId": 3, "seats": ["A2"], "userId": 1, "userName": "Nguyen Van A", "totalPrice": 95000, "createdAt": "2026-03-25T12:00:00" }
+  ]
+}

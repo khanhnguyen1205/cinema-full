@@ -1,0 +1,237 @@
+/* MOVIE DETAIL */
+.detail-page {
+  background: var(--bg);
+}
+
+.detail-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 80px 40px 60px;
+  gap: 40px;
+}
+
+.detail-hero-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 60%, rgba(230,48,48,0.07) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 30%, rgba(20,0,0,0.5) 0%, transparent 60%),
+              linear-gradient(135deg, #0f0505 0%, #0a0a0a 100%);
+}
+
+.detail-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+}
+
+.detail-hero-content {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  max-width: 560px;
+  animation: fadeUp 0.7s ease both;
+}
+
+.detail-meta-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.detail-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--red);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.detail-genre-badge {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.detail-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 7vw, 100px);
+  line-height: 1;
+  letter-spacing: 3px;
+  margin-bottom: 24px;
+}
+
+.detail-title .red {
+  color: var(--red);
+}
+
+.detail-description {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text-muted);
+  margin-bottom: 36px;
+  max-width: 460px;
+}
+
+.detail-credits {
+  display: flex;
+  gap: 48px;
+}
+
+.credit-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.credit-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.credit-value {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* SHOWTIMES PANEL */
+.showtimes-panel {
+  position: relative;
+  z-index: 2;
+  background: rgba(20, 20, 20, 0.95);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  width: 300px;
+  flex-shrink: 0;
+  backdrop-filter: blur(20px);
+  animation: fadeUp 0.9s ease both;
+  align-self: center;
+}
+
+.showtimes-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+
+.showtimes-panel-header svg {
+  stroke: var(--red);
+}
+
+.date-selector {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.date-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 6px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.date-btn .date-day {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 2px;
+}
+
+.date-btn.active {
+  background: rgba(230,48,48,0.15);
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.date-btn.active .date-day {
+  color: var(--text);
+}
+
+.times-label {
+  margin-bottom: 12px;
+}
+
+.times-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.time-btn {
+  padding: 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.time-btn:hover {
+  border-color: rgba(230,48,48,0.4);
+  background: rgba(230,48,48,0.08);
+}
+
+.time-btn.active {
+  background: rgba(230,48,48,0.2);
+  border-color: var(--red);
+  color: var(--text);
+}
+
+.showtime-price {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.book-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 13px;
+}
+
+.book-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
