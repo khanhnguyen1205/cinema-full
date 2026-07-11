@@ -36,8 +36,12 @@ Data flows: **React pages → `src/Services/*` fetch helpers → json-server (`d
 
 - **`src/Components/PrivateRoute.jsx`** — gates routes; redirects to `/login` (preserving intended location in `state.from`) when `user` is null.
 
+- **`src/Components/AdminRoute.jsx`** — role gate for `/admin`: redirects to `/login` if logged out, to `/` if `user.role !== "admin"`. Users carry a `role` field (`"user"` | `"admin"`) in `db.json`; the seeded admin is `admin@cinema.vn` / `admin123`.
+
 ### Routing (`src/App.jsx`)
 `/` Home · `/movies` Movies · `/movie/:id` MovieDetail · `/cinemas` Cinemas · `/cinema/:id` CinemaDetail · `/login` · `/register` · `/seats/:showtimeId` (protected) · `/tickets` (protected). Pages live in `src/Pages/`, each with a colocated `.css` file.
+
+Admin routes are nested under `/admin` (wrapped in `AdminRoute` → `AdminLayout` with a sidebar + `<Outlet>`): index `AdminOverview`, `movies` `AdminMovies`, `rooms` `AdminRooms`, `showtimes` `AdminShowtimes`, `bookings` `AdminBookings` — all in `src/Pages/Admin/` sharing `Admin.css`. CRUD goes through `create*/update*/delete*` helpers in `api.js` (movies/rooms/showtimes only — **`cinemas` are read-only**, no CRUD helpers). Shared `src/Components/admin/Modal.jsx` + `ConfirmDialog.jsx` back the edit forms. Deleting a movie or room is **guarded client-side**: blocked (alert) while any showtime still references it; `AdminBookings` is read-only.
 
 ### Booking flow
 Users reach a showtime two ways: from a movie (`MovieDetail`: city → cinema → date → showtime) or from a cinema (`Cinemas` → `CinemaDetail`). `SeatSelection` builds the seat grid from the room layout (`buildSeatLayout`), marks booked seats via `bookedSeatSet`, and on confirm `POST`s **one** booking (`{ cinemaId, roomId, seats, seatTypes:{standard,vip}, totalPrice, … }`) — no per-seat PATCH, so no partial-write problem. `MyTickets` reads all bookings, filters to `user.id` client-side, enriches each with movie/showtime/cinema/room, and splits into upcoming/past by showtime date.

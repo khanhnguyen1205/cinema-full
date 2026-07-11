@@ -35,6 +35,15 @@ Open **http://localhost:3000** to view the site. The React dev server runs on **
 | `/login` · `/register` | Authentication |
 | `/seats/:showtimeId` | Seat Selection — seat map from room layout, VIP pricing *(requires login)* |
 | `/tickets` | My Tickets — booked ticket cards with cinema/room *(requires login)* |
+| `/admin` | Admin Panel — manage movies, rooms & showtimes (CRUD) + view bookings *(admin-only)* |
+
+### Admin account
+
+The admin panel at `/admin` is gated by user `role` (see `src/Components/AdminRoute.jsx`). Sign in with the seeded admin to access it:
+
+| Email | Password |
+|-------|----------|
+| `admin@cinema.vn` | `admin123` |
 
 ## Data model
 
