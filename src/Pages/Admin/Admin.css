@@ -61,3 +61,9 @@
 .sgm-dot.booked { background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.3); }
 .sgm-summary { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--text-muted); padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.08); }
 .sgm-summary strong { color: var(--text); font-size: 16px; }
+
+/* --- Pagination --- */
+.admin-pagination { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+.admin-pag-info { font-size: 13px; color: var(--text-muted); }
+.admin-pag-controls { display: flex; align-items: center; gap: 10px; }
+.admin-pag-page { font-size: 13px; color: var(--text-muted); }
