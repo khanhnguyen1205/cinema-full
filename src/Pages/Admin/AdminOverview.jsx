@@ -85,7 +85,7 @@ export default function AdminOverview() {
               <YAxis type="category" dataKey="name" tick={{ fill: "#9aa0a6", fontSize: 11 }} width={110} />
               <Tooltip formatter={(v) => fmtVnd(v)} cursor={{ fill: "rgba(255,255,255,0.04)" }} contentStyle={{ background: "#1a1a1a", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 8 }} labelStyle={{ color: "#fff" }} />
               <Bar dataKey="revenue" radius={[0, 4, 4, 0]}>
-                {revenueByCinema.map((_, i) => <Cell key={i} fill={RED} fillOpacity={1 - i * 0.12} />)}
+                {revenueByCinema.map((_, i) => <Cell key={i} fill={RED} fillOpacity={Math.max(0.3, 1 - i * 0.12)} />)}
               </Bar>
             </BarChart>
           </ResponsiveContainer>

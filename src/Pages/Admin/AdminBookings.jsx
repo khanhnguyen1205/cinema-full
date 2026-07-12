@@ -50,7 +50,7 @@ export default function AdminBookings() {
   const otherBooked = useMemo(() => {
     if (!editing || !editShowtime) return new Set();
     const others = bookings.filter(b => b.id !== editing.id);
-    return bookedSeatSet({ ...editShowtime, id: editShowtime.id }, others);
+    return bookedSeatSet(editShowtime, others);
   }, [editing, editShowtime, bookings]);
 
   const openEdit = (b) => {
@@ -76,7 +76,7 @@ export default function AdminBookings() {
   const saveSeats = async () => {
     const seats = sel.map(s => s.seatNumber);
     const patchBody = { seats, seatTypes: { standard: editStd, vip: editVip }, totalPrice: editTotal };
-    const updated = await updateBooking(editing.id, patchBody);
+    await updateBooking(editing.id, patchBody);
     setBookings(prev => prev.map(b => b.id === editing.id ? { ...b, ...patchBody } : b));
     setEditing(null); setSel([]);
   };

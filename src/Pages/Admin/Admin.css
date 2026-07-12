@@ -70,7 +70,7 @@
 
 /* --- Revenue dashboard --- */
 .admin-revenue-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 20px; }
-.admin-revenue-card { background: linear-gradient(135deg, rgba(225,29,42,0.12), rgba(225,29,42,0.03)); border: 1px solid rgba(225,29,42,0.25); border-radius: 12px; padding: 20px; }
+.admin-revenue-card { background: linear-gradient(135deg, rgba(230,48,48,0.12), rgba(230,48,48,0.03)); border: 1px solid rgba(230,48,48,0.25); border-radius: 12px; padding: 20px; }
 .admin-revenue-label { font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 .admin-revenue-num { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: var(--text); margin-top: 6px; letter-spacing: 1px; }
 .admin-charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; margin-top: 24px; }
