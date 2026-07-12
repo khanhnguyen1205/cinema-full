@@ -48,3 +48,6 @@ export const deleteRoom = (id) => del(`/rooms/${id}`);
 export const createShowtime = (b) => post("/showtimes", b);
 export const updateShowtime = (id, p) => patch(`/showtimes/${id}`, p);
 export const deleteShowtime = (id) => del(`/showtimes/${id}`);
+
+export const updateBooking = (id, p) => patch(`/bookings/${id}`, p);
+export const deleteBooking = (id) => del(`/bookings/${id}`);
