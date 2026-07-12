@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getMovie, getShowtimes, getRooms, getCinemas, getCities } from "../Services/api";
-import Navbar from "../Components/Navbar";
-import Footer from "../Components/Footer";
+import { getMovie, getShowtimes, getRooms, getCinemas, getCities } from "services/api";
+import Navbar from "components/Navbar";
+import Footer from "components/Footer";
 import "./MovieDetail.css";
 
 export default function MovieDetail() {

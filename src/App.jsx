@@ -1,23 +1,23 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./Styles/global.css";
-import { AuthProvider } from "./Context/AuthContext";
-import PrivateRoute from "./Components/PrivateRoute";
-import Home from "./Pages/Home";
-import Movies from "./Pages/Movies";
-import Cinemas from "./Pages/Cinemas";
-import CinemaDetail from "./Pages/CinemaDetail";
-import MovieDetail from "./Pages/MovieDetail";
-import SeatSelection from "./Pages/SeatSelection";
-import MyTickets from "./Pages/MyTickets";
-import Login from "./Pages/Login";
-import Register from "./Pages/Register";
-import AdminRoute from "./Components/AdminRoute";
-import AdminLayout from "./Pages/Admin/AdminLayout";
-import AdminOverview from "./Pages/Admin/AdminOverview";
-import AdminMovies from "./Pages/Admin/AdminMovies";
-import AdminRooms from "./Pages/Admin/AdminRooms";
-import AdminShowtimes from "./Pages/Admin/AdminShowtimes";
-import AdminBookings from "./Pages/Admin/AdminBookings";
+import "styles/global.css";
+import { AuthProvider } from "context/AuthContext";
+import PrivateRoute from "routes/PrivateRoute";
+import Home from "pages/Home";
+import Movies from "pages/Movies";
+import Cinemas from "pages/Cinemas";
+import CinemaDetail from "pages/CinemaDetail";
+import MovieDetail from "pages/MovieDetail";
+import SeatSelection from "pages/SeatSelection";
+import MyTickets from "pages/MyTickets";
+import Login from "pages/Login";
+import Register from "pages/Register";
+import AdminRoute from "routes/AdminRoute";
+import AdminLayout from "pages/admin/AdminLayout";
+import AdminOverview from "pages/admin/AdminOverview";
+import AdminMovies from "pages/admin/AdminMovies";
+import AdminRooms from "pages/admin/AdminRooms";
+import AdminShowtimes from "pages/admin/AdminShowtimes";
+import AdminBookings from "pages/admin/AdminBookings";
 
 function App() {
   return (

@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { getRooms, getCinemas, createRoom, updateRoom, deleteRoom, getAllShowtimes } from "../../Services/api";
-import Modal from "../../Components/admin/Modal";
-import ConfirmDialog from "../../Components/admin/ConfirmDialog";
-import usePagination from "../../Components/admin/usePagination";
-import Pagination from "../../Components/admin/Pagination";
+import { getRooms, getCinemas, createRoom, updateRoom, deleteRoom, getAllShowtimes } from "services/api";
+import Modal from "components/admin/Modal";
+import ConfirmDialog from "components/admin/ConfirmDialog";
+import usePagination from "hooks/usePagination";
+import Pagination from "components/admin/Pagination";
 
 const TYPES = ["2D", "3D", "IMAX"];
 const EMPTY = { cinemaId: "", name: "", type: "2D", rows: 8, cols: 12, vipRows: "E,F" };

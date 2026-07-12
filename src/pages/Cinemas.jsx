@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCities, getCinemas } from "../Services/api";
-import Navbar from "../Components/Navbar";
-import Footer from "../Components/Footer";
+import { getCities, getCinemas } from "services/api";
+import Navbar from "components/Navbar";
+import Footer from "components/Footer";
 import "./Cinemas.css";
 
 export default function Cinemas() {
