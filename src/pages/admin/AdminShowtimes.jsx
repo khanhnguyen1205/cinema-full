@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import { getAllShowtimes, getMovies, getRooms, getCinemas, createShowtime, updateShowtime, deleteShowtime } from "../../Services/api";
-import { ROOM_TYPE_PRICE } from "../../lib/pricing";
-import Modal from "../../Components/admin/Modal";
-import ConfirmDialog from "../../Components/admin/ConfirmDialog";
-import usePagination from "../../Components/admin/usePagination";
-import Pagination from "../../Components/admin/Pagination";
+import { getAllShowtimes, getMovies, getRooms, getCinemas, createShowtime, updateShowtime, deleteShowtime } from "services/api";
+import { ROOM_TYPE_PRICE } from "lib/pricing";
+import Modal from "components/admin/Modal";
+import ConfirmDialog from "components/admin/ConfirmDialog";
+import usePagination from "hooks/usePagination";
+import Pagination from "components/admin/Pagination";
 
 const EMPTY = { movieId: "", roomId: "", date: "", time: "", price: "" };
 

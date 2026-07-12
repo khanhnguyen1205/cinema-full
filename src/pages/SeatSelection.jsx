@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getShowtime, getMovie, getRoom, getCinema, getBookings, createBooking } from "../Services/api";
-import { buildSeatLayout, bookedSeatSet, priceOf, vipPrice, SERVICE_FEE } from "../lib/pricing";
-import { useAuth } from "../Context/AuthContext";
-import Navbar from "../Components/Navbar";
-import Footer from "../Components/Footer";
+import { getShowtime, getMovie, getRoom, getCinema, getBookings, createBooking } from "services/api";
+import { buildSeatLayout, bookedSeatSet, priceOf, vipPrice, SERVICE_FEE } from "lib/pricing";
+import { useAuth } from "context/AuthContext";
+import Navbar from "components/Navbar";
+import Footer from "components/Footer";
 import "./SeatSelection.css";
 
 export default function SeatSelection() {

@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import { getBookings, getMovies, getCinemas, getRooms, getAllShowtimes, deleteBooking, updateBooking } from "../../Services/api";
-import { buildSeatLayout, bookedSeatSet, priceOf, SERVICE_FEE } from "../../lib/pricing";
-import ConfirmDialog from "../../Components/admin/ConfirmDialog";
-import Modal from "../../Components/admin/Modal";
-import usePagination from "../../Components/admin/usePagination";
-import Pagination from "../../Components/admin/Pagination";
+import { getBookings, getMovies, getCinemas, getRooms, getAllShowtimes, deleteBooking, updateBooking } from "services/api";
+import { buildSeatLayout, bookedSeatSet, priceOf, SERVICE_FEE } from "lib/pricing";
+import ConfirmDialog from "components/admin/ConfirmDialog";
+import Modal from "components/admin/Modal";
+import usePagination from "hooks/usePagination";
+import Pagination from "components/admin/Pagination";
 
 export default function AdminBookings() {
   const [bookings, setBookings] = useState([]);

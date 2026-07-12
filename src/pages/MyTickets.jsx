@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { getBookings, getMovie, getShowtime, getCinema, getRoom } from "../Services/api";
-import { useAuth } from "../Context/AuthContext";
-import Navbar from "../Components/Navbar";
-import Footer from "../Components/Footer";
+import { getBookings, getMovie, getShowtime, getCinema, getRoom } from "services/api";
+import { useAuth } from "context/AuthContext";
+import Navbar from "components/Navbar";
+import Footer from "components/Footer";
 import "./MyTickets.css";
 
 function QRCode() {

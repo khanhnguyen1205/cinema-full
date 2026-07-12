@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { getMovies, getCinemas, getRooms, getAllShowtimes, getBookings } from "../../Services/api";
+import { getMovies, getCinemas, getRooms, getAllShowtimes, getBookings } from "services/api";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
 const RED = "#e63030"; // matches --red in src/Styles/global.css (SVG fills can't use CSS vars reliably)
