@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { getBookings, getMovies, getCinemas, getRooms, getAllShowtimes } from "../../Services/api";
+import { getBookings, getMovies, getCinemas, getRooms, getAllShowtimes, deleteBooking } from "../../Services/api";
+import ConfirmDialog from "../../Components/admin/ConfirmDialog";
 
 export default function AdminBookings() {
   const [bookings, setBookings] = useState([]);
@@ -8,6 +9,7 @@ export default function AdminBookings() {
   const [rooms, setRooms] = useState([]);
   const [showtimes, setShowtimes] = useState([]);
   const [q, setQ] = useState("");
+  const [cancelId, setCancelId] = useState(null);
 
   useEffect(() => {
     getBookings().then(setBookings); getMovies().then(setMovies);
@@ -25,6 +27,12 @@ export default function AdminBookings() {
     return bookings.filter(b => !term || (b.userName || "").toLowerCase().includes(term) || (movieMap[b.movieId]?.title || "").toLowerCase().includes(term));
   }, [bookings, q, movies]);
 
+  const doCancel = async () => {
+    await deleteBooking(cancelId);
+    setBookings(prev => prev.filter(b => b.id !== cancelId));
+    setCancelId(null);
+  };
+
   return (
     <div>
       <div className="admin-head"><h1 className="admin-title">Đơn đặt vé</h1></div>
@@ -32,7 +40,7 @@ export default function AdminBookings() {
         <input className="admin-search" placeholder="Tìm theo khách hoặc phim..." value={q} onChange={e => setQ(e.target.value)} />
       </div>
       <table className="admin-table">
-        <thead><tr><th>Mã</th><th>Khách</th><th>Phim</th><th>Rạp · Phòng</th><th>Ghế</th><th>Tổng</th><th>Suất</th></tr></thead>
+        <thead><tr><th>Mã</th><th>Khách</th><th>Phim</th><th>Rạp · Phòng</th><th>Ghế</th><th>Tổng</th><th>Suất</th><th>Thao tác</th></tr></thead>
         <tbody>
           {visible.map(b => (
             <tr key={b.id}>
@@ -43,11 +51,15 @@ export default function AdminBookings() {
               <td>{(b.seats || []).join(", ")}</td>
               <td>{(b.totalPrice || 0).toLocaleString("vi-VN")}₫</td>
               <td>{fmt(showtimeMap[b.showtimeId]?.time)}</td>
+              <td><div className="admin-row-actions">
+                <button className="admin-btn danger small" onClick={() => setCancelId(b.id)}>Hủy</button>
+              </div></td>
             </tr>
           ))}
-          {visible.length === 0 && <tr><td colSpan={7} className="admin-empty">Không có đơn đặt vé</td></tr>}
+          {visible.length === 0 && <tr><td colSpan={8} className="admin-empty">Không có đơn đặt vé</td></tr>}
         </tbody>
       </table>
+      {cancelId && <ConfirmDialog message="Bạn chắc chắn muốn hủy đơn đặt vé này? Ghế sẽ được mở lại." onConfirm={doCancel} onCancel={() => setCancelId(null)} />}
     </div>
   );
 }
