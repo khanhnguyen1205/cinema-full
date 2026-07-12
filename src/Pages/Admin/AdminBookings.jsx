@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { getBookings, getMovies, getCinemas, getRooms, getAllShowtimes, deleteBooking } from "../../Services/api";
+import { getBookings, getMovies, getCinemas, getRooms, getAllShowtimes, deleteBooking, updateBooking } from "../../Services/api";
+import { buildSeatLayout, bookedSeatSet, priceOf, SERVICE_FEE } from "../../lib/pricing";
 import ConfirmDialog from "../../Components/admin/ConfirmDialog";
+import Modal from "../../Components/admin/Modal";
 
 export default function AdminBookings() {
   const [bookings, setBookings] = useState([]);
@@ -10,6 +12,8 @@ export default function AdminBookings() {
   const [showtimes, setShowtimes] = useState([]);
   const [q, setQ] = useState("");
   const [cancelId, setCancelId] = useState(null);
+  const [editing, setEditing] = useState(null); // null | booking being edited
+  const [sel, setSel] = useState([]);           // array of seat objects {seatNumber,row,col,isVip}
 
   useEffect(() => {
     getBookings().then(setBookings); getMovies().then(setMovies);
@@ -33,6 +37,46 @@ export default function AdminBookings() {
     setCancelId(null);
   };
 
+  const editRoom = editing ? roomMap[editing.roomId] : null;
+  const editShowtime = editing ? showtimeMap[editing.showtimeId] : null;
+  const editLayout = buildSeatLayout(editRoom);
+  const editBase = editShowtime?.price || 0;
+
+  // Seats sold to OTHER bookings for this showtime (exclude the booking being edited)
+  const otherBooked = useMemo(() => {
+    if (!editing || !editShowtime) return new Set();
+    const others = bookings.filter(b => b.id !== editing.id);
+    return bookedSeatSet({ ...editShowtime, id: editShowtime.id }, others);
+  }, [editing, editShowtime, bookings]);
+
+  const openEdit = (b) => {
+    const room = roomMap[b.roomId];
+    const layout = buildSeatLayout(room);
+    const all = layout.flatMap(r => r.seats);
+    const seatObjs = (b.seats || []).map(sn => all.find(s => s.seatNumber === sn)).filter(Boolean);
+    setSel(seatObjs);
+    setEditing(b);
+  };
+
+  const toggleSeat = (seat) => {
+    if (otherBooked.has(seat.seatNumber)) return;
+    setSel(prev => prev.find(s => s.seatNumber === seat.seatNumber)
+      ? prev.filter(s => s.seatNumber !== seat.seatNumber)
+      : [...prev, seat]);
+  };
+
+  const editStd = sel.filter(s => !s.isVip).length;
+  const editVip = sel.filter(s => s.isVip).length;
+  const editTotal = sel.reduce((sum, s) => sum + priceOf(s, editBase), 0) + (sel.length ? SERVICE_FEE : 0);
+
+  const saveSeats = async () => {
+    const seats = sel.map(s => s.seatNumber);
+    const patchBody = { seats, seatTypes: { standard: editStd, vip: editVip }, totalPrice: editTotal };
+    const updated = await updateBooking(editing.id, patchBody);
+    setBookings(prev => prev.map(b => b.id === editing.id ? { ...b, ...patchBody } : b));
+    setEditing(null); setSel([]);
+  };
+
   return (
     <div>
       <div className="admin-head"><h1 className="admin-title">Đơn đặt vé</h1></div>
@@ -52,6 +96,7 @@ export default function AdminBookings() {
               <td>{(b.totalPrice || 0).toLocaleString("vi-VN")}₫</td>
               <td>{fmt(showtimeMap[b.showtimeId]?.time)}</td>
               <td><div className="admin-row-actions">
+                <button className="admin-btn ghost small" onClick={() => openEdit(b)}>Sửa ghế</button>
                 <button className="admin-btn danger small" onClick={() => setCancelId(b.id)}>Hủy</button>
               </div></td>
             </tr>
@@ -60,6 +105,42 @@ export default function AdminBookings() {
         </tbody>
       </table>
       {cancelId && <ConfirmDialog message="Bạn chắc chắn muốn hủy đơn đặt vé này? Ghế sẽ được mở lại." onConfirm={doCancel} onCancel={() => setCancelId(null)} />}
+      {editing && (
+        <Modal title={`Sửa ghế · #TK-${String(editing.id).padStart(5, "0")}`} onClose={() => { setEditing(null); setSel([]); }}>
+          <div className="seat-grid-mini">
+            {editLayout.map(({ row, seats }) => (
+              <div key={row} className="sgm-row">
+                <span className="sgm-label">{row}</span>
+                {seats.map(seat => {
+                  const isBooked = otherBooked.has(seat.seatNumber);
+                  const isSel = sel.find(s => s.seatNumber === seat.seatNumber);
+                  return (
+                    <button key={seat.seatNumber}
+                      className={`sgm-seat${seat.isVip ? " vip" : ""}${isBooked ? " booked" : ""}${isSel ? " selected" : ""}`}
+                      disabled={isBooked} title={`${seat.seatNumber}${seat.isVip ? " · VIP" : ""}`}
+                      onClick={() => toggleSeat(seat)} />
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+          <div className="sgm-legend">
+            <span><i className="sgm-dot available" />Trống</span>
+            <span><i className="sgm-dot vip" />VIP</span>
+            <span><i className="sgm-dot selected" />Đang chọn</span>
+            <span><i className="sgm-dot booked" />Đã đặt</span>
+          </div>
+          <div className="sgm-summary">
+            <span>Ghế: {sel.length ? sel.map(s => s.seatNumber).join(", ") : "Chưa chọn"}</span>
+            <span>Thường ×{editStd} · VIP ×{editVip}</span>
+            <strong>{editTotal.toLocaleString("vi-VN")}₫</strong>
+          </div>
+          <div className="modal-actions">
+            <button className="admin-btn ghost" onClick={() => { setEditing(null); setSel([]); }}>Hủy</button>
+            <button className="admin-btn" disabled={sel.length === 0} onClick={saveSeats}>Lưu</button>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }
