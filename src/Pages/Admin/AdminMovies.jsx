@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { getMovies, createMovie, updateMovie, deleteMovie, getAllShowtimes } from "../../Services/api";
 import Modal from "../../Components/admin/Modal";
 import ConfirmDialog from "../../Components/admin/ConfirmDialog";
+import usePagination from "../../Components/admin/usePagination";
+import Pagination from "../../Components/admin/Pagination";
 
 const EMPTY = { title: "", genre: "", duration: "", description: "", poster: "" };
 
@@ -21,6 +23,8 @@ export default function AdminMovies() {
     () => movies.filter(m => m.title.toLowerCase().includes(q.trim().toLowerCase())),
     [movies, q]
   );
+
+  const { pageItems, page, totalPages, setPage, from, to, total } = usePagination(visible);
 
   const openNew = () => { setForm(EMPTY); setError(""); setEditing("new"); };
   const openEdit = (m) => { setForm({ title: m.title, genre: m.genre, duration: m.duration, description: m.description || "", poster: m.poster || "" }); setError(""); setEditing(m); };
@@ -50,7 +54,7 @@ export default function AdminMovies() {
       <table className="admin-table">
         <thead><tr><th>Tên</th><th>Thể loại</th><th>Thời lượng</th><th></th></tr></thead>
         <tbody>
-          {visible.map(m => (
+          {pageItems.map(m => (
             <tr key={m.id}>
               <td>{m.title}</td><td>{m.genre}</td><td>{m.duration} phút</td>
               <td><div className="admin-row-actions">
@@ -62,6 +66,7 @@ export default function AdminMovies() {
           {visible.length === 0 && <tr><td colSpan={4} className="admin-empty">Không có phim</td></tr>}
         </tbody>
       </table>
+      <Pagination page={page} totalPages={totalPages} onPage={setPage} from={from} to={to} total={total} />
 
       {editing && (
         <Modal title={editing === "new" ? "Thêm phim" : "Sửa phim"} onClose={() => setEditing(null)}>

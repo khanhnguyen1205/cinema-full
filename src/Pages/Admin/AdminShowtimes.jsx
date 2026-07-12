@@ -3,6 +3,8 @@ import { getAllShowtimes, getMovies, getRooms, getCinemas, createShowtime, updat
 import { ROOM_TYPE_PRICE } from "../../lib/pricing";
 import Modal from "../../Components/admin/Modal";
 import ConfirmDialog from "../../Components/admin/ConfirmDialog";
+import usePagination from "../../Components/admin/usePagination";
+import Pagination from "../../Components/admin/Pagination";
 
 const EMPTY = { movieId: "", roomId: "", date: "", time: "", price: "" };
 
@@ -35,6 +37,8 @@ export default function AdminShowtimes() {
       return okCinema && okTerm;
     }).sort((a, b) => a.time.localeCompare(b.time));
   }, [showtimes, q, cinemaFilter, rooms, cinemas, movies]);
+
+  const { pageItems, page, totalPages, setPage, from, to, total } = usePagination(visible);
 
   const openNew = () => { setForm(EMPTY); setError(""); setEditing("new"); };
   const openEdit = (s) => { setForm({ movieId: s.movieId, roomId: s.roomId, date: s.time.slice(0, 10), time: s.time.slice(11, 16), price: s.price }); setError(""); setEditing(s); };
@@ -71,7 +75,7 @@ export default function AdminShowtimes() {
       <table className="admin-table">
         <thead><tr><th>Phim</th><th>Rạp · Phòng</th><th>Thời gian</th><th>Giá</th><th></th></tr></thead>
         <tbody>
-          {visible.map(s => (
+          {pageItems.map(s => (
             <tr key={s.id}>
               <td>{movieMap[s.movieId]?.title || "—"}</td>
               <td>{roomLabel(s.roomId)}</td>
@@ -86,6 +90,7 @@ export default function AdminShowtimes() {
           {visible.length === 0 && <tr><td colSpan={5} className="admin-empty">Không có suất chiếu</td></tr>}
         </tbody>
       </table>
+      <Pagination page={page} totalPages={totalPages} onPage={setPage} from={from} to={to} total={total} />
 
       {editing && (
         <Modal title={editing === "new" ? "Thêm suất chiếu" : "Sửa suất chiếu"} onClose={() => setEditing(null)}>
