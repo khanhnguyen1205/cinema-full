@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { getRooms, getCinemas, createRoom, updateRoom, deleteRoom, getAllShowtimes } from "../../Services/api";
 import Modal from "../../Components/admin/Modal";
 import ConfirmDialog from "../../Components/admin/ConfirmDialog";
+import usePagination from "../../Components/admin/usePagination";
+import Pagination from "../../Components/admin/Pagination";
 
 const TYPES = ["2D", "3D", "IMAX"];
 const EMPTY = { cinemaId: "", name: "", type: "2D", rows: 8, cols: 12, vipRows: "E,F" };
@@ -29,6 +31,8 @@ export default function AdminRooms() {
       return okCinema && okTerm;
     });
   }, [rooms, q, cinemaFilter, cinemas]);
+
+  const { pageItems, page, totalPages, setPage, from, to, total } = usePagination(visible);
 
   const openNew = () => { setForm(EMPTY); setError(""); setEditing("new"); };
   const openEdit = (r) => { setForm({ cinemaId: r.cinemaId, name: r.name, type: r.type, rows: r.rows, cols: r.cols, vipRows: (r.vipRows || []).join(",") }); setError(""); setEditing(r); };
@@ -60,7 +64,7 @@ export default function AdminRooms() {
       <table className="admin-table">
         <thead><tr><th>Rạp</th><th>Phòng</th><th>Loại</th><th>Layout</th><th>Hàng VIP</th><th></th></tr></thead>
         <tbody>
-          {visible.map(r => (
+          {pageItems.map(r => (
             <tr key={r.id}>
               <td>{cinemaName(r.cinemaId)}</td><td>{r.name}</td><td>{r.type}</td>
               <td>{r.rows}×{r.cols}</td><td>{(r.vipRows || []).join(", ") || "—"}</td>
@@ -73,6 +77,7 @@ export default function AdminRooms() {
           {visible.length === 0 && <tr><td colSpan={6} className="admin-empty">Không có phòng</td></tr>}
         </tbody>
       </table>
+      <Pagination page={page} totalPages={totalPages} onPage={setPage} from={from} to={to} total={total} />
 
       {editing && (
         <Modal title={editing === "new" ? "Thêm phòng" : "Sửa phòng"} onClose={() => setEditing(null)}>

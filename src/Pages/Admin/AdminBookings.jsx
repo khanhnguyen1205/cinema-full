@@ -3,6 +3,8 @@ import { getBookings, getMovies, getCinemas, getRooms, getAllShowtimes, deleteBo
 import { buildSeatLayout, bookedSeatSet, priceOf, SERVICE_FEE } from "../../lib/pricing";
 import ConfirmDialog from "../../Components/admin/ConfirmDialog";
 import Modal from "../../Components/admin/Modal";
+import usePagination from "../../Components/admin/usePagination";
+import Pagination from "../../Components/admin/Pagination";
 
 export default function AdminBookings() {
   const [bookings, setBookings] = useState([]);
@@ -30,6 +32,8 @@ export default function AdminBookings() {
     const term = q.trim().toLowerCase();
     return bookings.filter(b => !term || (b.userName || "").toLowerCase().includes(term) || (movieMap[b.movieId]?.title || "").toLowerCase().includes(term));
   }, [bookings, q, movies]);
+
+  const { pageItems, page, totalPages, setPage, from, to, total } = usePagination(visible);
 
   const doCancel = async () => {
     await deleteBooking(cancelId);
@@ -86,7 +90,7 @@ export default function AdminBookings() {
       <table className="admin-table">
         <thead><tr><th>Mã</th><th>Khách</th><th>Phim</th><th>Rạp · Phòng</th><th>Ghế</th><th>Tổng</th><th>Suất</th><th>Thao tác</th></tr></thead>
         <tbody>
-          {visible.map(b => (
+          {pageItems.map(b => (
             <tr key={b.id}>
               <td>#TK-{String(b.id).padStart(5, "0")}</td>
               <td>{b.userName}</td>
@@ -104,6 +108,7 @@ export default function AdminBookings() {
           {visible.length === 0 && <tr><td colSpan={8} className="admin-empty">Không có đơn đặt vé</td></tr>}
         </tbody>
       </table>
+      <Pagination page={page} totalPages={totalPages} onPage={setPage} from={from} to={to} total={total} />
       {cancelId && <ConfirmDialog message="Bạn chắc chắn muốn hủy đơn đặt vé này? Ghế sẽ được mở lại." onConfirm={doCancel} onCancel={() => setCancelId(null)} />}
       {editing && (
         <Modal title={`Sửa ghế · #TK-${String(editing.id).padStart(5, "0")}`} onClose={() => { setEditing(null); setSel([]); }}>
