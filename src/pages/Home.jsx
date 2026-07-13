@@ -10,6 +10,10 @@ const GENRE_COLORS = {
   "Sci-Fi": "#3090e6",
   Horror: "#9b30e6",
   Drama: "#e6a030",
+  Comedy: "#e6c030",
+  Crime: "#c0392b",
+  Animation: "#30c0a0",
+  Romance: "#e63080",
   Default: "#555"
 };
 
@@ -73,7 +77,15 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="hero-side-image" />
+        <div
+          className="hero-side-image"
+          style={featured.poster ? {
+            backgroundImage:
+              `linear-gradient(to left, rgba(0,0,0,0) 0%, rgba(10,10,10,0.6) 40%, rgba(10,10,10,1) 80%), url(${featured.poster})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center"
+          } : undefined}
+        />
       </section>
 
       {/* TRENDING */}
@@ -97,6 +109,15 @@ export default function Home() {
                 <div className="movie-card-placeholder">
                   <span className="movie-card-initial">{movie.title[0]}</span>
                 </div>
+                {movie.poster && (
+                  <img
+                    className="movie-card-poster"
+                    src={movie.poster}
+                    alt={movie.title}
+                    loading="lazy"
+                    onError={e => { e.currentTarget.style.display = "none"; }}
+                  />
+                )}
                 <div className="movie-card-overlay">
                   <span className="movie-card-genre" style={{
                     background: GENRE_COLORS[movie.genre] || GENRE_COLORS.Default

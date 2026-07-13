@@ -32,7 +32,7 @@ export default function AdminMovies() {
 
   const save = async () => {
     if (!form.title.trim() || !form.genre.trim() || !form.duration) { setError("Nhập đủ tên, thể loại, thời lượng."); return; }
-    const body = { title: form.title.trim(), genre: form.genre.trim(), duration: Number(form.duration), description: form.description, poster: form.poster || "https://via.placeholder.com/200x300" };
+    const body = { title: form.title.trim(), genre: form.genre.trim(), duration: Number(form.duration), description: form.description, poster: form.poster || "" };
     if (editing === "new") await createMovie(body);
     else await updateMovie(editing.id, body);
     setEditing(null); load();
