@@ -67,6 +67,15 @@ export default function MovieDetail() {
 
       <div className="detail-hero">
         <div className="detail-hero-bg" />
+        {movie.poster && (
+          <img
+            className="detail-hero-poster"
+            src={movie.poster}
+            alt=""
+            aria-hidden="true"
+            onError={e => { e.currentTarget.style.display = "none"; }}
+          />
+        )}
         <div className="detail-hero-overlay" />
 
         <div className="detail-hero-content">

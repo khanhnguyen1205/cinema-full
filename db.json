@@ -13,13 +13,19 @@
       "email": "admin@cinema.vn",
       "password": "admin123",
       "role": "admin"
+    },
+    {
+      "fullName": "Dương Quang Minh",
+      "email": "minh@gmail.com",
+      "password": "123456",
+      "id": 3
     }
   ],
   "movies": [
     {
       "id": 1,
       "title": "Avengers: Endgame",
-      "poster": "https://via.placeholder.com/200x300",
+      "poster": "https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
       "description": "Marvel superheroes unite to defeat Thanos.",
       "duration": 180,
       "genre": "Action"
@@ -27,7 +33,7 @@
     {
       "id": 2,
       "title": "Spider-Man: No Way Home",
-      "poster": "https://via.placeholder.com/200x300",
+      "poster": "https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
       "description": "Spider-Man faces multiverse villains.",
       "duration": 150,
       "genre": "Action"
@@ -35,7 +41,7 @@
     {
       "id": 3,
       "title": "Interstellar",
-      "poster": "https://via.placeholder.com/200x300",
+      "poster": "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
       "description": "A journey through space and time.",
       "duration": 170,
       "genre": "Sci-Fi"
@@ -43,10 +49,106 @@
     {
       "id": 4,
       "title": "The Conjuring",
-      "poster": "https://via.placeholder.com/200x300",
+      "poster": "https://image.tmdb.org/t/p/w500/wVYREutTvI2tmxr6ujrHT704wGF.jpg",
       "description": "A horror story based on real events.",
       "duration": 120,
       "genre": "Horror"
+    },
+    {
+      "id": 5,
+      "title": "Dune: Part Two",
+      "poster": "https://image.tmdb.org/t/p/w500/8b8R8l88Qje9dn9OE8PY05Nxl1X.jpg",
+      "description": "Paul Atreides unites with the Fremen to seek revenge.",
+      "duration": 166,
+      "genre": "Sci-Fi"
+    },
+    {
+      "id": 6,
+      "title": "Oppenheimer",
+      "poster": "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
+      "description": "The story of the man behind the atomic bomb.",
+      "duration": 180,
+      "genre": "Drama"
+    },
+    {
+      "id": 7,
+      "title": "Barbie",
+      "poster": "https://image.tmdb.org/t/p/w500/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
+      "description": "Barbie leaves the perfect world of Barbie Land.",
+      "duration": 114,
+      "genre": "Comedy"
+    },
+    {
+      "id": 8,
+      "title": "The Batman",
+      "poster": "https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg",
+      "description": "Batman hunts a serial killer terrorizing Gotham.",
+      "duration": 176,
+      "genre": "Action"
+    },
+    {
+      "id": 9,
+      "title": "Top Gun: Maverick",
+      "poster": "https://image.tmdb.org/t/p/w500/62HCnUTziyWcpDaBO2i1DX17ljH.jpg",
+      "description": "Maverick trains a new squad for a deadly mission.",
+      "duration": 131,
+      "genre": "Action"
+    },
+    {
+      "id": 10,
+      "title": "Joker",
+      "poster": "https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
+      "description": "A failed comedian descends into madness in Gotham.",
+      "duration": 122,
+      "genre": "Crime"
+    },
+    {
+      "id": 11,
+      "title": "Parasite",
+      "poster": "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+      "description": "A poor family schemes to infiltrate a wealthy household.",
+      "duration": 132,
+      "genre": "Drama"
+    },
+    {
+      "id": 12,
+      "title": "The Dark Knight",
+      "poster": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+      "description": "Batman faces the chaos unleashed by the Joker.",
+      "duration": 152,
+      "genre": "Action"
+    },
+    {
+      "id": 13,
+      "title": "Inception",
+      "poster": "https://image.tmdb.org/t/p/w500/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg",
+      "description": "A thief steals secrets through dream infiltration.",
+      "duration": 148,
+      "genre": "Sci-Fi"
+    },
+    {
+      "id": 14,
+      "title": "Frozen II",
+      "poster": "https://image.tmdb.org/t/p/w500/qdfARIhgpgZOBh3vfNhWS4hmSo3.jpg",
+      "description": "Elsa journeys north to discover the origin of her powers.",
+      "duration": 103,
+      "genre": "Animation"
+    },
+    {
+      "id": 15,
+      "title": "La La Land",
+      "poster": "https://image.tmdb.org/t/p/w500/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
+      "description": "A musician and an actress fall in love in Los Angeles.",
+      "duration": 128,
+      "genre": "Romance"
+    },
+    {
+      "id": 16,
+      "title": "John Wick: Chapter 4",
+      "poster": "https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg",
+      "description": "John Wick takes on the High Table to win his freedom.",
+      "duration": 169,
+      "genre": "Action"
     }
   ],
   "cities": [
@@ -373,6 +475,382 @@
       "time": "2026-07-19T20:00:00",
       "price": 75000,
       "bookedSeats": []
+    },
+    {
+      "id": 17,
+      "movieId": 5,
+      "roomId": 1,
+      "time": "2026-07-14T13:30:00",
+      "price": 75000,
+      "bookedSeats": [
+        "B4",
+        "B5"
+      ]
+    },
+    {
+      "id": 18,
+      "movieId": 5,
+      "roomId": 2,
+      "time": "2026-07-15T16:00:00",
+      "price": 120000,
+      "bookedSeats": [
+        "C7"
+      ]
+    },
+    {
+      "id": 19,
+      "movieId": 5,
+      "roomId": 3,
+      "time": "2026-07-16T18:30:00",
+      "price": 75000,
+      "bookedSeats": [
+        "D2",
+        "D3",
+        "D9"
+      ]
+    },
+    {
+      "id": 20,
+      "movieId": 6,
+      "roomId": 4,
+      "time": "2026-07-15T16:00:00",
+      "price": 90000,
+      "bookedSeats": [
+        "C7"
+      ]
+    },
+    {
+      "id": 21,
+      "movieId": 6,
+      "roomId": 5,
+      "time": "2026-07-16T18:30:00",
+      "price": 75000,
+      "bookedSeats": [
+        "D2",
+        "D3",
+        "D9"
+      ]
+    },
+    {
+      "id": 22,
+      "movieId": 6,
+      "roomId": 6,
+      "time": "2026-07-17T21:00:00",
+      "price": 90000,
+      "bookedSeats": [
+        "A1",
+        "A2"
+      ]
+    },
+    {
+      "id": 23,
+      "movieId": 7,
+      "roomId": 7,
+      "time": "2026-07-16T18:30:00",
+      "price": 90000,
+      "bookedSeats": [
+        "D2",
+        "D3",
+        "D9"
+      ]
+    },
+    {
+      "id": 24,
+      "movieId": 7,
+      "roomId": 8,
+      "time": "2026-07-17T21:00:00",
+      "price": 120000,
+      "bookedSeats": [
+        "A1",
+        "A2"
+      ]
+    },
+    {
+      "id": 25,
+      "movieId": 7,
+      "roomId": 9,
+      "time": "2026-07-18T13:30:00",
+      "price": 75000,
+      "bookedSeats": []
+    },
+    {
+      "id": 26,
+      "movieId": 8,
+      "roomId": 10,
+      "time": "2026-07-17T21:00:00",
+      "price": 90000,
+      "bookedSeats": [
+        "A1",
+        "A2"
+      ]
+    },
+    {
+      "id": 27,
+      "movieId": 8,
+      "roomId": 1,
+      "time": "2026-07-18T13:30:00",
+      "price": 75000,
+      "bookedSeats": []
+    },
+    {
+      "id": 28,
+      "movieId": 8,
+      "roomId": 2,
+      "time": "2026-07-19T16:00:00",
+      "price": 120000,
+      "bookedSeats": [
+        "F6",
+        "F7"
+      ]
+    },
+    {
+      "id": 29,
+      "movieId": 9,
+      "roomId": 3,
+      "time": "2026-07-18T13:30:00",
+      "price": 75000,
+      "bookedSeats": []
+    },
+    {
+      "id": 30,
+      "movieId": 9,
+      "roomId": 4,
+      "time": "2026-07-19T16:00:00",
+      "price": 90000,
+      "bookedSeats": [
+        "F6",
+        "F7"
+      ]
+    },
+    {
+      "id": 31,
+      "movieId": 9,
+      "roomId": 5,
+      "time": "2026-07-20T18:30:00",
+      "price": 75000,
+      "bookedSeats": [
+        "E10"
+      ]
+    },
+    {
+      "id": 32,
+      "movieId": 10,
+      "roomId": 6,
+      "time": "2026-07-19T16:00:00",
+      "price": 90000,
+      "bookedSeats": [
+        "F6",
+        "F7"
+      ]
+    },
+    {
+      "id": 33,
+      "movieId": 10,
+      "roomId": 7,
+      "time": "2026-07-20T18:30:00",
+      "price": 90000,
+      "bookedSeats": [
+        "E10"
+      ]
+    },
+    {
+      "id": 34,
+      "movieId": 10,
+      "roomId": 8,
+      "time": "2026-07-14T21:00:00",
+      "price": 120000,
+      "bookedSeats": [
+        "G3"
+      ]
+    },
+    {
+      "id": 35,
+      "movieId": 11,
+      "roomId": 9,
+      "time": "2026-07-20T18:30:00",
+      "price": 75000,
+      "bookedSeats": [
+        "E10"
+      ]
+    },
+    {
+      "id": 36,
+      "movieId": 11,
+      "roomId": 10,
+      "time": "2026-07-14T21:00:00",
+      "price": 90000,
+      "bookedSeats": [
+        "G3"
+      ]
+    },
+    {
+      "id": 37,
+      "movieId": 11,
+      "roomId": 1,
+      "time": "2026-07-15T13:30:00",
+      "price": 75000,
+      "bookedSeats": [
+        "B4",
+        "B5"
+      ]
+    },
+    {
+      "id": 38,
+      "movieId": 12,
+      "roomId": 2,
+      "time": "2026-07-14T21:00:00",
+      "price": 120000,
+      "bookedSeats": [
+        "G3"
+      ]
+    },
+    {
+      "id": 39,
+      "movieId": 12,
+      "roomId": 3,
+      "time": "2026-07-15T13:30:00",
+      "price": 75000,
+      "bookedSeats": [
+        "B4",
+        "B5"
+      ]
+    },
+    {
+      "id": 40,
+      "movieId": 12,
+      "roomId": 4,
+      "time": "2026-07-16T16:00:00",
+      "price": 90000,
+      "bookedSeats": [
+        "C7"
+      ]
+    },
+    {
+      "id": 41,
+      "movieId": 13,
+      "roomId": 5,
+      "time": "2026-07-15T13:30:00",
+      "price": 75000,
+      "bookedSeats": [
+        "B4",
+        "B5"
+      ]
+    },
+    {
+      "id": 42,
+      "movieId": 13,
+      "roomId": 6,
+      "time": "2026-07-16T16:00:00",
+      "price": 90000,
+      "bookedSeats": [
+        "C7"
+      ]
+    },
+    {
+      "id": 43,
+      "movieId": 13,
+      "roomId": 7,
+      "time": "2026-07-17T18:30:00",
+      "price": 90000,
+      "bookedSeats": [
+        "D2",
+        "D3",
+        "D9"
+      ]
+    },
+    {
+      "id": 44,
+      "movieId": 14,
+      "roomId": 8,
+      "time": "2026-07-16T16:00:00",
+      "price": 120000,
+      "bookedSeats": [
+        "C7"
+      ]
+    },
+    {
+      "id": 45,
+      "movieId": 14,
+      "roomId": 9,
+      "time": "2026-07-17T18:30:00",
+      "price": 75000,
+      "bookedSeats": [
+        "D2",
+        "D3",
+        "D9"
+      ]
+    },
+    {
+      "id": 46,
+      "movieId": 14,
+      "roomId": 10,
+      "time": "2026-07-18T21:00:00",
+      "price": 90000,
+      "bookedSeats": [
+        "A1",
+        "A2"
+      ]
+    },
+    {
+      "id": 47,
+      "movieId": 15,
+      "roomId": 1,
+      "time": "2026-07-17T18:30:00",
+      "price": 75000,
+      "bookedSeats": [
+        "D2",
+        "D3",
+        "D9"
+      ]
+    },
+    {
+      "id": 48,
+      "movieId": 15,
+      "roomId": 2,
+      "time": "2026-07-18T21:00:00",
+      "price": 120000,
+      "bookedSeats": [
+        "A1",
+        "A2"
+      ]
+    },
+    {
+      "id": 49,
+      "movieId": 15,
+      "roomId": 3,
+      "time": "2026-07-19T13:30:00",
+      "price": 75000,
+      "bookedSeats": []
+    },
+    {
+      "id": 50,
+      "movieId": 16,
+      "roomId": 4,
+      "time": "2026-07-18T21:00:00",
+      "price": 90000,
+      "bookedSeats": [
+        "A1",
+        "A2"
+      ]
+    },
+    {
+      "id": 51,
+      "movieId": 16,
+      "roomId": 5,
+      "time": "2026-07-19T13:30:00",
+      "price": 75000,
+      "bookedSeats": []
+    },
+    {
+      "id": 52,
+      "movieId": 16,
+      "roomId": 6,
+      "time": "2026-07-20T16:00:00",
+      "price": 90000,
+      "bookedSeats": [
+        "F6",
+        "F7"
+      ]
     }
   ],
   "bookings": [

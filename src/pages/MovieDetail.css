@@ -20,6 +20,18 @@
               linear-gradient(135deg, #0f0505 0%, #0a0a0a 100%);
 }
 
+/* Faded, blurred poster behind the hero text (content/panel sit at z-index 2). */
+.detail-hero-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.2;
+  filter: blur(2px);
+  z-index: 1;
+}
+
 .detail-hero-overlay {
   position: absolute;
   inset: 0;
