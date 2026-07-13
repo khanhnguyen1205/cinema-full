@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { getMovies } from "services/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import "./Movies.css";
@@ -28,7 +28,9 @@ export default function Movies() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [genre, setGenre] = useState("Tất cả");
+  // Cho phép trang chủ chuyển sang đây với thể loại lọc sẵn (router state)
+  const location = useLocation();
+  const [genre, setGenre] = useState(location.state?.genre || "Tất cả");
   const [sort, setSort] = useState("name-asc");
   const navigate = useNavigate();
 
