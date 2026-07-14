@@ -5,3 +5,21 @@
 .hold-timer.warning { color:#fff; background:rgba(230,48,48,.18); border-color:rgba(230,48,48,.5);
   animation:holdPulse 1s ease-in-out infinite; }
 @keyframes holdPulse { 0%,100%{opacity:1} 50%{opacity:.55} }
+.order-summary { position:sticky; top:24px; align-self:start; width:360px; max-width:100%;
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:22px; backdrop-filter:blur(12px); }
+.os-title { font-family:'Bebas Neue',sans-serif; font-size:26px; letter-spacing:1px; line-height:1.05; }
+.os-meta { color:var(--text-muted); font-size:12px; letter-spacing:1px; margin-top:2px; }
+.os-cinema { font-size:13px; margin-top:8px; color:var(--text); }
+.os-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
+.os-label { display:block; font-size:11px; letter-spacing:1px; color:var(--text-muted); text-transform:uppercase; }
+.os-value { font-family:'Barlow Condensed',sans-serif; font-size:18px; font-weight:600; }
+.os-seats { margin-top:12px; }
+.os-seat-list { color:var(--red); }
+.os-breakdown { margin-top:18px; border-top:1px solid rgba(255,255,255,.1); padding-top:14px; }
+.os-row { display:flex; justify-content:space-between; font-size:14px; padding:5px 0; color:var(--text-muted); }
+.os-row.os-total { color:var(--text); font-weight:700; border-top:1px solid rgba(255,255,255,.1); margin-top:8px; padding-top:12px; }
+.os-total-amount { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--red); letter-spacing:1px; }
+.os-error { margin-top:12px; color:#ff8080; font-size:13px; background:rgba(230,48,48,.12);
+  border:1px solid rgba(230,48,48,.35); border-radius:10px; padding:10px 12px; }
+.os-confirm { width:100%; margin-top:16px; }
