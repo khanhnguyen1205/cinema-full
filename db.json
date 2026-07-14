@@ -208,6 +208,12 @@
       "vipRows": [
         "E",
         "F"
+      ],
+      "coupleRows": [
+        "H"
+      ],
+      "aisleAfterCols": [
+        6
       ]
     },
     {
@@ -221,6 +227,12 @@
         "F",
         "G",
         "H"
+      ],
+      "coupleRows": [
+        "J"
+      ],
+      "aisleAfterCols": [
+        7
       ]
     },
     {
