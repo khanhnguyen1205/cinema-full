@@ -1,21 +1,49 @@
 export const ROOM_TYPE_PRICE = { "2D": 75000, "3D": 95000, "IMAX": 120000 };
 export const SERVICE_FEE = 15000;
+export const MAX_SEATS = 8;
+export const COUPLE_MULTIPLIER = 1.6;
 
 const rowLetter = (i) => String.fromCharCode(65 + i); // 0 -> A
+const roundTo1000 = (n) => Math.round(n / 1000) * 1000;
 
-export const vipPrice = (basePrice) => Math.round((basePrice * 1.3) / 1000) * 1000;
+export const vipPrice = (basePrice) => roundTo1000(basePrice * 1.3);
+export const couplePrice = (basePrice) => roundTo1000(basePrice * COUPLE_MULTIPLIER);
 export const isVipRow = (row, vipRows = []) => vipRows.includes(row);
+export const isCoupleRow = (row, coupleRows = []) => coupleRows.includes(row);
+
+export const SEAT_TYPE = {
+  standard: { label: "Thường" },
+  vip: { label: "VIP" },
+  couple: { label: "Đôi" },
+};
+
+export const seatType = (seat) =>
+  seat.isCouple ? "couple" : seat.isVip ? "vip" : "standard";
+
+// Cột nào chèn lối đi ngay sau: đọc từ room.aisleAfterCols, mặc định 1 lối giữa
+export function aisleCols(room) {
+  if (!room) return [];
+  if (Array.isArray(room.aisleAfterCols)) return room.aisleAfterCols;
+  return [Math.floor(room.cols / 2)];
+}
 
 export function buildSeatLayout(room) {
   if (!room) return [];
   const rows = [];
   for (let r = 0; r < room.rows; r++) {
     const row = rowLetter(r);
+    const coupleR = isCoupleRow(row, room.coupleRows);
     const seats = [];
     for (let c = 1; c <= room.cols; c++) {
-      seats.push({ seatNumber: `${row}${c}`, row, col: c, isVip: isVipRow(row, room.vipRows) });
+      seats.push({
+        seatNumber: `${row}${c}`,
+        row,
+        col: c,
+        isVip: !coupleR && isVipRow(row, room.vipRows),
+        isCouple: coupleR,
+      });
     }
-    rows.push({ row, seats });
+    rows.push({ row, seats, isCouple: coupleR });
   }
   return rows;
 }
@@ -28,4 +56,5 @@ export function bookedSeatSet(showtime, bookings = []) {
   return set;
 }
 
-export const priceOf = (seat, basePrice) => (seat.isVip ? vipPrice(basePrice) : basePrice);
+export const priceOf = (seat, basePrice) =>
+  seat.isCouple ? couplePrice(basePrice) : seat.isVip ? vipPrice(basePrice) : basePrice;
