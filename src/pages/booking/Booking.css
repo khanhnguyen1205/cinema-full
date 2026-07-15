@@ -105,3 +105,34 @@
   .stepper-label { display:none; }
   .stepper-line { width:22px; margin:0 8px; }
 }
+
+/* --- Bắp nước (F&B) --- */
+.fnb-step { width:100%; }
+.fnb-empty { padding:40px 0; text-align:center; color:var(--text-muted); }
+.fnb-head { margin-bottom:20px; }
+.fnb-title { font-family:'Bebas Neue',sans-serif; font-size:30px; letter-spacing:1.5px; }
+.fnb-sub { color:var(--text-muted); font-size:13px; margin-top:4px; }
+.fnb-group { margin-bottom:26px; }
+.fnb-group-title { font-family:'Barlow Condensed',sans-serif; font-size:15px; letter-spacing:2px;
+  text-transform:uppercase; color:var(--text-muted); margin-bottom:12px;
+  padding-bottom:8px; border-bottom:1px solid var(--border); }
+.fnb-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:14px; }
+.fnb-card { display:flex; align-items:center; gap:14px; padding:14px;
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.1); border-radius:14px; transition:border-color .15s ease, transform .15s ease; }
+.fnb-card:hover { transform:translateY(-2px); border-color:rgba(255,255,255,.2); }
+.fnb-card.picked { border-color:rgba(230,48,48,.55); background:rgba(230,48,48,.08); }
+.fnb-emoji { font-size:34px; line-height:1; flex-shrink:0; width:52px; height:52px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,.05); }
+.fnb-info { flex:1; min-width:0; }
+.fnb-name { font-family:'Barlow Condensed',sans-serif; font-size:17px; font-weight:600; letter-spacing:.4px; }
+.fnb-desc { font-size:12px; color:var(--text-muted); margin:2px 0 6px; }
+.fnb-price { font-family:'Bebas Neue',sans-serif; font-size:19px; letter-spacing:.8px; color:var(--red); }
+.fnb-qty { display:flex; align-items:center; gap:9px; flex-shrink:0; }
+.fnb-btn { width:28px; height:28px; border-radius:8px; background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.14); color:var(--text); font-size:17px; line-height:1; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; transition:background .12s ease; }
+.fnb-btn:hover:not(:disabled) { background:var(--red); border-color:var(--red); color:#fff; }
+.fnb-btn:disabled { opacity:.3; cursor:not-allowed; }
+.fnb-count { min-width:16px; text-align:center; font-family:'Barlow Condensed',sans-serif;
+  font-size:17px; font-weight:700; }
