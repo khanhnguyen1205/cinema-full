@@ -1,26 +1,35 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getShowtime, getMovie, getRoom, getCinema, getBookings, createBooking } from "services/api";
-import { buildSeatLayout, bookedSeatSet, priceOf, SERVICE_FEE, MAX_SEATS } from "lib/pricing";
+import { getShowtime, getMovie, getRoom, getCinema, getBookings, createBooking, getConcessions } from "services/api";
+import { buildSeatLayout, bookedSeatSet, priceOf, fnbLines, fnbTotal, SERVICE_FEE, MAX_SEATS, MAX_ITEM_QTY } from "lib/pricing";
 import { useAuth } from "context/AuthContext";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
+import BookingStepper, { BOOKING_STEPS } from "./BookingStepper";
 import SeatStep from "./SeatStep";
+import ConcessionStep from "./ConcessionStep";
 import OrderSummary from "./OrderSummary";
 import SeatHoldTimer from "./SeatHoldTimer";
 import "./Booking.css";
+
+// Đợt 2 mới có 2 bước; Đợt 3 thêm Thanh toán + Vé QR thì bỏ slice đi.
+const LIVE_STEPS = BOOKING_STEPS.slice(0, 2);
 
 export default function BookingWizard() {
   const { showtimeId } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
 
+  const [step, setStep] = useState(1);
   const [showtime, setShowtime] = useState(null);
   const [movie, setMovie] = useState(null);
   const [room, setRoom] = useState(null);
   const [cinema, setCinema] = useState(null);
   const [booked, setBooked] = useState(new Set());
   const [selected, setSelected] = useState([]);
+  const [catalog, setCatalog] = useState([]);
+  const [catalogLoading, setCatalogLoading] = useState(true);
+  const [qty, setQty] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [confirmed, setConfirmed] = useState(false);
@@ -37,6 +46,13 @@ export default function BookingWizard() {
     })();
   }, [showtimeId]);
 
+  useEffect(() => {
+    getConcessions()
+      .then(setCatalog)
+      .catch(() => setCatalog([]))
+      .finally(() => setCatalogLoading(false));
+  }, []);
+
   const layout = buildSeatLayout(room);
   const base = showtime?.price || 0;
 
@@ -49,11 +65,23 @@ export default function BookingWizard() {
     });
   }, []);
 
-  const seatTotal = selected.reduce((sum, s) => sum + priceOf(s, base), 0);
-  const serviceFee = selected.length > 0 ? SERVICE_FEE : 0;
-  const total = seatTotal + serviceFee;
+  // delta (+1/-1) chứ không phải giá trị tuyệt đối: tính từ prev nên bấm nhanh không mất nhịp
+  const changeQty = useCallback((id, delta) => {
+    setQty((prev) => {
+      const n = Math.max(0, Math.min(MAX_ITEM_QTY, (prev[id] || 0) + delta));
+      const copy = { ...prev };
+      if (n === 0) delete copy[id]; else copy[id] = n;
+      return copy;
+    });
+  }, []);
 
-  const onExpire = useCallback(() => { setSelected([]); setExpired(true); }, []);
+  const seatTotal = selected.reduce((sum, s) => sum + priceOf(s, base), 0);
+  const fnb = fnbLines(qty, catalog);
+  const fnbSum = fnbTotal(qty, catalog);
+  const serviceFee = selected.length > 0 ? SERVICE_FEE : 0;
+  const total = seatTotal + fnbSum + serviceFee;
+
+  const onExpire = useCallback(() => { setSelected([]); setStep(1); setExpired(true); }, []);
 
   const confirm = async () => {
     if (selected.length === 0) return;
@@ -66,6 +94,7 @@ export default function BookingWizard() {
       if (clash.length) {
         setBooked(freshSet);
         setSelected((prev) => prev.filter((s) => !freshSet.has(s.seatNumber)));
+        setStep(1);
         setError(`Ghế ${clash.map((s) => s.seatNumber).join(", ")} vừa được người khác đặt. Vui lòng chọn lại.`);
         setLoading(false); return;
       }
@@ -77,8 +106,9 @@ export default function BookingWizard() {
         cinemaId: room.cinemaId, roomId: room.id,
         seats: selected.map((s) => s.seatNumber),
         seatTypes: { standard: stdCount, vip: vipCount, couple: coupleCount },
+        concessions: fnb.map(({ id, name, qty: q, price }) => ({ id, name, qty: q, price })),
         userId: user?.id, userName: user?.fullName || user?.email,
-        seatTotal, fnbTotal: 0, serviceFee, totalPrice: total,
+        seatTotal, fnbTotal: fnbSum, serviceFee, totalPrice: total,
         createdAt: new Date().toISOString(),
       });
       setConfirmed(true);
@@ -88,6 +118,11 @@ export default function BookingWizard() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const onPrimary = () => {
+    if (step === 1) { setError(""); setStep(2); return; }
+    confirm();
   };
 
   if (confirmed) return (
@@ -102,6 +137,7 @@ export default function BookingWizard() {
     <div className="page booking-page">
       <Navbar back={movie ? `/movie/${movie.id}` : "/"} />
       <div className="booking-topbar">
+        <BookingStepper step={step} steps={LIVE_STEPS} onBack={() => { setError(""); setStep(1); }} />
         <SeatHoldTimer active onExpire={onExpire} />
       </div>
       {expired && (
@@ -110,13 +146,18 @@ export default function BookingWizard() {
       )}
       <div className="booking-body">
         <div className="booking-main">
-          <SeatStep layout={layout} booked={booked} selected={selected} base={base} room={room} onToggle={toggle} />
+          {step === 1 ? (
+            <SeatStep layout={layout} booked={booked} selected={selected} base={base} room={room} onToggle={toggle} />
+          ) : (
+            <ConcessionStep catalog={catalog} qty={qty} onChange={changeQty} loading={catalogLoading} />
+          )}
         </div>
         <OrderSummary
           movie={movie} cinema={cinema} room={room} showtime={showtime}
-          selected={selected} base={base} serviceFee={serviceFee} total={total}
-          primaryLabel="Xác nhận đặt vé" primaryDisabled={selected.length === 0}
-          loading={loading} onPrimary={confirm} error={error}
+          selected={selected} base={base} fnb={fnb} serviceFee={serviceFee} total={total}
+          primaryLabel={step === 1 ? "Tiếp tục" : "Xác nhận đặt vé"}
+          primaryDisabled={selected.length === 0}
+          loading={loading} onPrimary={onPrimary} error={error}
         />
       </div>
       <Footer />

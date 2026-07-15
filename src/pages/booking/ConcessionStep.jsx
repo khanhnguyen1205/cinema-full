@@ -41,7 +41,7 @@ export default function ConcessionStep({ catalog = [], qty = {}, onChange, loadi
                       <button
                         className="fnb-btn"
                         disabled={n === 0}
-                        onClick={() => onChange(item.id, n - 1)}
+                        onClick={() => onChange(item.id, -1)}
                         aria-label={`Bớt ${item.name}`}
                       >
                         −
@@ -50,7 +50,7 @@ export default function ConcessionStep({ catalog = [], qty = {}, onChange, loadi
                       <button
                         className="fnb-btn"
                         disabled={n >= MAX_ITEM_QTY}
-                        onClick={() => onChange(item.id, n + 1)}
+                        onClick={() => onChange(item.id, 1)}
                         aria-label={`Thêm ${item.name}`}
                       >
                         +

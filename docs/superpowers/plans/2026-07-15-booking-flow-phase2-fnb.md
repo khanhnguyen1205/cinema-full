@@ -264,8 +264,8 @@ cd "D:/FPT/26SP/FER202/cinema-full" && git add src/pages/booking/BookingStepper.
 
 **Interfaces:**
 - Consumes: `MAX_ITEM_QTY` từ `lib/pricing` (Task 1); shape `Concession` (Task 1).
-- Produces: default export `ConcessionStep({ catalog: Concession[], qty: {[id]:number}, onChange: (id:number, nextQty:number) => void, loading: boolean })`.
-  `onChange` được gọi với qty **mới mong muốn** (có thể là 0); việc kẹp biên do BookingWizard lo (Task 5).
+- Produces: default export `ConcessionStep({ catalog: Concession[], qty: {[id]:number}, onChange: (id:number, delta:number) => void, loading: boolean })`.
+  `onChange` được gọi với **delta** `+1`/`-1`, **không phải** giá trị tuyệt đối — nếu truyền `n+1` tính từ giá trị đang render thì hai click trong cùng một tick (chưa kịp re-render) sẽ dùng chung `n` cũ và mất một nhịp tăng. Việc cộng từ state trước + kẹp biên do BookingWizard lo (Task 5).
 
 - [ ] **Step 1: Tạo `src/pages/booking/ConcessionStep.jsx`**
 
@@ -313,7 +313,7 @@ export default function ConcessionStep({ catalog = [], qty = {}, onChange, loadi
                       <button
                         className="fnb-btn"
                         disabled={n === 0}
-                        onClick={() => onChange(item.id, n - 1)}
+                        onClick={() => onChange(item.id, -1)}
                         aria-label={`Bớt ${item.name}`}
                       >
                         −
@@ -322,7 +322,7 @@ export default function ConcessionStep({ catalog = [], qty = {}, onChange, loadi
                       <button
                         className="fnb-btn"
                         disabled={n >= MAX_ITEM_QTY}
-                        onClick={() => onChange(item.id, n + 1)}
+                        onClick={() => onChange(item.id, 1)}
                         aria-label={`Thêm ${item.name}`}
                       >
                         +
@@ -561,9 +561,10 @@ export default function BookingWizard() {
     });
   }, []);
 
-  const changeQty = useCallback((id, next) => {
+  // delta (+1/-1) chứ không phải giá trị tuyệt đối: tính từ prev nên bấm nhanh không mất nhịp
+  const changeQty = useCallback((id, delta) => {
     setQty((prev) => {
-      const n = Math.max(0, Math.min(MAX_ITEM_QTY, next));
+      const n = Math.max(0, Math.min(MAX_ITEM_QTY, (prev[id] || 0) + delta));
       const copy = { ...prev };
       if (n === 0) delete copy[id]; else copy[id] = n;
       return copy;
