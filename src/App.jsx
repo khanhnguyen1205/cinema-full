@@ -7,7 +7,7 @@ import Movies from "pages/Movies";
 import Cinemas from "pages/Cinemas";
 import CinemaDetail from "pages/CinemaDetail";
 import MovieDetail from "pages/MovieDetail";
-import SeatSelection from "pages/SeatSelection";
+import BookingWizard from "pages/booking/BookingWizard";
 import MyTickets from "pages/MyTickets";
 import Login from "pages/Login";
 import Register from "pages/Register";
@@ -32,7 +32,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/seats/:showtimeId" element={
-            <PrivateRoute><SeatSelection /></PrivateRoute>
+            <PrivateRoute><BookingWizard /></PrivateRoute>
           } />
           <Route path="/tickets" element={
             <PrivateRoute><MyTickets /></PrivateRoute>
