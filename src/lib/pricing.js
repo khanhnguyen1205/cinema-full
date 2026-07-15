@@ -28,6 +28,22 @@ export function aisleCols(room) {
   return [Math.floor(room.cols / 2)];
 }
 
+// Ghế đôi chiếm chỗ của 2 ghế thường, nên hàng ghế đôi chỉ chứa được nửa số đơn vị.
+// Phòng 12 cột -> hàng ghế đôi có 6 ghế (H1..H6), không phải 12.
+export const coupleUnits = (cols) => Math.floor(cols / 2);
+
+export const seatsInRow = (room, isCouple) =>
+  isCouple ? coupleUnits(room.cols) : room.cols;
+
+// Lối đi quy đổi sang đơn vị ghế của chính hàng đó: hàng thường lối đi sau cột 6
+// thì hàng ghế đôi phải là sau ghế 3, để hai lối đi thẳng hàng nhau.
+export function aisleColsForRow(room, isCouple) {
+  const cols = aisleCols(room);
+  if (!isCouple) return cols;
+  const last = coupleUnits(room.cols);
+  return [...new Set(cols.map((c) => Math.round(c / 2)))].filter((c) => c > 0 && c < last);
+}
+
 export function buildSeatLayout(room) {
   if (!room) return [];
   const rows = [];
@@ -35,7 +51,7 @@ export function buildSeatLayout(room) {
     const row = rowLetter(r);
     const coupleR = isCoupleRow(row, room.coupleRows);
     const seats = [];
-    for (let c = 1; c <= room.cols; c++) {
+    for (let c = 1; c <= seatsInRow(room, coupleR); c++) {
       seats.push({
         seatNumber: `${row}${c}`,
         row,

@@ -50,6 +50,8 @@
 .sgm-label { width: 16px; font-size: 11px; color: var(--text-muted); text-align: center; }
 .sgm-seat { width: 22px; height: 22px; border-radius: 5px; border: 1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.06); cursor: pointer; padding: 0; }
 .sgm-seat.vip { border-color: rgba(240,180,60,0.55); background: rgba(240,180,60,0.14); }
+/* Ghế đôi chiếm 2 cột: 50px = 2 ghế thường (22px) + khoảng cách (6px), nên hàng vẫn thẳng */
+.sgm-seat.couple { width: 50px; border-color: rgba(150,110,240,0.55); background: rgba(120,80,220,0.2); }
 .sgm-seat.selected { background: var(--red); border-color: var(--red); }
 .sgm-seat.booked { background: rgba(255,255,255,0.03); border-style: dashed; cursor: not-allowed; opacity: 0.5; }
 .sgm-legend { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin: 10px 0; font-size: 12px; color: var(--text-muted); }
@@ -57,6 +59,7 @@
 .sgm-dot { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
 .sgm-dot.available { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); }
 .sgm-dot.vip { background: rgba(240,180,60,0.3); }
+.sgm-dot.couple { background: rgba(150,110,240,0.5); }
 .sgm-dot.selected { background: var(--red); }
 .sgm-dot.booked { background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.3); }
 .sgm-summary { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--text-muted); padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.08); }

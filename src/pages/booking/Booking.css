@@ -37,7 +37,9 @@
   background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0));
   box-shadow:0 26px 60px -12px rgba(230,48,48,.45); }
 .screen-label { margin-top:12px; font-family:'Barlow Condensed',sans-serif; letter-spacing:6px; font-size:12px; color:var(--text-muted); }
-.seat-row { display:flex; align-items:center; gap:12px; margin:5px 0; }
+/* justify-content:center vi .seat-map-inner rong theo phan tu rong nhat (legend),
+   khong can giua thi cac hang ghe se bam trai va lech khoi man hinh chieu */
+.seat-row { display:flex; align-items:center; justify-content:center; gap:12px; margin:5px 0; }
 .row-label { width:16px; text-align:center; font-size:11px; color:var(--text-muted); }
 .seats-in-row { display:flex; }
 .seat-slot { position:relative; display:inline-flex; }

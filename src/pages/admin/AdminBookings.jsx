@@ -128,8 +128,8 @@ export default function AdminBookings() {
                   const isSel = sel.find(s => s.seatNumber === seat.seatNumber);
                   return (
                     <button key={seat.seatNumber}
-                      className={`sgm-seat${seat.isVip ? " vip" : ""}${isBooked ? " booked" : ""}${isSel ? " selected" : ""}`}
-                      disabled={isBooked} title={`${seat.seatNumber}${seat.isVip ? " · VIP" : ""}`}
+                      className={`sgm-seat${seat.isVip ? " vip" : ""}${seat.isCouple ? " couple" : ""}${isBooked ? " booked" : ""}${isSel ? " selected" : ""}`}
+                      disabled={isBooked} title={`${seat.seatNumber}${seat.isVip ? " · VIP" : ""}${seat.isCouple ? " · Đôi" : ""}`}
                       onClick={() => toggleSeat(seat)} />
                   );
                 })}
@@ -139,6 +139,7 @@ export default function AdminBookings() {
           <div className="sgm-legend">
             <span><i className="sgm-dot available" />Trống</span>
             <span><i className="sgm-dot vip" />VIP</span>
+            <span><i className="sgm-dot couple" />Đôi</span>
             <span><i className="sgm-dot selected" />Đang chọn</span>
             <span><i className="sgm-dot booked" />Đã đặt</span>
           </div>

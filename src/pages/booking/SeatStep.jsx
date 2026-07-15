@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { aisleCols, priceOf, seatType, SEAT_TYPE } from "lib/pricing";
+import { aisleColsForRow, priceOf, seatType, SEAT_TYPE } from "lib/pricing";
 
 const fmt = (n) => n.toLocaleString("vi-VN") + "₫";
 
 export default function SeatStep({ layout, booked, selected, base, room, onToggle }) {
   const [zoom, setZoom] = useState(1);
-  const aisles = aisleCols(room);
   const selKeys = new Set(selected.map((s) => s.seatNumber));
 
   return (
@@ -21,7 +20,9 @@ export default function SeatStep({ layout, booked, selected, base, room, onToggl
           <div className="screen-container"><div className="screen-curve" /><div className="screen-label">MÀN HÌNH CHIẾU</div></div>
 
           <div className="seat-map">
-            {layout.map(({ row, seats }) => (
+            {layout.map(({ row, seats, isCouple }) => {
+              const aisles = aisleColsForRow(room, isCouple);
+              return (
               <div key={row} className="seat-row">
                 <span className="row-label">{row}</span>
                 <div className="seats-in-row">
@@ -47,7 +48,8 @@ export default function SeatStep({ layout, booked, selected, base, room, onToggl
                 </div>
                 <span className="row-label">{row}</span>
               </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="seat-legend">
