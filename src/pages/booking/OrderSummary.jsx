@@ -6,7 +6,7 @@ const fmtTime = (iso) => iso ? new Date(iso).toLocaleTimeString("en-GB", { hour:
 
 export default function OrderSummary({
   movie, cinema, room, showtime, selected, base,
-  seatTotal, serviceFee, total, primaryLabel, primaryDisabled, loading, onPrimary, error,
+  serviceFee, total, primaryLabel, primaryDisabled, loading, onPrimary, error,
 }) {
   const std = selected.filter((s) => !s.isVip && !s.isCouple);
   const vip = selected.filter((s) => s.isVip);

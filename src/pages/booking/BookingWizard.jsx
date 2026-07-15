@@ -77,7 +77,7 @@ export default function BookingWizard() {
         cinemaId: room.cinemaId, roomId: room.id,
         seats: selected.map((s) => s.seatNumber),
         seatTypes: { standard: stdCount, vip: vipCount, couple: coupleCount },
-        userId: user?.id, userName: user?.fullName,
+        userId: user?.id, userName: user?.fullName || user?.email,
         seatTotal, fnbTotal: 0, serviceFee, totalPrice: total,
         createdAt: new Date().toISOString(),
       });
@@ -102,7 +102,7 @@ export default function BookingWizard() {
     <div className="page booking-page">
       <Navbar back={movie ? `/movie/${movie.id}` : "/"} />
       <div className="booking-topbar">
-        <SeatHoldTimer active={!confirmed} onExpire={onExpire} />
+        <SeatHoldTimer active onExpire={onExpire} />
       </div>
       {expired && (
         <div className="expire-banner">Đã hết thời gian giữ ghế — vui lòng chọn lại ghế.
@@ -114,7 +114,7 @@ export default function BookingWizard() {
         </div>
         <OrderSummary
           movie={movie} cinema={cinema} room={room} showtime={showtime}
-          selected={selected} base={base} seatTotal={seatTotal} serviceFee={serviceFee} total={total}
+          selected={selected} base={base} serviceFee={serviceFee} total={total}
           primaryLabel="Xác nhận đặt vé" primaryDisabled={selected.length === 0}
           loading={loading} onPrimary={confirm} error={error}
         />
