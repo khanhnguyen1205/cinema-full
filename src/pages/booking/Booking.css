@@ -80,3 +80,28 @@
 
 .booked-icon { width:74px; height:74px; border-radius:50%; background:var(--red); color:#fff;
   display:flex; align-items:center; justify-content:center; font-size:38px; }
+
+/* --- Stepper --- */
+.stepper { display:flex; align-items:center; gap:20px; }
+.stepper-back { display:inline-flex; align-items:center; gap:6px; padding:7px 13px; border-radius:999px;
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); color:var(--text);
+  font-family:'Barlow Condensed',sans-serif; font-weight:600; letter-spacing:.5px; font-size:14px; cursor:pointer;
+  transition:background .12s ease, opacity .12s ease; }
+.stepper-back:hover:not(:disabled) { background:rgba(255,255,255,.12); }
+.stepper-back:disabled { opacity:0; pointer-events:none; }
+.stepper-list { display:flex; align-items:center; gap:0; list-style:none; margin:0; padding:0; }
+.stepper-item { display:flex; align-items:center; gap:8px; color:var(--text-muted); }
+.stepper-dot { width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:14px; flex-shrink:0;
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); transition:all .18s ease; }
+.stepper-label { font-family:'Barlow Condensed',sans-serif; font-size:14px; letter-spacing:.6px;
+  text-transform:uppercase; white-space:nowrap; }
+.stepper-line { width:44px; height:1px; background:rgba(255,255,255,.14); margin:0 14px; }
+.stepper-item.current { color:var(--text); }
+.stepper-item.current .stepper-dot { background:var(--red); border-color:var(--red); color:#fff;
+  box-shadow:0 0 0 4px var(--red-glow); }
+.stepper-item.done .stepper-dot { background:rgba(230,48,48,.2); border-color:rgba(230,48,48,.5); color:var(--red); }
+@media (max-width:700px){
+  .stepper-label { display:none; }
+  .stepper-line { width:22px; margin:0 8px; }
+}
