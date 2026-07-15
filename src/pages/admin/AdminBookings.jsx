@@ -71,11 +71,18 @@ export default function AdminBookings() {
 
   const editStd = sel.filter(s => !s.isVip).length;
   const editVip = sel.filter(s => s.isVip).length;
-  const editTotal = sel.reduce((sum, s) => sum + priceOf(s, editBase), 0) + (sel.length ? SERVICE_FEE : 0);
+  const editSeatTotal = sel.reduce((sum, s) => sum + priceOf(s, editBase), 0);
+  // Giữ nguyên tiền bắp nước của đơn — sửa ghế không đụng tới F&B
+  const editTotal = editSeatTotal + (editing?.fnbTotal || 0) + (sel.length ? SERVICE_FEE : 0);
 
   const saveSeats = async () => {
     const seats = sel.map(s => s.seatNumber);
-    const patchBody = { seats, seatTypes: { standard: editStd, vip: editVip }, totalPrice: editTotal };
+    const patchBody = {
+      seats,
+      seatTypes: { standard: editStd, vip: editVip },
+      seatTotal: editSeatTotal,
+      totalPrice: editTotal,
+    };
     await updateBooking(editing.id, patchBody);
     setBookings(prev => prev.map(b => b.id === editing.id ? { ...b, ...patchBody } : b));
     setEditing(null); setSel([]);

@@ -65,7 +65,7 @@ export default function BookingWizard() {
     });
   }, []);
 
-  // delta (+1/-1) chứ không phải giá trị tuyệt đối: tính từ prev nên bấm nhanh không mất nhịp
+  // Nhận delta (+1/-1) rồi cộng vào prev: kẹp biên [0, MAX_ITEM_QTY] chỉ nằm ở đây
   const changeQty = useCallback((id, delta) => {
     setQty((prev) => {
       const n = Math.max(0, Math.min(MAX_ITEM_QTY, (prev[id] || 0) + delta));
@@ -78,8 +78,10 @@ export default function BookingWizard() {
   const seatTotal = selected.reduce((sum, s) => sum + priceOf(s, base), 0);
   const fnb = fnbLines(qty, catalog);
   const fnbSum = fnbTotal(qty, catalog);
-  const serviceFee = selected.length > 0 ? SERVICE_FEE : 0;
-  const total = seatTotal + fnbSum + serviceFee;
+  // Chưa có ghế thì chưa thành đơn: không phí dịch vụ, không hiện tiền bắp nước
+  const hasOrder = selected.length > 0;
+  const serviceFee = hasOrder ? SERVICE_FEE : 0;
+  const total = hasOrder ? seatTotal + fnbSum + serviceFee : 0;
 
   const onExpire = useCallback(() => { setSelected([]); setStep(1); setExpired(true); }, []);
 
@@ -154,9 +156,9 @@ export default function BookingWizard() {
         </div>
         <OrderSummary
           movie={movie} cinema={cinema} room={room} showtime={showtime}
-          selected={selected} base={base} fnb={fnb} serviceFee={serviceFee} total={total}
+          selected={selected} base={base} fnb={hasOrder ? fnb : []} serviceFee={serviceFee} total={total}
           primaryLabel={step === 1 ? "Tiếp tục" : "Xác nhận đặt vé"}
-          primaryDisabled={selected.length === 0}
+          primaryDisabled={!hasOrder}
           loading={loading} onPrimary={onPrimary} error={error}
         />
       </div>

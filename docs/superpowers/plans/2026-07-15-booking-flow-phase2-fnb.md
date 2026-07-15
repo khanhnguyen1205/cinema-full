@@ -265,7 +265,9 @@ cd "D:/FPT/26SP/FER202/cinema-full" && git add src/pages/booking/BookingStepper.
 **Interfaces:**
 - Consumes: `MAX_ITEM_QTY` từ `lib/pricing` (Task 1); shape `Concession` (Task 1).
 - Produces: default export `ConcessionStep({ catalog: Concession[], qty: {[id]:number}, onChange: (id:number, delta:number) => void, loading: boolean })`.
-  `onChange` được gọi với **delta** `+1`/`-1`, **không phải** giá trị tuyệt đối — nếu truyền `n+1` tính từ giá trị đang render thì hai click trong cùng một tick (chưa kịp re-render) sẽ dùng chung `n` cũ và mất một nhịp tăng. Việc cộng từ state trước + kẹp biên do BookingWizard lo (Task 5).
+  `onChange` được gọi với **delta** `+1`/`-1`, **không phải** giá trị tuyệt đối. Lý do: delta được cộng vào state trước đó bên trong `setQty`, nên **toàn bộ việc kẹp biên `[0, MAX_ITEM_QTY]` nằm gọn một chỗ** ở BookingWizard (Task 5); `disabled` trong ConcessionStep chỉ còn là gợi ý giao diện, không phải nơi giữ ràng buộc. Component con không cần biết luật, container là nguồn sự thật duy nhất.
+
+  > Ghi chú lịch sử: bản đầu dùng `onChange(id, n + 1)` với `n` lấy từ lần render hiện tại. Test bằng puppeteer thấy bấm `+` hai lần chỉ lên 1 và tôi đã kết luận nhầm rằng người dùng bấm nhanh sẽ mất nhịp. Thực tế app dùng `createRoot` (React 18), click là discrete event được flush đồng bộ → hai click thật nằm ở hai task, có re-render xen giữa, nên bản cũ **vẫn đúng với người dùng**. Lỗi chỉ tái hiện vì script gọi `.click()` hai lần trong cùng một tick. Đổi sang delta vẫn là lựa chọn đúng, nhưng vì lý do kẹp-biên-một-chỗ ở trên, không phải vì sửa bug người dùng gặp.
 
 - [ ] **Step 1: Tạo `src/pages/booking/ConcessionStep.jsx`**
 

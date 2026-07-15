@@ -11,7 +11,7 @@ const fmt = (n) => n.toLocaleString("vi-VN") + "₫";
 
 export default function ConcessionStep({ catalog = [], qty = {}, onChange, loading }) {
   if (loading) return <div className="fnb-empty">Đang tải bắp nước...</div>;
-  if (!catalog.length) return <div className="fnb-empty">Hiện chưa có bắp nước cho suất chiếu này.</div>;
+  if (!catalog.length) return <div className="fnb-empty">Hiện chưa có bắp nước để chọn.</div>;
 
   return (
     <div className="fnb-step">
