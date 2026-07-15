@@ -920,5 +920,71 @@
       "totalPrice": 90000,
       "createdAt": "2026-07-10T12:00:00"
     }
+  ],
+  "concessions": [
+    {
+      "id": 1,
+      "name": "Combo Cặp Đôi",
+      "category": "combo",
+      "price": 89000,
+      "description": "2 nước ngọt lớn + 1 bắp lớn",
+      "image": "🍿"
+    },
+    {
+      "id": 2,
+      "name": "Combo Gia Đình",
+      "category": "combo",
+      "price": 159000,
+      "description": "4 nước ngọt vừa + 2 bắp lớn",
+      "image": "🎬"
+    },
+    {
+      "id": 3,
+      "name": "Combo Solo",
+      "category": "combo",
+      "price": 65000,
+      "description": "1 nước ngọt lớn + 1 bắp vừa",
+      "image": "🎟️"
+    },
+    {
+      "id": 4,
+      "name": "Bắp Rang Bơ (Lớn)",
+      "category": "popcorn",
+      "price": 55000,
+      "description": "Bắp rang vị bơ truyền thống, size lớn",
+      "image": "🍿"
+    },
+    {
+      "id": 5,
+      "name": "Bắp Phô Mai (Vừa)",
+      "category": "popcorn",
+      "price": 49000,
+      "description": "Bắp rang phủ phô mai, size vừa",
+      "image": "🧀"
+    },
+    {
+      "id": 6,
+      "name": "Coca-Cola (Lớn)",
+      "category": "drink",
+      "price": 32000,
+      "description": "Nước ngọt có ga, ly 32oz",
+      "image": "🥤"
+    },
+    {
+      "id": 7,
+      "name": "Nước Suối Aquafina",
+      "category": "drink",
+      "price": 20000,
+      "description": "Chai 500ml",
+      "image": "💧"
+    },
+    {
+      "id": 8,
+      "name": "Snack Khoai Tây",
+      "category": "snack",
+      "price": 35000,
+      "description": "Khoai tây chiên giòn vị BBQ",
+      "image": "🍟"
+    }
   ]
 }

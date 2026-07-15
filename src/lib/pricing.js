@@ -1,6 +1,7 @@
 export const ROOM_TYPE_PRICE = { "2D": 75000, "3D": 95000, "IMAX": 120000 };
 export const SERVICE_FEE = 15000;
 export const MAX_SEATS = 8;
+export const MAX_ITEM_QTY = 10;
 export const COUPLE_MULTIPLIER = 1.6;
 
 const rowLetter = (i) => String.fromCharCode(65 + i); // 0 -> A
@@ -58,3 +59,20 @@ export function bookedSeatSet(showtime, bookings = []) {
 
 export const priceOf = (seat, basePrice) =>
   seat.isCouple ? couplePrice(basePrice) : seat.isVip ? vipPrice(basePrice) : basePrice;
+
+// --- Bắp nước (F&B) ---
+// qtyMap: { [concessionId]: number }. Trả về các dòng đơn theo thứ tự catalog.
+export function fnbLines(qtyMap = {}, catalog = []) {
+  return catalog
+    .filter((c) => (qtyMap[c.id] || 0) > 0)
+    .map((c) => ({
+      id: c.id,
+      name: c.name,
+      qty: qtyMap[c.id],
+      price: c.price,
+      amount: c.price * qtyMap[c.id],
+    }));
+}
+
+export const fnbTotal = (qtyMap = {}, catalog = []) =>
+  fnbLines(qtyMap, catalog).reduce((sum, l) => sum + l.amount, 0);

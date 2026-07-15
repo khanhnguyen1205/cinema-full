@@ -32,6 +32,8 @@ export const createBooking = (booking) =>
 
 export const getBookings = () => fetch(`${BASE_URL}/bookings`).then(r => r.json());
 
+export const getConcessions = () => fetch(`${BASE_URL}/concessions`).then(r => r.json());
+
 // --- Admin CRUD ---
 const post = (path, body) => fetch(`${BASE_URL}${path}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then(r => r.json());
 const patch = (path, body) => fetch(`${BASE_URL}${path}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then(r => r.json());
