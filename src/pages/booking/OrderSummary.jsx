@@ -5,7 +5,7 @@ const fmtDate = (iso) => iso ? new Date(iso).toLocaleDateString("vi-VN", { day: 
 const fmtTime = (iso) => iso ? new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }) : "";
 
 export default function OrderSummary({
-  movie, cinema, room, showtime, selected, base,
+  movie, cinema, room, showtime, selected, base, fnb = [],
   serviceFee, total, primaryLabel, primaryDisabled, loading, onPrimary, error,
 }) {
   const std = selected.filter((s) => !s.isVip && !s.isCouple);
@@ -33,6 +33,10 @@ export default function OrderSummary({
         {std.length > 0 && <div className="os-row"><span>Ghế thường (×{std.length})</span><span>{fmt(std.length * base)}</span></div>}
         {vip.length > 0 && <div className="os-row"><span>Ghế VIP (×{vip.length})</span><span>{fmt(vip.length * vipPrice(base))}</span></div>}
         {cpl.length > 0 && <div className="os-row"><span>Ghế đôi (×{cpl.length})</span><span>{fmt(cpl.length * couplePrice(base))}</span></div>}
+        {fnb.length > 0 && <div className="os-subhead">Bắp nước</div>}
+        {fnb.map((l) => (
+          <div className="os-row" key={l.id}><span>{l.name} (×{l.qty})</span><span>{fmt(l.amount)}</span></div>
+        ))}
         {selected.length > 0 && <div className="os-row"><span>Phí dịch vụ</span><span>{fmt(serviceFee)}</span></div>}
         <div className="os-row os-total"><span>TỔNG CỘNG</span><span className="os-total-amount">{fmt(total)}</span></div>
       </div>

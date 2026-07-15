@@ -23,6 +23,9 @@
 .os-error { margin-top:12px; color:#ff8080; font-size:13px; background:rgba(230,48,48,.12);
   border:1px solid rgba(230,48,48,.35); border-radius:10px; padding:10px 12px; }
 .os-confirm { width:100%; margin-top:16px; }
+.os-subhead { margin-top:10px; padding-top:10px; border-top:1px solid var(--border);
+  font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:1.5px;
+  text-transform:uppercase; color:var(--text-muted); }
 .seat-step { display:flex; flex-direction:column; align-items:center; gap:18px; }
 .seat-zoom-controls { display:flex; align-items:center; gap:10px; font-size:13px; color:var(--text-muted); }
 .seat-zoom-controls button { width:30px; height:30px; border-radius:8px; background:rgba(255,255,255,.06);
