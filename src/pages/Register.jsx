@@ -19,6 +19,7 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return; // chặn tái nhập (double-submit khi mạng chậm)
     setError("");
 
     if (!form.fullName || !form.email || !form.password || !form.confirm) {

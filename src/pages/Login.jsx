@@ -18,6 +18,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return; // chặn tái nhập (double-submit khi mạng chậm)
     setError("");
     if (!email || !password) { setError("Vui lòng nhập đầy đủ thông tin."); return; }
 
