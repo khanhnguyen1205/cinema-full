@@ -4,21 +4,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A React 18 cinema booking single-page app (student project, FER202 course) backed by a **json-server** mock REST API. There is no real backend — `db.json` is the entire "database" and json-server auto-generates CRUD endpoints from it.
+A React 18 cinema booking single-page app (student project, FER202 course). App **data** is backed by a **json-server** mock REST API (`db.json` is the entire "database", CRUD auto-generated). **Auth is a real lightweight Express backend** (`server/auth-server.js`, port 4000): bcrypt-hashed passwords + JWT access/refresh tokens delivered as **httpOnly cookies** — not a mock. (Data routes on :9999 are still open/ungated; gating them is a deliberate follow-up, not yet done.)
 
 ## Commands
 
 ```bash
 npm install                                      # install deps
-npx json-server --watch db.json --port 9999      # start mock API (terminal 1)
-npm start                                        # start React dev server on :3000 (terminal 2)
+npm run dev                                      # start all three servers at once (api + auth + web)
+# — or run them separately:
+npm run api                                      # json-server data API on :9999
+npm run auth                                     # Express auth server on :4000
+npm start                                        # React dev server on :3000
+npm run hash-passwords                           # one-off: bcrypt-hash any plaintext passwords in db.json
 npm run build                                    # production build
 ```
 
 There are **no tests, linter, or type checker** configured — `package.json` only defines `start` and `build`.
 
 ### Ports & running the app
-json-server serves the mock API on **port 9999**; the React dev server runs on **port 3000** (CRA default) — open http://localhost:3000 to view the site. The API client (`src/services/api.js`, `src/services/auth.js`) hardcodes `BASE_URL = "http://localhost:9999"`; if you move json-server you must update `BASE_URL` in **both** service files. A `SessionStart` hook (`.claude/start-dev.ps1`, wired in `.claude/settings.local.json`) auto-starts both servers when a Claude Code session begins, so they are usually already running.
+Three servers: json-server **data** API on **:9999**, Express **auth** server on **:4000**, React dev server on **:3000** (open http://localhost:3000). `src/services/api.js` hardcodes `BASE_URL = "http://localhost:9999"` (data); `src/services/auth.js` hardcodes `AUTH_URL = "http://localhost:4000"` (auth) — move a server ⇒ update the matching constant. The auth server reads/writes `users` via json-server, so **:9999 must be up before :4000**. A `SessionStart` hook (`.claude/start-dev.ps1`, wired in `.claude/settings.local.json`) auto-starts all three when a session begins, so they are usually already running.
 
 ## Architecture
 
@@ -35,9 +39,11 @@ Data flows: **React pages → `src/services/*` fetch helpers → json-server (`d
 
 - **`src/services/api.js`** — all movie/showtime/city/cinema/room/booking calls. `getShowtimesByCinema(cinemaId)` fetches the cinema's rooms then gathers showtimes per room. **Note:** `getAllShowtimes` fetches every showtime then filters client-side. There is **no** `getSeats`/`updateSeat` (removed with the seats table).
 
-- **`src/services/auth.js`** — "auth" is faked against json-server: login does `GET /users?email=…&password=…` and treats a non-empty result as success; register checks email uniqueness then POSTs. **Passwords are stored and queried in plaintext** — this is inherent to the mock-API design, not a bug to fix unless asked. User-facing error messages are in Vietnamese.
+- **`server/auth-server.js`** — Express auth backend (:4000). Endpoints: `POST /auth/register|login|logout|refresh`, `GET /auth/me`. Passwords are **bcrypt-hashed**; sessions are **JWT access (15m) + refresh (7d)** tokens stored in **httpOnly, SameSite=Lax cookies** (JS can't read them ⇒ XSS-safe). Login is rate-limited. Emails are normalized (trim+lowercase). It stores users through json-server (`fetch` to :9999). `remember` flag → refresh cookie is persistent (Max-Age 7d) vs a session cookie. Legacy plaintext seed passwords self-upgrade to bcrypt on first successful login; `server/hash-passwords.js` migrates them proactively. Dev `JWT_SECRET` is a hardcoded constant (fine for this project).
 
-- **`src/context/AuthContext.jsx`** — the only global state. Wraps the app in `App.jsx`, persists a password-stripped user to `localStorage` under key `cinema_user`, and exposes `useAuth()` → `{ user, login, logout }`.
+- **`src/services/auth.js`** — client wrappers calling the auth server with `credentials:"include"` (cookies): `loginUser(email,password,remember)`, `registerUser(...)`, `logoutUser()`, `refreshSession()`, `fetchMe()` (retries once via `/auth/refresh` on a 401). No token is ever exposed to JS. Error messages are in Vietnamese.
+
+- **`src/context/AuthContext.jsx`** — the only global state. Wraps the app in `App.jsx`; **no localStorage** — on mount it hydrates the user via `fetchMe()` (cookie session) behind a `loading` gate (`AppShell` in `App.jsx` shows a splash until the check resolves). Exposes `useAuth()` → `{ user, loading, login, logout }`. Premium session UX: instant **cross-tab sync** via `BroadcastChannel("cinema-auth")`, **silent refresh** every 13m, and **idle auto-logout** after 30m. When a refresh fails the user is cleared → route guards redirect to `/login`.
 
 - **`src/routes/PrivateRoute.jsx`** — gates routes; redirects to `/login` (preserving intended location in `state.from`) when `user` is null.
 

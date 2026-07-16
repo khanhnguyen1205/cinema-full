@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
+    "jsonwebtoken": "^9.0.3",
     "qrcode.react": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -12,7 +18,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "api": "json-server --watch db.json --port 9999",
+    "auth": "node server/auth-server.js",
+    "hash-passwords": "node server/hash-passwords.js",
+    "dev": "concurrently -n api,auth,web -c green,magenta,cyan \"npm:api\" \"npm:auth\" \"npm:start\""
   },
   "browserslist": {
     "production": [
@@ -25,5 +35,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3"
   }
 }

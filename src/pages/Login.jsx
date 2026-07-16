@@ -10,6 +10,7 @@ export default function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
+  const [remember, setRemember] = useState(true);
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function Login() {
 
     setLoading(true);
     try {
-      const user = await loginUser(email, password);
+      const user = await loginUser(email, password, remember);
       login(user);
       navigate(from, { replace: true });
     } catch (err) {
@@ -109,6 +110,11 @@ export default function Login() {
               </button>
             </div>
           </div>
+
+          <label className="auth-remember">
+            <input type="checkbox" checked={remember} onChange={e => setRemember(e.target.checked)} />
+            <span>Ghi nhớ đăng nhập</span>
+          </label>
 
           <button className="auth-submit" type="submit" disabled={loading}>
             {loading ? <span className="auth-spinner" /> : "Đăng nhập"}

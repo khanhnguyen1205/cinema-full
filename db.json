@@ -4,20 +4,20 @@
       "id": 1,
       "fullName": "Nguyen Van A",
       "email": "a@cinema.vn",
-      "password": "123456",
+      "password": "$2b$10$0wwUtCWDMCVhIXF5QNtgjOIIODFzlUpUrZ8FTUZBbun6wPcWIplgK",
       "role": "user"
     },
     {
       "id": 2,
       "fullName": "Quản trị viên",
       "email": "admin@cinema.vn",
-      "password": "admin123",
+      "password": "$2b$10$8QzCOWJ.VnIR7Y25jRpjQOTX1dg9wGovc2ya9iQ3ex1sZP2IXFwfy",
       "role": "admin"
     },
     {
       "fullName": "Dương Quang Minh",
       "email": "minh@gmail.com",
-      "password": "123456",
+      "password": "$2b$10$fbafgbUVqQxVbkFdWMjNzudcFCi9xZxp36dTNq.Y5Xpjl4BW.HXxK",
       "id": 3
     }
   ],

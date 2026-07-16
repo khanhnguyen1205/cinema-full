@@ -1,28 +1,50 @@
-const BASE_URL = "http://localhost:9999";
+// Auth qua backend that (server/auth-server.js): cookie httpOnly, JS khong cham token.
+// Moi request kem credentials:"include" de trinh duyet gui cookie phien.
+const AUTH_URL = "http://localhost:4000";
 
-// Chuẩn hóa email để so khớp nhất quán (json-server so khớp chính xác chuỗi):
-// "  Admin@Cinema.VN " và "admin@cinema.vn" phải coi là một.
-const normalizeEmail = (email) => (email || "").trim().toLowerCase();
+const post = async (path, body) => {
+  const res = await fetch(`${AUTH_URL}${path}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  return res;
+};
 
-export const loginUser = async (email, password) => {
-  const res = await fetch(`${BASE_URL}/users?email=${encodeURIComponent(normalizeEmail(email))}&password=${encodeURIComponent(password)}`);
-  const users = await res.json();
-  if (users.length === 0) throw new Error("Email hoặc mật khẩu không đúng.");
-  return users[0];
+const readError = async (res, fallback) => {
+  try { const d = await res.json(); return d?.error || fallback; } catch { return fallback; }
+};
+
+export const loginUser = async (email, password, remember = false) => {
+  const res = await post("/auth/login", { email, password, remember });
+  if (!res.ok) throw new Error(await readError(res, "Đăng nhập thất bại."));
+  return res.json();
 };
 
 export const registerUser = async ({ fullName, email, password }) => {
-  const normEmail = normalizeEmail(email);
-
-  // Check email exists
-  const check = await fetch(`${BASE_URL}/users?email=${encodeURIComponent(normEmail)}`);
-  const existing = await check.json();
-  if (existing.length > 0) throw new Error("Email này đã được đăng ký.");
-
-  const res = await fetch(`${BASE_URL}/users`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ fullName: (fullName || "").trim(), email: normEmail, password, role: "user" })
-  });
+  const res = await post("/auth/register", { fullName, email, password });
+  if (!res.ok) throw new Error(await readError(res, "Đăng ký thất bại."));
   return res.json();
+};
+
+export const logoutUser = async () => {
+  try { await post("/auth/logout"); } catch { /* mat mang van cho dang xuat phia client */ }
+};
+
+// Xoay access token bang refresh cookie. Tra user hoac null.
+export const refreshSession = async () => {
+  const res = await post("/auth/refresh");
+  return res.ok ? res.json() : null;
+};
+
+// Lay user hien tai tu cookie phien. Neu access het han -> thu refresh 1 lan.
+export const fetchMe = async () => {
+  let res = await fetch(`${AUTH_URL}/auth/me`, { credentials: "include" });
+  if (res.status === 401) {
+    const refreshed = await refreshSession();
+    if (refreshed) return refreshed;
+    return null;
+  }
+  return res.ok ? res.json() : null;
 };

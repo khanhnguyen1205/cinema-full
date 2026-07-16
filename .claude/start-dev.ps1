@@ -22,6 +22,12 @@ if (-not $jsonUp) {
   Start-Process powershell -ArgumentList '-NoExit', '-Command', "cd `"$root`"; npx json-server --watch db.json --port 9999" -WindowStyle Minimized
 }
 
+# Auth server (port 4000) - Express: bcrypt + JWT trong cookie httpOnly (server/auth-server.js)
+$authUp = Test-Port 4000
+if (-not $authUp) {
+  Start-Process powershell -ArgumentList '-NoExit', '-Command', "cd `"$root`"; node server/auth-server.js" -WindowStyle Minimized
+}
+
 # Web (port 3000, React default) - BROWSER=none so it does not auto-open a browser
 $webUp = Test-Port 3000
 if (-not $webUp) {
@@ -33,4 +39,6 @@ if ($webUp)  { Write-Output '  Web:         http://localhost:3000  (already runn
 else         { Write-Output '  Web:         http://localhost:3000  (starting, wait ~20-40s)' }
 if ($jsonUp) { Write-Output '  JSON Server: http://localhost:9999  (already running)' }
 else         { Write-Output '  JSON Server: http://localhost:9999  (starting, wait ~5s)' }
+if ($authUp) { Write-Output '  Auth Server: http://localhost:4000  (already running)' }
+else         { Write-Output '  Auth Server: http://localhost:4000  (starting, wait ~3s)' }
 Write-Output 'Open http://localhost:3000 in Chrome to view the site.'

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "styles/global.css";
-import { AuthProvider } from "context/AuthContext";
+import { AuthProvider, useAuth } from "context/AuthContext";
 import PrivateRoute from "routes/PrivateRoute";
 import Home from "pages/Home";
 import Movies from "pages/Movies";
@@ -19,11 +19,19 @@ import AdminRooms from "pages/admin/AdminRooms";
 import AdminShowtimes from "pages/admin/AdminShowtimes";
 import AdminBookings from "pages/admin/AdminBookings";
 
-function App() {
+function AppShell() {
+  const { loading } = useAuth();
+  // Cho tới khi kiểm tra xong phiên (cookie httpOnly) mới render — tránh nháy trạng thái
+  if (loading) {
+    return (
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)" }}>
+        <div className="loading-spinner" />
+      </div>
+    );
+  }
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
+    <BrowserRouter>
+      <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
           <Route path="/cinemas" element={<Cinemas />} />
@@ -43,9 +51,16 @@ function App() {
             <Route path="rooms" element={<AdminRooms />} />
             <Route path="showtimes" element={<AdminShowtimes />} />
             <Route path="bookings" element={<AdminBookings />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppShell />
     </AuthProvider>
   );
 }
