@@ -1,43 +1,52 @@
-const BASE_URL = "http://localhost:9999";
+// Data qua cong co phan quyen o auth server (:4000/api), khong goi json-server (:9999) truc tiep.
+// credentials:"include" de gui cookie phien -> gateway biet user/role.
+const BASE_URL = "http://localhost:4000/api";
 
-export const getMovies = () => fetch(`${BASE_URL}/movies`).then(r => r.json());
-export const getMovie = (id) => fetch(`${BASE_URL}/movies/${id}`).then(r => r.json());
+const req = (path, opts = {}) =>
+  fetch(`${BASE_URL}${path}`, { credentials: "include", ...opts });
+const get = (path) => req(path).then((r) => r.json());
 
-export const getShowtimes = (movieId) => fetch(`${BASE_URL}/showtimes?movieId=${movieId}`).then(r => r.json());
-export const getShowtime = (id) => fetch(`${BASE_URL}/showtimes/${id}`).then(r => r.json());
-export const getAllShowtimes = () => fetch(`${BASE_URL}/showtimes`).then(r => r.json());
-export const getShowtimesByRoom = (roomId) => fetch(`${BASE_URL}/showtimes?roomId=${roomId}`).then(r => r.json());
+export const getMovies = () => get(`/movies`);
+export const getMovie = (id) => get(`/movies/${id}`);
 
-export const getCities = () => fetch(`${BASE_URL}/cities`).then(r => r.json());
-export const getCinemas = (cityId) =>
-  fetch(`${BASE_URL}/cinemas${cityId ? `?cityId=${cityId}` : ""}`).then(r => r.json());
-export const getCinema = (id) => fetch(`${BASE_URL}/cinemas/${id}`).then(r => r.json());
-export const getRooms = (cinemaId) =>
-  fetch(`${BASE_URL}/rooms${cinemaId ? `?cinemaId=${cinemaId}` : ""}`).then(r => r.json());
-export const getRoom = (id) => fetch(`${BASE_URL}/rooms/${id}`).then(r => r.json());
+export const getShowtimes = (movieId) => get(`/showtimes?movieId=${movieId}`);
+export const getShowtime = (id) => get(`/showtimes/${id}`);
+export const getAllShowtimes = () => get(`/showtimes`);
+export const getShowtimesByRoom = (roomId) => get(`/showtimes?roomId=${roomId}`);
+
+export const getCities = () => get(`/cities`);
+export const getCinemas = (cityId) => get(`/cinemas${cityId ? `?cityId=${cityId}` : ""}`);
+export const getCinema = (id) => get(`/cinemas/${id}`);
+export const getRooms = (cinemaId) => get(`/rooms${cinemaId ? `?cinemaId=${cinemaId}` : ""}`);
+export const getRoom = (id) => get(`/rooms/${id}`);
 
 // Suất chiếu của 1 rạp: lấy các phòng của rạp rồi gom showtimes theo roomId
 export const getShowtimesByCinema = async (cinemaId) => {
   const rooms = await getRooms(cinemaId);
-  const lists = await Promise.all(rooms.map(r => getShowtimesByRoom(r.id)));
+  const lists = await Promise.all(rooms.map((r) => getShowtimesByRoom(r.id)));
   return lists.flat();
 };
 
+// Ghế đã đặt của 1 suất (chỉ số ghế, không kèm thông tin cá nhân) — dùng cho sơ đồ ghế.
+export const getOccupiedSeats = (showtimeId) =>
+  get(`/occupied-seats?showtimeId=${showtimeId}`).then((d) => d.seats || []);
+
 export const createBooking = (booking) =>
-  fetch(`${BASE_URL}/bookings`, {
+  req(`/bookings`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(booking)
-  }).then(r => r.json());
+    body: JSON.stringify(booking),
+  }).then((r) => r.json());
 
-export const getBookings = () => fetch(`${BASE_URL}/bookings`).then(r => r.json());
+// GET /bookings: gateway tự lọc — user thường chỉ nhận đơn của mình, admin nhận tất cả.
+export const getBookings = () => get(`/bookings`);
 
-export const getConcessions = () => fetch(`${BASE_URL}/concessions`).then(r => r.json());
+export const getConcessions = () => get(`/concessions`);
 
-// --- Admin CRUD ---
-const post = (path, body) => fetch(`${BASE_URL}${path}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then(r => r.json());
-const patch = (path, body) => fetch(`${BASE_URL}${path}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then(r => r.json());
-const del = (path) => fetch(`${BASE_URL}${path}`, { method: "DELETE" });
+// --- Admin CRUD (gateway yêu cầu quyền admin cho các thao tác ghi) ---
+const post = (path, body) => req(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then((r) => r.json());
+const patch = (path, body) => req(path, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }).then((r) => r.json());
+const del = (path) => req(path, { method: "DELETE" });
 
 export const createMovie = (b) => post("/movies", b);
 export const updateMovie = (id, p) => patch(`/movies/${id}`, p);

@@ -20,6 +20,14 @@ const REFRESH_TTL = `${REFRESH_TTL_DAYS}d`;
 const normalizeEmail = (e) => (e || "").trim().toLowerCase();
 const safeUser = (u) => ({ id: u.id, fullName: u.fullName, email: u.email, role: u.role || "user" });
 
+// Doc user tu access cookie (khong nem loi neu thieu/het han -> tra null)
+function getUserFromReq(req) {
+  const t = req.cookies.at;
+  if (!t) return null;
+  try { const p = jwt.verify(t, JWT_SECRET); return { id: p.sub, role: p.role }; }
+  catch { return null; }
+}
+
 // --- Cookie helpers ---------------------------------------------------------
 const baseCookie = { httpOnly: true, sameSite: "lax", secure: false, path: "/" }; // secure:false vi localhost http
 
@@ -150,6 +158,100 @@ app.get("/auth/me", async (req, res) => {
 app.post("/auth/logout", (req, res) => {
   clearAuthCookies(res);
   res.status(204).end();
+});
+
+// ============================================================================
+// DATA GATEWAY: cong co phan quyen dat truoc json-server (:9999 la noi bo).
+// Client goi :4000/api/* thay vi :9999/* truc tiep.
+// ============================================================================
+
+// Chuyen tiep request sang json-server, giu query + body + status + header can thiet.
+async function forward(req, res, rest, extraQuery) {
+  const params = new URLSearchParams();
+  for (const [k, v] of Object.entries(req.query)) params.set(k, v);
+  if (extraQuery) for (const [k, v] of Object.entries(extraQuery)) params.set(k, String(v));
+  const qs = params.toString();
+  const url = `${DATA_URL}/${rest}${qs ? `?${qs}` : ""}`;
+  const init = { method: req.method, headers: {} };
+  if (!["GET", "HEAD", "DELETE"].includes(req.method)) {
+    init.headers["Content-Type"] = "application/json";
+    init.body = JSON.stringify(req.body || {});
+  }
+  const r = await fetch(url, init);
+  const body = await r.text();
+  res.status(r.status);
+  const ct = r.headers.get("content-type"); if (ct) res.set("Content-Type", ct);
+  const xtc = r.headers.get("x-total-count"); if (xtc) res.set("X-Total-Count", xtc);
+  return res.send(body);
+}
+
+// Ghe da dat cua 1 suat: chi tra so ghe, KHONG kem thong tin ca nhan cua don.
+app.get("/api/occupied-seats", async (req, res) => {
+  if (!getUserFromReq(req)) return res.status(401).json({ error: "Vui lòng đăng nhập." });
+  const showtimeId = req.query.showtimeId;
+  if (!showtimeId) return res.status(400).json({ error: "Thiếu showtimeId." });
+  try {
+    const [bookings, stRes] = await Promise.all([
+      fetch(`${DATA_URL}/bookings`).then((r) => r.json()),
+      fetch(`${DATA_URL}/showtimes/${showtimeId}`),
+    ]);
+    const showtime = stRes.ok ? await stRes.json() : null;
+    const set = new Set(showtime?.bookedSeats || []);
+    bookings
+      .filter((b) => String(b.showtimeId) === String(showtimeId))
+      .forEach((b) => (b.seats || []).forEach((s) => set.add(s)));
+    res.json({ showtimeId: Number(showtimeId), seats: [...set] });
+  } catch (e) {
+    res.status(502).json({ error: "Lỗi cổng dữ liệu." });
+  }
+});
+
+// Catalog: doc cong khai, ghi can admin.
+const PUBLIC_READ = new Set(["movies", "showtimes", "cinemas", "cities", "rooms", "concessions"]);
+
+app.use("/api", async (req, res) => {
+  try {
+    const rest = req.path.replace(/^\/+/, ""); // vd "movies/3" | "bookings"
+    const collection = rest.split("/")[0];
+    const isRead = req.method === "GET";
+    const user = getUserFromReq(req);
+    const isAdmin = user?.role === "admin";
+    const deny = (code, msg) => res.status(code).json({ error: msg });
+
+    // users: chi admin (dang lo email + hash neu mo)
+    if (collection === "users") {
+      if (!isAdmin) return deny(403, "Không có quyền truy cập.");
+      return forward(req, res, rest);
+    }
+
+    // bookings: theo chu so huu
+    if (collection === "bookings") {
+      if (isRead) {
+        if (!user) return deny(401, "Vui lòng đăng nhập.");
+        if (isAdmin) return forward(req, res, rest);
+        if (rest !== "bookings") return deny(403, "Không có quyền."); // chan doc don le cua nguoi khac
+        return forward(req, res, rest, { userId: user.id }); // chi don cua minh
+      }
+      if (req.method === "POST") {
+        if (!user) return deny(401, "Vui lòng đăng nhập.");
+        req.body = { ...req.body, userId: user.id }; // ep userId = chinh minh
+        return forward(req, res, rest);
+      }
+      if (!isAdmin) return deny(403, "Không có quyền."); // PATCH/DELETE
+      return forward(req, res, rest);
+    }
+
+    // catalog
+    if (PUBLIC_READ.has(collection)) {
+      if (isRead) return forward(req, res, rest);
+      if (!isAdmin) return deny(403, "Không có quyền.");
+      return forward(req, res, rest);
+    }
+
+    return deny(403, "Không có quyền."); // mac dinh chan
+  } catch (e) {
+    res.status(502).json({ error: "Lỗi cổng dữ liệu." });
+  }
 });
 
 app.listen(PORT, () => {

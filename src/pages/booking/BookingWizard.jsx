@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { getShowtime, getMovie, getRoom, getCinema, getBookings, createBooking, getConcessions } from "services/api";
-import { buildSeatLayout, bookedSeatSet, priceOf, fnbLines, fnbTotal, SERVICE_FEE, MAX_SEATS, MAX_ITEM_QTY } from "lib/pricing";
+import { getShowtime, getMovie, getRoom, getCinema, getOccupiedSeats, createBooking, getConcessions } from "services/api";
+import { buildSeatLayout, priceOf, fnbLines, fnbTotal, SERVICE_FEE, MAX_SEATS, MAX_ITEM_QTY } from "lib/pricing";
 import { useAuth } from "context/AuthContext";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
@@ -40,9 +40,9 @@ export default function BookingWizard() {
     (async () => {
       const st = await getShowtime(showtimeId);
       setShowtime(st);
-      const [m, r, bookings] = await Promise.all([getMovie(st.movieId), getRoom(st.roomId), getBookings()]);
+      const [m, r, occupied] = await Promise.all([getMovie(st.movieId), getRoom(st.roomId), getOccupiedSeats(showtimeId)]);
       setMovie(m); setRoom(r);
-      setBooked(bookedSeatSet({ ...st, id: Number(st.id) }, bookings));
+      setBooked(new Set(occupied));
       getCinema(r.cinemaId).then(setCinema);
     })();
   }, [showtimeId]);
@@ -95,8 +95,7 @@ export default function BookingWizard() {
     setLoading(true); setError("");
     try {
       // Re-check ghế trống ngay trước khi đặt
-      const fresh = await getBookings();
-      const freshSet = bookedSeatSet({ ...showtime, id: Number(showtimeId) }, fresh);
+      const freshSet = new Set(await getOccupiedSeats(showtimeId));
       const clash = selected.filter((s) => freshSet.has(s.seatNumber));
       if (clash.length) {
         setBooked(freshSet);

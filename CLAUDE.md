@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A React 18 cinema booking single-page app (student project, FER202 course). App **data** is backed by a **json-server** mock REST API (`db.json` is the entire "database", CRUD auto-generated). **Auth is a real lightweight Express backend** (`server/auth-server.js`, port 4000): bcrypt-hashed passwords + JWT access/refresh tokens delivered as **httpOnly cookies** — not a mock. (Data routes on :9999 are still open/ungated; gating them is a deliberate follow-up, not yet done.)
+A React 18 cinema booking single-page app (student project, FER202 course). App **data** is backed by a **json-server** mock REST API (`db.json` is the entire "database", CRUD auto-generated). **Auth is a real lightweight Express backend** (`server/auth-server.js`, port 4000): bcrypt-hashed passwords + JWT access/refresh tokens delivered as **httpOnly cookies** — not a mock. That same server is also an **authorization gateway** in front of json-server: the browser talks to `:4000/api/*`, which enforces per-collection/role rules and proxies to json-server. **json-server (:9999) is internal** — the client never calls it directly.
 
 ## Commands
 
@@ -22,11 +22,11 @@ npm run build                                    # production build
 There are **no tests, linter, or type checker** configured — `package.json` only defines `start` and `build`.
 
 ### Ports & running the app
-Three servers: json-server **data** API on **:9999**, Express **auth** server on **:4000**, React dev server on **:3000** (open http://localhost:3000). `src/services/api.js` hardcodes `BASE_URL = "http://localhost:9999"` (data); `src/services/auth.js` hardcodes `AUTH_URL = "http://localhost:4000"` (auth) — move a server ⇒ update the matching constant. The auth server reads/writes `users` via json-server, so **:9999 must be up before :4000**. A `SessionStart` hook (`.claude/start-dev.ps1`, wired in `.claude/settings.local.json`) auto-starts all three when a session begins, so they are usually already running.
+Three servers: json-server on **:9999** (internal data store), Express **auth + gateway** on **:4000**, React dev server on **:3000** (open http://localhost:3000). Both client service files point at **:4000**: `src/services/api.js` hardcodes `BASE_URL = "http://localhost:4000/api"` (data via gateway), `src/services/auth.js` hardcodes `AUTH_URL = "http://localhost:4000"` (auth). Only the auth/gateway server talks to json-server (`DATA_URL = :9999`), so **:9999 must be up before :4000**. A `SessionStart` hook (`.claude/start-dev.ps1`, wired in `.claude/settings.local.json`) auto-starts all three when a session begins, so they are usually already running.
 
 ## Architecture
 
-Data flows: **React pages → `src/services/*` fetch helpers → json-server (`db.json`)**. There is no state management library and no API client abstraction beyond thin `fetch` wrappers.
+Data flows: **React pages → `src/services/*` fetch helpers → auth/gateway (:4000) → json-server (`db.json`)**. There is no state management library and no API client abstraction beyond thin `fetch` wrappers (all sent with `credentials:"include"` so the session cookie reaches the gateway).
 
 ### Project structure & imports
 `src/` is organized by type with lowercase folder names: `components/` (shared UI; `components/admin/` for admin-only widgets), `routes/` (route guards `PrivateRoute`/`AdminRoute`), `context/` (`AuthContext`), `hooks/` (`usePagination`), `lib/` (pure helpers like `pricing.js`), `services/` (`api.js`/`auth.js`), `pages/` (one folder-less page + colocated `.css`; `pages/admin/` for the admin panel), and `styles/` (`global.css`). `App.jsx` and `index.jsx` stay at `src/` root (CRA entry points).
@@ -37,9 +37,11 @@ Data flows: **React pages → `src/services/*` fetch helpers → json-server (`d
 
 - **`src/lib/pricing.js`** — pure helpers: `buildSeatLayout(room)` (rows×cols → seat grid with `isVip`), `bookedSeatSet(showtime, bookings)` (union of `showtime.bookedSeats` and matching bookings' seats), `vipPrice(base)` = `round(base×1.3)` to nearest 1,000, `priceOf(seat, base)`, `ROOM_TYPE_PRICE`, `SERVICE_FEE`.
 
-- **`src/services/api.js`** — all movie/showtime/city/cinema/room/booking calls. `getShowtimesByCinema(cinemaId)` fetches the cinema's rooms then gathers showtimes per room. **Note:** `getAllShowtimes` fetches every showtime then filters client-side. There is **no** `getSeats`/`updateSeat` (removed with the seats table).
+- **`src/services/api.js`** — all movie/showtime/city/cinema/room/booking calls, now hitting the gateway (`BASE_URL = :4000/api`) with `credentials:"include"`. `getShowtimesByCinema(cinemaId)` fetches the cinema's rooms then gathers showtimes per room. `getOccupiedSeats(showtimeId)` hits the gateway's computed `/api/occupied-seats` (only seat numbers, no personal data) — the booking flow uses this instead of `getBookings()` for availability, because the gateway scopes `GET /bookings` to the caller's own bookings. **Note:** `getAllShowtimes` fetches every showtime then filters client-side. There is **no** `getSeats`/`updateSeat` (removed with the seats table).
 
 - **`server/auth-server.js`** — Express auth backend (:4000). Endpoints: `POST /auth/register|login|logout|refresh`, `GET /auth/me`. Passwords are **bcrypt-hashed**; sessions are **JWT access (15m) + refresh (7d)** tokens stored in **httpOnly, SameSite=Lax cookies** (JS can't read them ⇒ XSS-safe). Login is rate-limited. Emails are normalized (trim+lowercase). It stores users through json-server (`fetch` to :9999). `remember` flag → refresh cookie is persistent (Max-Age 7d) vs a session cookie. Legacy plaintext seed passwords self-upgrade to bcrypt on first successful login; `server/hash-passwords.js` migrates them proactively. Dev `JWT_SECRET` is a hardcoded constant (fine for this project).
+
+  **Gateway** (same file, `/api/*` + `/api/occupied-seats`): reads the `at` cookie to learn the caller's role, then proxies to json-server with rules — **catalog** (`movies/showtimes/cinemas/cities/rooms/concessions`) is public read, admin-only write; **`users`** is admin-only (was leaking emails + hashes); **`bookings`** GET is scoped to the caller (admin sees all), POST forces `userId` to the caller, PATCH/DELETE are admin-only. `/api/occupied-seats?showtimeId=` returns just the taken seat numbers for the seat map. Gating is enforced here, not in json-server.
 
 - **`src/services/auth.js`** — client wrappers calling the auth server with `credentials:"include"` (cookies): `loginUser(email,password,remember)`, `registerUser(...)`, `logoutUser()`, `refreshSession()`, `fetchMe()` (retries once via `/auth/refresh` on a 401). No token is ever exposed to JS. Error messages are in Vietnamese.
 
