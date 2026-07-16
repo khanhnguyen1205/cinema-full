@@ -7,6 +7,7 @@ const fmtTime = (iso) => iso ? new Date(iso).toLocaleTimeString("en-GB", { hour:
 export default function OrderSummary({
   movie, cinema, room, showtime, selected, base, fnb = [],
   serviceFee, total, primaryLabel, primaryDisabled, loading, onPrimary, error,
+  secondaryLabel, onSecondary,
 }) {
   const std = selected.filter((s) => !s.isVip && !s.isCouple);
   const vip = selected.filter((s) => s.isVip);
@@ -44,6 +45,9 @@ export default function OrderSummary({
       <button className="btn-primary os-confirm" disabled={primaryDisabled || loading} onClick={onPrimary}>
         {loading ? "Đang xử lý..." : primaryLabel}
       </button>
+      {secondaryLabel && (
+        <button className="os-skip" disabled={loading} onClick={onSecondary}>{secondaryLabel}</button>
+      )}
     </aside>
   );
 }

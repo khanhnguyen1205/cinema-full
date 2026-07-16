@@ -1,23 +1,21 @@
 import { useEffect, useState, useCallback } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getShowtime, getMovie, getRoom, getCinema, getBookings, createBooking, getConcessions } from "services/api";
 import { buildSeatLayout, bookedSeatSet, priceOf, fnbLines, fnbTotal, SERVICE_FEE, MAX_SEATS, MAX_ITEM_QTY } from "lib/pricing";
 import { useAuth } from "context/AuthContext";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
-import BookingStepper, { BOOKING_STEPS } from "./BookingStepper";
+import BookingStepper from "./BookingStepper";
 import SeatStep from "./SeatStep";
 import ConcessionStep from "./ConcessionStep";
+import PaymentStep from "./PaymentStep";
+import TicketStep from "./TicketStep";
 import OrderSummary from "./OrderSummary";
 import SeatHoldTimer from "./SeatHoldTimer";
 import "./Booking.css";
 
-// Đợt 2 mới có 2 bước; Đợt 3 thêm Thanh toán + Vé QR thì bỏ slice đi.
-const LIVE_STEPS = BOOKING_STEPS.slice(0, 2);
-
 export default function BookingWizard() {
   const { showtimeId } = useParams();
-  const navigate = useNavigate();
   const { user } = useAuth();
 
   const [step, setStep] = useState(1);
@@ -30,9 +28,10 @@ export default function BookingWizard() {
   const [catalog, setCatalog] = useState([]);
   const [catalogLoading, setCatalogLoading] = useState(true);
   const [qty, setQty] = useState({});
+  const [paymentMethod, setPaymentMethod] = useState("momo");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [confirmed, setConfirmed] = useState(false);
+  const [bookingResult, setBookingResult] = useState(null);
   const [expired, setExpired] = useState(false);
 
   useEffect(() => {
@@ -103,18 +102,19 @@ export default function BookingWizard() {
       const stdCount = selected.filter((s) => !s.isVip && !s.isCouple).length;
       const vipCount = selected.filter((s) => s.isVip).length;
       const coupleCount = selected.filter((s) => s.isCouple).length;
-      await createBooking({
+      const created = await createBooking({
         movieId: showtime.movieId, showtimeId: Number(showtimeId),
         cinemaId: room.cinemaId, roomId: room.id,
         seats: selected.map((s) => s.seatNumber),
         seatTypes: { standard: stdCount, vip: vipCount, couple: coupleCount },
         concessions: fnb.map(({ id, name, qty: q, price }) => ({ id, name, qty: q, price })),
+        paymentMethod,
         userId: user?.id, userName: user?.fullName || user?.email,
         seatTotal, fnbTotal: fnbSum, serviceFee, totalPrice: total,
         createdAt: new Date().toISOString(),
       });
-      setConfirmed(true);
-      setTimeout(() => navigate("/tickets"), 1800);
+      setBookingResult(created);
+      setStep(4);
     } catch (e) {
       setError("Đặt vé thất bại. Vui lòng thử lại.");
     } finally {
@@ -124,44 +124,51 @@ export default function BookingWizard() {
 
   const onPrimary = () => {
     if (step === 1) { setError(""); setStep(2); return; }
+    if (step === 2) { setError(""); setStep(3); return; }
     confirm();
   };
 
-  if (confirmed) return (
-    <div className="page booking-done">
-      <div className="booked-icon">✓</div>
-      <h2>Đặt vé thành công!</h2>
-      <p>Đang chuyển tới trang vé của bạn...</p>
-    </div>
-  );
+  const primaryLabel = step === 3 ? "Thanh toán" : "Tiếp tục";
 
   return (
     <div className="page booking-page">
       <Navbar back={movie ? `/movie/${movie.id}` : "/"} />
       <div className="booking-topbar">
-        <BookingStepper step={step} steps={LIVE_STEPS} onBack={() => { setError(""); setStep(1); }} />
-        <SeatHoldTimer active onExpire={onExpire} />
+        <BookingStepper step={step} onBack={() => { if (step >= 4) return; setError(""); setStep((s) => Math.max(1, s - 1)); }} />
+        {step < 4 && <SeatHoldTimer active onExpire={onExpire} />}
       </div>
-      {expired && (
+      {expired && step < 4 && (
         <div className="expire-banner">Đã hết thời gian giữ ghế — vui lòng chọn lại ghế.
           <button onClick={() => { setExpired(false); }}>Đã hiểu</button></div>
       )}
-      <div className="booking-body">
-        <div className="booking-main">
-          {step === 1 ? (
-            <SeatStep layout={layout} booked={booked} selected={selected} base={base} room={room} onToggle={toggle} />
-          ) : (
-            <ConcessionStep catalog={catalog} qty={qty} onChange={changeQty} loading={catalogLoading} />
-          )}
+      {step === 4 ? (
+        <div className="booking-body booking-body-single">
+          <TicketStep booking={bookingResult} movie={movie} cinema={cinema} room={room} showtime={showtime} />
         </div>
-        <OrderSummary
-          movie={movie} cinema={cinema} room={room} showtime={showtime}
-          selected={selected} base={base} fnb={hasOrder ? fnb : []} serviceFee={serviceFee} total={total}
-          primaryLabel={step === 1 ? "Tiếp tục" : "Xác nhận đặt vé"}
-          primaryDisabled={!hasOrder}
-          loading={loading} onPrimary={onPrimary} error={error}
-        />
-      </div>
+      ) : (
+        <div className="booking-body">
+          <div className="booking-main">
+            {step === 1 && (
+              <SeatStep layout={layout} booked={booked} selected={selected} base={base} room={room} onToggle={toggle} />
+            )}
+            {step === 2 && (
+              <ConcessionStep catalog={catalog} qty={qty} onChange={changeQty} loading={catalogLoading} />
+            )}
+            {step === 3 && (
+              <PaymentStep method={paymentMethod} onChange={setPaymentMethod} />
+            )}
+          </div>
+          <OrderSummary
+            movie={movie} cinema={cinema} room={room} showtime={showtime}
+            selected={selected} base={base} fnb={hasOrder ? fnb : []} serviceFee={serviceFee} total={total}
+            primaryLabel={primaryLabel}
+            primaryDisabled={!hasOrder}
+            secondaryLabel={step === 2 ? "Bỏ qua" : null}
+            onSecondary={() => { setError(""); setStep(3); }}
+            loading={loading} onPrimary={onPrimary} error={error}
+          />
+        </div>
+      )}
       <Footer />
     </div>
   );
