@@ -1,16 +1,34 @@
 import { MAX_ITEM_QTY } from "lib/pricing";
 
-const CATEGORIES = [
-  { key: "combo", label: "Combo tiết kiệm" },
-  { key: "popcorn", label: "Bắp rang" },
-  { key: "drink", label: "Nước uống" },
-  { key: "snack", label: "Snack" },
-];
+// Nhãn cho các danh mục quen thuộc + thứ tự ưu tiên hiển thị.
+const KNOWN_LABELS = {
+  combo: "Combo tiết kiệm",
+  popcorn: "Bắp rang",
+  drink: "Nước uống",
+  snack: "Snack",
+};
+
+const labelize = (key) => (key ? key[0].toUpperCase() + key.slice(1) : "Khác");
+
+// Suy ra danh mục từ chính catalog: nhóm quen đi trước theo thứ tự KNOWN_LABELS,
+// nhóm lạ (thêm mới trong db.json) tự nối vào cuối thay vì biến mất.
+function categoriesOf(catalog) {
+  const present = [...new Set(catalog.map((c) => c.category || "khac"))];
+  const known = Object.keys(KNOWN_LABELS).filter((k) => present.includes(k));
+  const extra = present.filter((k) => !(k in KNOWN_LABELS));
+  return [...known, ...extra].map((key) => ({ key, label: KNOWN_LABELS[key] || labelize(key) }));
+}
 
 const fmt = (n) => n.toLocaleString("vi-VN") + "₫";
 
-export default function ConcessionStep({ catalog = [], qty = {}, onChange, loading }) {
+export default function ConcessionStep({ catalog = [], qty = {}, onChange, loading, error, onRetry }) {
   if (loading) return <div className="fnb-empty">Đang tải bắp nước...</div>;
+  if (error) return (
+    <div className="fnb-empty">
+      <p>Không tải được danh sách bắp nước.</p>
+      {onRetry && <button className="fnb-retry" onClick={onRetry}>Thử lại</button>}
+    </div>
+  );
   if (!catalog.length) return <div className="fnb-empty">Hiện chưa có bắp nước để chọn.</div>;
 
   return (
@@ -20,8 +38,8 @@ export default function ConcessionStep({ catalog = [], qty = {}, onChange, loadi
         <p className="fnb-sub">Không bắt buộc — bạn có thể xác nhận đặt vé mà không chọn món nào.</p>
       </div>
 
-      {CATEGORIES.map(({ key, label }) => {
-        const items = catalog.filter((c) => c.category === key);
+      {categoriesOf(catalog).map(({ key, label }) => {
+        const items = catalog.filter((c) => (c.category || "khac") === key);
         if (!items.length) return null;
         return (
           <section key={key} className="fnb-group">

@@ -20,12 +20,16 @@ export default function AdminOverview() {
   const movieMap = useMemo(() => Object.fromEntries(movies.map(m => [m.id, m])), [movies]);
   const cinemaMap = useMemo(() => Object.fromEntries(cinemas.map(c => [c.id, c])), [cinemas]);
 
+  // Doanh thu vé (ghế) của một đơn: ưu tiên seatTotal; đơn cũ chưa tách thì lấy totalPrice
+  const seatRev = (b) => (b.seatTotal != null ? b.seatTotal : (b.totalPrice || 0));
+
   const totalRevenue = useMemo(() => bookings.reduce((s, b) => s + (b.totalPrice || 0), 0), [bookings]);
+  const fnbRevenue = useMemo(() => bookings.reduce((s, b) => s + (b.fnbTotal || 0), 0), [bookings]);
   const totalTickets = useMemo(() => bookings.reduce((s, b) => s + (b.seats?.length || 0), 0), [bookings]);
 
   const revenueByMovie = useMemo(() => {
     const acc = {};
-    bookings.forEach(b => { acc[b.movieId] = (acc[b.movieId] || 0) + (b.totalPrice || 0); });
+    bookings.forEach(b => { acc[b.movieId] = (acc[b.movieId] || 0) + seatRev(b); });
     return Object.entries(acc)
       .map(([id, revenue]) => ({ name: movieMap[id]?.title || `#${id}`, revenue }))
       .sort((a, b) => b.revenue - a.revenue)
@@ -34,7 +38,7 @@ export default function AdminOverview() {
 
   const revenueByCinema = useMemo(() => {
     const acc = {};
-    bookings.forEach(b => { acc[b.cinemaId] = (acc[b.cinemaId] || 0) + (b.totalPrice || 0); });
+    bookings.forEach(b => { acc[b.cinemaId] = (acc[b.cinemaId] || 0) + seatRev(b); });
     return Object.entries(acc)
       .map(([id, revenue]) => ({ name: cinemaMap[id]?.name || `#${id}`, revenue }))
       .sort((a, b) => b.revenue - a.revenue);
@@ -59,6 +63,10 @@ export default function AdminOverview() {
           <div className="admin-revenue-num">{fmtVnd(totalRevenue)}</div>
         </div>
         <div className="admin-revenue-card">
+          <div className="admin-revenue-label">Doanh thu bắp nước</div>
+          <div className="admin-revenue-num">{fmtVnd(fnbRevenue)}</div>
+        </div>
+        <div className="admin-revenue-card">
           <div className="admin-revenue-label">Tổng vé bán</div>
           <div className="admin-revenue-num">{totalTickets}</div>
         </div>
@@ -66,7 +74,7 @@ export default function AdminOverview() {
 
       <div className="admin-charts">
         <div className="admin-chart-box">
-          <h2 className="admin-chart-title">Doanh thu theo phim (Top 6)</h2>
+          <h2 className="admin-chart-title">Doanh thu vé theo phim (Top 6)</h2>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={revenueByMovie} margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
               <XAxis dataKey="name" tick={{ fill: "#9aa0a6", fontSize: 11 }} interval={0} angle={-15} textAnchor="end" height={50} />
@@ -78,7 +86,7 @@ export default function AdminOverview() {
         </div>
 
         <div className="admin-chart-box">
-          <h2 className="admin-chart-title">Doanh thu theo rạp</h2>
+          <h2 className="admin-chart-title">Doanh thu vé theo rạp</h2>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={revenueByCinema} layout="vertical" margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
               <XAxis type="number" tick={{ fill: "#9aa0a6", fontSize: 11 }} tickFormatter={(v) => `${(v / 1000).toLocaleString("vi-VN")}k`} />

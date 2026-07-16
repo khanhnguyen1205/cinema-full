@@ -69,8 +69,9 @@ export default function AdminBookings() {
       : [...prev, seat]);
   };
 
-  const editStd = sel.filter(s => !s.isVip).length;
+  const editStd = sel.filter(s => !s.isVip && !s.isCouple).length;
   const editVip = sel.filter(s => s.isVip).length;
+  const editCpl = sel.filter(s => s.isCouple).length;
   const editSeatTotal = sel.reduce((sum, s) => sum + priceOf(s, editBase), 0);
   // Giữ nguyên tiền bắp nước của đơn — sửa ghế không đụng tới F&B
   const editTotal = editSeatTotal + (editing?.fnbTotal || 0) + (sel.length ? SERVICE_FEE : 0);
@@ -79,7 +80,7 @@ export default function AdminBookings() {
     const seats = sel.map(s => s.seatNumber);
     const patchBody = {
       seats,
-      seatTypes: { standard: editStd, vip: editVip },
+      seatTypes: { standard: editStd, vip: editVip, couple: editCpl },
       seatTotal: editSeatTotal,
       totalPrice: editTotal,
     };
@@ -145,7 +146,7 @@ export default function AdminBookings() {
           </div>
           <div className="sgm-summary">
             <span>Ghế: {sel.length ? sel.map(s => s.seatNumber).join(", ") : "Chưa chọn"}</span>
-            <span>Thường ×{editStd} · VIP ×{editVip}</span>
+            <span>Thường ×{editStd} · VIP ×{editVip}{editCpl ? ` · Đôi ×${editCpl}` : ""}</span>
             <strong>{editTotal.toLocaleString("vi-VN")}₫</strong>
           </div>
           <div className="modal-actions">

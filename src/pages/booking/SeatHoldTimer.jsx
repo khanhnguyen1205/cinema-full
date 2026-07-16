@@ -1,8 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function SeatHoldTimer({ seconds = 480, active = true, onExpire }) {
+export default function SeatHoldTimer({ seconds = 480, active = true, resetKey = 0, onExpire }) {
   const [left, setLeft] = useState(seconds);
   const firedRef = useRef(false);
+
+  // resetKey đổi (sau khi hết giờ được reset) -> đếm lại từ đầu
+  useEffect(() => {
+    setLeft(seconds);
+    firedRef.current = false;
+  }, [resetKey, seconds]);
 
   useEffect(() => {
     if (!active) return;

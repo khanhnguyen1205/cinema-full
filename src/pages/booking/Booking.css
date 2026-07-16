@@ -119,6 +119,10 @@
 /* --- Bắp nước (F&B) --- */
 .fnb-step { width:100%; }
 .fnb-empty { padding:40px 0; text-align:center; color:var(--text-muted); }
+.fnb-retry { margin-top:14px; padding:9px 20px; border-radius:10px; cursor:pointer;
+  background:var(--red); border:1px solid var(--red); color:#fff;
+  font-family:'Barlow Condensed',sans-serif; font-size:14px; letter-spacing:1px; text-transform:uppercase; }
+.fnb-retry:hover { filter:brightness(1.08); }
 .fnb-head { margin-bottom:20px; }
 .fnb-title { font-family:'Bebas Neue',sans-serif; font-size:30px; letter-spacing:1.5px; }
 .fnb-sub { color:var(--text-muted); font-size:13px; margin-top:4px; }

@@ -27,12 +27,14 @@ export default function BookingWizard() {
   const [selected, setSelected] = useState([]);
   const [catalog, setCatalog] = useState([]);
   const [catalogLoading, setCatalogLoading] = useState(true);
+  const [catalogError, setCatalogError] = useState(false);
   const [qty, setQty] = useState({});
   const [paymentMethod, setPaymentMethod] = useState("momo");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [bookingResult, setBookingResult] = useState(null);
   const [expired, setExpired] = useState(false);
+  const [timerEpoch, setTimerEpoch] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -45,12 +47,15 @@ export default function BookingWizard() {
     })();
   }, [showtimeId]);
 
-  useEffect(() => {
+  const loadCatalog = useCallback(() => {
+    setCatalogLoading(true); setCatalogError(false);
     getConcessions()
-      .then(setCatalog)
-      .catch(() => setCatalog([]))
+      .then((data) => setCatalog(data))
+      .catch(() => { setCatalog([]); setCatalogError(true); })
       .finally(() => setCatalogLoading(false));
   }, []);
+
+  useEffect(() => { loadCatalog(); }, [loadCatalog]);
 
   const layout = buildSeatLayout(room);
   const base = showtime?.price || 0;
@@ -82,7 +87,8 @@ export default function BookingWizard() {
   const serviceFee = hasOrder ? SERVICE_FEE : 0;
   const total = hasOrder ? seatTotal + fnbSum + serviceFee : 0;
 
-  const onExpire = useCallback(() => { setSelected([]); setStep(1); setExpired(true); }, []);
+  // Hết giờ: xóa ghế, về bước ①, báo banner và đếm lại đồng hồ từ đầu
+  const onExpire = useCallback(() => { setSelected([]); setStep(1); setExpired(true); setTimerEpoch((e) => e + 1); }, []);
 
   const confirm = async () => {
     if (selected.length === 0) return;
@@ -135,7 +141,7 @@ export default function BookingWizard() {
       <Navbar back={movie ? `/movie/${movie.id}` : "/"} />
       <div className="booking-topbar">
         <BookingStepper step={step} onBack={() => { if (step >= 4) return; setError(""); setStep((s) => Math.max(1, s - 1)); }} />
-        {step < 4 && <SeatHoldTimer active onExpire={onExpire} />}
+        {step < 4 && <SeatHoldTimer active resetKey={timerEpoch} onExpire={onExpire} />}
       </div>
       {expired && step < 4 && (
         <div className="expire-banner">Đã hết thời gian giữ ghế — vui lòng chọn lại ghế.
@@ -152,7 +158,7 @@ export default function BookingWizard() {
               <SeatStep layout={layout} booked={booked} selected={selected} base={base} room={room} onToggle={toggle} />
             )}
             {step === 2 && (
-              <ConcessionStep catalog={catalog} qty={qty} onChange={changeQty} loading={catalogLoading} />
+              <ConcessionStep catalog={catalog} qty={qty} onChange={changeQty} loading={catalogLoading} error={catalogError} onRetry={loadCatalog} />
             )}
             {step === 3 && (
               <PaymentStep method={paymentMethod} onChange={setPaymentMethod} />
