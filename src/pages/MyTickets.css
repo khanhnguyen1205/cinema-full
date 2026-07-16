@@ -177,13 +177,186 @@
 }
 
 .qr-box {
-  background: rgba(255,255,255,0.05);
+  background: #fff;
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 8px;
+  padding: 6px;
+  line-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.ticket-fnb {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  border-top: 1px dashed var(--border);
+  padding-top: 8px;
+}
+
+/* TICKET MODAL */
+.tk-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: tkFade 0.2s ease both;
+}
+
+@keyframes tkFade { from { opacity: 0; } to { opacity: 1; } }
+
+.tk-modal {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #161616, #0f0f0f);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 18px;
+  padding: 28px;
+  text-align: center;
+  animation: tkPop 0.24s cubic-bezier(0.2,0.8,0.3,1) both;
+}
+
+@keyframes tkPop { from { transform: translateY(14px) scale(0.97); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.tk-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.tk-modal-close:hover { background: var(--red); border-color: var(--red); color: #fff; }
+
+.tk-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.tk-modal-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.tk-modal-code {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--red);
+}
+
+.tk-modal-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 1px;
+  line-height: 1.05;
+}
+
+.tk-modal-cinema {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.tk-modal-qr {
+  display: inline-flex;
+  background: #fff;
+  padding: 14px;
+  border-radius: 14px;
+  margin: 22px auto 10px;
+  line-height: 0;
+}
+
+.tk-modal-scan {
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 22px;
+}
+
+.tk-modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 18px;
+  text-align: left;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 20px;
+}
+
+.tk-modal-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.tk-modal-value {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.tk-modal-seats { color: var(--red); }
+
+.tk-modal-fnb {
+  text-align: left;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.tk-modal-fnb-list {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tk-modal-fnb-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.tk-modal-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-weight: 700;
+}
+
+.tk-modal-total-amount {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  letter-spacing: 1px;
+  color: var(--red);
 }
 
 /* NO TICKETS */

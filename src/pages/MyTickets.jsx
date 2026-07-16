@@ -1,38 +1,22 @@
 import { useEffect, useState } from "react";
+import { QRCodeSVG } from "qrcode.react";
 import { getBookings, getMovie, getShowtime, getCinema, getRoom } from "services/api";
 import { useAuth } from "context/AuthContext";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import "./MyTickets.css";
 
-function QRCode() {
-  return (
-    <div className="qr-box">
-      <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-        <rect x="2" y="2" width="22" height="22" rx="2" fill="none" stroke="white" strokeWidth="2" />
-        <rect x="8" y="8" width="10" height="10" fill="white" />
-        <rect x="32" y="2" width="22" height="22" rx="2" fill="none" stroke="white" strokeWidth="2" />
-        <rect x="38" y="8" width="10" height="10" fill="white" />
-        <rect x="2" y="32" width="22" height="22" rx="2" fill="none" stroke="white" strokeWidth="2" />
-        <rect x="8" y="38" width="10" height="10" fill="white" />
-        <rect x="32" y="32" width="4" height="4" fill="white" />
-        <rect x="40" y="32" width="4" height="4" fill="white" />
-        <rect x="48" y="32" width="6" height="4" fill="white" />
-        <rect x="32" y="40" width="4" height="4" fill="white" />
-        <rect x="40" y="40" width="4" height="4" fill="white" />
-        <rect x="48" y="44" width="6" height="10" fill="white" />
-        <rect x="32" y="48" width="4" height="6" fill="white" />
-        <rect x="40" y="48" width="4" height="6" fill="white" />
-      </svg>
-    </div>
-  );
-}
+const METHOD_LABEL = { momo: "Ví Momo", card: "Thẻ ATM / Visa", counter: "Tại quầy" };
+const fmt = (n) => (n || 0).toLocaleString("vi-VN") + "₫";
+const ticketCode = (b) => `TK-${String(b.id).padStart(5, "0")}`;
+const qrValue = (b) => `${ticketCode(b)}|${b.showtimeId}|${(b.seats || []).join(",")}`;
+const formatDate = (iso) =>
+  new Date(iso).toLocaleDateString("vi-VN", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase();
+const formatTime = (iso) =>
+  new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
 
-function TicketCard({ booking, movie, showtime, cinema, room }) {
-  const formatDate = (iso) =>
-    new Date(iso).toLocaleDateString("vi-VN", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase();
-  const formatTime = (iso) =>
-    new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+function TicketCard({ booking, movie, showtime, cinema, room, onView }) {
+  const fnb = booking.concessions || [];
 
   return (
     <div className="ticket-card">
@@ -45,7 +29,7 @@ function TicketCard({ booking, movie, showtime, cinema, room }) {
         <div className="ticket-header">
           <div>
             <div className="ticket-cinema">THE CINEMATIC EDITORIAL</div>
-            <div className="ticket-id">#{`TK-${String(booking.id).padStart(5, "0")}`}</div>
+            <div className="ticket-id">#{ticketCode(booking)}</div>
           </div>
         </div>
 
@@ -68,7 +52,7 @@ function TicketCard({ booking, movie, showtime, cinema, room }) {
         <div className="ticket-info-row">
           <div className="ticket-info-cell">
             <span className="ticket-info-label">PHÒNG</span>
-            <span className="ticket-info-value">{showtime?.room || "—"}</span>
+            <span className="ticket-info-value">{room?.name || "—"}</span>
           </div>
           <div className="ticket-info-cell">
             <span className="ticket-info-label">GHẾ</span>
@@ -78,12 +62,70 @@ function TicketCard({ booking, movie, showtime, cinema, room }) {
           </div>
         </div>
 
+        {fnb.length > 0 && (
+          <div className="ticket-fnb">🍿 {fnb.map((c) => `${c.name} ×${c.qty}`).join(", ")}</div>
+        )}
+
         <div className="ticket-actions">
-          <QRCode />
-          <button className="btn-primary" style={{ fontSize: 11, padding: "10px 16px", letterSpacing: 1.5 }}>
+          <div className="qr-box">
+            <QRCodeSVG value={qrValue(booking)} size={56} level="M" />
+          </div>
+          <button
+            className="btn-primary"
+            style={{ fontSize: 11, padding: "10px 16px", letterSpacing: 1.5 }}
+            onClick={onView}
+          >
             XEM VÉ
           </button>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function TicketModal({ entry, onClose }) {
+  const { movie, showtime, cinema, room } = entry;
+  const fnb = entry.concessions || [];
+
+  return (
+    <div className="tk-modal-overlay" onClick={onClose}>
+      <div className="tk-modal" onClick={(e) => e.stopPropagation()}>
+        <button className="tk-modal-close" onClick={onClose} aria-label="Đóng">✕</button>
+
+        <div className="tk-modal-head">
+          <span className="tk-modal-brand">THE CINEMATIC EDITORIAL</span>
+          <span className="tk-modal-code">#{ticketCode(entry)}</span>
+        </div>
+
+        <h2 className="tk-modal-title">{movie?.title || `Phim #${entry.movieId}`}</h2>
+        <p className="tk-modal-cinema">{cinema?.name}{room ? ` · ${room.name} · ${room.type}` : ""}</p>
+
+        <div className="tk-modal-qr">
+          <QRCodeSVG value={qrValue(entry)} size={188} level="M" />
+        </div>
+        <p className="tk-modal-scan">Xuất trình mã QR này tại quầy soát vé</p>
+
+        <div className="tk-modal-grid">
+          <div><span className="tk-modal-label">Ngày</span><span className="tk-modal-value">{showtime ? formatDate(showtime.time) : "—"}</span></div>
+          <div><span className="tk-modal-label">Giờ</span><span className="tk-modal-value">{showtime ? formatTime(showtime.time) : "—"}</span></div>
+          <div><span className="tk-modal-label">Ghế</span><span className="tk-modal-value tk-modal-seats">{entry.seats?.join(", ") || "—"}</span></div>
+          <div><span className="tk-modal-label">Thanh toán</span><span className="tk-modal-value">{METHOD_LABEL[entry.paymentMethod] || "—"}</span></div>
+        </div>
+
+        {fnb.length > 0 && (
+          <div className="tk-modal-fnb">
+            <span className="tk-modal-label">Bắp nước</span>
+            <div className="tk-modal-fnb-list">
+              {fnb.map((c) => (
+                <div className="tk-modal-fnb-row" key={c.id}><span>{c.name} ×{c.qty}</span><span>{fmt(c.price * c.qty)}</span></div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {entry.totalPrice != null && (
+          <div className="tk-modal-total"><span>Tổng cộng</span><span className="tk-modal-total-amount">{fmt(entry.totalPrice)}</span></div>
+        )}
       </div>
     </div>
   );
@@ -93,6 +135,7 @@ export default function MyTickets() {
   const [enriched, setEnriched] = useState([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState("upcoming");
+  const [viewing, setViewing] = useState(null);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -114,6 +157,13 @@ export default function MyTickets() {
       setLoading(false);
     });
   }, [user]);
+
+  useEffect(() => {
+    if (!viewing) return;
+    const onKey = (e) => { if (e.key === "Escape") setViewing(null); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [viewing]);
 
   // Tab filter by showtime date
   const now = new Date();
@@ -161,7 +211,7 @@ export default function MyTickets() {
         ) : (
           <div className="tickets-grid">
             {filtered.map(b => (
-              <TicketCard key={b.id} booking={b} movie={b.movie} showtime={b.showtime} cinema={b.cinema} room={b.room} />
+              <TicketCard key={b.id} booking={b} movie={b.movie} showtime={b.showtime} cinema={b.cinema} room={b.room} onView={() => setViewing(b)} />
             ))}
           </div>
         )}
@@ -186,6 +236,8 @@ export default function MyTickets() {
       </div>
 
       <Footer />
+
+      {viewing && <TicketModal entry={viewing} onClose={() => setViewing(null)} />}
     </div>
   );
 }

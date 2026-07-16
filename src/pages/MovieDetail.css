@@ -303,3 +303,60 @@
   color: var(--text-dim);
   text-transform: none;
 }
+
+/* ===== Đợt 4 — polish panel đặt vé (chỉ thị giác, giữ nguyên logic) ===== */
+.showtimes-panel {
+  background: linear-gradient(180deg, rgba(28,28,30,0.96), rgba(14,14,16,0.96));
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px -24px rgba(0,0,0,0.8), 0 0 0 1px rgba(230,48,48,0.04);
+}
+
+.showtimes-panel-header {
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.detail-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: rgba(255,255,255,0.04);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding: 11px 34px 11px 13px;
+  border-radius: 10px;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.detail-select:hover { background-color: rgba(255,255,255,0.07); border-color: rgba(230,48,48,0.35); }
+.detail-select:focus { border-color: var(--red); box-shadow: 0 0 0 3px var(--red-glow); }
+
+.date-btn {
+  border-radius: 10px;
+  transition: transform 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.date-btn:hover { transform: translateY(-2px); border-color: rgba(230,48,48,0.4); }
+
+.date-btn.active {
+  background: rgba(230,48,48,0.16);
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px var(--red-glow);
+}
+
+.time-btn {
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  transition: transform 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.time-btn:hover { transform: translateY(-2px); }
+
+.time-btn.active {
+  background: linear-gradient(180deg, rgba(230,48,48,0.28), rgba(230,48,48,0.14));
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px var(--red-glow);
+}
+
+.book-btn { border-radius: 10px; letter-spacing: 1.5px; }
