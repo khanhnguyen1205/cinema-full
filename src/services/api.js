@@ -1,6 +1,6 @@
 // Data qua cong co phan quyen o auth server (:4000/api), khong goi json-server (:9999) truc tiep.
 // credentials:"include" de gui cookie phien -> gateway biet user/role.
-const BASE_URL = "http://localhost:4000/api";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 
 const req = (path, opts = {}) =>
   fetch(`${BASE_URL}${path}`, { credentials: "include", ...opts });

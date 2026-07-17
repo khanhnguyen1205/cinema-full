@@ -1,6 +1,6 @@
 // Auth qua backend that (server/auth-server.js): cookie httpOnly, JS khong cham token.
 // Moi request kem credentials:"include" de trinh duyet gui cookie phien.
-const AUTH_URL = "http://localhost:4000";
+const AUTH_URL = import.meta.env.VITE_AUTH_URL || "http://localhost:4000";
 
 const post = async (path, body) => {
   const res = await fetch(`${AUTH_URL}${path}`, {

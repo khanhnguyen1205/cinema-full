@@ -13,16 +13,16 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.0",
-    "react-scripts": "5.0.1",
     "recharts": "^3.9.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "vite",
+    "dev": "concurrently -n api,auth,web -c green,magenta,cyan \"npm:api\" \"npm:auth\" \"npm:start\"",
+    "build": "vite build",
+    "preview": "vite preview --port 3000",
     "api": "json-server --watch db.json --port 9999",
     "auth": "node server/auth-server.js",
-    "hash-passwords": "node server/hash-passwords.js",
-    "dev": "concurrently -n api,auth,web -c green,magenta,cyan \"npm:api\" \"npm:auth\" \"npm:start\""
+    "hash-passwords": "node server/hash-passwords.js"
   },
   "browserslist": {
     "production": [
@@ -37,6 +37,8 @@
     ]
   },
   "devDependencies": {
-    "concurrently": "^10.0.3"
+    "@vitejs/plugin-react": "^4.7.0",
+    "concurrently": "^10.0.3",
+    "vite": "^6.4.3"
   }
 }
