@@ -130,6 +130,18 @@
   border-color: rgba(230, 48, 48, 0.3);
 }
 
+/* Nhóm lọc bên phải: thành phố · ngày · sắp xếp */
+.movies-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+.movies-filters .movies-sort {
+  margin-left: 0;
+}
+
 /* RESULTS */
 .movies-count {
   font-size: 13px;
