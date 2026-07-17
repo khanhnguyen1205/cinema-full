@@ -185,9 +185,52 @@ async function forward(req, res, rest, extraQuery) {
   return res.send(body);
 }
 
-// Ghe da dat cua 1 suat: chi tra so ghe, KHONG kem thong tin ca nhan cua don.
+// ============================================================================
+// GIỮ GHẾ (in-memory): hold sống trong RAM cổng :4000, tự hết hạn sau TTL.
+// Cấu trúc: Map<showtimeId(string), Map<seatNumber, { userId, expiresAt }>>.
+// Mất khi restart server — chấp nhận được cho đồ án, không đụng db.json.
+// ============================================================================
+const HOLD_TTL_MS = 8 * 60 * 1000; // 8 phút — khớp đồng hồ giữ ghế phía client
+
+const holds = new Map();
+
+// Lấy map ghế của 1 suat sau khi don sach cac hold het han (tao neu chua co).
+function seatHolds(showtimeId) {
+  const key = String(showtimeId);
+  let m = holds.get(key);
+  if (!m) { m = new Map(); holds.set(key, m); }
+  const now = Date.now();
+  for (const [seat, h] of m) if (h.expiresAt <= now) m.delete(seat);
+  return m;
+}
+
+// Ghe dang bi NGUOI KHAC (khac userId) giu o 1 suat.
+function heldByOthers(showtimeId, userId) {
+  const out = [];
+  for (const [seat, h] of seatHolds(showtimeId)) if (h.userId !== userId) out.push(seat);
+  return out;
+}
+
+// Dat lai toan bo ghe user giu o suat = danh sach seats, gia han TTL (kiem heartbeat).
+function setHolds(showtimeId, userId, seats) {
+  const m = seatHolds(showtimeId);
+  for (const [seat, h] of m) if (h.userId === userId) m.delete(seat);
+  const expiresAt = Date.now() + HOLD_TTL_MS;
+  seats.forEach((s) => m.set(s, { userId, expiresAt }));
+  return expiresAt;
+}
+
+// Nha toan bo hold cua user o 1 suat.
+function releaseHolds(showtimeId, userId) {
+  const m = seatHolds(showtimeId);
+  for (const [seat, h] of m) if (h.userId === userId) m.delete(seat);
+}
+
+// Ghe da dat cua 1 suat: ghe da ban (booking + showtime.bookedSeats) + ghe NGUOI KHAC dang giu.
+// Chi tra so ghe, KHONG kem thong tin ca nhan cua don.
 app.get("/api/occupied-seats", async (req, res) => {
-  if (!getUserFromReq(req)) return res.status(401).json({ error: "Vui lòng đăng nhập." });
+  const user = getUserFromReq(req);
+  if (!user) return res.status(401).json({ error: "Vui lòng đăng nhập." });
   const showtimeId = req.query.showtimeId;
   if (!showtimeId) return res.status(400).json({ error: "Thiếu showtimeId." });
   try {
@@ -200,10 +243,35 @@ app.get("/api/occupied-seats", async (req, res) => {
     bookings
       .filter((b) => String(b.showtimeId) === String(showtimeId))
       .forEach((b) => (b.seats || []).forEach((s) => set.add(s)));
+    heldByOthers(showtimeId, user.id).forEach((s) => set.add(s)); // ghe nguoi khac dang giu
     res.json({ showtimeId: Number(showtimeId), seats: [...set] });
   } catch (e) {
     res.status(502).json({ error: "Lỗi cổng dữ liệu." });
   }
+});
+
+// Giu ghe: dat/gia han danh sach ghe user dang chon cho 1 suat (kiem heartbeat).
+app.post("/api/holds", (req, res) => {
+  const user = getUserFromReq(req);
+  if (!user) return res.status(401).json({ error: "Vui lòng đăng nhập." });
+  const showtimeId = req.body.showtimeId;
+  const seats = Array.isArray(req.body.seats) ? req.body.seats : [];
+  if (!showtimeId) return res.status(400).json({ error: "Thiếu showtimeId." });
+  const others = new Set(heldByOthers(showtimeId, user.id));
+  const conflicts = seats.filter((s) => others.has(s));
+  if (conflicts.length) return res.status(409).json({ error: "Ghế vừa bị người khác giữ.", conflicts });
+  const expiresAt = setHolds(showtimeId, user.id, seats);
+  res.json({ ok: true, expiresAt });
+});
+
+// Nha ghe dang giu cua user cho 1 suat.
+app.delete("/api/holds", (req, res) => {
+  const user = getUserFromReq(req);
+  if (!user) return res.status(401).json({ error: "Vui lòng đăng nhập." });
+  const showtimeId = req.query.showtimeId;
+  if (!showtimeId) return res.status(400).json({ error: "Thiếu showtimeId." });
+  releaseHolds(showtimeId, user.id);
+  res.status(204).end();
 });
 
 // Catalog: doc cong khai, ghi can admin.
@@ -235,7 +303,10 @@ app.use("/api", async (req, res) => {
       if (req.method === "POST") {
         if (!user) return deny(401, "Vui lòng đăng nhập.");
         req.body = { ...req.body, userId: user.id }; // ep userId = chinh minh
-        return forward(req, res, rest);
+        const stId = req.body.showtimeId;
+        const out = await forward(req, res, rest);
+        if (stId != null) releaseHolds(stId, user.id); // dat xong -> nha hold cua minh
+        return out;
       }
       if (!isAdmin) return deny(403, "Không có quyền."); // PATCH/DELETE
       return forward(req, res, rest);

@@ -1,6 +1,6 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { getShowtime, getMovie, getRoom, getCinema, getOccupiedSeats, createBooking, getConcessions } from "services/api";
+import { getShowtime, getMovie, getRoom, getCinema, getOccupiedSeats, createBooking, getConcessions, holdSeats, releaseSeats } from "services/api";
 import { buildSeatLayout, priceOf, fnbLines, fnbTotal, SERVICE_FEE, MAX_SEATS, MAX_ITEM_QTY } from "lib/pricing";
 import { useAuth } from "context/AuthContext";
 import Navbar from "components/Navbar";
@@ -56,6 +56,50 @@ export default function BookingWizard() {
   }, []);
 
   useEffect(() => { loadCatalog(); }, [loadCatalog]);
+
+  // Ref theo dõi ghế đang chọn để interval poll không bị đóng biến cũ (stale closure)
+  const selectedRef = useRef(selected);
+  useEffect(() => { selectedRef.current = selected; }, [selected]);
+
+  // Giữ ghế phía server mỗi khi danh sách ghế đổi (cũng gia hạn TTL khi sang bước 2/3).
+  const seatKey = selected.map((s) => s.seatNumber).join(",");
+  useEffect(() => {
+    if (!showtimeId || step >= 4) return;
+    let cancelled = false;
+    holdSeats(showtimeId, selected.map((s) => s.seatNumber))
+      .then(async (r) => {
+        if (r.ok || cancelled) return;
+        if (r.status === 409) {
+          const data = await r.json().catch(() => ({}));
+          const conflicts = new Set(data.conflicts || []);
+          if (!conflicts.size) return;
+          setBooked((prev) => new Set([...prev, ...conflicts]));
+          setSelected((prev) => prev.filter((s) => !conflicts.has(s.seatNumber)));
+          setStep(1);
+          setError(`Ghế ${[...conflicts].join(", ")} vừa được người khác giữ. Vui lòng chọn lại.`);
+        }
+      })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, [seatKey, showtimeId, step]);
+
+  // Poll ghế trống ở bước chọn ghế: thấy ghế người khác vừa giữ / vừa nhả.
+  useEffect(() => {
+    if (step !== 1 || !showtimeId) return;
+    const id = setInterval(async () => {
+      try {
+        const occ = await getOccupiedSeats(showtimeId);
+        const sel = new Set(selectedRef.current.map((s) => s.seatNumber));
+        setBooked(new Set(occ.filter((s) => !sel.has(s)))); // giữ lại ghế mình đang chọn
+      } catch { /* bỏ qua lỗi mạng tạm thời */ }
+    }, 10000);
+    return () => clearInterval(id);
+  }, [step, showtimeId]);
+
+  // Rời trang -> nhả toàn bộ ghế đang giữ của mình.
+  useEffect(() => {
+    return () => { if (showtimeId) releaseSeats(showtimeId); };
+  }, [showtimeId]);
 
   const layout = buildSeatLayout(room);
   const base = showtime?.price || 0;

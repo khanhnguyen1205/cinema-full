@@ -31,6 +31,19 @@ export const getShowtimesByCinema = async (cinemaId) => {
 export const getOccupiedSeats = (showtimeId) =>
   get(`/occupied-seats?showtimeId=${showtimeId}`).then((d) => d.seats || []);
 
+// Giữ ghế phía server: gửi toàn bộ ghế đang chọn (đặt lại + gia hạn TTL, kiêm heartbeat).
+// Trả nguyên Response để nơi gọi đọc status (409 = ghế vừa bị người khác giữ).
+export const holdSeats = (showtimeId, seats) =>
+  req(`/holds`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ showtimeId, seats }),
+  });
+
+// Nhả toàn bộ ghế đang giữ của mình ở 1 suất.
+export const releaseSeats = (showtimeId) =>
+  req(`/holds?showtimeId=${showtimeId}`, { method: "DELETE" });
+
 export const createBooking = (booking) =>
   req(`/bookings`, {
     method: "POST",
