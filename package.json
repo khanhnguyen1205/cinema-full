@@ -20,6 +20,7 @@
     "dev": "concurrently -n api,auth,web -c green,magenta,cyan \"npm:api\" \"npm:auth\" \"npm:start\"",
     "build": "vite build",
     "preview": "vite preview --port 3000",
+    "typecheck": "tsc --noEmit",
     "api": "json-server --watch db.json --port 9999",
     "auth": "node server/auth-server.js",
     "hash-passwords": "node server/hash-passwords.js"
@@ -37,8 +38,12 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^22.20.1",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
     "@vitejs/plugin-react": "^4.7.0",
     "concurrently": "^10.0.3",
+    "typescript": "~5.7",
     "vite": "^6.4.3"
   }
 }

@@ -18,6 +18,7 @@ export default defineConfig({
       routes: srcDir("routes"),
       services: srcDir("services"),
       styles: srcDir("styles"),
+      types: srcDir("types"),
     },
   },
   server: {
