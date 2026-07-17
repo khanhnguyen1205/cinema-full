@@ -104,7 +104,9 @@ export default function Home() {
         <div className="hero-content" key={active.id}>
           <div className="hero-meta">
             <span className="tag">Phim nổi bật</span>
-            <span className="hero-rating"><StarIcon /> 8.9 Điểm</span>
+            {active.rating != null && (
+              <span className="hero-rating"><StarIcon /> {active.rating.toFixed(1)} Điểm</span>
+            )}
             <span className="hero-genre">{active.genre} · {active.duration} PHÚT</span>
           </div>
 
@@ -177,6 +179,9 @@ export default function Home() {
                     background: GENRE_COLORS[movie.genre] || GENRE_COLORS.Default
                   }}>{movie.genre}</span>
                 </div>
+                {movie.rating != null && (
+                  <span className="movie-card-rating"><StarIcon /> {movie.rating.toFixed(1)}</span>
+                )}
               </div>
               <div className="movie-card-info">
                 <h3 className="movie-card-title">{movie.title}</h3>

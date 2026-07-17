@@ -19,6 +19,13 @@
       "email": "minh@gmail.com",
       "password": "$2b$10$fbafgbUVqQxVbkFdWMjNzudcFCi9xZxp36dTNq.Y5Xpjl4BW.HXxK",
       "id": 3
+    },
+    {
+      "fullName": "Nguyễn Phong Kiên",
+      "email": "phongkien@gmail.com",
+      "password": "$2b$10$jKeoGPDJ18B5lPQDwnKTYuqcYXObr55zedZCZ5XfWd/j4k9sZXlPq",
+      "role": "user",
+      "id": 4
     }
   ],
   "movies": [
@@ -28,7 +35,8 @@
       "poster": "https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
       "description": "Marvel superheroes unite to defeat Thanos.",
       "duration": 180,
-      "genre": "Action"
+      "genre": "Action",
+      "rating": 8.4
     },
     {
       "id": 2,
@@ -36,7 +44,8 @@
       "poster": "https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
       "description": "Spider-Man faces multiverse villains.",
       "duration": 150,
-      "genre": "Action"
+      "genre": "Action",
+      "rating": 8.2
     },
     {
       "id": 3,
@@ -44,7 +53,8 @@
       "poster": "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
       "description": "A journey through space and time.",
       "duration": 170,
-      "genre": "Sci-Fi"
+      "genre": "Sci-Fi",
+      "rating": 8.7
     },
     {
       "id": 4,
@@ -52,7 +62,8 @@
       "poster": "https://image.tmdb.org/t/p/w500/wVYREutTvI2tmxr6ujrHT704wGF.jpg",
       "description": "A horror story based on real events.",
       "duration": 120,
-      "genre": "Horror"
+      "genre": "Horror",
+      "rating": 7.5
     },
     {
       "id": 5,
@@ -60,7 +71,8 @@
       "poster": "https://image.tmdb.org/t/p/w500/8b8R8l88Qje9dn9OE8PY05Nxl1X.jpg",
       "description": "Paul Atreides unites with the Fremen to seek revenge.",
       "duration": 166,
-      "genre": "Sci-Fi"
+      "genre": "Sci-Fi",
+      "rating": 8.5
     },
     {
       "id": 6,
@@ -68,7 +80,8 @@
       "poster": "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
       "description": "The story of the man behind the atomic bomb.",
       "duration": 180,
-      "genre": "Drama"
+      "genre": "Drama",
+      "rating": 8.3
     },
     {
       "id": 7,
@@ -76,7 +89,8 @@
       "poster": "https://image.tmdb.org/t/p/w500/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
       "description": "Barbie leaves the perfect world of Barbie Land.",
       "duration": 114,
-      "genre": "Comedy"
+      "genre": "Comedy",
+      "rating": 6.8
     },
     {
       "id": 8,
@@ -84,7 +98,8 @@
       "poster": "https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg",
       "description": "Batman hunts a serial killer terrorizing Gotham.",
       "duration": 176,
-      "genre": "Action"
+      "genre": "Action",
+      "rating": 7.8
     },
     {
       "id": 9,
@@ -92,7 +107,8 @@
       "poster": "https://image.tmdb.org/t/p/w500/62HCnUTziyWcpDaBO2i1DX17ljH.jpg",
       "description": "Maverick trains a new squad for a deadly mission.",
       "duration": 131,
-      "genre": "Action"
+      "genre": "Action",
+      "rating": 8.3
     },
     {
       "id": 10,
@@ -100,7 +116,8 @@
       "poster": "https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
       "description": "A failed comedian descends into madness in Gotham.",
       "duration": 122,
-      "genre": "Crime"
+      "genre": "Crime",
+      "rating": 8.4
     },
     {
       "id": 11,
@@ -108,7 +125,8 @@
       "poster": "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
       "description": "A poor family schemes to infiltrate a wealthy household.",
       "duration": 132,
-      "genre": "Drama"
+      "genre": "Drama",
+      "rating": 8.5
     },
     {
       "id": 12,
@@ -116,7 +134,8 @@
       "poster": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
       "description": "Batman faces the chaos unleashed by the Joker.",
       "duration": 152,
-      "genre": "Action"
+      "genre": "Action",
+      "rating": 9
     },
     {
       "id": 13,
@@ -124,7 +143,8 @@
       "poster": "https://image.tmdb.org/t/p/w500/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg",
       "description": "A thief steals secrets through dream infiltration.",
       "duration": 148,
-      "genre": "Sci-Fi"
+      "genre": "Sci-Fi",
+      "rating": 8.8
     },
     {
       "id": 14,
@@ -132,7 +152,8 @@
       "poster": "https://image.tmdb.org/t/p/w500/qdfARIhgpgZOBh3vfNhWS4hmSo3.jpg",
       "description": "Elsa journeys north to discover the origin of her powers.",
       "duration": 103,
-      "genre": "Animation"
+      "genre": "Animation",
+      "rating": 6.8
     },
     {
       "id": 15,
@@ -140,7 +161,8 @@
       "poster": "https://image.tmdb.org/t/p/w500/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
       "description": "A musician and an actress fall in love in Los Angeles.",
       "duration": 128,
-      "genre": "Romance"
+      "genre": "Romance",
+      "rating": 8
     },
     {
       "id": 16,
@@ -148,7 +170,8 @@
       "poster": "https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg",
       "description": "John Wick takes on the High Table to win his freedom.",
       "duration": 169,
-      "genre": "Action"
+      "genre": "Action",
+      "rating": 7.7
     }
   ],
   "cities": [
