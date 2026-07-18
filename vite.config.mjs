@@ -1,4 +1,5 @@
-import { defineConfig } from "vite";
+/// <reference types="vitest/config" />
+import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import { fileURLToPath, URL } from "node:url";
 
@@ -27,5 +28,9 @@ export default defineConfig({
   },
   build: {
     outDir: "build", // giữ thư mục output như CRA (đã có trong .gitignore)
+  },
+  test: {
+    environment: "node", // pricing là logic thuần, không cần DOM
+    include: ["src/**/*.{test,spec}.{ts,tsx}"],
   },
 });
