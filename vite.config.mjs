@@ -30,7 +30,8 @@ export default defineConfig({
     outDir: "build", // giữ thư mục output như CRA (đã có trong .gitignore)
   },
   test: {
-    environment: "node", // pricing là logic thuần, không cần DOM
+    environment: "happy-dom", // cần DOM cho test component (Testing Library)
+    setupFiles: ["./src/test/setup.ts"],
     include: ["src/**/*.{test,spec}.{ts,tsx}"],
   },
 });
