@@ -3,3 +3,7 @@ export { default as Tag } from "./Tag";
 export { default as Badge } from "./Badge";
 export { default as Card } from "./Card";
 export { default as Rule } from "./Rule";
+export { default as Field } from "./Field";
+export { default as Skeleton } from "./Skeleton";
+export { default as Spinner } from "./Spinner";
+export { default as IconButton } from "./IconButton";
