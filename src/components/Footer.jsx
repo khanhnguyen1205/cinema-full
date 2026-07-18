@@ -7,7 +7,9 @@ export default function Footer() {
         <a href="#">Điều khoản dịch vụ</a>
         <a href="#">Trung tâm trợ giúp</a>
       </div>
-      <div className="footer-copy">© 2024 The Cinematic Editorial. Bảo lưu mọi quyền.</div>
+      <div className="footer-copy">
+        © 2024 The Cinematic Editorial. Bảo lưu mọi quyền.
+      </div>
     </footer>
   );
 }

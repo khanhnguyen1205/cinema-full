@@ -10,7 +10,10 @@ export interface Pagination<T> {
   total: number;
 }
 
-export default function usePagination<T>(items: T[], pageSize = 10): Pagination<T> {
+export default function usePagination<T>(
+  items: T[],
+  pageSize = 10,
+): Pagination<T> {
   const [page, setPage] = useState(1);
   const total = items.length;
   const totalPages = Math.max(1, Math.ceil(total / pageSize));

@@ -12,11 +12,15 @@ const DATA_URL = process.env.DATA_URL || "http://localhost:9999";
     if (!u.password) continue;
     const hash = await bcrypt.hash(u.password, 10);
     await fetch(`${DATA_URL}/users/${u.id}`, {
-      method: "PATCH", headers: { "Content-Type": "application/json" },
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ password: hash }),
     });
     console.log(`hashed user #${u.id} ${u.email}`);
     changed++;
   }
   console.log(`Done. ${changed}/${users.length} user duoc bam.`);
-})().catch((e) => { console.error("Loi:", e.message); process.exit(1); });
+})().catch((e) => {
+  console.error("Loi:", e.message);
+  process.exit(1);
+});

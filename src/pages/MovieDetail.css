@@ -15,9 +15,18 @@
 .detail-hero-bg {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 30% 60%, rgba(230,48,48,0.07) 0%, transparent 60%),
-              radial-gradient(ellipse at 80% 30%, rgba(20,0,0,0.5) 0%, transparent 60%),
-              linear-gradient(135deg, #0f0505 0%, #0a0a0a 100%);
+  background:
+    radial-gradient(
+      ellipse at 30% 60%,
+      rgba(230, 48, 48, 0.07) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at 80% 30%,
+      rgba(20, 0, 0, 0.5) 0%,
+      transparent 60%
+    ),
+    linear-gradient(135deg, #0f0505 0%, #0a0a0a 100%);
 }
 
 /* Faded, blurred poster behind the hero text (content/panel sit at z-index 2). */
@@ -39,8 +48,8 @@
     0deg,
     transparent,
     transparent 2px,
-    rgba(0,0,0,0.03) 2px,
-    rgba(0,0,0,0.03) 4px
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
   );
   pointer-events: none;
 }
@@ -78,7 +87,7 @@
 }
 
 .detail-title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-size: clamp(56px, 7vw, 100px);
   line-height: 1;
   letter-spacing: 3px;
@@ -116,7 +125,7 @@
 }
 
 .credit-value {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -141,7 +150,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -165,11 +174,11 @@
   flex-direction: column;
   align-items: center;
   padding: 10px 6px;
-  background: rgba(255,255,255,0.04);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border);
   border-radius: 8px;
   color: var(--text-muted);
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 10px;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -185,7 +194,7 @@
 }
 
 .date-btn.active {
-  background: rgba(230,48,48,0.15);
+  background: rgba(230, 48, 48, 0.15);
   border-color: var(--red);
   color: var(--red);
 }
@@ -207,11 +216,11 @@
 
 .time-btn {
   padding: 14px;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border);
   border-radius: 6px;
   color: var(--text);
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 1px;
@@ -220,12 +229,12 @@
 }
 
 .time-btn:hover {
-  border-color: rgba(230,48,48,0.4);
-  background: rgba(230,48,48,0.08);
+  border-color: rgba(230, 48, 48, 0.4);
+  background: rgba(230, 48, 48, 0.08);
 }
 
 .time-btn.active {
-  background: rgba(230,48,48,0.2);
+  background: rgba(230, 48, 48, 0.2);
   border-color: var(--red);
   color: var(--text);
 }
@@ -262,14 +271,14 @@
   color: var(--text);
   border-radius: 8px;
   padding: 10px 12px;
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow", sans-serif;
   font-size: 13px;
   outline: none;
   cursor: pointer;
 }
 
 .detail-select:hover {
-  border-color: rgba(230,48,48,0.3);
+  border-color: rgba(230, 48, 48, 0.3);
 }
 
 .date-selector {
@@ -306,57 +315,93 @@
 
 /* ===== Đợt 4 — polish panel đặt vé (chỉ thị giác, giữ nguyên logic) ===== */
 .showtimes-panel {
-  background: linear-gradient(180deg, rgba(28,28,30,0.96), rgba(14,14,16,0.96));
-  border: 1px solid rgba(255,255,255,0.1);
+  background: linear-gradient(
+    180deg,
+    rgba(28, 28, 30, 0.96),
+    rgba(14, 14, 16, 0.96)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  box-shadow: 0 24px 60px -24px rgba(0,0,0,0.8), 0 0 0 1px rgba(230,48,48,0.04);
+  box-shadow:
+    0 24px 60px -24px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(230, 48, 48, 0.04);
 }
 
 .showtimes-panel-header {
   padding-bottom: 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .detail-select {
   appearance: none;
   -webkit-appearance: none;
-  background-color: rgba(255,255,255,0.04);
+  background-color: rgba(255, 255, 255, 0.04);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   padding: 11px 34px 11px 13px;
   border-radius: 10px;
-  transition: border-color 0.15s, background-color 0.15s;
+  transition:
+    border-color 0.15s,
+    background-color 0.15s;
 }
 
-.detail-select:hover { background-color: rgba(255,255,255,0.07); border-color: rgba(230,48,48,0.35); }
-.detail-select:focus { border-color: var(--red); box-shadow: 0 0 0 3px var(--red-glow); }
+.detail-select:hover {
+  background-color: rgba(255, 255, 255, 0.07);
+  border-color: rgba(230, 48, 48, 0.35);
+}
+.detail-select:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px var(--red-glow);
+}
 
 .date-btn {
   border-radius: 10px;
-  transition: transform 0.15s, border-color 0.15s, background 0.15s;
+  transition:
+    transform 0.15s,
+    border-color 0.15s,
+    background 0.15s;
 }
 
-.date-btn:hover { transform: translateY(-2px); border-color: rgba(230,48,48,0.4); }
+.date-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(230, 48, 48, 0.4);
+}
 
 .date-btn.active {
-  background: rgba(230,48,48,0.16);
+  background: rgba(230, 48, 48, 0.16);
   border-color: var(--red);
   box-shadow: 0 0 0 3px var(--red-glow);
 }
 
 .time-btn {
   border-radius: 10px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-  transition: transform 0.15s, border-color 0.15s, background 0.15s;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.02)
+  );
+  transition:
+    transform 0.15s,
+    border-color 0.15s,
+    background 0.15s;
 }
 
-.time-btn:hover { transform: translateY(-2px); }
+.time-btn:hover {
+  transform: translateY(-2px);
+}
 
 .time-btn.active {
-  background: linear-gradient(180deg, rgba(230,48,48,0.28), rgba(230,48,48,0.14));
+  background: linear-gradient(
+    180deg,
+    rgba(230, 48, 48, 0.28),
+    rgba(230, 48, 48, 0.14)
+  );
   border-color: var(--red);
   box-shadow: 0 0 0 3px var(--red-glow);
 }
 
-.book-btn { border-radius: 10px; letter-spacing: 1.5px; }
+.book-btn {
+  border-radius: 10px;
+  letter-spacing: 1.5px;
+}

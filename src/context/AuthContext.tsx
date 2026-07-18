@@ -101,7 +101,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }, IDLE_MS);
     };
     const events = ["mousemove", "keydown", "click", "scroll", "touchstart"];
-    events.forEach((ev) => window.addEventListener(ev, reset, { passive: true }));
+    events.forEach((ev) =>
+      window.addEventListener(ev, reset, { passive: true }),
+    );
     reset();
     return () => {
       clearTimeout(idleRef.current);
@@ -110,10 +112,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user, logout]);
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, loading, login, logout }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 
+// Fast Refresh cảnh báo vì file export cả hook lẫn provider — pattern context chuẩn, chấp nhận có chủ đích.
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = (): AuthContextValue => {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error("useAuth phải được dùng bên trong <AuthProvider>.");

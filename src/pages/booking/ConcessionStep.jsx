@@ -16,26 +16,44 @@ function categoriesOf(catalog) {
   const present = [...new Set(catalog.map((c) => c.category || "khac"))];
   const known = Object.keys(KNOWN_LABELS).filter((k) => present.includes(k));
   const extra = present.filter((k) => !(k in KNOWN_LABELS));
-  return [...known, ...extra].map((key) => ({ key, label: KNOWN_LABELS[key] || labelize(key) }));
+  return [...known, ...extra].map((key) => ({
+    key,
+    label: KNOWN_LABELS[key] || labelize(key),
+  }));
 }
 
 const fmt = (n) => n.toLocaleString("vi-VN") + "₫";
 
-export default function ConcessionStep({ catalog = [], qty = {}, onChange, loading, error, onRetry }) {
+export default function ConcessionStep({
+  catalog = [],
+  qty = {},
+  onChange,
+  loading,
+  error,
+  onRetry,
+}) {
   if (loading) return <div className="fnb-empty">Đang tải bắp nước...</div>;
-  if (error) return (
-    <div className="fnb-empty">
-      <p>Không tải được danh sách bắp nước.</p>
-      {onRetry && <button className="fnb-retry" onClick={onRetry}>Thử lại</button>}
-    </div>
-  );
-  if (!catalog.length) return <div className="fnb-empty">Hiện chưa có bắp nước để chọn.</div>;
+  if (error)
+    return (
+      <div className="fnb-empty">
+        <p>Không tải được danh sách bắp nước.</p>
+        {onRetry && (
+          <button className="fnb-retry" onClick={onRetry}>
+            Thử lại
+          </button>
+        )}
+      </div>
+    );
+  if (!catalog.length)
+    return <div className="fnb-empty">Hiện chưa có bắp nước để chọn.</div>;
 
   return (
     <div className="fnb-step">
       <div className="fnb-head">
         <h2 className="fnb-title">Thêm bắp nước</h2>
-        <p className="fnb-sub">Không bắt buộc — bạn có thể xác nhận đặt vé mà không chọn món nào.</p>
+        <p className="fnb-sub">
+          Không bắt buộc — bạn có thể xác nhận đặt vé mà không chọn món nào.
+        </p>
       </div>
 
       {categoriesOf(catalog).map(({ key, label }) => {
@@ -48,8 +66,13 @@ export default function ConcessionStep({ catalog = [], qty = {}, onChange, loadi
               {items.map((item) => {
                 const n = qty[item.id] || 0;
                 return (
-                  <article key={item.id} className={`fnb-card ${n > 0 ? "picked" : ""}`}>
-                    <div className="fnb-emoji" aria-hidden="true">{item.image}</div>
+                  <article
+                    key={item.id}
+                    className={`fnb-card ${n > 0 ? "picked" : ""}`}
+                  >
+                    <div className="fnb-emoji" aria-hidden="true">
+                      {item.image}
+                    </div>
                     <div className="fnb-info">
                       <h4 className="fnb-name">{item.name}</h4>
                       <p className="fnb-desc">{item.description}</p>

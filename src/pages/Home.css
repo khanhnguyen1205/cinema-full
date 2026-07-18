@@ -22,8 +22,9 @@
 .hero-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(230,48,48,0.08) 0%, transparent 50%),
-              linear-gradient(to right, rgba(0,0,0,0.8) 30%, transparent 80%);
+  background:
+    linear-gradient(135deg, rgba(230, 48, 48, 0.08) 0%, transparent 50%),
+    linear-gradient(to right, rgba(0, 0, 0, 0.8) 30%, transparent 80%);
 }
 
 .hero-noise {
@@ -67,7 +68,7 @@
 }
 
 .hero-title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-size: clamp(64px, 9vw, 120px);
   line-height: 0.95;
   letter-spacing: 2px;
@@ -104,8 +105,14 @@
   top: 0;
   bottom: 0;
   width: 55%;
-  background: linear-gradient(to left, rgba(0,0,0,0) 0%, rgba(10,10,10,0.6) 40%, rgba(10,10,10,1) 80%),
-              radial-gradient(ellipse at 60% 50%, #1a0808 0%, #0d0d0d 70%);
+  background:
+    linear-gradient(
+      to left,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(10, 10, 10, 0.6) 40%,
+      rgba(10, 10, 10, 1) 80%
+    ),
+    radial-gradient(ellipse at 60% 50%, #1a0808 0%, #0d0d0d 70%);
   pointer-events: none;
   animation: fadeIn 0.9s ease both;
 }
@@ -122,13 +129,17 @@
   height: 4px;
   border: none;
   border-radius: 2px;
-  background: rgba(255,255,255,0.18);
+  background: rgba(255, 255, 255, 0.18);
   cursor: pointer;
   padding: 0;
-  transition: background 0.25s, width 0.25s;
+  transition:
+    background 0.25s,
+    width 0.25s;
 }
 
-.hero-dot:hover { background: rgba(255,255,255,0.4); }
+.hero-dot:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
 
 .hero-dot.active {
   width: 44px;
@@ -144,22 +155,28 @@
   height: 48px;
   border-radius: 50%;
   border: 1px solid var(--border);
-  background: rgba(10,10,10,0.55);
+  background: rgba(10, 10, 10, 0.55);
   color: var(--text);
   font-size: 28px;
   line-height: 1;
   cursor: pointer;
   backdrop-filter: blur(4px);
-  transition: background 0.2s, border-color 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 }
 
 .hero-arrow:hover {
-  background: rgba(230,48,48,0.25);
+  background: rgba(230, 48, 48, 0.25);
   border-color: var(--red);
 }
 
-.hero-arrow-prev { left: 24px; }
-.hero-arrow-next { right: 24px; }
+.hero-arrow-prev {
+  left: 24px;
+}
+.hero-arrow-next {
+  right: 24px;
+}
 
 /* TRENDING */
 .trending-section {
@@ -174,7 +191,7 @@
 }
 
 .section-title {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 32px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -208,7 +225,9 @@
   overflow: hidden;
   background: var(--bg-card);
   border: 1px solid var(--border);
-  transition: transform 0.25s, border-color 0.25s;
+  transition:
+    transform 0.25s,
+    border-color 0.25s;
 }
 
 .movie-card:hover {
@@ -241,9 +260,9 @@
 }
 
 .movie-card-initial {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-size: 80px;
-  color: rgba(255,255,255,0.06);
+  color: rgba(255, 255, 255, 0.06);
   letter-spacing: 4px;
 }
 
@@ -253,7 +272,7 @@
   left: 0;
   right: 0;
   padding: 12px;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
   display: flex;
   align-items: flex-end;
 }
@@ -296,7 +315,7 @@
 }
 
 .movie-card-title {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -333,12 +352,14 @@
   border-radius: 8px;
   cursor: pointer;
   overflow: hidden;
-  transition: transform 0.2s, border-color 0.2s;
+  transition:
+    transform 0.2s,
+    border-color 0.2s;
 }
 
 .genre-tile:hover {
   transform: translateY(-4px);
-  border-color: rgba(255,255,255,0.18);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .genre-tile-bar {
@@ -350,7 +371,7 @@
 }
 
 .genre-tile-name {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 22px;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -387,7 +408,7 @@
 }
 
 .stat-num {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-size: 52px;
   line-height: 1;
   color: var(--red);
@@ -421,11 +442,13 @@
   border-radius: 8px;
   padding: 22px 24px;
   cursor: pointer;
-  transition: border-color 0.2s, transform 0.2s;
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
 }
 
 .cinema-card:hover {
-  border-color: rgba(230,48,48,0.3);
+  border-color: rgba(230, 48, 48, 0.3);
   transform: translateX(4px);
 }
 
@@ -445,7 +468,7 @@
 }
 
 .cinema-card-name {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 19px;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -461,7 +484,9 @@
 .cinema-card-arrow {
   color: var(--text-muted);
   font-size: 20px;
-  transition: color 0.2s, transform 0.2s;
+  transition:
+    color 0.2s,
+    transform 0.2s;
 }
 
 .cinema-card:hover .cinema-card-arrow {
@@ -480,18 +505,24 @@
   border-radius: 12px;
   border: 1px solid var(--border);
   background:
-    radial-gradient(ellipse at 90% 20%, rgba(230,48,48,0.14) 0%, transparent 55%),
+    radial-gradient(
+      ellipse at 90% 20%,
+      rgba(230, 48, 48, 0.14) 0%,
+      transparent 55%
+    ),
     linear-gradient(135deg, #170707 0%, #0d0d0d 100%);
 }
 
 .home-cta-title {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 34px;
   font-weight: 700;
   letter-spacing: 0.5px;
 }
 
-.home-cta-title .red { color: var(--red); }
+.home-cta-title .red {
+  color: var(--red);
+}
 
 .home-cta-sub {
   font-size: 14px;
@@ -507,13 +538,23 @@
 
 /* ANIMATIONS */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .loading-spinner {
@@ -526,5 +567,7 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }

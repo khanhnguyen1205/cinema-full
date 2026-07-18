@@ -19,15 +19,19 @@
 .auth-bg-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 40% 50%, rgba(230,48,48,0.1) 0%, transparent 65%);
+  background: radial-gradient(
+    ellipse at 40% 50%,
+    rgba(230, 48, 48, 0.1) 0%,
+    transparent 65%
+  );
 }
 
 .auth-bg-grid {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
 }
@@ -43,7 +47,9 @@
   border-radius: 16px;
   padding: 40px 36px;
   backdrop-filter: blur(20px);
-  box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
   animation: fadeUp 0.5s ease both;
 }
 
@@ -54,7 +60,7 @@
 /* LOGO */
 .auth-logo {
   display: block;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-size: 22px;
   letter-spacing: 4px;
   color: var(--red);
@@ -64,7 +70,9 @@
   transition: opacity 0.2s;
 }
 
-.auth-logo:hover { opacity: 0.8; }
+.auth-logo:hover {
+  opacity: 0.8;
+}
 
 /* HEADER */
 .auth-header {
@@ -73,7 +81,7 @@
 }
 
 .auth-title {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 28px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -149,15 +157,17 @@
 
 .field-input {
   width: 100%;
-  background: rgba(255,255,255,0.04);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px 16px 12px 42px;
   color: var(--text);
-  font-family: 'Barlow', sans-serif;
+  font-family: "Barlow", sans-serif;
   font-size: 14px;
   outline: none;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
 }
 
 .field-input:focus {
@@ -211,7 +221,9 @@
   accent-color: var(--red);
   cursor: pointer;
 }
-.auth-remember:hover { color: var(--text); }
+.auth-remember:hover {
+  color: var(--text);
+}
 
 /* SUBMIT BUTTON */
 .auth-submit {
@@ -221,13 +233,15 @@
   border: none;
   border-radius: 8px;
   padding: 14px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -248,7 +262,7 @@
 .auth-spinner {
   width: 18px;
   height: 18px;
-  border: 2px solid rgba(255,255,255,0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-top-color: white;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
@@ -267,7 +281,7 @@
 
 .auth-divider::before,
 .auth-divider::after {
-  content: '';
+  content: "";
   flex: 1;
   height: 1px;
   background: var(--border);

@@ -7,7 +7,7 @@ const LINKS = [
   { to: "/admin/movies", label: "Phim" },
   { to: "/admin/rooms", label: "Phòng" },
   { to: "/admin/showtimes", label: "Suất chiếu" },
-  { to: "/admin/bookings", label: "Đơn đặt vé" }
+  { to: "/admin/bookings", label: "Đơn đặt vé" },
 ];
 
 export default function AdminLayout() {
@@ -17,11 +17,22 @@ export default function AdminLayout() {
       <div className="admin-shell">
         <aside className="admin-sidebar">
           <div className="admin-sidebar-title">Quản trị</div>
-          {LINKS.map(l => (
-            <NavLink key={l.to} to={l.to} end={l.end} className={({ isActive }) => `admin-nav-link ${isActive ? "active" : ""}`}>{l.label}</NavLink>
+          {LINKS.map((l) => (
+            <NavLink
+              key={l.to}
+              to={l.to}
+              end={l.end}
+              className={({ isActive }) =>
+                `admin-nav-link ${isActive ? "active" : ""}`
+              }
+            >
+              {l.label}
+            </NavLink>
           ))}
         </aside>
-        <main className="admin-content"><Outlet /></main>
+        <main className="admin-content">
+          <Outlet />
+        </main>
       </div>
     </div>
   );

@@ -11,7 +11,9 @@ export default function Modal({ title, onClose, children }) {
       <div className="modal-card" onMouseDown={(e) => e.stopPropagation()}>
         <div className="modal-head">
           <span className="modal-title">{title}</span>
-          <button className="modal-close" onClick={onClose}>×</button>
+          <button className="modal-close" onClick={onClose}>
+            ×
+          </button>
         </div>
         <div className="modal-body">{children}</div>
       </div>

@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function SeatHoldTimer({ seconds = 480, active = true, resetKey = 0, onExpire }) {
+export default function SeatHoldTimer({
+  seconds = 480,
+  active = true,
+  resetKey = 0,
+  onExpire,
+}) {
   const [left, setLeft] = useState(seconds);
   const firedRef = useRef(false);
 
@@ -13,7 +18,10 @@ export default function SeatHoldTimer({ seconds = 480, active = true, resetKey =
   useEffect(() => {
     if (!active) return;
     if (left <= 0) {
-      if (!firedRef.current) { firedRef.current = true; onExpire?.(); }
+      if (!firedRef.current) {
+        firedRef.current = true;
+        onExpire?.();
+      }
       return;
     }
     const t = setTimeout(() => setLeft((s) => s - 1), 1000);
@@ -25,10 +33,22 @@ export default function SeatHoldTimer({ seconds = 480, active = true, resetKey =
 
   return (
     <div className={`hold-timer ${left <= 60 ? "warning" : ""}`}>
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="9" /><polyline points="12 7 12 12 15 14" />
+      <svg
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <circle cx="12" cy="12" r="9" />
+        <polyline points="12 7 12 12 15 14" />
       </svg>
-      <span>Giữ ghế {mm}:{ss}</span>
+      <span>
+        Giữ ghế {mm}:{ss}
+      </span>
     </div>
   );
 }

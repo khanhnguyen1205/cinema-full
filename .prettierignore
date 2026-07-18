@@ -1,0 +1,12 @@
+build
+dist
+coverage
+node_modules
+db.json
+package-lock.json
+*.min.js
+*.min.css
+
+# Docs là văn xuôi tiếng Việt, giữ định dạng tay (không để Prettier reflow)
+*.md
+docs

@@ -10,7 +10,7 @@
 }
 
 .tickets-title {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 48px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -20,7 +20,7 @@
 .tickets-tabs {
   display: flex;
   gap: 4px;
-  background: rgba(255,255,255,0.04);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 4px;
@@ -32,7 +32,7 @@
   padding: 10px 24px;
   border: none;
   border-radius: 6px;
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -62,11 +62,13 @@
   border: 1px solid var(--border);
   border-radius: 10px;
   overflow: hidden;
-  transition: border-color 0.2s, transform 0.2s;
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
 }
 
 .ticket-card:hover {
-  border-color: rgba(230,48,48,0.3);
+  border-color: rgba(230, 48, 48, 0.3);
   transform: translateY(-3px);
 }
 
@@ -81,9 +83,9 @@
 }
 
 .ticket-poster-initial {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-size: 48px;
-  color: rgba(255,255,255,0.08);
+  color: rgba(255, 255, 255, 0.08);
 }
 
 .ticket-badge {
@@ -124,12 +126,12 @@
 .ticket-id {
   font-size: 12px;
   color: var(--text-muted);
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   letter-spacing: 1px;
 }
 
 .ticket-title {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 22px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -162,7 +164,7 @@
 }
 
 .ticket-info-value {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -200,7 +202,7 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: rgba(0,0,0,0.72);
+  background: rgba(0, 0, 0, 0.72);
   backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
@@ -209,7 +211,14 @@
   animation: tkFade 0.2s ease both;
 }
 
-@keyframes tkFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes tkFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 .tk-modal {
   position: relative;
@@ -218,14 +227,23 @@
   max-height: 92vh;
   overflow-y: auto;
   background: linear-gradient(180deg, #161616, #0f0f0f);
-  border: 1px solid rgba(255,255,255,0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 18px;
   padding: 28px;
   text-align: center;
-  animation: tkPop 0.24s cubic-bezier(0.2,0.8,0.3,1) both;
+  animation: tkPop 0.24s cubic-bezier(0.2, 0.8, 0.3, 1) both;
 }
 
-@keyframes tkPop { from { transform: translateY(14px) scale(0.97); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes tkPop {
+  from {
+    transform: translateY(14px) scale(0.97);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
 
 .tk-modal-close {
   position: absolute;
@@ -234,15 +252,21 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.16);
-  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--text);
   font-size: 15px;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 }
 
-.tk-modal-close:hover { background: var(--red); border-color: var(--red); color: #fff; }
+.tk-modal-close:hover {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
 
 .tk-modal-head {
   display: flex;
@@ -252,7 +276,7 @@
 }
 
 .tk-modal-brand {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 10px;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -260,14 +284,14 @@
 }
 
 .tk-modal-code {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 13px;
   font-weight: 700;
   color: var(--red);
 }
 
 .tk-modal-title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-size: 28px;
   letter-spacing: 1px;
   line-height: 1.05;
@@ -301,7 +325,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 14px 18px;
   text-align: left;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 20px;
 }
 
@@ -314,18 +338,20 @@
 }
 
 .tk-modal-value {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 17px;
   font-weight: 600;
 }
 
-.tk-modal-seats { color: var(--red); }
+.tk-modal-seats {
+  color: var(--red);
+}
 
 .tk-modal-fnb {
   text-align: left;
   margin-top: 18px;
   padding-top: 16px;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .tk-modal-fnb-list {
@@ -348,12 +374,12 @@
   align-items: center;
   margin-top: 20px;
   padding-top: 16px;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   font-weight: 700;
 }
 
 .tk-modal-total-amount {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: "Bebas Neue", sans-serif;
   font-size: 26px;
   letter-spacing: 1px;
   color: var(--red);
@@ -373,7 +399,7 @@
 }
 
 .perks-title {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 28px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -395,7 +421,7 @@
 }
 
 .perk-card:hover {
-  border-color: rgba(230,48,48,0.2);
+  border-color: rgba(230, 48, 48, 0.2);
 }
 
 .perk-icon {
@@ -404,7 +430,7 @@
 }
 
 .perk-title {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -428,5 +454,5 @@
 .name-input[readonly] {
   opacity: 0.7;
   cursor: default;
-  border-color: rgba(255,255,255,0.05);
+  border-color: rgba(255, 255, 255, 0.05);
 }

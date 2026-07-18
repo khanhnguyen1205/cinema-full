@@ -24,7 +24,15 @@ function AppShell() {
   // Cho tới khi kiểm tra xong phiên (cookie httpOnly) mới render — tránh nháy trạng thái
   if (loading) {
     return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)" }}>
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "var(--bg)",
+        }}
+      >
         <div className="loading-spinner" />
       </div>
     );
@@ -32,25 +40,42 @@ function AppShell() {
   return (
     <BrowserRouter>
       <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/movies" element={<Movies />} />
-          <Route path="/cinemas" element={<Cinemas />} />
-          <Route path="/cinema/:id" element={<CinemaDetail />} />
-          <Route path="/movie/:id" element={<MovieDetail />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/seats/:showtimeId" element={
-            <PrivateRoute><BookingWizard /></PrivateRoute>
-          } />
-          <Route path="/tickets" element={
-            <PrivateRoute><MyTickets /></PrivateRoute>
-          } />
-          <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
-            <Route index element={<AdminOverview />} />
-            <Route path="movies" element={<AdminMovies />} />
-            <Route path="rooms" element={<AdminRooms />} />
-            <Route path="showtimes" element={<AdminShowtimes />} />
-            <Route path="bookings" element={<AdminBookings />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/movies" element={<Movies />} />
+        <Route path="/cinemas" element={<Cinemas />} />
+        <Route path="/cinema/:id" element={<CinemaDetail />} />
+        <Route path="/movie/:id" element={<MovieDetail />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route
+          path="/seats/:showtimeId"
+          element={
+            <PrivateRoute>
+              <BookingWizard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/tickets"
+          element={
+            <PrivateRoute>
+              <MyTickets />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminLayout />
+            </AdminRoute>
+          }
+        >
+          <Route index element={<AdminOverview />} />
+          <Route path="movies" element={<AdminMovies />} />
+          <Route path="rooms" element={<AdminRooms />} />
+          <Route path="showtimes" element={<AdminShowtimes />} />
+          <Route path="bookings" element={<AdminBookings />} />
         </Route>
       </Routes>
     </BrowserRouter>

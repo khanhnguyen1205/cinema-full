@@ -16,10 +16,11 @@ export default function Cinemas() {
     getCinemas().then(setCinemas);
   }, []);
 
-  const cityName = (id) => cities.find(c => c.id === id)?.name || "";
+  const cityName = (id) => cities.find((c) => c.id === id)?.name || "";
   const visible = useMemo(
-    () => cityId === "all" ? cinemas : cinemas.filter(c => c.cityId === cityId),
-    [cinemas, cityId]
+    () =>
+      cityId === "all" ? cinemas : cinemas.filter((c) => c.cityId === cityId),
+    [cinemas, cityId],
   );
 
   return (
@@ -30,9 +31,20 @@ export default function Cinemas() {
         <h1 className="cinemas-title">Rạp chiếu phim</h1>
 
         <div className="cinemas-cities">
-          <button className={`genre-chip ${cityId === "all" ? "active" : ""}`} onClick={() => setCityId("all")}>Tất cả</button>
-          {cities.map(c => (
-            <button key={c.id} className={`genre-chip ${cityId === c.id ? "active" : ""}`} onClick={() => setCityId(c.id)}>{c.name}</button>
+          <button
+            className={`genre-chip ${cityId === "all" ? "active" : ""}`}
+            onClick={() => setCityId("all")}
+          >
+            Tất cả
+          </button>
+          {cities.map((c) => (
+            <button
+              key={c.id}
+              className={`genre-chip ${cityId === c.id ? "active" : ""}`}
+              onClick={() => setCityId(c.id)}
+            >
+              {c.name}
+            </button>
           ))}
         </div>
 
@@ -40,8 +52,12 @@ export default function Cinemas() {
           <div className="cinemas-empty">Không có rạp nào</div>
         ) : (
           <div className="cinemas-grid">
-            {visible.map(c => (
-              <div key={c.id} className="cinema-card" onClick={() => navigate(`/cinema/${c.id}`)}>
+            {visible.map((c) => (
+              <div
+                key={c.id}
+                className="cinema-card"
+                onClick={() => navigate(`/cinema/${c.id}`)}
+              >
                 <div className="cinema-card-badge">{cityName(c.cityId)}</div>
                 <h3 className="cinema-card-name">{c.name}</h3>
                 <p className="cinema-card-addr">{c.address}</p>

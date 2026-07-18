@@ -9,7 +9,11 @@ import type {
   Showtime,
 } from "types";
 
-export const ROOM_TYPE_PRICE: Record<RoomType, number> = { "2D": 75000, "3D": 95000, "IMAX": 120000 };
+export const ROOM_TYPE_PRICE: Record<RoomType, number> = {
+  "2D": 75000,
+  "3D": 95000,
+  IMAX: 120000,
+};
 export const SERVICE_FEE = 15000;
 export const MAX_SEATS = 8;
 export const MAX_ITEM_QTY = 10;
@@ -18,10 +22,14 @@ export const COUPLE_MULTIPLIER = 1.6;
 const rowLetter = (i: number): string => String.fromCharCode(65 + i); // 0 -> A
 const roundTo1000 = (n: number): number => Math.round(n / 1000) * 1000;
 
-export const vipPrice = (basePrice: number): number => roundTo1000(basePrice * 1.3);
-export const couplePrice = (basePrice: number): number => roundTo1000(basePrice * COUPLE_MULTIPLIER);
-export const isVipRow = (row: string, vipRows: string[] = []): boolean => vipRows.includes(row);
-export const isCoupleRow = (row: string, coupleRows: string[] = []): boolean => coupleRows.includes(row);
+export const vipPrice = (basePrice: number): number =>
+  roundTo1000(basePrice * 1.3);
+export const couplePrice = (basePrice: number): number =>
+  roundTo1000(basePrice * COUPLE_MULTIPLIER);
+export const isVipRow = (row: string, vipRows: string[] = []): boolean =>
+  vipRows.includes(row);
+export const isCoupleRow = (row: string, coupleRows: string[] = []): boolean =>
+  coupleRows.includes(row);
 
 export const SEAT_TYPE: Record<SeatTypeKey, { label: string }> = {
   standard: { label: "Thường" },
@@ -29,8 +37,9 @@ export const SEAT_TYPE: Record<SeatTypeKey, { label: string }> = {
   couple: { label: "Đôi" },
 };
 
-export const seatType = (seat: Pick<Seat, "isVip" | "isCouple">): SeatTypeKey =>
-  seat.isCouple ? "couple" : seat.isVip ? "vip" : "standard";
+export const seatType = (
+  seat: Pick<Seat, "isVip" | "isCouple">,
+): SeatTypeKey => (seat.isCouple ? "couple" : seat.isVip ? "vip" : "standard");
 
 // Cột nào chèn lối đi ngay sau: đọc từ room.aisleAfterCols, mặc định 1 lối giữa
 export function aisleCols(room?: Room | null): number[] {
@@ -52,7 +61,9 @@ export function aisleColsForRow(room: Room, isCouple: boolean): number[] {
   const cols = aisleCols(room);
   if (!isCouple) return cols;
   const last = coupleUnits(room.cols);
-  return [...new Set(cols.map((c) => Math.round(c / 2)))].filter((c) => c > 0 && c < last);
+  return [...new Set(cols.map((c) => Math.round(c / 2)))].filter(
+    (c) => c > 0 && c < last,
+  );
 }
 
 export function buildSeatLayout(room?: Room | null): SeatRow[] {
@@ -76,7 +87,10 @@ export function buildSeatLayout(room?: Room | null): SeatRow[] {
   return rows;
 }
 
-export function bookedSeatSet(showtime?: Showtime | null, bookings: Booking[] = []): Set<string> {
+export function bookedSeatSet(
+  showtime?: Showtime | null,
+  bookings: Booking[] = [],
+): Set<string> {
   const set = new Set<string>(showtime?.bookedSeats || []);
   bookings
     .filter((b) => b.showtimeId === showtime?.id)
@@ -84,8 +98,15 @@ export function bookedSeatSet(showtime?: Showtime | null, bookings: Booking[] = 
   return set;
 }
 
-export const priceOf = (seat: Pick<Seat, "isVip" | "isCouple">, basePrice: number): number =>
-  seat.isCouple ? couplePrice(basePrice) : seat.isVip ? vipPrice(basePrice) : basePrice;
+export const priceOf = (
+  seat: Pick<Seat, "isVip" | "isCouple">,
+  basePrice: number,
+): number =>
+  seat.isCouple
+    ? couplePrice(basePrice)
+    : seat.isVip
+      ? vipPrice(basePrice)
+      : basePrice;
 
 // --- Bắp nước (F&B) ---
 export interface FnbLine {
@@ -97,7 +118,10 @@ export interface FnbLine {
 }
 
 // qtyMap: { [concessionId]: number }. Trả về các dòng đơn theo thứ tự catalog.
-export function fnbLines(qtyMap: Record<number, number> = {}, catalog: Concession[] = []): FnbLine[] {
+export function fnbLines(
+  qtyMap: Record<number, number> = {},
+  catalog: Concession[] = [],
+): FnbLine[] {
   return catalog
     .filter((c) => (qtyMap[c.id] || 0) > 0)
     .map((c) => ({
@@ -109,5 +133,7 @@ export function fnbLines(qtyMap: Record<number, number> = {}, catalog: Concessio
     }));
 }
 
-export const fnbTotal = (qtyMap: Record<number, number> = {}, catalog: Concession[] = []): number =>
-  fnbLines(qtyMap, catalog).reduce((sum, l) => sum + l.amount, 0);
+export const fnbTotal = (
+  qtyMap: Record<number, number> = {},
+  catalog: Concession[] = [],
+): number => fnbLines(qtyMap, catalog).reduce((sum, l) => sum + l.amount, 0);

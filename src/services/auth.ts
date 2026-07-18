@@ -23,7 +23,11 @@ const readError = async (res: Response, fallback: string): Promise<string> => {
   }
 };
 
-export const loginUser = async (email: string, password: string, remember = false): Promise<User> => {
+export const loginUser = async (
+  email: string,
+  password: string,
+  remember = false,
+): Promise<User> => {
   const res = await post("/auth/login", { email, password, remember });
   if (!res.ok) throw new Error(await readError(res, "Đăng nhập thất bại."));
   return res.json();

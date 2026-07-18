@@ -13,31 +13,54 @@ const WEB_ORIGIN = process.env.WEB_ORIGIN || "http://localhost:3000";
 // Dev only: giu bi mat trong env o production. Doi secret => moi phien cu het hieu luc.
 const JWT_SECRET = process.env.JWT_SECRET || "cinema-dev-secret-change-me";
 
-const ACCESS_TTL = "15m";       // token truy cap ngan han
-const REFRESH_TTL_DAYS = 7;     // han tuyet doi cua phien
+const ACCESS_TTL = "15m"; // token truy cap ngan han
+const REFRESH_TTL_DAYS = 7; // han tuyet doi cua phien
 const REFRESH_TTL = `${REFRESH_TTL_DAYS}d`;
 
 const normalizeEmail = (e) => (e || "").trim().toLowerCase();
-const safeUser = (u) => ({ id: u.id, fullName: u.fullName, email: u.email, role: u.role || "user" });
+const safeUser = (u) => ({
+  id: u.id,
+  fullName: u.fullName,
+  email: u.email,
+  role: u.role || "user",
+});
 
 // Doc user tu access cookie (khong nem loi neu thieu/het han -> tra null)
 function getUserFromReq(req) {
   const t = req.cookies.at;
   if (!t) return null;
-  try { const p = jwt.verify(t, JWT_SECRET); return { id: p.sub, role: p.role }; }
-  catch { return null; }
+  try {
+    const p = jwt.verify(t, JWT_SECRET);
+    return { id: p.sub, role: p.role };
+  } catch {
+    return null;
+  }
 }
 
 // --- Cookie helpers ---------------------------------------------------------
-const baseCookie = { httpOnly: true, sameSite: "lax", secure: false, path: "/" }; // secure:false vi localhost http
+const baseCookie = {
+  httpOnly: true,
+  sameSite: "lax",
+  secure: false,
+  path: "/",
+}; // secure:false vi localhost http
 
 function setAuthCookies(res, user, remember) {
-  const access = jwt.sign({ sub: user.id, role: user.role || "user" }, JWT_SECRET, { expiresIn: ACCESS_TTL });
-  const refresh = jwt.sign({ sub: user.id, remember: !!remember }, JWT_SECRET, { expiresIn: REFRESH_TTL });
+  const access = jwt.sign(
+    { sub: user.id, role: user.role || "user" },
+    JWT_SECRET,
+    { expiresIn: ACCESS_TTL },
+  );
+  const refresh = jwt.sign({ sub: user.id, remember: !!remember }, JWT_SECRET, {
+    expiresIn: REFRESH_TTL,
+  });
   // access: cookie phien (mat khi dong trinh duyet); JWT tu het han sau 15'
   res.cookie("at", access, { ...baseCookie });
   // refresh: neu "ghi nho" thi ben bi (maxAge), khong thi cookie phien
-  res.cookie("rt", refresh, { ...baseCookie, ...(remember ? { maxAge: REFRESH_TTL_DAYS * 24 * 60 * 60 * 1000 } : {}) });
+  res.cookie("rt", refresh, {
+    ...baseCookie,
+    ...(remember ? { maxAge: REFRESH_TTL_DAYS * 24 * 60 * 60 * 1000 } : {}),
+  });
 }
 
 function clearAuthCookies(res) {
@@ -76,9 +99,14 @@ app.post("/auth/register", async (req, res) => {
     const fullName = (req.body.fullName || "").trim();
     const email = normalizeEmail(req.body.email);
     const password = req.body.password || "";
-    if (!fullName || !email || !password) return res.status(400).json({ error: "Vui lòng nhập đầy đủ thông tin." });
-    if (password.length < 6) return res.status(400).json({ error: "Mật khẩu phải có ít nhất 6 ký tự." });
-    if (await findUserByEmail(email)) return res.status(409).json({ error: "Email này đã được đăng ký." });
+    if (!fullName || !email || !password)
+      return res.status(400).json({ error: "Vui lòng nhập đầy đủ thông tin." });
+    if (password.length < 6)
+      return res
+        .status(400)
+        .json({ error: "Mật khẩu phải có ít nhất 6 ký tự." });
+    if (await findUserByEmail(email))
+      return res.status(409).json({ error: "Email này đã được đăng ký." });
 
     const hash = await bcrypt.hash(password, 10);
     const r = await fetch(`${DATA_URL}/users`, {
@@ -89,7 +117,7 @@ app.post("/auth/register", async (req, res) => {
     const user = await r.json();
     setAuthCookies(res, user, false);
     res.status(201).json(safeUser(user));
-  } catch (e) {
+  } catch {
     res.status(500).json({ error: "Đăng ký thất bại. Vui lòng thử lại." });
   }
 });
@@ -101,7 +129,8 @@ app.post("/auth/login", loginLimiter, async (req, res) => {
     const remember = !!req.body.remember;
     const user = await findUserByEmail(email);
     // Thong bao chung chung (khong tiet lo email co ton tai hay khong)
-    const fail = () => res.status(401).json({ error: "Email hoặc mật khẩu không đúng." });
+    const fail = () =>
+      res.status(401).json({ error: "Email hoặc mật khẩu không đúng." });
     if (!user || !user.password) return fail();
 
     // Ho tro user seed cu (plaintext) lan cai dat dau: neu chua bcrypt thi so sanh thang roi nang cap.
@@ -113,7 +142,8 @@ app.post("/auth/login", loginLimiter, async (req, res) => {
       if (ok) {
         const hash = await bcrypt.hash(password, 10);
         await fetch(`${DATA_URL}/users/${user.id}`, {
-          method: "PATCH", headers: { "Content-Type": "application/json" },
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ password: hash }),
         });
       }
@@ -122,7 +152,7 @@ app.post("/auth/login", loginLimiter, async (req, res) => {
 
     setAuthCookies(res, user, remember);
     res.json(safeUser(user));
-  } catch (e) {
+  } catch {
     res.status(500).json({ error: "Đăng nhập thất bại. Vui lòng thử lại." });
   }
 });
@@ -136,7 +166,7 @@ app.post("/auth/refresh", async (req, res) => {
     if (!user) return res.status(401).json({ error: "Phiên đã hết hạn." });
     setAuthCookies(res, user, payload.remember); // cap access moi, giu che do ghi nho
     res.json(safeUser(user));
-  } catch (e) {
+  } catch {
     clearAuthCookies(res);
     res.status(401).json({ error: "Phiên đã hết hạn." });
   }
@@ -150,7 +180,7 @@ app.get("/auth/me", async (req, res) => {
     const user = await findUserById(payload.sub);
     if (!user) return res.status(401).json({ error: "Chưa đăng nhập." });
     res.json(safeUser(user));
-  } catch (e) {
+  } catch {
     res.status(401).json({ error: "Phiên truy cập đã hết hạn." });
   }
 });
@@ -169,7 +199,8 @@ app.post("/auth/logout", (req, res) => {
 async function forward(req, res, rest, extraQuery) {
   const params = new URLSearchParams();
   for (const [k, v] of Object.entries(req.query)) params.set(k, v);
-  if (extraQuery) for (const [k, v] of Object.entries(extraQuery)) params.set(k, String(v));
+  if (extraQuery)
+    for (const [k, v] of Object.entries(extraQuery)) params.set(k, String(v));
   const qs = params.toString();
   const url = `${DATA_URL}/${rest}${qs ? `?${qs}` : ""}`;
   const init = { method: req.method, headers: {} };
@@ -180,8 +211,10 @@ async function forward(req, res, rest, extraQuery) {
   const r = await fetch(url, init);
   const body = await r.text();
   res.status(r.status);
-  const ct = r.headers.get("content-type"); if (ct) res.set("Content-Type", ct);
-  const xtc = r.headers.get("x-total-count"); if (xtc) res.set("X-Total-Count", xtc);
+  const ct = r.headers.get("content-type");
+  if (ct) res.set("Content-Type", ct);
+  const xtc = r.headers.get("x-total-count");
+  if (xtc) res.set("X-Total-Count", xtc);
   return res.send(body);
 }
 
@@ -198,7 +231,10 @@ const holds = new Map();
 function seatHolds(showtimeId) {
   const key = String(showtimeId);
   let m = holds.get(key);
-  if (!m) { m = new Map(); holds.set(key, m); }
+  if (!m) {
+    m = new Map();
+    holds.set(key, m);
+  }
   const now = Date.now();
   for (const [seat, h] of m) if (h.expiresAt <= now) m.delete(seat);
   return m;
@@ -207,7 +243,8 @@ function seatHolds(showtimeId) {
 // Ghe dang bi NGUOI KHAC (khac userId) giu o 1 suat.
 function heldByOthers(showtimeId, userId) {
   const out = [];
-  for (const [seat, h] of seatHolds(showtimeId)) if (h.userId !== userId) out.push(seat);
+  for (const [seat, h] of seatHolds(showtimeId))
+    if (h.userId !== userId) out.push(seat);
   return out;
 }
 
@@ -245,7 +282,7 @@ app.get("/api/occupied-seats", async (req, res) => {
       .forEach((b) => (b.seats || []).forEach((s) => set.add(s)));
     heldByOthers(showtimeId, user.id).forEach((s) => set.add(s)); // ghe nguoi khac dang giu
     res.json({ showtimeId: Number(showtimeId), seats: [...set] });
-  } catch (e) {
+  } catch {
     res.status(502).json({ error: "Lỗi cổng dữ liệu." });
   }
 });
@@ -259,7 +296,10 @@ app.post("/api/holds", (req, res) => {
   if (!showtimeId) return res.status(400).json({ error: "Thiếu showtimeId." });
   const others = new Set(heldByOthers(showtimeId, user.id));
   const conflicts = seats.filter((s) => others.has(s));
-  if (conflicts.length) return res.status(409).json({ error: "Ghế vừa bị người khác giữ.", conflicts });
+  if (conflicts.length)
+    return res
+      .status(409)
+      .json({ error: "Ghế vừa bị người khác giữ.", conflicts });
   const expiresAt = setHolds(showtimeId, user.id, seats);
   res.json({ ok: true, expiresAt });
 });
@@ -275,7 +315,14 @@ app.delete("/api/holds", (req, res) => {
 });
 
 // Catalog: doc cong khai, ghi can admin.
-const PUBLIC_READ = new Set(["movies", "showtimes", "cinemas", "cities", "rooms", "concessions"]);
+const PUBLIC_READ = new Set([
+  "movies",
+  "showtimes",
+  "cinemas",
+  "cities",
+  "rooms",
+  "concessions",
+]);
 
 app.use("/api", async (req, res) => {
   try {
@@ -320,11 +367,13 @@ app.use("/api", async (req, res) => {
     }
 
     return deny(403, "Không có quyền."); // mac dinh chan
-  } catch (e) {
+  } catch {
     res.status(502).json({ error: "Lỗi cổng dữ liệu." });
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`Auth server chạy tại http://localhost:${PORT} (data: ${DATA_URL}, web: ${WEB_ORIGIN})`);
+  console.log(
+    `Auth server chạy tại http://localhost:${PORT} (data: ${DATA_URL}, web: ${WEB_ORIGIN})`,
+  );
 });
