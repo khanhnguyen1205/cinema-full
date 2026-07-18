@@ -214,3 +214,38 @@
     animation-duration: 1.4s;
   }
 }
+
+/* ===== Numbered ===== */
+.ui-numbered {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-wide);
+  color: var(--red);
+}
+
+/* ===== KineticHeading ===== */
+.ui-kinetic {
+  font-family: var(--font-display);
+  line-height: 0.9;
+  display: inline-block;
+}
+.ui-kinetic__ch {
+  display: inline-block;
+  animation: ui-kinetic-in var(--dur-slow) var(--ease-out) both;
+  animation-delay: calc(var(--i) * 40ms);
+}
+@keyframes ui-kinetic-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.4em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ui-kinetic__ch {
+    animation: none;
+  }
+}

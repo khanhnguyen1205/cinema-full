@@ -7,3 +7,5 @@ export { default as Field } from "./Field";
 export { default as Skeleton } from "./Skeleton";
 export { default as Spinner } from "./Spinner";
 export { default as IconButton } from "./IconButton";
+export { default as Numbered, formatIndex } from "./Numbered";
+export { default as KineticHeading } from "./KineticHeading";
