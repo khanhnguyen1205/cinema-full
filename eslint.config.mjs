@@ -60,6 +60,15 @@ export default tseslint.config(
     },
   },
 
+  // E2E Playwright (ngoài src, không nằm trong tsconfig của app)
+  {
+    files: ["e2e/**/*.ts", "playwright.config.ts"],
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    languageOptions: {
+      globals: { ...globals.node },
+    },
+  },
+
   // Tắt các luật xung đột với Prettier (đặt cuối để thắng)
   prettier,
 );
