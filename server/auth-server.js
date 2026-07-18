@@ -1,5 +1,6 @@
 // Auth server (mock top-tier): bcrypt + JWT access/refresh trong cookie httpOnly.
 // Danh tính tách khoi json-server data; user van luu o db.json qua json-server HTTP.
+require("dotenv").config(); // nap .env truoc khi doc process.env
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
@@ -11,7 +12,14 @@ const PORT = process.env.AUTH_PORT || 4000;
 const DATA_URL = process.env.DATA_URL || "http://localhost:9999"; // json-server
 const WEB_ORIGIN = process.env.WEB_ORIGIN || "http://localhost:3000";
 // Dev only: giu bi mat trong env o production. Doi secret => moi phien cu het hieu luc.
-const JWT_SECRET = process.env.JWT_SECRET || "cinema-dev-secret-change-me";
+const DEFAULT_SECRET = "cinema-dev-secret-change-me";
+const JWT_SECRET = process.env.JWT_SECRET || DEFAULT_SECRET;
+if (JWT_SECRET === DEFAULT_SECRET) {
+  const msg =
+    "[auth] Dang dung JWT_SECRET mac dinh — chi chap nhan khi dev. Dat JWT_SECRET trong .env cho production.";
+  if (process.env.NODE_ENV === "production") throw new Error(msg);
+  console.warn(msg);
+}
 
 const ACCESS_TTL = "15m"; // token truy cap ngan han
 const REFRESH_TTL_DAYS = 7; // han tuyet doi cua phien

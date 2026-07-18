@@ -1,6 +1,7 @@
 // Chay 1 lan: bam bcrypt cho moi user con luu mat khau plaintext trong db.json.
 // Mat khau dang nhap khong doi (vd admin123), chi khac la DB khong con plaintext.
 // Dung: node server/hash-passwords.js   (can json-server dang chay o :9999)
+require("dotenv").config(); // nap .env truoc khi doc process.env
 const bcrypt = require("bcryptjs");
 const DATA_URL = process.env.DATA_URL || "http://localhost:9999";
 

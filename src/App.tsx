@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "styles/global.css";
+import ErrorBoundary from "components/ErrorBoundary";
 import { AuthProvider, useAuth } from "context/AuthContext";
 import PrivateRoute from "routes/PrivateRoute";
 import Home from "pages/Home";
@@ -84,9 +85,11 @@ function AppShell() {
 
 function App() {
   return (
-    <AuthProvider>
-      <AppShell />
-    </AuthProvider>
+    <ErrorBoundary>
+      <AuthProvider>
+        <AppShell />
+      </AuthProvider>
+    </ErrorBoundary>
   );
 }
 
