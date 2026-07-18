@@ -1,0 +1,28 @@
+/* Container căn giữa theo token layout */
+.u-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+/* Khối đảo màu "bone" (chữ đen nền ngà) */
+.u-invert {
+  background: var(--surface-invert);
+  color: var(--text-invert);
+}
+
+/* Nhãn mono chữ hoa cỡ nhỏ */
+.u-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Focus ring dùng chung */
+.u-focus:focus-visible {
+  outline: var(--bw-2) solid var(--focus);
+  outline-offset: 2px;
+}

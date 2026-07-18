@@ -1,16 +1,5 @@
-:root {
-  --bg: #0a0a0a;
-  --bg-card: #111111;
-  --bg-card2: #161616;
-  --border: rgba(255, 255, 255, 0.07);
-  --red: #e63030;
-  --red-dark: #b52424;
-  --red-glow: rgba(230, 48, 48, 0.3);
-  --text: #f0f0f0;
-  --text-muted: #888;
-  --text-dim: #555;
-  --accent: #e63030;
-}
+@import "./tokens.css";
+@import "./utilities.css";
 
 * {
   margin: 0;

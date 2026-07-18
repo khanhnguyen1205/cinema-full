@@ -1,0 +1,81 @@
+:root {
+  /* ===== Màu (GIỮ NGUYÊN giá trị cũ) ===== */
+  --bg: #0a0a0a;
+  --bg-card: #111111;
+  --bg-card2: #161616;
+  --border: rgba(255, 255, 255, 0.07);
+  --red: #e63030;
+  --red-dark: #b52424;
+  --red-glow: rgba(230, 48, 48, 0.3);
+  --text: #f0f0f0;
+  --text-muted: #888;
+  --text-dim: #555;
+  --accent: #e63030;
+
+  /* ===== Màu bổ sung (kinetic) ===== */
+  --surface: #111111;
+  --surface-2: #161616;
+  --surface-invert: #ece7dd; /* bone: khối đảo màu chữ đen */
+  --text-invert: #0a0a0a;
+  --border-strong: rgba(255, 255, 255, 0.22);
+  --focus: #4c9aff;
+
+  /* ===== Spacing (thang 4px) ===== */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+  --sp-24: 96px;
+
+  /* ===== Typography ===== */
+  --font-display: "Bebas Neue", sans-serif;
+  --font-body: "Barlow", sans-serif;
+  --font-mono: "Space Mono", monospace;
+  --fs-label: 11px;
+  --fs-sm: 13px;
+  --fs-base: 15px;
+  --fs-md: 18px;
+  --fs-lg: 24px;
+  --fs-xl: clamp(32px, 5vw, 56px);
+  --fs-2xl: clamp(48px, 9vw, 120px);
+  --fs-display: clamp(64px, 14vw, 200px);
+  --tr-tight: -0.02em;
+  --tr-wide: 0.15em;
+  --tr-wider: 0.3em;
+
+  /* ===== Radius / Border (brutalist: sắc) ===== */
+  --r-0: 0px;
+  --r-sm: 2px;
+  --r-md: 4px;
+  --bw-1: 1px;
+  --bw-2: 2px;
+
+  /* ===== Shadow ===== */
+  --shadow-hard: 4px 4px 0 var(--red);
+  --shadow-hard-dark: 4px 4px 0 rgba(0, 0, 0, 0.6);
+  --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.6);
+
+  /* ===== Motion ===== */
+  --dur-fast: 120ms;
+  --dur-base: 240ms;
+  --dur-slow: 480ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ===== Z-index ===== */
+  --z-nav: 100;
+  --z-dropdown: 200;
+  --z-modal: 1000;
+  --z-toast: 1100;
+
+  /* ===== Layout ===== */
+  --container-max: 1280px;
+  --gutter: clamp(16px, 4vw, 48px);
+}
