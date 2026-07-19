@@ -1,407 +1,411 @@
-/* MOVIE DETAIL */
+/* MOVIE DETAIL — kinetic */
 .detail-page {
   background: var(--bg);
-}
-
-.detail-hero {
-  position: relative;
   min-height: 100vh;
+}
+
+.detail-page--center {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 80px 40px 60px;
-  gap: 40px;
+  justify-content: center;
+  gap: 24px;
 }
 
-.detail-hero-bg {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(
-      ellipse at 30% 60%,
-      rgba(230, 48, 48, 0.07) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse at 80% 30%,
-      rgba(20, 0, 0, 0.5) 0%,
-      transparent 60%
-    ),
-    linear-gradient(135deg, #0f0505 0%, #0a0a0a 100%);
+/* ===== HERO chia đôi ===== */
+.detail-k__hero {
+  position: relative;
+  overflow: hidden;
+  padding: 56px 0 48px;
+  border-bottom: 1px solid var(--border);
 }
 
-/* Faded, blurred poster behind the hero text (content/panel sit at z-index 2). */
-.detail-hero-poster {
+.detail-k__poster {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.2;
-  filter: blur(2px);
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.detail-k__scanline {
+  position: absolute;
+  inset: 0;
   z-index: 1;
-}
-
-.detail-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.03) 2px,
-    rgba(0, 0, 0, 0.03) 4px
-  );
   pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03) 0,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0.6;
 }
 
-.detail-hero-content {
+.detail-k__hero .ui-container {
   position: relative;
   z-index: 2;
-  flex: 1;
-  max-width: 560px;
-  animation: fadeUp 0.7s ease both;
 }
 
-.detail-meta-top {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.detail-rating {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--red);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.detail-genre-badge {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.detail-title {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: clamp(56px, 7vw, 100px);
-  line-height: 1;
-  letter-spacing: 3px;
-  margin-bottom: 24px;
-}
-
-.detail-title .red {
-  color: var(--red);
-}
-
-.detail-description {
-  font-size: 15px;
-  line-height: 1.75;
-  color: var(--text-muted);
-  margin-bottom: 36px;
-  max-width: 460px;
-}
-
-.detail-credits {
-  display: flex;
-  gap: 48px;
-}
-
-.credit-item {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.credit-label {
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-dim);
-}
-
-.credit-value {
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-/* SHOWTIMES PANEL */
-.showtimes-panel {
-  position: relative;
-  z-index: 2;
-  background: rgba(20, 20, 20, 0.95);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 28px;
-  width: 300px;
-  flex-shrink: 0;
-  backdrop-filter: blur(20px);
-  animation: fadeUp 0.9s ease both;
-  align-self: center;
-}
-
-.showtimes-panel-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  margin-bottom: 20px;
-  color: var(--text);
-}
-
-.showtimes-panel-header svg {
-  stroke: var(--red);
-}
-
-.date-selector {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 24px;
-}
-
-.date-btn {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px 6px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text-muted);
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.date-btn .date-day {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--text);
-  margin-top: 2px;
-}
-
-.date-btn.active {
-  background: rgba(230, 48, 48, 0.15);
-  border-color: var(--red);
-  color: var(--red);
-}
-
-.date-btn.active .date-day {
-  color: var(--text);
-}
-
-.times-label {
-  margin-bottom: 12px;
-}
-
-.times-grid {
+.detail-k__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: 1fr minmax(300px, 380px);
+  gap: var(--sp-6, 40px);
+  align-items: start;
+}
+
+/* ----- Cột thông tin ----- */
+.detail-k__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 20px;
 }
 
-.time-btn {
-  padding: 14px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text);
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.time-btn:hover {
-  border-color: rgba(230, 48, 48, 0.4);
-  background: rgba(230, 48, 48, 0.08);
-}
-
-.time-btn.active {
-  background: rgba(230, 48, 48, 0.2);
-  border-color: var(--red);
+.detail-k__tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--border-strong);
   color: var(--text);
 }
 
-.showtime-price {
-  text-align: center;
-  font-size: 13px;
+.detail-k__rating {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--red);
+}
+
+.detail-k__genre {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   color: var(--text-muted);
-  margin-bottom: 16px;
 }
 
-.book-btn {
-  width: 100%;
-  padding: 16px;
-  font-size: 13px;
+.detail-k__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(48px, 8vw, 108px);
+  line-height: 0.9;
+  letter-spacing: 1px;
+  color: var(--text);
+  margin-bottom: 22px;
 }
 
-.book-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+.detail-k__desc {
+  max-width: 60ch;
+  font-family: "Barlow", sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-muted);
 }
 
-/* Multi-cinema: city/cinema selects + adapted date/time buttons */
-.detail-select-row {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* ----- Panel đặt vé (bone, sticky) ----- */
+.detail-k__book {
+  position: sticky;
+  top: 84px;
+}
+
+.book-k {
+  background: var(--surface-invert);
+  color: var(--text-invert);
+  padding: 22px;
+}
+
+.book-k__head {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+  color: var(--text-invert);
   margin-bottom: 18px;
 }
 
-.detail-select {
-  background: var(--bg-card2);
-  border: 1px solid var(--border);
-  color: var(--text);
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-family: "Barlow", sans-serif;
-  font-size: 13px;
-  outline: none;
-  cursor: pointer;
+.book-k__empty {
+  font-size: 14px;
+  color: #6b6459;
 }
 
-.detail-select:hover {
-  border-color: rgba(230, 48, 48, 0.3);
-}
-
-.date-selector {
-  overflow-x: auto;
-  padding-bottom: 4px;
-}
-
-.date-btn {
-  flex: 0 0 auto;
-  min-width: 68px;
-}
-
-.date-btn .date-day {
-  font-size: 13px;
-  margin-top: 0;
-  text-transform: none;
-  letter-spacing: 0.3px;
-}
-
-.time-btn {
+.book-k__selects {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2px;
+  gap: 14px;
+  margin-bottom: 18px;
 }
 
-.time-btn .time-type {
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  color: var(--text-dim);
-  text-transform: none;
+.book-k .ui-field__label {
+  color: #4a453c;
 }
 
-/* ===== Đợt 4 — polish panel đặt vé (chỉ thị giác, giữ nguyên logic) ===== */
-.showtimes-panel {
-  background: linear-gradient(
-    180deg,
-    rgba(28, 28, 30, 0.96),
-    rgba(14, 14, 16, 0.96)
-  );
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  box-shadow:
-    0 24px 60px -24px rgba(0, 0, 0, 0.8),
-    0 0 0 1px rgba(230, 48, 48, 0.04);
-}
-
-.showtimes-panel-header {
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.detail-select {
+.book-k select {
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgba(10, 10, 10, 0.2);
+  color: var(--text-invert);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 10px 34px 10px 12px;
+  outline: none;
+  cursor: pointer;
   appearance: none;
-  -webkit-appearance: none;
-  background-color: rgba(255, 255, 255, 0.04);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230a0a0a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 12px center;
-  padding: 11px 34px 11px 13px;
-  border-radius: 10px;
-  transition:
-    border-color 0.15s,
-    background-color 0.15s;
+  background-position: right 10px center;
 }
 
-.detail-select:hover {
-  background-color: rgba(255, 255, 255, 0.07);
-  border-color: rgba(230, 48, 48, 0.35);
-}
-.detail-select:focus {
+.book-k select:focus-visible {
   border-color: var(--red);
-  box-shadow: 0 0 0 3px var(--red-glow);
 }
 
-.date-btn {
-  border-radius: 10px;
+.book-k__dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.date-k-btn {
+  flex: 1 1 auto;
+  min-width: 78px;
+  background: transparent;
+  border: 1px solid rgba(10, 10, 10, 0.25);
+  color: var(--text-invert);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  padding: 9px 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.date-k-btn:hover {
+  border-color: var(--red);
+}
+
+.date-k-btn.is-active {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+
+.book-k__times-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #4a453c;
+  margin-bottom: 10px;
+}
+
+.book-k__times {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.time-k-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid rgba(10, 10, 10, 0.2);
+  color: var(--text-invert);
+  padding: 8px 10px;
+  cursor: pointer;
   transition:
-    transform 0.15s,
-    border-color 0.15s,
-    background 0.15s;
+    transform 0.12s ease,
+    border-color 0.15s;
 }
 
-.date-btn:hover {
+.time-k-btn:hover {
   transform: translateY(-2px);
-  border-color: rgba(230, 48, 48, 0.4);
-}
-
-.date-btn.active {
-  background: rgba(230, 48, 48, 0.16);
   border-color: var(--red);
-  box-shadow: 0 0 0 3px var(--red-glow);
 }
 
-.time-btn {
-  border-radius: 10px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.06),
-    rgba(255, 255, 255, 0.02)
-  );
+.time-k-btn.is-active {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+
+.time-k-btn__t {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.time-k-btn__meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  opacity: 0.75;
+}
+
+.book-k__cta {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .time-k-btn {
+    transition: border-color 0.15s;
+  }
+  .time-k-btn:hover {
+    transform: none;
+  }
+}
+
+/* ===== CHI TIẾT ===== */
+.detail-page .ui-container {
+  padding-bottom: 72px;
+}
+
+.detail-k__about {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--sp-6, 40px);
+  align-items: start;
+}
+
+.detail-k__synopsis {
+  font-family: "Barlow", sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.spec-k {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.spec-k__item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-left: 2px solid var(--border-strong);
+  padding-left: 14px;
+}
+
+.spec-k__num {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 56px;
+  line-height: 0.9;
+  color: var(--red);
+}
+
+.spec-k__val {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 32px;
+  letter-spacing: 1px;
+  color: var(--text);
+}
+
+.spec-k__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ----- Rạp đang chiếu (tái dùng .cinema-k của Home) ----- */
+.detail-k__cinemas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--sp-3, 16px);
+}
+.detail-k__cinemas .cinema-k {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3, 16px);
+  text-align: left;
+  padding: var(--sp-4, 20px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm, 4px);
+  cursor: pointer;
   transition:
-    transform 0.15s,
-    border-color 0.15s,
-    background 0.15s;
+    transform var(--dur-fast, 0.12s) var(--ease-out, ease),
+    border-color var(--dur-fast, 0.12s);
+}
+.detail-k__cinemas .cinema-k:hover {
+  transform: translate(-2px, -2px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-hard);
+}
+.detail-k__cinemas .cinema-k:focus-visible {
+  outline: 2px solid var(--focus, var(--red));
+  outline-offset: 2px;
+}
+.detail-k__cinemas .cinema-k__no {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm, 13px);
+  color: var(--red);
+}
+.detail-k__cinemas .cinema-k__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+.detail-k__cinemas .cinema-k__name {
+  font-family: var(--font-body, "Barlow", sans-serif);
+  font-weight: 600;
+  color: var(--text);
+}
+.detail-k__cinemas .cinema-k__city {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label, 11px);
+  letter-spacing: var(--tr-wide, 2px);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.detail-k__cinemas .cinema-k__arrow {
+  color: var(--text-dim);
+  font-size: var(--fs-md, 18px);
 }
 
-.time-btn:hover {
-  transform: translateY(-2px);
+@media (prefers-reduced-motion: reduce) {
+  .detail-k__cinemas .cinema-k:hover {
+    transform: none;
+  }
 }
 
-.time-btn.active {
-  background: linear-gradient(
-    180deg,
-    rgba(230, 48, 48, 0.28),
-    rgba(230, 48, 48, 0.14)
-  );
-  border-color: var(--red);
-  box-shadow: 0 0 0 3px var(--red-glow);
+/* ----- Phim cùng thể loại ----- */
+.detail-k__related {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--sp-3, 16px);
 }
 
-.book-btn {
-  border-radius: 10px;
-  letter-spacing: 1.5px;
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .detail-k__grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .detail-k__book {
+    position: static;
+  }
+  .detail-k__about {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .detail-k__hero {
+    padding: 36px 0 32px;
+  }
+  .spec-k {
+    grid-template-columns: 1fr;
+  }
 }
