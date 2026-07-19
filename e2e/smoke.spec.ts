@@ -30,13 +30,20 @@ test("menu mobile mở được", async ({ page }) => {
   await expect(page.locator("#nav-mobile.is-open")).toBeVisible();
 });
 
-test("trang phim hiển thị tiêu đề và danh sách phim", async ({ page }) => {
+test("trang phim hiển thị tiêu đề, danh sách và lọc theo thể loại", async ({
+  page,
+}) => {
   await page.goto("/movies");
   await expect(
     page.getByRole("heading", { name: "Tất cả phim" }),
   ).toBeVisible();
-  // Dữ liệu tải từ gateway -> có ít nhất một thẻ phim
-  await expect(page.locator(".movie-card").first()).toBeVisible();
+  // Lưới dựng từ MovieCard -> có ít nhất một thẻ .movie-k
+  await expect(page.locator(".movie-k").first()).toBeVisible();
+  // Bấm một chip thể loại (không phải "Tất cả") -> lưới vẫn còn thẻ
+  const chip = page.locator(".genre-k-chip", { hasNotText: "Tất cả" }).first();
+  await chip.click();
+  await expect(chip).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator(".movie-k").first()).toBeVisible();
 });
 
 test("đăng nhập admin và thấy mục Quản trị", async ({ page }) => {

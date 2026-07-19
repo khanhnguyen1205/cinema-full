@@ -1,58 +1,80 @@
-/* MOVIES PAGE */
+/* MOVIES — kinetic */
 .movies-page {
   background: var(--bg);
+  min-height: 100vh;
 }
 
-.movies-section {
-  padding: 100px 40px 60px;
-  max-width: 1400px;
-  margin: 0 auto;
+.movies-page .ui-container {
+  padding-top: 48px;
+  padding-bottom: 72px;
 }
 
-.movies-header {
+/* HEADER biên tập */
+.movies-k__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
   margin-bottom: 28px;
 }
 
-.movies-title {
+.movies-k__label {
+  flex: 1 1 100%;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.movies-k__title {
   font-family: "Bebas Neue", sans-serif;
-  font-size: clamp(40px, 6vw, 64px);
-  letter-spacing: 2px;
-  line-height: 1;
-  margin-top: 6px;
+  font-size: clamp(44px, 7vw, 88px);
+  line-height: 0.92;
+  letter-spacing: 1px;
   color: var(--text);
 }
 
-/* CONTROLS */
-.movies-controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--border);
+.movies-k__count {
+  margin-bottom: 6px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: var(--text-muted);
 }
 
-.movies-search {
+.movies-k__count b {
+  color: var(--red);
+  font-size: 18px;
+}
+
+/* CONTROLS — khối viền cứng */
+.movies-k__controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid var(--border-strong);
+  padding: 18px;
+  margin-bottom: 32px;
+}
+
+.movies-k__search {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  background: var(--surface);
   padding: 0 14px;
-  height: 42px;
-  flex: 1;
-  min-width: 240px;
+  height: 44px;
   color: var(--text-muted);
   transition: border-color 0.2s;
 }
 
-.movies-search:focus-within {
-  border-color: rgba(230, 48, 48, 0.4);
+.movies-k__search:focus-within {
+  border-color: var(--red);
 }
 
-.movies-search-input {
+.movies-k__search input {
   flex: 1;
   background: none;
   border: none;
@@ -62,132 +84,114 @@
   font-size: 14px;
 }
 
-.movies-search-input::placeholder {
+.movies-k__search input::placeholder {
   color: var(--text-dim);
 }
 
-.movies-genres {
+.movies-k__selects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.movies-k__selects select {
+  flex: 1 1 160px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  padding: 11px 36px 11px 14px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  transition: border-color 0.2s;
+}
+
+.movies-k__selects select:hover,
+.movies-k__selects select:focus-visible {
+  border-color: var(--red);
+}
+
+/* CHIP thể loại — vuông, active đảo màu bone */
+.movies-k__genres {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.genre-chip {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+.genre-k-chip {
+  background: transparent;
+  border: 1px solid var(--border-strong);
   color: var(--text-muted);
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 13px;
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
   padding: 8px 16px;
-  border-radius: 20px;
-  transition: all 0.2s;
-}
-
-.genre-chip:hover {
-  color: var(--text);
-  border-color: rgba(230, 48, 48, 0.3);
-}
-
-.genre-chip.active {
-  background: var(--red);
-  border-color: var(--red);
-  color: white;
-}
-
-.movies-sort {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-left: auto;
-}
-
-.movies-sort-label {
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-dim);
-}
-
-.movies-sort-select {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  color: var(--text);
-  font-family: "Barlow", sans-serif;
-  font-size: 13px;
-  padding: 9px 14px;
-  border-radius: 8px;
-  outline: none;
   cursor: pointer;
-  transition: border-color 0.2s;
+  transition:
+    transform 0.12s ease,
+    color 0.2s,
+    border-color 0.2s;
 }
 
-.movies-sort-select:hover {
-  border-color: rgba(230, 48, 48, 0.3);
+.genre-k-chip:hover {
+  color: var(--text);
+  border-color: var(--red);
+  transform: translateY(-2px);
 }
 
-/* Nhóm lọc bên phải: thành phố · ngày · sắp xếp */
-.movies-filters {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px;
-  margin-left: auto;
-}
-.movies-filters .movies-sort {
-  margin-left: 0;
+.genre-k-chip.is-active {
+  background: var(--surface-invert);
+  border-color: var(--surface-invert);
+  color: var(--text-invert);
 }
 
-/* RESULTS */
-.movies-count {
-  font-size: 13px;
-  color: var(--text-muted);
-  letter-spacing: 0.5px;
-  margin-bottom: 16px;
+@media (prefers-reduced-motion: reduce) {
+  .genre-k-chip {
+    transition:
+      color 0.2s,
+      border-color 0.2s;
+  }
+  .genre-k-chip:hover {
+    transform: none;
+  }
 }
 
-.movies-empty {
+/* EMPTY / ERROR */
+.movies-k__empty {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 12px;
   padding: 80px 0;
   text-align: center;
+  color: var(--text-muted);
 }
 
-.movies-empty-text {
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 22px;
-  font-weight: 700;
+.movies-k__empty-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 32px;
   letter-spacing: 1px;
   color: var(--text);
 }
 
-.movies-empty-sub {
+.movies-k__empty-sub {
   font-size: 14px;
   color: var(--text-muted);
 }
 
-/* RESPONSIVE GRID OVERRIDE */
-@media (max-width: 1000px) {
-  .movies-section .movie-grid {
-    grid-template-columns: repeat(3, 1fr);
+@media (max-width: 640px) {
+  .movies-page .ui-container {
+    padding-top: 32px;
   }
-}
-
-@media (max-width: 720px) {
-  .movies-section {
-    padding: 90px 20px 40px;
-  }
-  .movies-section .movie-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .movies-sort {
-    margin-left: 0;
+  .movies-k__selects select {
+    flex: 1 1 100%;
   }
 }
