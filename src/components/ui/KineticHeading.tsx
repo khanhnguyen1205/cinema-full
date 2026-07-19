@@ -22,7 +22,7 @@ export default function KineticHeading({
             className="ui-kinetic__ch"
             style={style}
           >
-            {ch === " " ? " " : ch}
+            {ch === " " ? " " : ch}
           </span>
         );
       })}
