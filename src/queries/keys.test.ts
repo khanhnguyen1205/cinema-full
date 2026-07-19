@@ -14,4 +14,9 @@ describe("qk (query-key registry)", () => {
     expect(qk.movie(7)).toEqual(["movie", 7]);
     expect(qk.showtimesByMovie(7)).toEqual(["showtimes", "byMovie", 7]);
   });
+
+  it("khai báo key có tham số cho Cinema detail", () => {
+    expect(qk.cinema(3)).toEqual(["cinema", 3]);
+    expect(qk.showtimesByCinema(3)).toEqual(["showtimes", "byCinema", 3]);
+  });
 });
