@@ -1,94 +1,194 @@
-.cinemas-section {
-  padding: 100px 40px 60px;
-  max-width: 1200px;
-  margin: 0 auto;
+/* CINEMAS — kinetic */
+.cinemas-page {
+  background: var(--bg);
+  min-height: 100vh;
 }
 
-.cinemas-title {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: clamp(40px, 6vw, 64px);
-  letter-spacing: 2px;
-  line-height: 1;
-  margin: 6px 0 24px;
+.cinemas-page .ui-container {
+  padding-top: 48px;
+  padding-bottom: 72px;
 }
 
-.cinemas-cities {
+/* HEADER */
+.cinemas-k__header {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  align-items: flex-end;
+  gap: 16px;
   margin-bottom: 28px;
 }
 
-.cinemas-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+.cinemas-k__label {
+  flex: 1 1 100%;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
-.cinema-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 24px;
+.cinemas-k__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(44px, 7vw, 88px);
+  line-height: 0.92;
+  letter-spacing: 1px;
+  color: var(--text);
+}
+
+.cinemas-k__count {
+  margin-bottom: 6px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.cinemas-k__count b {
+  color: var(--red);
+  font-size: 18px;
+}
+
+/* CHIP lọc thành phố */
+.cinemas-k__cities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.city-k-chip {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 8px 16px;
   cursor: pointer;
   transition:
-    border-color 0.2s,
-    transform 0.2s;
+    transform 0.12s ease,
+    color 0.2s,
+    border-color 0.2s;
 }
 
-.cinema-card:hover {
-  border-color: rgba(230, 48, 48, 0.3);
-  transform: translateY(-4px);
+.city-k-chip:hover {
+  color: var(--text);
+  border-color: var(--red);
+  transform: translateY(-2px);
 }
 
-.cinema-card-badge {
-  display: inline-block;
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--red);
-  margin-bottom: 10px;
+.city-k-chip.is-active {
+  background: var(--surface-invert);
+  border-color: var(--surface-invert);
+  color: var(--text-invert);
 }
 
-.cinema-card-name {
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 6px;
+/* THẺ rạp — số lớn */
+.venue-k {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  padding: 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition:
+    transform 0.12s ease,
+    border-color 0.15s;
 }
 
-.cinema-card-addr {
-  font-size: 13px;
+.venue-k:hover {
+  transform: translate(-2px, -2px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-hard);
+}
+
+.venue-k:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+.venue-k__no {
+  position: absolute;
+  top: 2px;
+  right: 12px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 96px;
+  line-height: 1;
+  color: var(--text);
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+.venue-k__city {
+  align-self: flex-start;
+  position: relative;
+  z-index: 1;
+}
+
+.venue-k__name {
+  position: relative;
+  z-index: 1;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 28px;
+  letter-spacing: 1px;
+  color: var(--text);
+}
+
+.venue-k__addr {
+  font-family: "Barlow", sans-serif;
+  font-size: 14px;
   color: var(--text-muted);
-  line-height: 1.5;
-  margin-bottom: 14px;
 }
 
-.cinema-card-link {
+.venue-k__rooms {
+  font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--red);
-  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
-.cinemas-empty {
-  padding: 60px 0;
+.venue-k__link {
+  margin-top: auto;
+  padding-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--red);
+}
+
+/* EMPTY / ERROR */
+.cinemas-k__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 80px 0;
   text-align: center;
   color: var(--text-muted);
 }
 
-@media (max-width: 900px) {
-  .cinemas-grid {
-    grid-template-columns: repeat(2, 1fr);
+.cinemas-k__empty-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 32px;
+  letter-spacing: 1px;
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .city-k-chip:hover,
+  .venue-k:hover {
+    transform: none;
   }
 }
 
-@media (max-width: 600px) {
-  .cinemas-section {
-    padding: 90px 20px 40px;
-  }
-  .cinemas-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 640px) {
+  .cinemas-page .ui-container {
+    padding-top: 32px;
   }
 }
