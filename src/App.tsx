@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "styles/global.css";
 import ErrorBoundary from "components/ErrorBoundary";
+import { queryClient } from "queries/client";
 import { AuthProvider, useAuth } from "context/AuthContext";
 import PrivateRoute from "routes/PrivateRoute";
 import Home from "pages/Home";
@@ -90,9 +93,12 @@ function AppShell() {
 function App() {
   return (
     <ErrorBoundary>
-      <AuthProvider>
-        <AppShell />
-      </AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <AppShell />
+        </AuthProvider>
+        {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
+      </QueryClientProvider>
     </ErrorBoundary>
   );
 }

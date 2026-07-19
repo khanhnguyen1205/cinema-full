@@ -25,6 +25,7 @@
       "hooks/*": ["./src/hooks/*"],
       "lib/*": ["./src/lib/*"],
       "pages/*": ["./src/pages/*"],
+      "queries/*": ["./src/queries/*"],
       "routes/*": ["./src/routes/*"],
       "services/*": ["./src/services/*"],
       "styles/*": ["./src/styles/*"],

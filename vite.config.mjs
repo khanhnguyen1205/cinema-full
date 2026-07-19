@@ -16,6 +16,7 @@ export default defineConfig({
       hooks: srcDir("hooks"),
       lib: srcDir("lib"),
       pages: srcDir("pages"),
+      queries: srcDir("queries"),
       routes: srcDir("routes"),
       services: srcDir("services"),
       styles: srcDir("styles"),
