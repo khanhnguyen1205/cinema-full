@@ -315,3 +315,43 @@
     radial-gradient(var(--punch) at right center, transparent 98%, #000) right /
       51% 100% no-repeat;
 }
+
+/* ===== Modal ===== */
+.ui-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+}
+.ui-modal {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow: auto;
+  background: var(--surface-2);
+  border: var(--bw-1) solid var(--border-strong);
+  border-radius: var(--r-sm);
+  padding: var(--sp-6);
+}
+.ui-modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-4);
+}
+.ui-modal__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  letter-spacing: var(--tr-wide);
+}
+.ui-modal__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
