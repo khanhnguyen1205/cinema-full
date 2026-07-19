@@ -1,0 +1,24 @@
+.ks {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  padding: var(--sp-12) 0;
+}
+.ks h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  letter-spacing: var(--tr-tight);
+  margin-bottom: var(--sp-8);
+}
+.ks-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  align-items: center;
+  margin-bottom: var(--sp-6);
+}
+.ks-block {
+  padding: var(--sp-6);
+  margin-bottom: var(--sp-8);
+  border: var(--bw-1) dashed var(--border-strong);
+}

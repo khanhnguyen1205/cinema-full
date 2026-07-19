@@ -19,6 +19,7 @@ import AdminMovies from "pages/admin/AdminMovies";
 import AdminRooms from "pages/admin/AdminRooms";
 import AdminShowtimes from "pages/admin/AdminShowtimes";
 import AdminBookings from "pages/admin/AdminBookings";
+import KitchenSink from "pages/dev/KitchenSink";
 
 function AppShell() {
   const { loading } = useAuth();
@@ -46,6 +47,9 @@ function AppShell() {
         <Route path="/cinemas" element={<Cinemas />} />
         <Route path="/cinema/:id" element={<CinemaDetail />} />
         <Route path="/movie/:id" element={<MovieDetail />} />
+        {import.meta.env.DEV && (
+          <Route path="/kitchen-sink" element={<KitchenSink />} />
+        )}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
