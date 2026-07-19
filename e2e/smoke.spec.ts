@@ -5,11 +5,29 @@ import { test, expect } from "@playwright/test";
 test("trang chủ tải được với thanh điều hướng", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveTitle(/Cinema/i);
-  const nav = page.locator("nav.navbar");
-  await expect(nav.getByRole("link", { name: "Trang chủ" })).toBeVisible();
-  await expect(nav.getByRole("link", { name: "Phim" })).toBeVisible();
+  // Link điều hướng desktop nằm trong .nav-k__links (tránh trùng bản mobile ẩn)
+  const links = page.locator(".nav-k__links");
+  await expect(links.getByRole("link", { name: "Trang chủ" })).toBeVisible();
+  await expect(links.getByRole("link", { name: "Phim" })).toBeVisible();
   // Chưa đăng nhập -> có nút Đăng nhập trên navbar
-  await expect(nav.getByRole("link", { name: "Đăng nhập" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Đăng nhập" })).toBeVisible();
+});
+
+test("trang chủ: hero và thẻ phim hiển thị", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".hero-k")).toBeVisible();
+  await expect(page.locator(".hero-k__title")).toBeVisible();
+  // Lưới "đang chiếu" dựng từ MovieCard -> có ít nhất một thẻ
+  expect(await page.locator(".movie-k").count()).toBeGreaterThan(0);
+});
+
+test("menu mobile mở được", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 800 });
+  await page.goto("/");
+  const burger = page.locator(".nav-k__hamburger");
+  await expect(burger).toBeVisible();
+  await burger.click();
+  await expect(page.locator("#nav-mobile.is-open")).toBeVisible();
 });
 
 test("trang phim hiển thị tiêu đề và danh sách phim", async ({ page }) => {
@@ -29,7 +47,7 @@ test("đăng nhập admin và thấy mục Quản trị", async ({ page }) => {
 
   // Đăng nhập thành công -> điều hướng về trang chủ, navbar đổi sang avatar
   await expect(page).toHaveURL("/");
-  const avatar = page.locator(".user-avatar");
+  const avatar = page.locator(".nav-k__avatar");
   await expect(avatar).toBeVisible();
 
   // Mở dropdown -> tài khoản admin có link Quản trị
