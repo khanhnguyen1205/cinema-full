@@ -13,3 +13,6 @@ export { default as Marquee } from "./Marquee";
 export { default as Reveal } from "./Reveal";
 export { default as TicketEdge } from "./TicketEdge";
 export { default as Modal } from "./Modal";
+export { default as Container } from "./Container";
+export { default as Section } from "./Section";
+export { default as Grid } from "./Grid";

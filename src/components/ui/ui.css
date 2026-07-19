@@ -355,3 +355,40 @@
   flex-direction: column;
   gap: var(--sp-3);
 }
+
+/* ===== Container ===== */
+.ui-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+/* ===== Section ===== */
+.ui-section {
+  padding-block: var(--sp-16);
+}
+.ui-section__head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-8);
+}
+.ui-section__label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-wider);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.ui-section__head .ui-rule {
+  flex: 1;
+}
+
+/* ===== Grid ===== */
+.ui-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--grid-min, 220px), 1fr));
+  gap: var(--sp-4);
+}
