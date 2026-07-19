@@ -249,3 +249,69 @@
     animation: none;
   }
 }
+
+/* ===== Marquee ===== */
+.ui-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ui-marquee__track {
+  display: inline-flex;
+  animation: ui-marquee-scroll var(--marquee-dur, 30s) linear infinite;
+}
+.ui-marquee__group {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+@keyframes ui-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ui-marquee__track {
+    animation: none;
+  }
+}
+
+/* ===== Reveal ===== */
+.ui-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+.ui-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ui-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ===== TicketEdge (mép đục lỗ) ===== */
+.ui-ticket {
+  position: relative;
+  background: var(--surface);
+  border: var(--bw-1) solid var(--border);
+  border-radius: var(--r-sm);
+  --punch: 12px;
+  -webkit-mask:
+    radial-gradient(var(--punch) at left center, transparent 98%, #000) left /
+      51% 100% no-repeat,
+    radial-gradient(var(--punch) at right center, transparent 98%, #000) right /
+      51% 100% no-repeat;
+  mask:
+    radial-gradient(var(--punch) at left center, transparent 98%, #000) left /
+      51% 100% no-repeat,
+    radial-gradient(var(--punch) at right center, transparent 98%, #000) right /
+      51% 100% no-repeat;
+}

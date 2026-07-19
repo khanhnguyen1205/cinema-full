@@ -9,3 +9,6 @@ export { default as Spinner } from "./Spinner";
 export { default as IconButton } from "./IconButton";
 export { default as Numbered, formatIndex } from "./Numbered";
 export { default as KineticHeading } from "./KineticHeading";
+export { default as Marquee } from "./Marquee";
+export { default as Reveal } from "./Reveal";
+export { default as TicketEdge } from "./TicketEdge";
