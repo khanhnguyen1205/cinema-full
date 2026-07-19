@@ -1,0 +1,179 @@
+.nav-k {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  height: 64px;
+  padding-inline: var(--gutter);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: var(--bw-1) solid var(--border);
+}
+.nav-k__left {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+}
+.nav-k__logo {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  letter-spacing: var(--tr-wide);
+  color: var(--text);
+}
+.nav-k__logo b {
+  color: var(--red);
+  font-weight: inherit;
+}
+.nav-k__back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  color: var(--text-muted);
+  border: var(--bw-1) solid var(--border);
+  border-radius: var(--r-sm);
+}
+.nav-k__back:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+.nav-k__links {
+  display: flex;
+  gap: var(--sp-5);
+}
+.nav-k__link {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tr-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding-block: var(--sp-2);
+  border-bottom: var(--bw-2) solid transparent;
+  transition: color var(--dur-fast);
+}
+.nav-k__link:hover {
+  color: var(--text);
+}
+.nav-k__link.is-active {
+  color: var(--text);
+  border-bottom-color: var(--red);
+}
+.nav-k__right {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.nav-k__login {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--tr-wide);
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--red);
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--r-sm);
+  transition: background var(--dur-fast);
+}
+.nav-k__login:hover {
+  background: var(--red-dark);
+}
+.nav-k__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: var(--bw-1) solid var(--border-strong);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+.nav-k__avatar:focus-visible,
+.nav-k__hamburger:focus-visible {
+  outline: var(--bw-2) solid var(--focus);
+  outline-offset: 2px;
+}
+.nav-k__menu {
+  position: relative;
+}
+.nav-k__dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + var(--sp-2));
+  min-width: 200px;
+  background: var(--surface-2);
+  border: var(--bw-1) solid var(--border-strong);
+  border-radius: var(--r-sm);
+  padding: var(--sp-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  box-shadow: var(--shadow-soft);
+}
+.nav-k__item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  background: none;
+  border: 0;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  text-align: left;
+}
+.nav-k__item:hover {
+  color: var(--text);
+  background: var(--surface);
+}
+.nav-k__hamburger {
+  display: none;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: var(--bw-1) solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+}
+.nav-k__mobile {
+  display: none;
+}
+@media (max-width: 720px) {
+  .nav-k__links {
+    display: none;
+  }
+  .nav-k__hamburger {
+    display: inline-flex;
+  }
+  .nav-k__mobile.is-open {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    z-index: var(--z-dropdown);
+    background: var(--surface-2);
+    border-bottom: var(--bw-1) solid var(--border-strong);
+    padding: var(--sp-4) var(--gutter);
+  }
+  .nav-k__mobile .nav-k__link {
+    font-size: var(--fs-md);
+    border-bottom: 0;
+    padding-block: var(--sp-2);
+  }
+}
