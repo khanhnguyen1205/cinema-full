@@ -77,3 +77,25 @@ test("trang chi tiết phim: hero, panel đặt vé và giờ chiếu", async ({
   await timeBtn.click();
   await expect(page.locator(".book-k__cta")).toBeEnabled();
 });
+
+test("trang rạp: tiêu đề, danh sách và lọc theo thành phố", async ({
+  page,
+}) => {
+  await page.goto("/cinemas");
+  await expect(
+    page.getByRole("heading", { name: "Rạp chiếu phim" }),
+  ).toBeVisible();
+  await expect(page.locator(".venue-k").first()).toBeVisible();
+  const chip = page.locator(".city-k-chip", { hasNotText: "Tất cả" }).first();
+  await chip.click();
+  await expect(chip).toHaveAttribute("aria-pressed", "true");
+});
+
+test("trang chi tiết rạp: hero và giờ chiếu", async ({ page }) => {
+  // Vào từ trang rạp để lấy một rạp thật
+  await page.goto("/cinemas");
+  await page.locator(".venue-k").first().click();
+  await expect(page).toHaveURL(/\/cinema\/\d+/);
+  await expect(page.locator(".venue-hero__title")).toBeVisible();
+  await expect(page.locator(".time-k-btn").first()).toBeVisible();
+});
