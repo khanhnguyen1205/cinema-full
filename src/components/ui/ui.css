@@ -227,7 +227,11 @@
 .ui-kinetic {
   font-family: var(--font-display);
   line-height: 0.9;
+  display: inline;
+}
+.ui-kinetic__word {
   display: inline-block;
+  white-space: nowrap;
 }
 .ui-kinetic__ch {
   display: inline-block;
