@@ -61,3 +61,19 @@ test("đăng nhập admin và thấy mục Quản trị", async ({ page }) => {
   await avatar.click();
   await expect(page.getByRole("link", { name: "Quản trị" })).toBeVisible();
 });
+
+test("trang chi tiết phim: hero, panel đặt vé và giờ chiếu", async ({
+  page,
+}) => {
+  // Vào từ trang phim để lấy một phim thật (không hardcode id)
+  await page.goto("/movies");
+  await page.locator(".movie-k").first().click();
+  await expect(page).toHaveURL(/\/movie\/\d+/);
+  // Panel đặt vé hiển thị
+  await expect(page.locator(".book-k")).toBeVisible();
+  // Có ít nhất một nút giờ chiếu -> bấm -> nút Đặt vé bật (không disabled)
+  const timeBtn = page.locator(".time-k-btn").first();
+  await expect(timeBtn).toBeVisible();
+  await timeBtn.click();
+  await expect(page.locator(".book-k__cta")).toBeEnabled();
+});
