@@ -8,4 +8,10 @@ describe("qk (query-key registry)", () => {
     expect(qk.cities).toEqual(["cities"]);
     expect(qk.showtimes).toEqual(["showtimes"]);
   });
+
+  it("khai báo key cho rooms và key có tham số của Detail", () => {
+    expect(qk.rooms).toEqual(["rooms"]);
+    expect(qk.movie(7)).toEqual(["movie", 7]);
+    expect(qk.showtimesByMovie(7)).toEqual(["showtimes", "byMovie", 7]);
+  });
 });

@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import {
   getMovies,
+  getMovie,
   getCinemas,
   getCities,
   getAllShowtimes,
+  getShowtimes,
+  getRooms,
 } from "services/api";
 import { qk } from "./keys";
 
@@ -18,3 +21,15 @@ export const useCities = () =>
 
 export const useAllShowtimes = () =>
   useQuery({ queryKey: qk.showtimes, queryFn: getAllShowtimes });
+
+export const useRooms = () =>
+  useQuery({ queryKey: qk.rooms, queryFn: () => getRooms() });
+
+export const useMovie = (id: number | string) =>
+  useQuery({ queryKey: qk.movie(id), queryFn: () => getMovie(id) });
+
+export const useShowtimesByMovie = (id: number | string) =>
+  useQuery({
+    queryKey: qk.showtimesByMovie(id),
+    queryFn: () => getShowtimes(id),
+  });

@@ -5,4 +5,8 @@ export const qk = {
   cinemas: ["cinemas"] as const,
   cities: ["cities"] as const,
   showtimes: ["showtimes"] as const,
+  rooms: ["rooms"] as const,
+  movie: (id: number | string) => ["movie", id] as const,
+  showtimesByMovie: (id: number | string) =>
+    ["showtimes", "byMovie", id] as const,
 };
