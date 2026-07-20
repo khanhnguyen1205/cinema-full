@@ -1,0 +1,128 @@
+/* E-ticket "bone" — khối vé đảo màu (nền trắng ngà, chữ đen). Dùng cho bước ④
+   của wizard và trang Vé của tôi. Bọc trong TicketEdge (.ui-ticket) để có mép
+   đục lỗ; override nền bằng selector ghép để thắng .ui-ticket. */
+
+.ui-ticket.eticket-k {
+  background: var(--surface-invert);
+  color: var(--text-invert);
+  border-color: var(--surface-invert);
+}
+
+.eticket-k {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+}
+.eticket-k--compact {
+  grid-template-columns: 1fr 150px;
+}
+
+.eticket-k__main {
+  padding: 24px;
+  border-right: 2px dashed
+    color-mix(in srgb, var(--text-invert) 30%, transparent);
+}
+
+.eticket-k__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+.eticket-k__code {
+  color: var(--red);
+  white-space: nowrap;
+}
+.eticket-k__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 40px;
+  line-height: 0.95;
+  letter-spacing: 0.5px;
+  margin: 12px 0 4px;
+}
+.eticket-k--compact .eticket-k__title {
+  font-size: 28px;
+}
+.eticket-k__cinema {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  opacity: 0.7;
+}
+.eticket-k__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+.eticket-k__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.6;
+}
+.eticket-k__value {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+.eticket-k__seats {
+  color: var(--red);
+}
+.eticket-k__fnb {
+  margin-top: 12px;
+}
+.eticket-k__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid color-mix(in srgb, var(--text-invert) 20%, transparent);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.eticket-k__total-amount {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+  color: var(--red);
+}
+
+.eticket-k__stub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+}
+.eticket-k__qr {
+  background: #fff;
+  padding: 8px;
+}
+.eticket-k__stubcode {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+.eticket-k__stubhint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  opacity: 0.6;
+}
+
+@media (max-width: 560px) {
+  .eticket-k,
+  .eticket-k--compact {
+    grid-template-columns: 1fr;
+  }
+  .eticket-k__main {
+    border-right: none;
+    border-bottom: 2px dashed
+      color-mix(in srgb, var(--text-invert) 30%, transparent);
+  }
+}

@@ -1711,3 +1711,80 @@
     transition: none;
   }
 }
+
+/* ============================================================
+   GĐ2e — TICKET STEP (ticket-k): thành công + e-ticket + hành động.
+   Khối vé bone nằm trong component ETicket (components/ETicket.css).
+   ============================================================ */
+
+.ticket-k {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+.ticket-k__success {
+  text-align: center;
+}
+.ticket-k__check {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--red);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin: 0 auto 12px;
+}
+.ticket-k__successtitle {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 40px;
+  letter-spacing: 0.5px;
+}
+.ticket-k__successsub {
+  font-family: "Barlow", sans-serif;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.ticket-k .eticket-k {
+  width: 100%;
+}
+.ticket-k__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.ticket-k__primary {
+  background: var(--red);
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+.ticket-k__primary:hover {
+  transform: translateY(-2px);
+}
+.ticket-k__ghost {
+  background: none;
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  padding: 14px 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  cursor: pointer;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticket-k__primary:hover {
+    transform: none;
+  }
+}
