@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback, useRef, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import {
   getShowtime,
@@ -6,8 +6,6 @@ import {
   getRoom,
   getCinema,
   getOccupiedSeats,
-  createBooking,
-  getConcessions,
   holdSeats,
   releaseSeats,
 } from "services/api";
@@ -20,7 +18,13 @@ import {
   MAX_SEATS,
   MAX_ITEM_QTY,
 } from "lib/pricing";
+import {
+  useOccupiedSeats,
+  useConcessions,
+  useCreateBooking,
+} from "queries/booking";
 import { useAuth } from "context/AuthContext";
+import type { Movie, Showtime, Room, Cinema, Seat, Booking } from "types";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import BookingStepper from "./BookingStepper";
@@ -33,66 +37,71 @@ import SeatHoldTimer from "./SeatHoldTimer";
 import "./Booking.css";
 
 export default function BookingWizard() {
-  const { showtimeId } = useParams();
+  const { showtimeId = "" } = useParams();
   const { user } = useAuth();
 
   const [step, setStep] = useState(1);
-  const [showtime, setShowtime] = useState(null);
-  const [movie, setMovie] = useState(null);
-  const [room, setRoom] = useState(null);
-  const [cinema, setCinema] = useState(null);
-  const [booked, setBooked] = useState(new Set());
-  const [selected, setSelected] = useState([]);
-  const [catalog, setCatalog] = useState([]);
-  const [catalogLoading, setCatalogLoading] = useState(true);
-  const [catalogError, setCatalogError] = useState(false);
-  const [qty, setQty] = useState({});
+  const [showtime, setShowtime] = useState<Showtime | null>(null);
+  const [movie, setMovie] = useState<Movie | null>(null);
+  const [room, setRoom] = useState<Room | null>(null);
+  const [cinema, setCinema] = useState<Cinema | null>(null);
+  const [selected, setSelected] = useState<Seat[]>([]);
+  const [qty, setQty] = useState<Record<number, number>>({});
   const [paymentMethod, setPaymentMethod] = useState("momo");
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [bookingResult, setBookingResult] = useState(null);
+  const [bookingResult, setBookingResult] = useState<Booking | null>(null);
   const [expired, setExpired] = useState(false);
   const [timerEpoch, setTimerEpoch] = useState(0);
 
+  // Meta của suất (phim/phòng/rạp) — ít đổi, giữ useEffect gọi 1 lần.
   useEffect(() => {
+    if (!showtimeId) return;
+    let alive = true;
     (async () => {
       const st = await getShowtime(showtimeId);
+      if (!alive) return;
       setShowtime(st);
-      const [m, r, occupied] = await Promise.all([
+      const [m, r] = await Promise.all([
         getMovie(st.movieId),
         getRoom(st.roomId),
-        getOccupiedSeats(showtimeId),
       ]);
+      if (!alive) return;
       setMovie(m);
       setRoom(r);
-      setBooked(new Set(occupied));
-      getCinema(r.cinemaId).then(setCinema);
+      getCinema(r.cinemaId).then((c) => alive && setCinema(c));
     })();
+    return () => {
+      alive = false;
+    };
   }, [showtimeId]);
 
-  const loadCatalog = useCallback(() => {
-    setCatalogLoading(true);
-    setCatalogError(false);
-    getConcessions()
-      .then((data) => setCatalog(data))
-      .catch(() => {
-        setCatalog([]);
-        setCatalogError(true);
-      })
-      .finally(() => setCatalogLoading(false));
-  }, []);
+  // Ghế đã chiếm: Query, poll 10s chỉ ở bước chọn ghế.
+  const occupiedQ = useOccupiedSeats(showtimeId, {
+    poll: step === 1,
+    enabled: !!showtimeId,
+  });
+  const selectedKeys = useMemo(
+    () => new Set(selected.map((s) => s.seatNumber)),
+    [selected],
+  );
+  // Suy dẫn booked = occupied - ghế mình đang chọn (không ghi đè cache).
+  const booked = useMemo(
+    () => new Set((occupiedQ.data ?? []).filter((s) => !selectedKeys.has(s))),
+    [occupiedQ.data, selectedKeys],
+  );
 
-  useEffect(() => {
-    loadCatalog();
-  }, [loadCatalog]);
+  // Bắp nước: Query lo loading/error/refetch.
+  const concessionsQ = useConcessions();
+  const catalog = useMemo(() => concessionsQ.data ?? [], [concessionsQ.data]);
 
-  // Ref theo dõi ghế đang chọn để interval poll không bị đóng biến cũ (stale closure)
+  const createMut = useCreateBooking();
+
   const selectedRef = useRef(selected);
   useEffect(() => {
     selectedRef.current = selected;
   }, [selected]);
 
-  // Giữ ghế phía server mỗi khi danh sách ghế đổi (cũng gia hạn TTL khi sang bước 2/3).
+  // Giữ ghế phía server mỗi khi lựa chọn đổi (kiêm heartbeat khi sang bước 2/3).
   const seatKey = selected.map((s) => s.seatNumber).join(",");
   useEffect(() => {
     if (!showtimeId || step >= 4) return;
@@ -105,12 +114,12 @@ export default function BookingWizard() {
         if (r.ok || cancelled) return;
         if (r.status === 409) {
           const data = await r.json().catch(() => ({}));
-          const conflicts = new Set(data.conflicts || []);
+          const conflicts = new Set<string>(data.conflicts || []);
           if (!conflicts.size) return;
-          setBooked((prev) => new Set([...prev, ...conflicts]));
           setSelected((prev) =>
             prev.filter((s) => !conflicts.has(s.seatNumber)),
           );
+          occupiedQ.refetch();
           setStep(1);
           setError(
             `Ghế ${[...conflicts].join(", ")} vừa được người khác giữ. Vui lòng chọn lại.`,
@@ -121,24 +130,9 @@ export default function BookingWizard() {
     return () => {
       cancelled = true;
     };
-    // seatKey là chuỗi ổn định đại diện cho `selected`; dùng nó làm dep thay vì mảng đổi ref mỗi render.
+    // seatKey là chuỗi ổn định đại diện cho `selected`; dùng nó thay mảng đổi ref mỗi render.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seatKey, showtimeId, step]);
-
-  // Poll ghế trống ở bước chọn ghế: thấy ghế người khác vừa giữ / vừa nhả.
-  useEffect(() => {
-    if (step !== 1 || !showtimeId) return;
-    const id = setInterval(async () => {
-      try {
-        const occ = await getOccupiedSeats(showtimeId);
-        const sel = new Set(selectedRef.current.map((s) => s.seatNumber));
-        setBooked(new Set(occ.filter((s) => !sel.has(s)))); // giữ lại ghế mình đang chọn
-      } catch {
-        /* bỏ qua lỗi mạng tạm thời */
-      }
-    }, 10000);
-    return () => clearInterval(id);
-  }, [step, showtimeId]);
 
   // Rời trang -> nhả toàn bộ ghế đang giữ của mình.
   useEffect(() => {
@@ -150,7 +144,7 @@ export default function BookingWizard() {
   const layout = buildSeatLayout(room);
   const base = showtime?.price || 0;
 
-  const toggle = useCallback((seat) => {
+  const toggle = useCallback((seat: Seat) => {
     setError("");
     setSelected((prev) => {
       if (prev.find((s) => s.seatNumber === seat.seatNumber))
@@ -163,8 +157,7 @@ export default function BookingWizard() {
     });
   }, []);
 
-  // Nhận delta (+1/-1) rồi cộng vào prev: kẹp biên [0, MAX_ITEM_QTY] chỉ nằm ở đây
-  const changeQty = useCallback((id, delta) => {
+  const changeQty = useCallback((id: number, delta: number) => {
     setQty((prev) => {
       const n = Math.max(0, Math.min(MAX_ITEM_QTY, (prev[id] || 0) + delta));
       const copy = { ...prev };
@@ -177,12 +170,10 @@ export default function BookingWizard() {
   const seatTotal = selected.reduce((sum, s) => sum + priceOf(s, base), 0);
   const fnb = fnbLines(qty, catalog);
   const fnbSum = fnbTotal(qty, catalog);
-  // Chưa có ghế thì chưa thành đơn: không phí dịch vụ, không hiện tiền bắp nước
   const hasOrder = selected.length > 0;
   const serviceFee = hasOrder ? SERVICE_FEE : 0;
   const total = hasOrder ? seatTotal + fnbSum + serviceFee : 0;
 
-  // Hết giờ: xóa ghế, về bước ①, báo banner và đếm lại đồng hồ từ đầu
   const onExpire = useCallback(() => {
     setSelected([]);
     setStep(1);
@@ -191,27 +182,25 @@ export default function BookingWizard() {
   }, []);
 
   const confirm = async () => {
-    if (selected.length === 0) return;
-    setLoading(true);
+    if (selected.length === 0 || !showtime || !room) return;
     setError("");
     try {
-      // Re-check ghế trống ngay trước khi đặt
+      // Re-check ghế trống ngay trước khi đặt.
       const freshSet = new Set(await getOccupiedSeats(showtimeId));
       const clash = selected.filter((s) => freshSet.has(s.seatNumber));
       if (clash.length) {
-        setBooked(freshSet);
         setSelected((prev) => prev.filter((s) => !freshSet.has(s.seatNumber)));
+        occupiedQ.refetch();
         setStep(1);
         setError(
           `Ghế ${clash.map((s) => s.seatNumber).join(", ")} vừa được người khác đặt. Vui lòng chọn lại.`,
         );
-        setLoading(false);
         return;
       }
       const stdCount = selected.filter((s) => !s.isVip && !s.isCouple).length;
       const vipCount = selected.filter((s) => s.isVip).length;
       const coupleCount = selected.filter((s) => s.isCouple).length;
-      const created = await createBooking({
+      const created = await createMut.mutateAsync({
         movieId: showtime.movieId,
         showtimeId: Number(showtimeId),
         cinemaId: room.cinemaId,
@@ -237,8 +226,6 @@ export default function BookingWizard() {
       setStep(4);
     } catch {
       setError("Đặt vé thất bại. Vui lòng thử lại.");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -259,9 +246,9 @@ export default function BookingWizard() {
   const primaryLabel = step === 3 ? "Thanh toán" : "Tiếp tục";
 
   return (
-    <div className="page booking-page">
+    <div className="page booking-k">
       <Navbar back={movie ? `/movie/${movie.id}` : "/"} />
-      <div className="booking-topbar">
+      <div className="booking-k__topbar">
         <BookingStepper
           step={step}
           onBack={() => {
@@ -275,19 +262,15 @@ export default function BookingWizard() {
         )}
       </div>
       {expired && step < 4 && (
-        <div className="expire-banner">
+        <div className="booking-k__expire">
           Đã hết thời gian giữ ghế — vui lòng chọn lại ghế.
-          <button
-            onClick={() => {
-              setExpired(false);
-            }}
-          >
+          <button type="button" onClick={() => setExpired(false)}>
             Đã hiểu
           </button>
         </div>
       )}
       {step === 4 ? (
-        <div className="booking-body booking-body-single">
+        <div className="booking-k__body booking-k__body--single">
           <TicketStep
             booking={bookingResult}
             movie={movie}
@@ -297,8 +280,8 @@ export default function BookingWizard() {
           />
         </div>
       ) : (
-        <div className="booking-body">
-          <div className="booking-main">
+        <div className="booking-k__body">
+          <div className="booking-k__main">
             {step === 1 && (
               <SeatStep
                 layout={layout}
@@ -314,9 +297,9 @@ export default function BookingWizard() {
                 catalog={catalog}
                 qty={qty}
                 onChange={changeQty}
-                loading={catalogLoading}
-                error={catalogError}
-                onRetry={loadCatalog}
+                loading={concessionsQ.isLoading}
+                error={concessionsQ.isError}
+                onRetry={() => concessionsQ.refetch()}
               />
             )}
             {step === 3 && (
@@ -340,7 +323,7 @@ export default function BookingWizard() {
               setError("");
               setStep(3);
             }}
-            loading={loading}
+            loading={createMut.isPending}
             onPrimary={onPrimary}
             error={error}
           />

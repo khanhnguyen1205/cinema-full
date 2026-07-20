@@ -25,8 +25,8 @@ function categoriesOf(catalog) {
 const fmt = (n) => n.toLocaleString("vi-VN") + "₫";
 
 export default function ConcessionStep({
-  catalog = [],
-  qty = {},
+  catalog,
+  qty,
   onChange,
   loading,
   error,

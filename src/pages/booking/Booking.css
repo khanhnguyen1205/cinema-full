@@ -1011,3 +1011,317 @@
     bottom: auto;
   }
 }
+
+/* ============================================================
+   GĐ2e — KINETIC SHELL (booking-k): topbar / stepper / timer /
+   order summary / layout. Class step-body cũ giữ tạm, quét ở 2e/7.
+   ============================================================ */
+
+.booking-k {
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+.booking-k__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px var(--gutter);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+/* Stepper — N° + nhãn mono, rule ngăn cách */
+.stepper-k {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.stepper-k__back {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.12s ease;
+}
+.stepper-k__back:hover:not(:disabled) {
+  color: var(--text);
+}
+.stepper-k__back:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.stepper-k__list {
+  display: flex;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.stepper-k__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  border-right: 1px solid var(--border);
+  opacity: 0.5;
+}
+.stepper-k__item:last-child {
+  border-right: none;
+}
+.stepper-k__item.is-current {
+  opacity: 1;
+}
+.stepper-k__item.is-done {
+  opacity: 0.8;
+}
+.stepper-k__no {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: var(--red);
+}
+.stepper-k__item.is-done .stepper-k__no {
+  color: var(--text);
+}
+.stepper-k__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+}
+.stepper-k__item.is-current .stepper-k__label {
+  color: var(--text);
+}
+
+/* Đồng hồ giữ ghế */
+.hold-k {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border-strong);
+  padding: 6px 12px;
+}
+.hold-k__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+.hold-k__time {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: var(--text);
+}
+.hold-k.is-warn {
+  border-color: var(--red);
+}
+.hold-k.is-warn .hold-k__time {
+  color: var(--red);
+  animation: holdBlink 1s steps(2) infinite;
+}
+@keyframes holdBlink {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* Banner hết giờ */
+.booking-k__expire {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px var(--gutter) 0;
+  padding: 12px 16px;
+  border: 1px solid var(--red);
+  background: color-mix(in srgb, var(--red) 12%, transparent);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.booking-k__expire button {
+  margin-left: auto;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+}
+
+/* Layout 2 cột */
+.booking-k__body {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 32px;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 32px var(--gutter) 72px;
+  align-items: start;
+}
+.booking-k__body--single {
+  display: block;
+}
+.booking-k__main {
+  min-width: 0;
+}
+
+/* Order summary — khối tối viền cứng, sticky */
+.os-k {
+  position: sticky;
+  top: 88px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.os-k__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+.os-k__meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+.os-k__cinema {
+  font-family: "Barlow", sans-serif;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.os-k__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.os-k__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+.os-k__value {
+  font-family: "Barlow", sans-serif;
+  font-size: 14px;
+  color: var(--text);
+}
+.os-k__seats {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.os-k__seatlist {
+  color: var(--red);
+}
+.os-k__breakdown {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.os-k__row {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.os-k__subhead {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.os-k__total {
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  margin-top: 4px;
+  align-items: baseline;
+  color: var(--text);
+}
+.os-k__total-amount {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+  color: var(--red);
+}
+.os-k__error {
+  border: 1px solid var(--red);
+  color: var(--red);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 8px 10px;
+}
+.os-k__cta {
+  background: var(--red);
+  color: #fff;
+  border: none;
+  padding: 14px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+.os-k__cta:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+.os-k__cta:disabled {
+  opacity: 0.45;
+  cursor: default;
+  transform: none;
+}
+.os-k__skip {
+  background: none;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  padding: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .os-k__cta:hover {
+    transform: none;
+  }
+  .hold-k.is-warn .hold-k__time {
+    animation: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .booking-k__body {
+    grid-template-columns: 1fr;
+  }
+  .os-k {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .stepper-k__label {
+    display: none;
+  }
+  .booking-k__topbar {
+    padding: 12px 16px;
+  }
+}

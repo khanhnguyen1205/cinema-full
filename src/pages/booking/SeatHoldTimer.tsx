@@ -5,6 +5,11 @@ export default function SeatHoldTimer({
   active = true,
   resetKey = 0,
   onExpire,
+}: {
+  seconds?: number;
+  active?: boolean;
+  resetKey?: number;
+  onExpire?: () => void;
 }) {
   const [left, setLeft] = useState(seconds);
   const firedRef = useRef(false);
@@ -32,22 +37,10 @@ export default function SeatHoldTimer({
   const ss = String(left % 60).padStart(2, "0");
 
   return (
-    <div className={`hold-timer ${left <= 60 ? "warning" : ""}`}>
-      <svg
-        width="15"
-        height="15"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="12" cy="12" r="9" />
-        <polyline points="12 7 12 12 15 14" />
-      </svg>
-      <span>
-        Giữ ghế {mm}:{ss}
+    <div className={`hold-k ${left <= 60 ? "is-warn" : ""}`}>
+      <span className="hold-k__label">Giữ ghế</span>
+      <span className="hold-k__time">
+        {mm}:{ss}
       </span>
     </div>
   );
