@@ -19,4 +19,10 @@ describe("qk (query-key registry)", () => {
     expect(qk.cinema(3)).toEqual(["cinema", 3]);
     expect(qk.showtimesByCinema(3)).toEqual(["showtimes", "byCinema", 3]);
   });
+
+  it("khai báo key cho luồng đặt vé", () => {
+    expect(qk.occupiedSeats(7)).toEqual(["occupiedSeats", 7]);
+    expect(qk.concessions).toEqual(["concessions"]);
+    expect(qk.myBookings).toEqual(["bookings", "mine"]);
+  });
 });

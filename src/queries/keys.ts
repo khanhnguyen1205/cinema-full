@@ -12,4 +12,7 @@ export const qk = {
   cinema: (id: number | string) => ["cinema", id] as const,
   showtimesByCinema: (id: number | string) =>
     ["showtimes", "byCinema", id] as const,
+  occupiedSeats: (id: number | string) => ["occupiedSeats", id] as const,
+  concessions: ["concessions"] as const,
+  myBookings: ["bookings", "mine"] as const,
 };
