@@ -1325,3 +1325,177 @@
     padding: 12px 16px;
   }
 }
+
+/* ============================================================
+   GĐ2e — SEAT MAP kinetic (seatmap-k). Signature element.
+   Ghế ô vuông mép cứng; trạng thái đọc bằng cả màu lẫn ký hiệu.
+   ============================================================ */
+
+.seatmap-k {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Màn hình chiếu — vòng cung + nhãn mono */
+.seatmap-k__screen {
+  width: 100%;
+  max-width: 560px;
+  text-align: center;
+}
+.seatmap-k__screen-arc {
+  height: 40px;
+  border-top: 2px solid var(--border-strong);
+  border-radius: 50% / 100% 100% 0 0;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--text) 10%, transparent),
+    transparent 70%
+  );
+}
+.seatmap-k__screen-label {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--text-muted);
+}
+
+/* Cuộn ngang khi phòng rộng */
+.seatmap-k__scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.seatmap-k__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: max-content;
+  margin: 0 auto;
+}
+.seatmap-k__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.seatmap-k__rowlabel {
+  width: 16px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  flex: none;
+}
+.seatmap-k__seats {
+  display: flex;
+  gap: 6px;
+}
+
+.seatmap-k__seat {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 0;
+  transition:
+    transform 0.1s ease,
+    background 0.1s ease,
+    border-color 0.1s ease;
+}
+.seatmap-k__seat:hover:not(.is-booked) {
+  transform: translateY(-2px);
+  border-color: var(--text);
+}
+.seatmap-k__seat:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  z-index: 1;
+}
+.seatmap-k__seat.is-vip {
+  border-color: var(--red);
+  color: var(--red);
+}
+.seatmap-k__seat.is-couplecell {
+  width: 66px;
+}
+.seatmap-k__seat.is-selected {
+  background: var(--surface-invert);
+  color: var(--text-invert);
+  border-color: var(--surface-invert);
+}
+.seatmap-k__seat.is-booked {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--surface-2),
+    var(--surface-2) 3px,
+    transparent 3px,
+    transparent 6px
+  );
+  color: var(--text-dim);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.seatmap-k__seat.is-booked:hover {
+  transform: none;
+}
+
+.seatmap-k__hint {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.seatmap-k__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+.seatmap-k__leg {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.seatmap-k__leg::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+}
+.seatmap-k__leg.is-vip::before {
+  border-color: var(--red);
+}
+.seatmap-k__leg.is-couple::before {
+  width: 24px;
+}
+.seatmap-k__leg.is-selected::before {
+  background: var(--surface-invert);
+  border-color: var(--surface-invert);
+}
+.seatmap-k__leg.is-booked::before {
+  background: var(--surface-2);
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seatmap-k__seat {
+    transition: none;
+  }
+  .seatmap-k__seat:hover {
+    transform: none;
+  }
+}
