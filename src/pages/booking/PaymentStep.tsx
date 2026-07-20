@@ -19,21 +19,27 @@ const METHODS = [
   },
 ];
 
-export default function PaymentStep({ method, onChange }) {
+export default function PaymentStep({
+  method,
+  onChange,
+}: {
+  method: string;
+  onChange: (m: string) => void;
+}) {
   return (
-    <div className="pay-step">
-      <div className="pay-head">
-        <h2 className="pay-title">Phương thức thanh toán</h2>
-        <p className="pay-sub">
+    <div className="pay-k">
+      <div className="pay-k__head">
+        <h2 className="pay-k__title">Phương thức thanh toán</h2>
+        <p className="pay-k__sub">
           Đây là bản demo — không nhập và không lưu thông tin thẻ thật.
         </p>
       </div>
 
-      <div className="pay-methods">
+      <div className="pay-k__methods">
         {METHODS.map((m) => (
           <label
             key={m.key}
-            className={`pay-card ${method === m.key ? "picked" : ""}`}
+            className={"pay-k__card" + (method === m.key ? " is-picked" : "")}
           >
             <input
               type="radio"
@@ -42,19 +48,18 @@ export default function PaymentStep({ method, onChange }) {
               checked={method === m.key}
               onChange={() => onChange(m.key)}
             />
-            <span className="pay-emoji" aria-hidden="true">
+            <span className="pay-k__emoji" aria-hidden="true">
               {m.emoji}
             </span>
-            <span className="pay-info">
-              <span className="pay-name">{m.name}</span>
-              <span className="pay-desc">{m.desc}</span>
+            <span className="pay-k__info">
+              <span className="pay-k__name">{m.name}</span>
+              <span className="pay-k__desc">{m.desc}</span>
             </span>
-            <span className="pay-radio" aria-hidden="true" />
           </label>
         ))}
       </div>
 
-      <p className="pay-note">
+      <p className="pay-k__note">
         🔒 Thông tin đơn hàng được mã hoá. Nhấn “Thanh toán” để hoàn tất và nhận
         vé điện tử.
       </p>

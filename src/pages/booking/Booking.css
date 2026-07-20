@@ -1499,3 +1499,215 @@
     transform: none;
   }
 }
+
+/* ============================================================
+   GĐ2e — CONCESSION (fnb-k) + PAYMENT (pay-k) kinetic.
+   ============================================================ */
+
+.fnb-k__msg {
+  padding: 40px 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.fnb-k__retry {
+  margin-top: 12px;
+  background: none;
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+.fnb-k__retry:hover {
+  background: var(--surface-invert);
+  color: var(--text-invert);
+  border-color: var(--surface-invert);
+}
+
+.fnb-k__head {
+  margin-bottom: 20px;
+}
+.fnb-k__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 32px;
+  letter-spacing: 0.5px;
+}
+.fnb-k__sub {
+  font-family: "Barlow", sans-serif;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.fnb-k__group {
+  margin-bottom: 24px;
+}
+.fnb-k__grouptitle {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+.fnb-k__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+.fnb-k__card {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 14px;
+  transition: border-color 0.12s ease;
+}
+.fnb-k__card.is-picked {
+  border-color: var(--red);
+}
+.fnb-k__emoji {
+  font-size: 32px;
+  flex: none;
+  line-height: 1;
+}
+.fnb-k__info {
+  flex: 1;
+  min-width: 0;
+}
+.fnb-k__name {
+  font-family: "Barlow", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+}
+.fnb-k__desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 2px 0 4px;
+}
+.fnb-k__price {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--red);
+}
+.fnb-k__qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+.fnb-k__btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  transition:
+    background 0.12s ease,
+    color 0.12s ease;
+}
+.fnb-k__btn:hover:not(:disabled) {
+  background: var(--surface-invert);
+  color: var(--text-invert);
+  border-color: var(--surface-invert);
+}
+.fnb-k__btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.fnb-k__count {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.pay-k__head {
+  margin-bottom: 20px;
+}
+.pay-k__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 32px;
+  letter-spacing: 0.5px;
+}
+.pay-k__sub {
+  font-family: "Barlow", sans-serif;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.pay-k__methods {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pay-k__card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 16px;
+  cursor: pointer;
+  transition:
+    border-color 0.12s ease,
+    background 0.12s ease;
+}
+.pay-k__card.is-picked {
+  background: var(--surface-invert);
+  color: var(--text-invert);
+  border-color: var(--surface-invert);
+}
+.pay-k__card input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.pay-k__card:has(input:focus-visible) {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.pay-k__emoji {
+  font-size: 26px;
+  line-height: 1;
+}
+.pay-k__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pay-k__name {
+  font-family: "Barlow", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+}
+.pay-k__desc {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.pay-k__card.is-picked .pay-k__desc {
+  color: color-mix(in srgb, var(--text-invert) 70%, transparent);
+}
+.pay-k__note {
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fnb-k__card,
+  .pay-k__card,
+  .fnb-k__btn {
+    transition: none;
+  }
+}
