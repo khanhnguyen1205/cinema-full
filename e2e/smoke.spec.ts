@@ -99,3 +99,43 @@ test("trang chi tiết rạp: hero và giờ chiếu", async ({ page }) => {
   await expect(page.locator(".venue-hero__title")).toBeVisible();
   await expect(page.locator(".time-k-btn").first()).toBeVisible();
 });
+
+// Đăng nhập admin dùng lại ở luồng đặt vé (route /seats được PrivateRoute bảo vệ).
+async function loginAdmin(page: import("@playwright/test").Page) {
+  await page.goto("/login");
+  await page.getByPlaceholder("your@email.com").fill("admin@cinema.vn");
+  await page.getByPlaceholder("••••••••").fill("admin123");
+  await page.getByRole("button", { name: "Đăng nhập" }).click();
+  await expect(page).toHaveURL("/");
+}
+
+test("luồng đặt vé: chọn ghế và qua các bước (không thanh toán)", async ({
+  page,
+}) => {
+  await loginAdmin(page);
+
+  // Vào một suất thật qua rạp -> nút giờ điều hướng thẳng /seats
+  await page.goto("/cinemas");
+  await page.locator(".venue-k").first().click();
+  await expect(page).toHaveURL(/\/cinema\/\d+/);
+  await page.locator(".time-k-btn").first().click();
+  await expect(page).toHaveURL(/\/seats\/\d+/);
+
+  // Bước ①: sơ đồ ghế hiển thị, chọn một ghế trống
+  await expect(page.locator(".seatmap-k__grid")).toBeVisible();
+  await page.locator(".seatmap-k__seat:not(.is-booked)").first().click();
+  await expect(page.locator(".os-k__seatlist")).not.toHaveText("Chưa chọn");
+
+  // Sang bước ② rồi ③ (KHÔNG bấm Thanh toán -> không ghi db.json)
+  await page.locator(".os-k__cta").click();
+  await expect(page.locator(".fnb-k, .fnb-k__msg").first()).toBeVisible();
+  await page.locator(".os-k__cta").click();
+  await expect(page.locator(".pay-k")).toBeVisible();
+});
+
+test("trang vé của tôi hiển thị sau khi đăng nhập", async ({ page }) => {
+  await loginAdmin(page);
+  await page.goto("/tickets");
+  await expect(page.getByRole("heading", { name: "Vé của tôi" })).toBeVisible();
+  await expect(page.locator(".mytk-k__tab").first()).toBeVisible();
+});
