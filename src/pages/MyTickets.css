@@ -1,458 +1,101 @@
-/* MY TICKETS */
-.tickets-page {
+/* Vé của tôi — Kinetic. Danh sách vé e-ticket bone (dùng chung components/ETicket). */
+
+.mytk-k {
   background: var(--bg);
+  min-height: 100vh;
 }
-
-.tickets-content {
-  max-width: 960px;
+.mytk-k__content {
+  max-width: var(--container-max);
   margin: 0 auto;
-  padding: 100px 40px 60px;
+  padding: 48px var(--gutter) 72px;
 }
 
-.tickets-title {
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 48px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  margin-bottom: 32px;
+.mytk-k__header {
+  margin-bottom: 24px;
 }
-
-.tickets-tabs {
-  display: flex;
-  gap: 4px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 4px;
-  width: fit-content;
-  margin-bottom: 40px;
-}
-
-.tab-btn {
-  padding: 10px 24px;
-  border: none;
-  border-radius: 6px;
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 2px;
+.mytk-k__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
   text-transform: uppercase;
-  background: transparent;
+  letter-spacing: 3px;
   color: var(--text-muted);
-  cursor: pointer;
-  transition: all 0.2s;
 }
-
-.tab-btn.active {
-  background: var(--red);
-  color: white;
-}
-
-.tickets-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-bottom: 60px;
-}
-
-/* TICKET CARD */
-.ticket-card {
-  display: flex;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-  transition:
-    border-color 0.2s,
-    transform 0.2s;
-}
-
-.ticket-card:hover {
-  border-color: rgba(230, 48, 48, 0.3);
-  transform: translateY(-3px);
-}
-
-.ticket-poster {
-  width: 100px;
-  background: linear-gradient(135deg, #1a0808, #111);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  position: relative;
-}
-
-.ticket-poster-initial {
+.mytk-k__title {
   font-family: "Bebas Neue", sans-serif;
-  font-size: 48px;
-  color: rgba(255, 255, 255, 0.08);
-}
-
-.ticket-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: var(--red);
-  color: white;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  padding: 3px 8px;
-  border-radius: 2px;
-}
-
-.ticket-body {
-  flex: 1;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.ticket-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.ticket-cinema {
-  font-size: 9px;
-  letter-spacing: 2px;
-  font-weight: 700;
-  color: var(--text-dim);
-  text-transform: uppercase;
-}
-
-.ticket-id {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-family: "Barlow Condensed", sans-serif;
+  font-size: clamp(44px, 7vw, 88px);
+  line-height: 0.9;
   letter-spacing: 1px;
 }
-
-.ticket-title {
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  line-height: 1.1;
-}
-
-.ticket-cinema-line {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin: 2px 0 10px;
-}
-
-.ticket-info-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.ticket-info-cell {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.ticket-info-label {
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  color: var(--text-dim);
-  text-transform: uppercase;
-}
-
-.ticket-info-value {
-  font-family: "Barlow Condensed", sans-serif;
+.mytk-k__hello {
+  font-family: "Barlow", sans-serif;
   font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-
-.ticket-actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: auto;
-  padding-top: 8px;
-}
-
-.qr-box {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 6px;
-  line-height: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ticket-fnb {
-  font-size: 12px;
-  color: var(--text-muted);
-  line-height: 1.4;
-  border-top: 1px dashed var(--border);
-  padding-top: 8px;
-}
-
-/* TICKET MODAL */
-.tk-modal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(6px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  animation: tkFade 0.2s ease both;
-}
-
-@keyframes tkFade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.tk-modal {
-  position: relative;
-  width: 100%;
-  max-width: 420px;
-  max-height: 92vh;
-  overflow-y: auto;
-  background: linear-gradient(180deg, #161616, #0f0f0f);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 18px;
-  padding: 28px;
-  text-align: center;
-  animation: tkPop 0.24s cubic-bezier(0.2, 0.8, 0.3, 1) both;
-}
-
-@keyframes tkPop {
-  from {
-    transform: translateY(14px) scale(0.97);
-    opacity: 0;
-  }
-  to {
-    transform: none;
-    opacity: 1;
-  }
-}
-
-.tk-modal-close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text);
-  font-size: 15px;
-  cursor: pointer;
-  transition:
-    background 0.15s,
-    border-color 0.15s;
-}
-
-.tk-modal-close:hover {
-  background: var(--red);
-  border-color: var(--red);
-  color: #fff;
-}
-
-.tk-modal-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.tk-modal-brand {
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.tk-modal-code {
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--red);
-}
-
-.tk-modal-title {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 28px;
-  letter-spacing: 1px;
-  line-height: 1.05;
-}
-
-.tk-modal-cinema {
-  font-size: 13px;
   color: var(--text-muted);
   margin-top: 4px;
 }
-
-.tk-modal-qr {
-  display: inline-flex;
-  background: #fff;
-  padding: 14px;
-  border-radius: 14px;
-  margin: 22px auto 10px;
-  line-height: 0;
+.mytk-k__hello strong {
+  color: var(--text);
 }
 
-.tk-modal-scan {
-  font-size: 11px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 22px;
-}
-
-.tk-modal-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px 18px;
-  text-align: left;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 20px;
-}
-
-.tk-modal-label {
-  display: block;
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.tk-modal-value {
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 17px;
-  font-weight: 600;
-}
-
-.tk-modal-seats {
-  color: var(--red);
-}
-
-.tk-modal-fnb {
-  text-align: left;
-  margin-top: 18px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.tk-modal-fnb-list {
-  margin-top: 8px;
+.mytk-k__tabs {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.tk-modal-fnb-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  color: var(--text-muted);
-}
-
-.tk-modal-total {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  font-weight: 700;
-}
-
-.tk-modal-total-amount {
-  font-family: "Bebas Neue", sans-serif;
-  font-size: 26px;
-  letter-spacing: 1px;
-  color: var(--red);
-}
-
-/* NO TICKETS */
-.no-tickets {
-  text-align: center;
-  padding: 80px 40px;
-  color: var(--text-muted);
-}
-
-/* PERKS */
-.perks-section {
-  border-top: 1px solid var(--border);
-  padding-top: 60px;
-}
-
-.perks-title {
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: 1px;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
   margin-bottom: 28px;
 }
+.mytk-k__tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 10px 18px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.mytk-k__tab.is-active {
+  color: var(--text);
+  border-bottom-color: var(--red);
+}
 
-.perks-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.mytk-k__list {
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 }
-
-.perk-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 28px;
-  transition: border-color 0.2s;
+.mytk-k__item.is-past {
+  opacity: 0.6;
 }
 
-.perk-card:hover {
-  border-color: rgba(230, 48, 48, 0.2);
-}
-
-.perk-icon {
-  font-size: 28px;
-  margin-bottom: 16px;
-}
-
-.perk-title {
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
-}
-
-.perk-desc {
-  font-size: 13px;
+.mytk-k__empty {
+  text-align: center;
+  padding: 60px 0;
   color: var(--text-muted);
-  line-height: 1.6;
-}
-
-.tickets-page-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 8px;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.mytk-k__empty-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 32px;
+  color: var(--text);
+}
+.mytk-k__cta {
+  background: var(--red);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
 }
 
-/* readonly name input style */
-.name-input[readonly] {
-  opacity: 0.7;
-  cursor: default;
-  border-color: rgba(255, 255, 255, 0.05);
+@media (max-width: 640px) {
+  .mytk-k__content {
+    padding-top: 32px;
+  }
 }
