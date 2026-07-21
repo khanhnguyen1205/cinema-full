@@ -5,28 +5,37 @@ export default function Pagination({
   from,
   to,
   total,
+}: {
+  page: number;
+  totalPages: number;
+  onPage: (p: number) => void;
+  from: number;
+  to: number;
+  total: number;
 }) {
   if (totalPages <= 1) return null;
   return (
-    <div className="admin-pagination">
-      <span className="admin-pag-info">
+    <div className="adm-k__pag">
+      <span className="adm-k__pag-info">
         {from}–{to} / {total}
       </span>
-      <div className="admin-pag-controls">
+      <div className="adm-k__pag-ctrl">
         <button
-          className="admin-btn ghost small"
+          className="adm-k__btn ghost sm"
           disabled={page <= 1}
           onClick={() => onPage(page - 1)}
+          aria-label="Trang trước"
         >
           ‹
         </button>
-        <span className="admin-pag-page">
+        <span className="adm-k__pag-page">
           Trang {page}/{totalPages}
         </span>
         <button
-          className="admin-btn ghost small"
+          className="adm-k__btn ghost sm"
           disabled={page >= totalPages}
           onClick={() => onPage(page + 1)}
+          aria-label="Trang sau"
         >
           ›
         </button>

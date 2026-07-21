@@ -15,4 +15,5 @@ export const qk = {
   occupiedSeats: (id: number | string) => ["occupiedSeats", id] as const,
   concessions: ["concessions"] as const,
   myBookings: ["bookings", "mine"] as const,
+  allBookings: ["bookings", "all"] as const,
 };
