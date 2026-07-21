@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { loginUser } from "services/auth";
 import { useAuth } from "context/AuthContext";
+import AuthLayout from "./AuthLayout";
 import "./Auth.css";
 
 export default function Login() {
@@ -15,9 +16,11 @@ export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from =
+    (location.state as { from?: { pathname?: string } } | null)?.from
+      ?.pathname || "/";
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (loading) return; // chặn tái nhập (double-submit khi mạng chậm)
     setError("");
@@ -32,31 +35,36 @@ export default function Login() {
       login(user);
       navigate(from, { replace: true });
     } catch (err) {
-      setError(err.message);
+      setError((err as Error).message);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-bg">
-        <div className="auth-bg-glow" />
-        <div className="auth-bg-grid" />
-      </div>
-
-      <div className="auth-card">
-        <Link to="/" className="auth-logo">
+    <AuthLayout
+      codeNo="01"
+      statement={
+        <>
+          Xem phim
+          <br />
+          bắt đầu
+          <br />
+          từ đây
+        </>
+      }
+      sub="Đăng nhập để tiếp tục giữ ghế, chọn suất và soát vé bằng mã QR."
+    >
+      <div className="authf-k">
+        <Link to="/" className="auth-k__logo">
           CINEMA
         </Link>
 
-        <div className="auth-header">
-          <h1 className="auth-title">Chào mừng trở lại</h1>
-          <p className="auth-subtitle">Đăng nhập để tiếp tục đặt vé</p>
-        </div>
+        <p className="authf-k__eyebrow">Đăng nhập</p>
+        <h1 className="authf-k__title">Chào mừng trở lại</h1>
 
         {error && (
-          <div className="auth-error">
+          <div className="authf-k__error">
             <svg
               width="16"
               height="16"
@@ -75,26 +83,15 @@ export default function Login() {
           </div>
         )}
 
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <div className="field-group">
-            <label className="field-label">Email</label>
-            <div className="field-input-wrap">
-              <svg
-                className="field-icon"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <polyline points="22,6 12,13 2,6" />
-              </svg>
+        <form className="authf-k__form" onSubmit={handleSubmit}>
+          <div className="field-k">
+            <label className="field-k__label" htmlFor="login-email">
+              Email
+            </label>
+            <div className="field-k__wrap">
               <input
-                className="field-input"
+                id="login-email"
+                className="field-k__input"
                 type="email"
                 placeholder="your@email.com"
                 value={email}
@@ -104,25 +101,14 @@ export default function Login() {
             </div>
           </div>
 
-          <div className="field-group">
-            <label className="field-label">Mật khẩu</label>
-            <div className="field-input-wrap">
-              <svg
-                className="field-icon"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                <path d="M7 11V7a5 5 0 0110 0v4" />
-              </svg>
+          <div className="field-k">
+            <label className="field-k__label" htmlFor="login-password">
+              Mật khẩu
+            </label>
+            <div className="field-k__wrap">
               <input
-                className="field-input"
+                id="login-password"
+                className="field-k__input"
                 type={showPass ? "text" : "password"}
                 placeholder="••••••••"
                 value={password}
@@ -131,8 +117,9 @@ export default function Login() {
               />
               <button
                 type="button"
-                className="field-eye"
+                className="field-k__eye"
                 onClick={() => setShowPass((v) => !v)}
+                aria-label={showPass ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
               >
                 {showPass ? (
                   <svg
@@ -167,7 +154,7 @@ export default function Login() {
             </div>
           </div>
 
-          <label className="auth-remember">
+          <label className="authf-k__remember">
             <input
               type="checkbox"
               checked={remember}
@@ -176,26 +163,28 @@ export default function Login() {
             <span>Ghi nhớ đăng nhập</span>
           </label>
 
-          <button className="auth-submit" type="submit" disabled={loading}>
-            {loading ? <span className="auth-spinner" /> : "Đăng nhập"}
+          <button className="authf-k__submit" type="submit" disabled={loading}>
+            {loading ? <span className="authf-k__spinner" /> : "Đăng nhập"}
           </button>
         </form>
 
-        <div className="auth-divider">
+        <div className="authf-k__divider">
           <span>hoặc</span>
         </div>
 
-        <p className="auth-switch">
+        <p className="authf-k__switch">
           Chưa có tài khoản?{" "}
           <Link
             to="/register"
-            state={{ from: location.state?.from }}
-            className="auth-link"
+            state={{
+              from: (location.state as { from?: unknown } | null)?.from,
+            }}
+            className="authf-k__link"
           >
             Đăng ký ngay
           </Link>
         </p>
       </div>
-    </div>
+    </AuthLayout>
   );
 }
