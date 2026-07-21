@@ -96,7 +96,8 @@ app.use(cors({ origin: WEB_ORIGIN, credentials: true }));
 
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  limit: 10, // 10 lan dang nhap sai / IP / 15'
+  limit: 10, // 10 lan dang nhap SAI / IP / 15'
+  skipSuccessfulRequests: true, // chi dem login that bai (dung y brute-force)
   standardHeaders: true,
   legacyHeaders: false,
   message: { error: "Quá nhiều lần thử. Vui lòng đợi rồi thử lại." },
