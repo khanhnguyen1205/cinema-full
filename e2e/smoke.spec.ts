@@ -139,3 +139,13 @@ test("trang vé của tôi hiển thị sau khi đăng nhập", async ({ page })
   await expect(page.getByRole("heading", { name: "Vé của tôi" })).toBeVisible();
   await expect(page.locator(".mytk-k__tab").first()).toBeVisible();
 });
+
+// Admin: vào bảng quản trị (chỉ đọc, không ghi db.json).
+test("admin: vào bảng quản trị phim", async ({ page }) => {
+  await loginAdmin(page);
+  await page.goto("/admin");
+  await expect(page.locator(".adm-k__nav").first()).toBeVisible();
+  await page.locator(".adm-k__nav").getByRole("link", { name: "Phim" }).click();
+  await expect(page).toHaveURL(/\/admin\/movies/);
+  await expect(page.locator(".adm-k__table")).toBeVisible();
+});
