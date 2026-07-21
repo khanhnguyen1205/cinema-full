@@ -62,7 +62,8 @@ export const useCreateRoom = () => {
 export const useUpdateRoom = () => {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (v: { id: Id; body: Partial<Room> }) => updateRoom(v.id, v.body),
+    mutationFn: (v: { id: Id; body: Partial<Room> }) =>
+      updateRoom(v.id, v.body),
     onSuccess: () => qc.invalidateQueries({ queryKey: qk.rooms }),
   });
 };

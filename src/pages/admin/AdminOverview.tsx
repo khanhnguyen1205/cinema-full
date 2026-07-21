@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
-  getMovies,
-  getCinemas,
-  getRooms,
-  getAllShowtimes,
-  getBookings,
-} from "services/api";
+  useMovies,
+  useCinemas,
+  useRooms,
+  useAllShowtimes,
+} from "queries/catalog";
+import { useAllBookings } from "queries/admin";
 import {
   BarChart,
   Bar,
@@ -15,32 +15,26 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
+import type { Booking } from "types";
 
-const RED = "#e63030"; // matches --red in src/Styles/global.css (SVG fills can't use CSS vars reliably)
-const fmtVnd = (n) => `${(n || 0).toLocaleString("vi-VN")}₫`;
+const RED = "#e63030"; // SVG fill không đọc CSS var ổn định -> hardcode khớp --red
+const AXIS = "#9a978f";
+const MONO = '"Space Mono", monospace';
+const fmtVnd = (n?: number) => `${(n || 0).toLocaleString("vi-VN")}₫`;
+
+// Doanh thu vé (ghế) của một đơn: ưu tiên seatTotal; đơn cũ chưa tách thì lấy totalPrice
+const seatRev = (b: Booking) =>
+  b.seatTotal != null ? b.seatTotal : b.totalPrice || 0;
 
 export default function AdminOverview() {
-  const [movies, setMovies] = useState([]);
-  const [cinemas, setCinemas] = useState([]);
-  const [rooms, setRooms] = useState([]);
-  const [showtimes, setShowtimes] = useState([]);
-  const [bookings, setBookings] = useState([]);
-
-  useEffect(() => {
-    Promise.all([
-      getMovies(),
-      getCinemas(),
-      getRooms(),
-      getAllShowtimes(),
-      getBookings(),
-    ]).then(([m, c, r, st, b]) => {
-      setMovies(m);
-      setCinemas(c);
-      setRooms(r);
-      setShowtimes(st);
-      setBookings(b);
-    });
-  }, []);
+  const moviesQ = useMovies();
+  const cinemasQ = useCinemas();
+  const bookingsQ = useAllBookings();
+  const rooms = useRooms().data ?? [];
+  const showtimes = useAllShowtimes().data ?? [];
+  const movies = useMemo(() => moviesQ.data ?? [], [moviesQ.data]);
+  const cinemas = useMemo(() => cinemasQ.data ?? [], [cinemasQ.data]);
+  const bookings = useMemo(() => bookingsQ.data ?? [], [bookingsQ.data]);
 
   const movieMap = useMemo(
     () => Object.fromEntries(movies.map((m) => [m.id, m])),
@@ -50,10 +44,6 @@ export default function AdminOverview() {
     () => Object.fromEntries(cinemas.map((c) => [c.id, c])),
     [cinemas],
   );
-
-  // Doanh thu vé (ghế) của một đơn: ưu tiên seatTotal; đơn cũ chưa tách thì lấy totalPrice
-  const seatRev = (b) =>
-    b.seatTotal != null ? b.seatTotal : b.totalPrice || 0;
 
   const totalRevenue = useMemo(
     () => bookings.reduce((s, b) => s + (b.totalPrice || 0), 0),
@@ -69,7 +59,7 @@ export default function AdminOverview() {
   );
 
   const revenueByMovie = useMemo(() => {
-    const acc = {};
+    const acc: Record<string, number> = {};
     bookings.forEach((b) => {
       acc[b.movieId] = (acc[b.movieId] || 0) + seatRev(b);
     });
@@ -83,8 +73,9 @@ export default function AdminOverview() {
   }, [bookings, movieMap]);
 
   const revenueByCinema = useMemo(() => {
-    const acc = {};
+    const acc: Record<string, number> = {};
     bookings.forEach((b) => {
+      if (b.cinemaId == null) return;
       acc[b.cinemaId] = (acc[b.cinemaId] || 0) + seatRev(b);
     });
     return Object.entries(acc)
@@ -103,39 +94,48 @@ export default function AdminOverview() {
     { n: bookings.length, l: "Đơn đặt vé" },
   ];
 
+  const tooltipStyle = {
+    background: "#141416",
+    border: "1px solid #2a2a2e",
+    borderRadius: 0,
+    fontFamily: MONO,
+    fontSize: 12,
+  };
+
   return (
     <div>
-      <div className="admin-head">
-        <h1 className="admin-title">Tổng quan</h1>
+      <div className="adm-k__head">
+        <span className="adm-k__eyebrow">Quản trị</span>
+        <h1 className="adm-k__title">Tổng quan</h1>
       </div>
 
-      <div className="admin-stats">
+      <div className="adm-k__stats">
         {tiles.map((t) => (
-          <div key={t.l} className="admin-stat">
-            <div className="admin-stat-num">{t.n}</div>
-            <div className="admin-stat-label">{t.l}</div>
+          <div key={t.l} className="adm-k__stat">
+            <div className="adm-k__stat-num">{t.n}</div>
+            <div className="adm-k__stat-label">{t.l}</div>
           </div>
         ))}
       </div>
 
-      <div className="admin-revenue-cards">
-        <div className="admin-revenue-card">
-          <div className="admin-revenue-label">Tổng doanh thu</div>
-          <div className="admin-revenue-num">{fmtVnd(totalRevenue)}</div>
+      <div className="adm-k__rev">
+        <div className="adm-k__rev-card is-bone">
+          <div className="adm-k__rev-label">Tổng doanh thu</div>
+          <div className="adm-k__rev-num">{fmtVnd(totalRevenue)}</div>
         </div>
-        <div className="admin-revenue-card">
-          <div className="admin-revenue-label">Doanh thu bắp nước</div>
-          <div className="admin-revenue-num">{fmtVnd(fnbRevenue)}</div>
+        <div className="adm-k__rev-card">
+          <div className="adm-k__rev-label">Doanh thu bắp nước</div>
+          <div className="adm-k__rev-num">{fmtVnd(fnbRevenue)}</div>
         </div>
-        <div className="admin-revenue-card">
-          <div className="admin-revenue-label">Tổng vé bán</div>
-          <div className="admin-revenue-num">{totalTickets}</div>
+        <div className="adm-k__rev-card">
+          <div className="adm-k__rev-label">Tổng vé bán</div>
+          <div className="adm-k__rev-num">{totalTickets}</div>
         </div>
       </div>
 
-      <div className="admin-charts">
-        <div className="admin-chart-box">
-          <h2 className="admin-chart-title">Doanh thu vé theo phim (Top 6)</h2>
+      <div className="adm-k__charts">
+        <div className="adm-k__chartbox">
+          <h2 className="adm-k__chart-title">Doanh thu vé theo phim (Top 6)</h2>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart
               data={revenueByMovie}
@@ -143,34 +143,30 @@ export default function AdminOverview() {
             >
               <XAxis
                 dataKey="name"
-                tick={{ fill: "#9aa0a6", fontSize: 11 }}
+                tick={{ fill: AXIS, fontSize: 11, fontFamily: MONO }}
                 interval={0}
                 angle={-15}
                 textAnchor="end"
                 height={50}
               />
               <YAxis
-                tick={{ fill: "#9aa0a6", fontSize: 11 }}
+                tick={{ fill: AXIS, fontSize: 11, fontFamily: MONO }}
                 tickFormatter={(v) => `${(v / 1000).toLocaleString("vi-VN")}k`}
                 width={48}
               />
               <Tooltip
-                formatter={(v) => fmtVnd(v)}
+                formatter={(v) => fmtVnd(Number(v))}
                 cursor={{ fill: "rgba(255,255,255,0.04)" }}
-                contentStyle={{
-                  background: "#1a1a1a",
-                  border: "1px solid rgba(255,255,255,0.12)",
-                  borderRadius: 8,
-                }}
+                contentStyle={tooltipStyle}
                 labelStyle={{ color: "#fff" }}
               />
-              <Bar dataKey="revenue" fill={RED} radius={[4, 4, 0, 0]} />
+              <Bar dataKey="revenue" fill={RED} radius={[0, 0, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
-        <div className="admin-chart-box">
-          <h2 className="admin-chart-title">Doanh thu vé theo rạp</h2>
+        <div className="adm-k__chartbox">
+          <h2 className="adm-k__chart-title">Doanh thu vé theo rạp</h2>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart
               data={revenueByCinema}
@@ -179,26 +175,22 @@ export default function AdminOverview() {
             >
               <XAxis
                 type="number"
-                tick={{ fill: "#9aa0a6", fontSize: 11 }}
+                tick={{ fill: AXIS, fontSize: 11, fontFamily: MONO }}
                 tickFormatter={(v) => `${(v / 1000).toLocaleString("vi-VN")}k`}
               />
               <YAxis
                 type="category"
                 dataKey="name"
-                tick={{ fill: "#9aa0a6", fontSize: 11 }}
+                tick={{ fill: AXIS, fontSize: 11, fontFamily: MONO }}
                 width={110}
               />
               <Tooltip
-                formatter={(v) => fmtVnd(v)}
+                formatter={(v) => fmtVnd(Number(v))}
                 cursor={{ fill: "rgba(255,255,255,0.04)" }}
-                contentStyle={{
-                  background: "#1a1a1a",
-                  border: "1px solid rgba(255,255,255,0.12)",
-                  borderRadius: 8,
-                }}
+                contentStyle={tooltipStyle}
                 labelStyle={{ color: "#fff" }}
               />
-              <Bar dataKey="revenue" radius={[0, 4, 4, 0]}>
+              <Bar dataKey="revenue" radius={[0, 0, 0, 0]}>
                 {revenueByCinema.map((_, i) => (
                   <Cell
                     key={i}
