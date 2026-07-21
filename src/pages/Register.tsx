@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { registerUser } from "services/auth";
 import { useAuth } from "context/AuthContext";
+import AuthLayout from "./AuthLayout";
 import "./Auth.css";
 
 export default function Register() {
@@ -18,11 +19,15 @@ export default function Register() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from =
+    (location.state as { from?: { pathname?: string } } | null)?.from
+      ?.pathname || "/";
 
-  const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
+  const set =
+    (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
+      setForm((f) => ({ ...f, [key]: e.target.value }));
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (loading) return; // chặn tái nhập (double-submit khi mạng chậm)
     setError("");
@@ -50,37 +55,36 @@ export default function Register() {
       login(user);
       navigate(from, { replace: true });
     } catch (err) {
-      setError(err.message);
+      setError((err as Error).message);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-bg">
-        <div
-          className="auth-bg-glow"
-          style={{
-            background:
-              "radial-gradient(ellipse at 60% 40%, rgba(230,48,48,0.12) 0%, transparent 70%)",
-          }}
-        />
-        <div className="auth-bg-grid" />
-      </div>
-
-      <div className="auth-card auth-card--wide">
-        <Link to="/" className="auth-logo">
+    <AuthLayout
+      codeNo="02"
+      statement={
+        <>
+          Một tài khoản
+          <br />
+          mở mọi
+          <br />
+          suất chiếu
+        </>
+      }
+      sub="Tạo tài khoản để đặt vé, lưu lịch sử và nhận vé điện tử có mã QR."
+    >
+      <div className="authf-k">
+        <Link to="/" className="auth-k__logo">
           CINEMA
         </Link>
 
-        <div className="auth-header">
-          <h1 className="auth-title">Tạo tài khoản</h1>
-          <p className="auth-subtitle">Đăng ký để bắt đầu đặt vé xem phim</p>
-        </div>
+        <p className="authf-k__eyebrow">Đăng ký</p>
+        <h1 className="authf-k__title">Tạo tài khoản</h1>
 
         {error && (
-          <div className="auth-error">
+          <div className="authf-k__error">
             <svg
               width="16"
               height="16"
@@ -99,26 +103,15 @@ export default function Register() {
           </div>
         )}
 
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <div className="field-group">
-            <label className="field-label">Họ và tên</label>
-            <div className="field-input-wrap">
-              <svg
-                className="field-icon"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
+        <form className="authf-k__form" onSubmit={handleSubmit}>
+          <div className="field-k">
+            <label className="field-k__label" htmlFor="reg-name">
+              Họ và tên
+            </label>
+            <div className="field-k__wrap">
               <input
-                className="field-input"
+                id="reg-name"
+                className="field-k__input"
                 type="text"
                 placeholder="Nguyễn Văn A"
                 value={form.fullName}
@@ -128,25 +121,14 @@ export default function Register() {
             </div>
           </div>
 
-          <div className="field-group">
-            <label className="field-label">Email</label>
-            <div className="field-input-wrap">
-              <svg
-                className="field-icon"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <polyline points="22,6 12,13 2,6" />
-              </svg>
+          <div className="field-k">
+            <label className="field-k__label" htmlFor="reg-email">
+              Email
+            </label>
+            <div className="field-k__wrap">
               <input
-                className="field-input"
+                id="reg-email"
+                className="field-k__input"
                 type="email"
                 placeholder="your@email.com"
                 value={form.email}
@@ -156,26 +138,15 @@ export default function Register() {
             </div>
           </div>
 
-          <div className="auth-form-row">
-            <div className="field-group">
-              <label className="field-label">Mật khẩu</label>
-              <div className="field-input-wrap">
-                <svg
-                  className="field-icon"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                  <path d="M7 11V7a5 5 0 0110 0v4" />
-                </svg>
+          <div className="authf-k__row">
+            <div className="field-k">
+              <label className="field-k__label" htmlFor="reg-password">
+                Mật khẩu
+              </label>
+              <div className="field-k__wrap">
                 <input
-                  className="field-input"
+                  id="reg-password"
+                  className="field-k__input"
                   type={showPass ? "text" : "password"}
                   placeholder="••••••••"
                   value={form.password}
@@ -184,8 +155,9 @@ export default function Register() {
                 />
                 <button
                   type="button"
-                  className="field-eye"
+                  className="field-k__eye"
                   onClick={() => setShowPass((v) => !v)}
+                  aria-label={showPass ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
                 >
                   {showPass ? (
                     <svg
@@ -220,24 +192,14 @@ export default function Register() {
               </div>
             </div>
 
-            <div className="field-group">
-              <label className="field-label">Xác nhận mật khẩu</label>
-              <div className="field-input-wrap">
-                <svg
-                  className="field-icon"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
+            <div className="field-k">
+              <label className="field-k__label" htmlFor="reg-confirm">
+                Xác nhận mật khẩu
+              </label>
+              <div className="field-k__wrap">
                 <input
-                  className="field-input"
+                  id="reg-confirm"
+                  className="field-k__input"
                   type={showPass ? "text" : "password"}
                   placeholder="••••••••"
                   value={form.confirm}
@@ -248,26 +210,28 @@ export default function Register() {
             </div>
           </div>
 
-          <button className="auth-submit" type="submit" disabled={loading}>
-            {loading ? <span className="auth-spinner" /> : "Tạo tài khoản"}
+          <button className="authf-k__submit" type="submit" disabled={loading}>
+            {loading ? <span className="authf-k__spinner" /> : "Tạo tài khoản"}
           </button>
         </form>
 
-        <div className="auth-divider">
+        <div className="authf-k__divider">
           <span>hoặc</span>
         </div>
 
-        <p className="auth-switch">
+        <p className="authf-k__switch">
           Đã có tài khoản?{" "}
           <Link
             to="/login"
-            state={{ from: location.state?.from }}
-            className="auth-link"
+            state={{
+              from: (location.state as { from?: unknown } | null)?.from,
+            }}
+            className="authf-k__link"
           >
             Đăng nhập
           </Link>
         </p>
       </div>
-    </div>
+    </AuthLayout>
   );
 }
