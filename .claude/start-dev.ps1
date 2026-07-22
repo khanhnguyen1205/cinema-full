@@ -22,10 +22,10 @@ if (-not $jsonUp) {
   Start-Process powershell -ArgumentList '-NoExit', '-Command', "cd `"$root`"; npx json-server --watch db.json --port 9999" -WindowStyle Minimized
 }
 
-# Auth server (port 4000) - Express: bcrypt + JWT trong cookie httpOnly (server/auth-server.js)
+# Auth server (port 4000) - Express TS (tsx): bcrypt + JWT httpOnly + gateway (server/src/index.ts)
 $authUp = Test-Port 4000
 if (-not $authUp) {
-  Start-Process powershell -ArgumentList '-NoExit', '-Command', "cd `"$root`"; node server/auth-server.js" -WindowStyle Minimized
+  Start-Process powershell -ArgumentList '-NoExit', '-Command', "cd `"$root`"; npm run auth" -WindowStyle Minimized
 }
 
 # Web (port 3000, React default) - BROWSER=none so it does not auto-open a browser

@@ -37,7 +37,7 @@
     "e2e": "playwright test",
     "e2e:ui": "playwright test --ui",
     "api": "json-server --watch db.json --port 9999",
-    "auth": "node server/auth-server.js",
+    "auth": "tsx server/src/index.ts",
     "hash-passwords": "node server/hash-passwords.js",
     "postinstall": "prisma generate --schema server/prisma/schema.prisma",
     "prisma:generate": "prisma generate --schema server/prisma/schema.prisma",
