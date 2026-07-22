@@ -27,7 +27,7 @@
     "dev": "concurrently -n api,auth,web -c green,magenta,cyan \"npm:api\" \"npm:auth\" \"npm:start\"",
     "build": "vite build",
     "preview": "vite preview --port 3000",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc -p server/tsconfig.json",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",

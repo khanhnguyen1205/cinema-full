@@ -52,6 +52,17 @@ export default tseslint.config(
     },
   },
 
+  // Server TypeScript (Prisma seed + code server ở lát sau) — non-type-aware
+  {
+    files: ["server/**/*.ts"],
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: "module",
+      globals: { ...globals.node },
+    },
+  },
+
   // Các file cấu hình ở gốc chạy trong môi trường Node
   {
     files: ["*.{js,mjs,cjs}"],
