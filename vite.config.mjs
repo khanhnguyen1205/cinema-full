@@ -33,6 +33,6 @@ export default defineConfig({
   test: {
     environment: "happy-dom", // cần DOM cho test component (Testing Library)
     setupFiles: ["./src/test/setup.ts"],
-    include: ["src/**/*.{test,spec}.{ts,tsx}"],
+    include: ["src/**/*.{test,spec}.{ts,tsx}", "server/**/*.{test,spec}.ts"],
   },
 });
