@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  fullName String
+  email    String @unique
+  password String
+  role     String @default("user")
+}
+
+model City {
+  id      Int      @id @default(autoincrement())
+  name    String
+  cinemas Cinema[]
+}
+
+model Cinema {
+  id      Int    @id @default(autoincrement())
+  name    String
+  address String
+  cityId  Int
+  city    City   @relation(fields: [cityId], references: [id])
+  rooms   Room[]
+}
+
+model Room {
+  id             Int        @id @default(autoincrement())
+  name           String
+  type           String
+  rows           Int
+  cols           Int
+  vipRows        String[]
+  coupleRows     String[]
+  aisleAfterCols Int[]
+  cinemaId       Int
+  cinema         Cinema     @relation(fields: [cinemaId], references: [id])
+  showtimes      Showtime[]
+}
+
+model Movie {
+  id          Int        @id @default(autoincrement())
+  title       String
+  poster      String
+  description String
+  duration    Int
+  genre       String
+  rating      Float
+  showtimes   Showtime[]
+}
+
+model Showtime {
+  id          Int      @id @default(autoincrement())
+  time        String
+  price       Int
+  bookedSeats String[]
+  movieId     Int
+  movie       Movie    @relation(fields: [movieId], references: [id])
+  roomId      Int
+  room        Room     @relation(fields: [roomId], references: [id])
+}
+
+model Booking {
+  id          Int      @id @default(autoincrement())
+  movieId     Int
+  showtimeId  Int
+  cinemaId    Int
+  roomId      Int
+  seats       String[]
+  seatTypes   Json
+  concessions Json?
+  userId      Int
+  userName    String
+  totalPrice  Int
+  createdAt   String
+}
+
+model Concession {
+  id          Int    @id @default(autoincrement())
+  name        String
+  category    String
+  price       Int
+  description String
+  image       String
+}
