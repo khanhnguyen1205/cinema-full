@@ -65,3 +65,31 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
+
+  docker:
+    name: Build Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build image (không push)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          load: true
+          tags: cinema-full:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      # Máy dev không có Docker nên đây là lần duy nhất Dockerfile được chạy thật
+      # trước khi Render build. Không khởi động server (cần DATABASE_URL) — chỉ
+      # xác nhận image chứa đủ artefact và Node chạy được bên trong.
+      - name: Kiểm image có đủ artefact
+        run: |
+          docker run --rm --entrypoint node cinema-full:ci -e "
+            const fs = require('fs');
+            for (const f of ['server/dist/index.js','server/dist/app.js','build/index.html']) {
+              if (!fs.existsSync(f)) { console.error('THIEU:', f); process.exit(1); }
+            }
+            console.log('Image co du SPA build + server da bien dich.');
+          "
