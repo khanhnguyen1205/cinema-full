@@ -1,0 +1,23 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Một web service Docker duy nhất: phục vụ cả SPA (build/) lẫn /api + /auth cùng origin.
+services:
+  - type: web
+    name: cinema-full
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    # Endpoint công khai, không cần đăng nhập — hợp để Render kiểm sống.
+    healthCheckPath: /api/cities
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Render tự sinh chuỗi ngẫu nhiên mạnh (server sẽ THROW nếu còn secret dev).
+      - key: JWT_SECRET
+        generateValue: true
+      # sync:false = tự điền trong dashboard, KHÔNG lưu vào repo.
+      # Dùng chuỗi Neon nhánh main: pooled cho DATABASE_URL, direct cho DIRECT_URL.
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_URL
+        sync: false
