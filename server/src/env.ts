@@ -1,6 +1,8 @@
 import "dotenv/config"; // nạp .env trước khi đọc process.env
 
-export const PORT = Number(process.env.AUTH_PORT) || 4000;
+export const IS_PROD = process.env.NODE_ENV === "production";
+// Render (và phần lớn PaaS) cấp cổng qua PORT; dev dùng AUTH_PORT.
+export const PORT = Number(process.env.PORT || process.env.AUTH_PORT) || 4000;
 
 // Postgres qua Prisma — không có chuỗi kết nối thì dừng sớm với thông báo rõ ràng.
 export const DATABASE_URL = process.env.DATABASE_URL || "";

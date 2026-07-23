@@ -1,12 +1,12 @@
 import type { Response } from "express";
 import { signAccess, signRefresh } from "./tokens";
-import { REFRESH_TTL_DAYS } from "../env";
+import { REFRESH_TTL_DAYS, IS_PROD } from "../env";
 
-// secure:false vì localhost http (3d sẽ bật secure ở production).
+// Production chạy sau HTTPS (Render) => bật secure. Dev là http://localhost nên tắt.
 const baseCookie = {
   httpOnly: true,
   sameSite: "lax" as const,
-  secure: false,
+  secure: IS_PROD,
   path: "/",
 };
 
