@@ -41,18 +41,7 @@ export default tseslint.config(
     },
   },
 
-  // Server Node (CommonJS) — không dùng luật type-aware của TS
-  {
-    files: ["server/**/*.js"],
-    extends: [js.configs.recommended],
-    languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: "commonjs",
-      globals: { ...globals.node },
-    },
-  },
-
-  // Server TypeScript (Prisma seed + code server ở lát sau) — non-type-aware
+  // Server TypeScript (Prisma seed + code server) — non-type-aware
   {
     files: ["server/**/*.ts"],
     extends: [js.configs.recommended, ...tseslint.configs.recommended],

@@ -1,4 +1,4 @@
-// Data qua cong co phan quyen o auth server (:4000/api), khong goi json-server (:9999) truc tiep.
+// Data qua cong co phan quyen o API server (:4000/api) — server truy van Postgres qua Prisma.
 // credentials:"include" de gui cookie phien -> gateway biet user/role.
 import type {
   Booking,

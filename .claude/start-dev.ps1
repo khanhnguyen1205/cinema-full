@@ -16,13 +16,7 @@ if (-not (Test-Path (Join-Path $root 'node_modules'))) {
   Pop-Location
 }
 
-# JSON Server (port 9999) - serves db.json as the mock REST API
-$jsonUp = Test-Port 9999
-if (-not $jsonUp) {
-  Start-Process powershell -ArgumentList '-NoExit', '-Command', "cd `"$root`"; npx json-server --watch db.json --port 9999" -WindowStyle Minimized
-}
-
-# Auth server (port 4000) - Express TS (tsx): bcrypt + JWT httpOnly + gateway (server/src/index.ts)
+# Auth + API server (port 4000) - Express TS (tsx) + Prisma/Postgres: bcrypt + JWT httpOnly + gateway (server/src/index.ts)
 $authUp = Test-Port 4000
 if (-not $authUp) {
   Start-Process powershell -ArgumentList '-NoExit', '-Command', "cd `"$root`"; npm run auth" -WindowStyle Minimized
@@ -37,8 +31,6 @@ if (-not $webUp) {
 Write-Output 'Cinema dev environment:'
 if ($webUp)  { Write-Output '  Web:         http://localhost:3000  (already running)' }
 else         { Write-Output '  Web:         http://localhost:3000  (starting, wait ~20-40s)' }
-if ($jsonUp) { Write-Output '  JSON Server: http://localhost:9999  (already running)' }
-else         { Write-Output '  JSON Server: http://localhost:9999  (starting, wait ~5s)' }
-if ($authUp) { Write-Output '  Auth Server: http://localhost:4000  (already running)' }
-else         { Write-Output '  Auth Server: http://localhost:4000  (starting, wait ~3s)' }
+if ($authUp) { Write-Output '  API Server:  http://localhost:4000  (already running)' }
+else         { Write-Output '  API Server:  http://localhost:4000  (starting, wait ~3s)' }
 Write-Output 'Open http://localhost:3000 in Chrome to view the site.'
