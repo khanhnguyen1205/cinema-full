@@ -1,0 +1,17 @@
+node_modules
+build
+server/dist
+.git
+.github
+.claude
+.env
+.env.*
+!.env.example
+coverage
+test-results
+playwright-report
+blob-report
+.playwright
+docs
+*.md
+.vscode

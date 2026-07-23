@@ -25,7 +25,9 @@
   "scripts": {
     "start": "vite",
     "dev": "concurrently -n auth,web -c magenta,cyan \"npm:auth\" \"npm:start\"",
-    "build": "vite build",
+    "build": "vite build && npm run build:server",
+    "build:server": "tsc -p server/tsconfig.build.json",
+    "start:prod": "node server/dist/index.js",
     "preview": "vite preview --port 3000",
     "typecheck": "tsc --noEmit && tsc -p server/tsconfig.json",
     "lint": "eslint .",
