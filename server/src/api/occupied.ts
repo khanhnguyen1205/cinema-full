@@ -1,10 +1,7 @@
 import { Router } from "express";
 import { getUserFromReq } from "../auth/middleware";
 import { heldByOthers } from "./holds";
-import { DATA_URL } from "../env";
-
-type Booking = { showtimeId: number | string; seats?: string[] };
-type Showtime = { bookedSeats?: string[] };
+import { prisma } from "../db/prisma";
 
 export const occupiedRouter: Router = Router();
 
@@ -16,23 +13,32 @@ occupiedRouter.get("/", async (req, res) => {
     res.status(401).json({ error: "Vui lòng đăng nhập." });
     return;
   }
-  const showtimeId = req.query.showtimeId as string | undefined;
-  if (!showtimeId) {
+  const raw = req.query.showtimeId as string | undefined;
+  if (!raw) {
+    res.status(400).json({ error: "Thiếu showtimeId." });
+    return;
+  }
+  const showtimeId = Number(raw);
+  if (!Number.isFinite(showtimeId)) {
     res.status(400).json({ error: "Thiếu showtimeId." });
     return;
   }
   try {
-    const [bookings, stRes] = await Promise.all([
-      fetch(`${DATA_URL}/bookings`).then((r) => r.json() as Promise<Booking[]>),
-      fetch(`${DATA_URL}/showtimes/${showtimeId}`),
+    const [showtime, bookings] = await Promise.all([
+      prisma.showtime.findUnique({
+        where: { id: showtimeId },
+        select: { bookedSeats: true },
+      }),
+      prisma.booking.findMany({
+        where: { showtimeId },
+        select: { seats: true },
+      }),
     ]);
-    const showtime = stRes.ok ? ((await stRes.json()) as Showtime) : null;
-    const set = new Set<string>(showtime?.bookedSeats || []);
-    bookings
-      .filter((b) => String(b.showtimeId) === String(showtimeId))
-      .forEach((b) => (b.seats || []).forEach((s) => set.add(s)));
-    heldByOthers(showtimeId, user.id).forEach((s) => set.add(s)); // ghế người khác đang giữ
-    res.json({ showtimeId: Number(showtimeId), seats: [...set] });
+    const set = new Set<string>(showtime?.bookedSeats ?? []);
+    bookings.forEach((b) => b.seats.forEach((s) => set.add(s)));
+    // Kho hold dùng khoá chuỗi đúng như client gửi ở POST /api/holds -> giữ `raw`.
+    heldByOthers(raw, user.id).forEach((s) => set.add(s));
+    res.json({ showtimeId, seats: [...set] });
   } catch {
     res.status(502).json({ error: "Lỗi cổng dữ liệu." });
   }

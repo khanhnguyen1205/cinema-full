@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { forward } from "./forward";
+import { handleRest } from "./repo";
 import { getUserFromReq } from "../auth/middleware";
 import { releaseHolds } from "./holds";
 
@@ -32,7 +32,7 @@ gatewayRouter.use(async (req, res) => {
         deny(403, "Không có quyền truy cập.");
         return;
       }
-      await forward(req, res, rest);
+      await handleRest(req, res, rest);
       return;
     }
 
@@ -44,14 +44,14 @@ gatewayRouter.use(async (req, res) => {
           return;
         }
         if (isAdmin) {
-          await forward(req, res, rest);
+          await handleRest(req, res, rest);
           return;
         }
         if (rest !== "bookings") {
           deny(403, "Không có quyền."); // chặn đọc đơn lẻ của người khác
           return;
         }
-        await forward(req, res, rest, { userId: user.id }); // chỉ đơn của mình
+        await handleRest(req, res, rest, { userId: user.id }); // chỉ đơn của mình
         return;
       }
       if (req.method === "POST") {
@@ -61,7 +61,7 @@ gatewayRouter.use(async (req, res) => {
         }
         req.body = { ...req.body, userId: user.id }; // ép userId = chính mình
         const stId = req.body.showtimeId;
-        await forward(req, res, rest);
+        await handleRest(req, res, rest);
         if (stId != null) releaseHolds(stId, user.id); // đặt xong -> nhả hold của mình
         return;
       }
@@ -69,21 +69,21 @@ gatewayRouter.use(async (req, res) => {
         deny(403, "Không có quyền."); // PATCH/DELETE
         return;
       }
-      await forward(req, res, rest);
+      await handleRest(req, res, rest);
       return;
     }
 
     // catalog
     if (PUBLIC_READ.has(collection)) {
       if (isRead) {
-        await forward(req, res, rest);
+        await handleRest(req, res, rest);
         return;
       }
       if (!isAdmin) {
         deny(403, "Không có quyền.");
         return;
       }
-      await forward(req, res, rest);
+      await handleRest(req, res, rest);
       return;
     }
 

@@ -1,7 +1,15 @@
 import "dotenv/config"; // nạp .env trước khi đọc process.env
 
 export const PORT = Number(process.env.AUTH_PORT) || 4000;
-export const DATA_URL = process.env.DATA_URL || "http://localhost:9999";
+
+// Postgres qua Prisma — không có chuỗi kết nối thì dừng sớm với thông báo rõ ràng.
+export const DATABASE_URL = process.env.DATABASE_URL || "";
+if (!DATABASE_URL) {
+  throw new Error(
+    "[server] Thiếu DATABASE_URL — đặt chuỗi kết nối Postgres trong .env (xem .env.example).",
+  );
+}
+
 export const WEB_ORIGIN = process.env.WEB_ORIGIN || "http://localhost:3000";
 
 // Dev only: giữ bí mật trong env ở production. Đổi secret => mọi phiên cũ hết hiệu lực.

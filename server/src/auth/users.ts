@@ -1,19 +1,16 @@
-import { DATA_URL } from "../env";
+import { prisma } from "../db/prisma";
 import type { DbUser } from "../types";
 
-// SEAM: 3c sẽ thay ruột 4 hàm này bằng Prisma (giữ nguyên chữ ký).
 export async function findUserByEmail(email: string): Promise<DbUser | null> {
-  const r = await fetch(`${DATA_URL}/users?email=${encodeURIComponent(email)}`);
-  const list = (await r.json()) as DbUser[];
-  return list[0] || null;
+  return prisma.user.findUnique({ where: { email } });
 }
 
 export async function findUserById(
   id: number | string,
 ): Promise<DbUser | null> {
-  const r = await fetch(`${DATA_URL}/users/${id}`);
-  if (!r.ok) return null;
-  return (await r.json()) as DbUser;
+  const n = Number(id);
+  if (!Number.isFinite(n)) return null;
+  return prisma.user.findUnique({ where: { id: n } });
 }
 
 export async function createUser(data: {
@@ -22,21 +19,12 @@ export async function createUser(data: {
   password: string;
   role: string;
 }): Promise<DbUser> {
-  const r = await fetch(`${DATA_URL}/users`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  return (await r.json()) as DbUser;
+  return prisma.user.create({ data });
 }
 
 export async function updateUserPassword(
   id: number,
   password: string,
 ): Promise<void> {
-  await fetch(`${DATA_URL}/users/${id}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ password }),
-  });
+  await prisma.user.update({ where: { id }, data: { password } });
 }
