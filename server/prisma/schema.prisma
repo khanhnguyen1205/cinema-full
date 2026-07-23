@@ -68,18 +68,22 @@ model Showtime {
 }
 
 model Booking {
-  id          Int      @id @default(autoincrement())
-  movieId     Int
-  showtimeId  Int
-  cinemaId    Int
-  roomId      Int
-  seats       String[]
-  seatTypes   Json
-  concessions Json?
-  userId      Int
-  userName    String
-  totalPrice  Int
-  createdAt   String
+  id            Int      @id @default(autoincrement())
+  movieId       Int
+  showtimeId    Int
+  cinemaId      Int
+  roomId        Int
+  seats         String[]
+  seatTypes     Json
+  concessions   Json?
+  paymentMethod String?
+  userId        Int
+  userName      String
+  seatTotal     Int?
+  fnbTotal      Int?
+  serviceFee    Int?
+  totalPrice    Int
+  createdAt     String
 }
 
 model Concession {
