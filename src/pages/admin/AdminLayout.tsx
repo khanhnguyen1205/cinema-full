@@ -8,6 +8,7 @@ const LINKS = [
   { to: "/admin/rooms", label: "Phòng" },
   { to: "/admin/showtimes", label: "Suất chiếu" },
   { to: "/admin/bookings", label: "Đơn đặt vé" },
+  { to: "/admin/reviews", label: "Đánh giá" },
 ];
 
 export default function AdminLayout() {

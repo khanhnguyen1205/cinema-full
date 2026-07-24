@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-query";
 import {
   getBookings,
+  getAllReviews,
   createMovie,
   updateMovie,
   deleteMovie,
@@ -18,7 +19,7 @@ import {
   updateBooking,
   deleteBooking,
 } from "services/api";
-import type { Booking, Movie, Room, Showtime } from "types";
+import type { Booking, Movie, Review, Room, Showtime } from "types";
 import { qk } from "./keys";
 
 type Id = number | string;
@@ -26,6 +27,10 @@ type Id = number | string;
 // Admin: gateway trả TẤT CẢ bookings cho role admin (khác qk.myBookings).
 export const useAllBookings = (): UseQueryResult<Booking[]> =>
   useQuery({ queryKey: qk.allBookings, queryFn: getBookings });
+
+// Admin: mọi review (GET /reviews không filter). Tách khỏi qk.reviews(movieId).
+export const useAllReviews = (): UseQueryResult<Review[]> =>
+  useQuery({ queryKey: qk.allReviews, queryFn: getAllReviews });
 
 // ---- Movies ----
 export const useCreateMovie = () => {

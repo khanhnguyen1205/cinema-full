@@ -22,6 +22,7 @@ import AdminMovies from "pages/admin/AdminMovies";
 import AdminRooms from "pages/admin/AdminRooms";
 import AdminShowtimes from "pages/admin/AdminShowtimes";
 import AdminBookings from "pages/admin/AdminBookings";
+import AdminReviews from "pages/admin/AdminReviews";
 import KitchenSink from "pages/dev/KitchenSink";
 
 function AppShell() {
@@ -86,6 +87,7 @@ function AppShell() {
           <Route path="rooms" element={<AdminRooms />} />
           <Route path="showtimes" element={<AdminShowtimes />} />
           <Route path="bookings" element={<AdminBookings />} />
+          <Route path="reviews" element={<AdminReviews />} />
         </Route>
       </Routes>
     </BrowserRouter>
