@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import MovieCard from "components/MovieCard";
@@ -11,7 +11,9 @@ import {
   Field,
   Reveal,
   Spinner,
+  Skeleton,
   Button,
+  StarRating,
 } from "components/ui";
 import {
   useMovie,
@@ -21,6 +23,14 @@ import {
   useCities,
   useMovies,
 } from "queries/catalog";
+import {
+  useMovieReviews,
+  useCreateReview,
+  useUpdateReview,
+  useDeleteReview,
+} from "queries/reviews";
+import { reviewStats, type RatingKey } from "lib/reviewStats";
+import { useAuth } from "context/AuthContext";
 import "./MovieDetail.css";
 
 export default function MovieDetail() {
@@ -428,9 +438,205 @@ export default function MovieDetail() {
             </Section>
           </Reveal>
         )}
+
+        {/* N°04 — Đánh giá của khán giả */}
+        <Reveal>
+          <Section label="Đánh giá của khán giả" index={4}>
+            <ReviewsSection movieId={movie.id} />
+          </Section>
+        </Reveal>
       </Container>
 
       <Footer />
+    </div>
+  );
+}
+
+function ReviewsSection({ movieId }: { movieId: number }) {
+  const { user } = useAuth();
+  const reviewsQ = useMovieReviews(movieId);
+  const reviews = useMemo(
+    () => [...(reviewsQ.data ?? [])].sort((a, b) => b.id - a.id),
+    [reviewsQ.data],
+  );
+  const stats = useMemo(() => reviewStats(reviews), [reviews]);
+  const mine = useMemo(
+    () => reviews.find((r) => r.userId === user?.id),
+    [reviews, user],
+  );
+
+  const createM = useCreateReview();
+  const updateM = useUpdateReview();
+  const deleteM = useDeleteReview();
+
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [editing, setEditing] = useState(false);
+
+  // Nạp sẵn khi vào chế độ sửa review của mình.
+  useEffect(() => {
+    if (editing && mine) {
+      setRating(mine.rating);
+      setComment(mine.comment ?? "");
+    }
+  }, [editing, mine]);
+
+  const submit = async () => {
+    setError(null);
+    if (rating < 1) {
+      setError("Vui lòng chọn số sao.");
+      return;
+    }
+    try {
+      if (mine && editing) {
+        await updateM.mutateAsync({
+          id: mine.id,
+          movieId,
+          rating,
+          comment: comment.trim() || undefined,
+        });
+        setEditing(false);
+      } else {
+        await createM.mutateAsync({
+          movieId,
+          rating,
+          comment: comment.trim() || undefined,
+        });
+        setRating(0);
+        setComment("");
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Không thể lưu đánh giá.");
+    }
+  };
+
+  const remove = async (id: number) => {
+    if (!window.confirm("Xoá đánh giá này?")) return;
+    await deleteM.mutateAsync({ id, movieId });
+    if (mine?.id === id) {
+      setEditing(false);
+      setRating(0);
+      setComment("");
+    }
+  };
+
+  const maxBar = Math.max(
+    1,
+    ...([5, 4, 3, 2, 1] as RatingKey[]).map((k) => stats.distribution[k]),
+  );
+
+  return (
+    <div className="rev-k">
+      {/* Header: điểm + phân bố */}
+      <div className="rev-k__head">
+        <div className="rev-k__score">
+          <span className="rev-k__avg">{stats.average.toFixed(1)}</span>
+          <StarRating value={stats.average} readonly size="lg" />
+          <span className="rev-k__count">{stats.count} đánh giá</span>
+        </div>
+        <div className="rev-k__dist" aria-hidden="true">
+          {([5, 4, 3, 2, 1] as RatingKey[]).map((k) => (
+            <div key={k} className="rev-k__dist-row">
+              <span className="rev-k__dist-k">{k}★</span>
+              <span className="rev-k__dist-bar">
+                <span
+                  className="rev-k__dist-fill"
+                  style={{
+                    width: `${(stats.distribution[k] / maxBar) * 100}%`,
+                  }}
+                />
+              </span>
+              <span className="rev-k__dist-n">{stats.distribution[k]}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Form */}
+      {user ? (
+        mine && !editing ? (
+          <div className="rev-k__mine">
+            <span className="rev-k__mine-label">Đánh giá của bạn</span>
+            <StarRating value={mine.rating} readonly />
+            {mine.comment && <p className="rev-k__mine-cmt">{mine.comment}</p>}
+            <div className="rev-k__actions">
+              <Button variant="ghost" onClick={() => setEditing(true)}>
+                Sửa
+              </Button>
+              <Button variant="ghost" onClick={() => remove(mine.id)}>
+                Xoá
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className="rev-k__form">
+            <StarRating value={rating} onChange={setRating} size="lg" />
+            <textarea
+              className="rev-k__textarea"
+              maxLength={500}
+              placeholder="Chia sẻ cảm nhận của bạn (tùy chọn)…"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <div className="rev-k__form-foot">
+              <span className="rev-k__counter">{comment.length}/500</span>
+              <div className="rev-k__actions">
+                {editing && (
+                  <Button variant="ghost" onClick={() => setEditing(false)}>
+                    Huỷ
+                  </Button>
+                )}
+                <Button
+                  onClick={submit}
+                  disabled={createM.isPending || updateM.isPending}
+                >
+                  {mine ? "Cập nhật" : "Gửi đánh giá"}
+                </Button>
+              </div>
+            </div>
+            {error && <p className="rev-k__error">{error}</p>}
+          </div>
+        )
+      ) : (
+        <p className="rev-k__login">
+          <Link to="/login">Đăng nhập</Link> để viết đánh giá.
+        </p>
+      )}
+
+      {/* Danh sách */}
+      {reviewsQ.isLoading ? (
+        <Skeleton />
+      ) : reviews.length === 0 ? (
+        <p className="rev-k__empty">
+          Chưa có đánh giá — hãy là người đầu tiên!
+        </p>
+      ) : (
+        <ul className="rev-k__list">
+          {reviews.map((r) => (
+            <li key={r.id} className="rev-k__item">
+              <div className="rev-k__item-top">
+                <span className="rev-k__name">{r.userName}</span>
+                {r.verified && <span className="rev-k__badge">Đã xem</span>}
+                <StarRating value={r.rating} readonly size="sm" />
+              </div>
+              {r.comment && <p className="rev-k__cmt">{r.comment}</p>}
+              <div className="rev-k__item-foot">
+                <time>{new Date(r.createdAt).toLocaleDateString("vi-VN")}</time>
+                {(r.userId === user?.id || user?.role === "admin") && (
+                  <button
+                    type="button"
+                    className="rev-k__del"
+                    onClick={() => remove(r.id)}
+                  >
+                    Xoá
+                  </button>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
