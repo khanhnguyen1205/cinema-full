@@ -149,3 +149,15 @@ test("admin: vào bảng quản trị phim", async ({ page }) => {
   await expect(page).toHaveURL(/\/admin\/movies/);
   await expect(page.locator(".adm-k__table")).toBeVisible();
 });
+
+// MovieDetail: khu đánh giá của khán giả hiển thị (chỉ đọc, từ seed mẫu).
+test("phim: khu đánh giá của khán giả hiển thị điểm + danh sách", async ({
+  page,
+}) => {
+  await page.goto("/movie/1");
+  await expect(
+    page.getByText("Đánh giá của khán giả", { exact: false }),
+  ).toBeVisible();
+  await expect(page.locator(".rev-k__item").first()).toBeVisible();
+  await expect(page.locator(".rev-k__badge").first()).toBeVisible(); // badge "Đã xem"
+});
