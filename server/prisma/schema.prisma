@@ -54,6 +54,7 @@ model Movie {
   genre       String
   rating      Float
   showtimes   Showtime[]
+  reviews     Review[]
 }
 
 model Showtime {
@@ -93,4 +94,18 @@ model Concession {
   price       Int
   description String
   image       String
+}
+
+model Review {
+  id        Int     @id @default(autoincrement())
+  movieId   Int
+  movie     Movie   @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  userId    Int
+  userName  String
+  rating    Int
+  comment   String?
+  verified  Boolean @default(false)
+  createdAt String
+
+  @@unique([movieId, userId])
 }

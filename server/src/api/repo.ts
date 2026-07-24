@@ -28,6 +28,7 @@ function delegate(c: CollectionName): AnyDelegate {
     rooms: prisma.room,
     concessions: prisma.concession,
     bookings: prisma.booking,
+    reviews: prisma.review,
     users: prisma.user,
   };
   return map[c] as unknown as AnyDelegate;

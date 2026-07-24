@@ -8,6 +8,7 @@ export type CollectionName =
   | "rooms"
   | "concessions"
   | "bookings"
+  | "reviews"
   | "users";
 
 type FilterType = "int" | "string";
@@ -78,6 +79,19 @@ export const COLLECTIONS: Record<CollectionName, CollectionSpec> = {
       "createdAt",
     ],
     json: ["seatTypes", "concessions"],
+  },
+  reviews: {
+    filterable: { id: "int", movieId: "int", userId: "int" },
+    writable: [
+      "movieId",
+      "rating",
+      "comment",
+      "userId",
+      "userName",
+      "verified",
+      "createdAt",
+    ],
+    json: [],
   },
   users: {
     filterable: { id: "int", email: "string", role: "string" },

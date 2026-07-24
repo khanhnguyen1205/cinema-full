@@ -105,3 +105,14 @@ export interface Booking {
   totalPrice: number;
   createdAt: string;
 }
+
+export interface Review {
+  id: number;
+  movieId: number;
+  userId: number;
+  userName: string;
+  rating: number; // 1..5
+  comment?: string;
+  verified: boolean;
+  createdAt: string;
+}

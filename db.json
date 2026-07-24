@@ -1009,5 +1009,97 @@
       "description": "Khoai tây chiên giòn vị BBQ",
       "image": "🍟"
     }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "movieId": 1,
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "rating": 5,
+      "comment": "Cái kết quá xứng đáng cho cả hành trình. Xem ngoài rạp nổi da gà!",
+      "verified": true,
+      "createdAt": "2026-06-01T10:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "movieId": 1,
+      "userId": 3,
+      "userName": "Dương Quang Minh",
+      "rating": 4,
+      "comment": "Hoành tráng, nhiều cảm xúc. Hơi dài nhưng đáng.",
+      "verified": false,
+      "createdAt": "2026-06-03T14:30:00.000Z"
+    },
+    {
+      "id": 3,
+      "movieId": 1,
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "rating": 5,
+      "comment": "Tuyệt phẩm khép lại Vũ trụ Điện ảnh Marvel giai đoạn 3.",
+      "verified": false,
+      "createdAt": "2026-06-05T20:15:00.000Z"
+    },
+    {
+      "id": 4,
+      "movieId": 2,
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "rating": 5,
+      "comment": "Ba đời Người Nhện hội tụ, quá đã!",
+      "verified": true,
+      "createdAt": "2026-06-02T09:00:00.000Z"
+    },
+    {
+      "id": 5,
+      "movieId": 2,
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "rating": 4,
+      "comment": "Fan service đỉnh cao, nhưng nhịp giữa phim hơi chậm.",
+      "verified": false,
+      "createdAt": "2026-06-06T18:45:00.000Z"
+    },
+    {
+      "id": 6,
+      "movieId": 3,
+      "userId": 3,
+      "userName": "Dương Quang Minh",
+      "rating": 5,
+      "comment": "Vẫn là kiệt tác. Nhạc Hans Zimmer ám ảnh tới tận bây giờ.",
+      "verified": false,
+      "createdAt": "2026-06-04T21:00:00.000Z"
+    },
+    {
+      "id": 7,
+      "movieId": 5,
+      "userId": 3,
+      "userName": "Dương Quang Minh",
+      "rating": 4,
+      "comment": "Hình ảnh choáng ngợp, đúng chất phải xem ở IMAX.",
+      "verified": false,
+      "createdAt": "2026-06-07T13:20:00.000Z"
+    },
+    {
+      "id": 8,
+      "movieId": 6,
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "rating": 5,
+      "comment": "Nolan chưa bao giờ làm thất vọng. Cillian Murphy xuất thần.",
+      "verified": false,
+      "createdAt": "2026-06-08T19:30:00.000Z"
+    },
+    {
+      "id": 9,
+      "movieId": 4,
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "rating": 3,
+      "comment": "Hù dọa ổn nhưng mô-típ hơi quen thuộc.",
+      "verified": false,
+      "createdAt": "2026-06-09T22:10:00.000Z"
+    }
   ]
 }

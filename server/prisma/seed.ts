@@ -13,6 +13,7 @@ const TABLES = [
   "Room",
   "Showtime",
   "Booking",
+  "Review",
 ] as const;
 
 async function clearAll() {
@@ -86,6 +87,8 @@ async function seed() {
     })),
   });
 
+  await prisma.review.createMany({ data: db.reviews });
+
   await resetSequences();
 }
 
@@ -99,6 +102,7 @@ const EXPECTED = {
   Room: db.rooms.length,
   Showtime: db.showtimes.length,
   Booking: db.bookings.length,
+  Review: db.reviews.length,
 };
 
 async function verify() {
@@ -111,6 +115,7 @@ async function verify() {
     Room: await prisma.room.count(),
     Showtime: await prisma.showtime.count(),
     Booking: await prisma.booking.count(),
+    Review: await prisma.review.count(),
   };
   console.table(counts);
   const mismatch = Object.entries(EXPECTED).filter(

@@ -74,3 +74,38 @@ describe("pickWritable", () => {
     });
   });
 });
+
+describe("reviews collection", () => {
+  it("là collection hợp lệ", () => {
+    expect(isCollection("reviews")).toBe(true);
+  });
+  it("chỉ nhận field writable (chặn id/field rác)", () => {
+    const picked = pickWritable("reviews", {
+      id: 99,
+      rating: 5,
+      comment: "hay",
+      movieId: 3,
+      userId: 1,
+      userName: "X",
+      verified: true,
+      createdAt: "2026-01-01T00:00:00.000Z",
+      hacker: "drop",
+    });
+    expect(picked).toEqual({
+      rating: 5,
+      comment: "hay",
+      movieId: 3,
+      userId: 1,
+      userName: "X",
+      verified: true,
+      createdAt: "2026-01-01T00:00:00.000Z",
+    });
+    expect("id" in picked).toBe(false);
+    expect("hacker" in picked).toBe(false);
+  });
+  it("lọc được theo movieId (int)", () => {
+    expect(parseFilters("reviews", { movieId: "5", bad: "x" })).toEqual({
+      movieId: 5,
+    });
+  });
+});
