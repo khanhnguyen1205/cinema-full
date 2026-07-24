@@ -6,6 +6,7 @@ import type {
   City,
   Concession,
   Movie,
+  Review,
   Room,
   Showtime,
 } from "types";
@@ -112,3 +113,38 @@ export const deleteShowtime = (id: Id) => del(`/showtimes/${id}`);
 export const updateBooking = (id: Id, p: Partial<Booking>) =>
   patch<Booking>(`/bookings/${id}`, p);
 export const deleteBooking = (id: Id) => del(`/bookings/${id}`);
+
+// --- Reviews ---
+export const getReviews = (movieId: Id) =>
+  get<Review[]>(`/reviews?movieId=${movieId}`);
+export const getAllReviews = () => get<Review[]>(`/reviews`);
+
+// POST/PATCH review: ném lỗi kèm message tiếng Việt khi non-ok (vd 409 đã đánh giá).
+const sendReview = async <T>(
+  path: string,
+  method: "POST" | "PATCH",
+  body: unknown,
+): Promise<T> => {
+  const r = await req(path, {
+    method,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!r.ok) {
+    const msg = await r
+      .json()
+      .then((d: { error?: string }) => d.error)
+      .catch(() => undefined);
+    throw new Error(msg || "Không thể lưu đánh giá.");
+  }
+  return r.json() as Promise<T>;
+};
+
+export const createReview = (b: {
+  movieId: Id;
+  rating: number;
+  comment?: string;
+}) => sendReview<Review>("/reviews", "POST", b);
+export const updateReview = (id: Id, b: { rating: number; comment?: string }) =>
+  sendReview<Review>(`/reviews/${id}`, "PATCH", b);
+export const deleteReview = (id: Id) => del(`/reviews/${id}`);

@@ -2,6 +2,8 @@ import { Router } from "express";
 import { handleRest } from "./repo";
 import { getUserFromReq } from "../auth/middleware";
 import { releaseHolds } from "./holds";
+import { prisma } from "../db/prisma";
+import { validateReviewInput, ownerOrAdmin } from "./reviews-validate";
 
 // Catalog: đọc công khai, ghi cần admin.
 const PUBLIC_READ = new Set([
@@ -68,6 +70,76 @@ gatewayRouter.use(async (req, res) => {
       if (!isAdmin) {
         deny(403, "Không có quyền."); // PATCH/DELETE
         return;
+      }
+      await handleRest(req, res, rest);
+      return;
+    }
+
+    // reviews: đọc công khai; tạo cần đăng nhập; sửa/xoá = chủ-hoặc-admin
+    if (collection === "reviews") {
+      if (isRead) {
+        await handleRest(req, res, rest); // ?movieId= lọc qua filterable
+        return;
+      }
+      if (!user) {
+        deny(401, "Vui lòng đăng nhập.");
+        return;
+      }
+      if (req.method === "POST") {
+        const v = validateReviewInput(req.body ?? {});
+        if (!v.ok) {
+          deny(400, v.message);
+          return;
+        }
+        const movieId = Number((req.body ?? {}).movieId);
+        if (!Number.isFinite(movieId)) {
+          deny(400, "Thiếu movieId hợp lệ.");
+          return;
+        }
+        const movie = await prisma.movie.findUnique({ where: { id: movieId } });
+        if (!movie) {
+          deny(404, "Phim không tồn tại.");
+          return;
+        }
+        const bookedCount = await prisma.booking.count({
+          where: { movieId, userId: user.id },
+        });
+        // ReqUser chỉ có {id, role} (JWT không mang tên) -> lấy fullName từ DB.
+        const dbUser = await prisma.user.findUnique({ where: { id: user.id } });
+        req.body = {
+          movieId,
+          rating: v.rating,
+          comment: v.comment ?? null,
+          userId: user.id,
+          userName: dbUser?.fullName ?? "Người dùng",
+          verified: bookedCount > 0,
+          createdAt: new Date().toISOString(),
+        };
+        await handleRest(req, res, rest);
+        return;
+      }
+      // PATCH / DELETE /reviews/:id
+      const rid = Number(rest.split("/")[1]);
+      if (!Number.isFinite(rid)) {
+        deny(404, "Không tìm thấy.");
+        return;
+      }
+      const existing = await prisma.review.findUnique({ where: { id: rid } });
+      if (!existing) {
+        deny(404, "Không tìm thấy đánh giá.");
+        return;
+      }
+      if (!ownerOrAdmin(existing.userId, user)) {
+        deny(403, "Không có quyền.");
+        return;
+      }
+      if (req.method === "PATCH") {
+        const v = validateReviewInput(req.body ?? {});
+        if (!v.ok) {
+          deny(400, v.message);
+          return;
+        }
+        req.body = { rating: v.rating, comment: v.comment ?? null }; // chủ chỉ sửa rating/comment
       }
       await handleRest(req, res, rest);
       return;
