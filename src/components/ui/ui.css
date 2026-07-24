@@ -396,3 +396,38 @@
   grid-template-columns: repeat(auto-fill, minmax(var(--grid-min, 220px), 1fr));
   gap: var(--sp-4);
 }
+
+/* StarRating */
+.ui-stars {
+  display: inline-flex;
+  gap: 2px;
+  line-height: 1;
+}
+.ui-stars__star {
+  color: var(--border);
+  font-size: 1.1rem;
+}
+.ui-stars--sm .ui-stars__star {
+  font-size: 0.9rem;
+}
+.ui-stars--lg .ui-stars__star {
+  font-size: 1.6rem;
+}
+.ui-stars__star.is-on {
+  color: var(--red);
+}
+.ui-stars--input {
+  cursor: pointer;
+}
+.ui-stars__btn {
+  background: none;
+  border: none;
+  padding: 0 1px;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+.ui-stars--input:focus-visible {
+  outline: var(--bw-2) solid var(--red);
+  outline-offset: 2px;
+}
