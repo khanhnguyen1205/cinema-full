@@ -1,5 +1,9 @@
 # 🎬 Cinema App
 
+**▶️ Live demo: https://cinema-full-a9xt.onrender.com** — one Docker service on Render + Neon Postgres.
+Demo accounts: admin `admin@cinema.vn` / `admin123` · user `a@cinema.vn` / `123456`.
+_(Free tier sleeps after ~15 min idle — the first request may take 30–60 s to wake.)_
+
 A **React 18 + TypeScript** cinema booking single-page app (FER202 student project), built with **Vite** and a custom neo-brutalist "Kinetic" dark UI, running on a **real backend**: an **Express 5 + TypeScript** server with **PostgreSQL via Prisma**, bcrypt-hashed passwords and JWT sessions in **httpOnly cookies**, plus a per-collection **authorization gateway** at `/api/*`. Server state is managed with **TanStack Query**. Ships as a **single Docker image** that serves the API and the built SPA from one origin.
 
 ## Architecture
@@ -8,7 +12,7 @@ A **React 18 + TypeScript** cinema booking single-page app (FER202 student proje
 |-------|-----|------------|
 | Express server (`server/src/`) | **:4000** — auth + `/api` gateway | one service: auth + `/api` **+ serves the SPA build** |
 | Vite dev server | **:3000** — the app you open | (not used; the SPA is prebuilt into `build/`) |
-| PostgreSQL | Neon `dev` branch | Neon `main` branch |
+| PostgreSQL | Neon `dev` branch | Neon `production` branch |
 
 The browser only ever calls the Express server: `src/services/api.ts` → `BASE_URL = /api`, `src/services/auth.ts` → `AUTH_URL`. Every request uses `credentials:"include"` so the session cookie reaches the gateway. In production the SPA and the API share one origin, so cookies stay `SameSite=Lax` with no CORS at all.
 
