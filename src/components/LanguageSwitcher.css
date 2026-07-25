@@ -1,0 +1,28 @@
+.lang-k {
+  display: inline-flex;
+  flex-shrink: 0;
+  border: var(--bw-1) solid var(--border);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+}
+.lang-k__btn {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 6px 10px;
+  background: transparent;
+  color: var(--text-muted);
+  border: 0;
+  cursor: pointer;
+}
+.lang-k__btn + .lang-k__btn {
+  border-left: var(--bw-1) solid var(--border);
+}
+.lang-k__btn.is-active {
+  background: var(--surface-invert);
+  color: var(--text-invert);
+}
+.lang-k__btn:hover:not(.is-active) {
+  color: var(--text);
+}

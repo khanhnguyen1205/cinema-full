@@ -1,0 +1,42 @@
+{
+  "common": {
+    "retry": "Retry",
+    "loading": "Loading...",
+    "loadError": "Couldn't load data. Check your connection and try again.",
+    "search": "Search",
+    "clear": "Clear filters",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "confirm": "Confirm"
+  },
+  "nav": {
+    "home": "Home",
+    "movies": "Movies",
+    "cinemas": "Cinemas",
+    "tickets": "Tickets",
+    "login": "Sign in",
+    "logout": "Sign out",
+    "admin": "Admin",
+    "account": "Account",
+    "myTickets": "My Tickets",
+    "searchPlaceholder": "Search movies, cinemas...",
+    "menu": "Menu",
+    "back": "Back"
+  },
+  "footer": {
+    "brand": "THE CINEMATIC EDITORIAL",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "help": "Help Center",
+    "rights": "ALL RIGHTS RESERVED"
+  },
+  "search": {
+    "groupMovies": "MOVIES",
+    "groupCinemas": "CINEMAS",
+    "groupShowtimes": "SHOWTIMES",
+    "seeAll": "See all results for “{{q}}” →",
+    "dropdownEmpty": "No matches. Press Enter for advanced search."
+  }
+}

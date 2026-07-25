@@ -1,24 +1,31 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "context/AuthContext";
 import { cx } from "lib/cx";
 import GlobalSearch from "components/GlobalSearch";
+import LanguageSwitcher from "components/LanguageSwitcher";
 import "./Navbar.css";
 
 const LINKS = [
-  { to: "/", label: "Trang chủ", match: (p: string) => p === "/" },
-  { to: "/movies", label: "Phim", match: (p: string) => p === "/movies" },
+  { to: "/", key: "nav.home", match: (p: string) => p === "/" },
+  { to: "/movies", key: "nav.movies", match: (p: string) => p === "/movies" },
   {
     to: "/cinemas",
-    label: "Rạp",
+    key: "nav.cinemas",
     match: (p: string) => p.startsWith("/cinema"),
   },
-  { to: "/tickets", label: "Vé", match: (p: string) => p === "/tickets" },
+  {
+    to: "/tickets",
+    key: "nav.tickets",
+    match: (p: string) => p === "/tickets",
+  },
 ];
 
 export default function Navbar({ back }: { back?: string }) {
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { user, logout } = useAuth();
   const [dropOpen, setDropOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -62,7 +69,7 @@ export default function Navbar({ back }: { back?: string }) {
     <nav className="nav-k">
       <div className="nav-k__left">
         {back && (
-          <Link to={back} className="nav-k__back" aria-label="Quay lại">
+          <Link to={back} className="nav-k__back" aria-label={t("nav.back")}>
             ←
           </Link>
         )}
@@ -81,12 +88,13 @@ export default function Navbar({ back }: { back?: string }) {
               l.match(location.pathname) && "is-active",
             )}
           >
-            {l.label}
+            {t(l.key)}
           </Link>
         ))}
       </div>
 
       <div className="nav-k__right">
+        <LanguageSwitcher />
         <div className="nav-k__search-desktop">
           <GlobalSearch />
         </div>
@@ -96,7 +104,7 @@ export default function Navbar({ back }: { back?: string }) {
               className="nav-k__avatar"
               onClick={() => setDropOpen((v) => !v)}
               title={user.fullName}
-              aria-label="Tài khoản"
+              aria-label={t("nav.account")}
             >
               {initials}
             </button>
@@ -107,7 +115,7 @@ export default function Navbar({ back }: { back?: string }) {
                   className="nav-k__item"
                   onClick={() => setDropOpen(false)}
                 >
-                  Vé của tôi
+                  {t("nav.myTickets")}
                 </Link>
                 {user.role === "admin" && (
                   <Link
@@ -115,23 +123,23 @@ export default function Navbar({ back }: { back?: string }) {
                     className="nav-k__item"
                     onClick={() => setDropOpen(false)}
                   >
-                    Quản trị
+                    {t("nav.admin")}
                   </Link>
                 )}
                 <button className="nav-k__item" onClick={handleLogout}>
-                  Đăng xuất
+                  {t("nav.logout")}
                 </button>
               </div>
             )}
           </div>
         ) : (
           <Link to="/login" className="nav-k__login">
-            Đăng nhập
+            {t("nav.login")}
           </Link>
         )}
         <button
           className="nav-k__hamburger"
-          aria-label="Menu"
+          aria-label={t("nav.menu")}
           aria-expanded={menuOpen}
           aria-controls="nav-mobile"
           onClick={() => setMenuOpen((v) => !v)}
@@ -147,6 +155,9 @@ export default function Navbar({ back }: { back?: string }) {
         <div className="nav-k__search-mobile">
           <GlobalSearch />
         </div>
+        <div className="nav-k__lang-mobile">
+          <LanguageSwitcher />
+        </div>
         {LINKS.map((l) => (
           <Link
             key={l.to}
@@ -157,7 +168,7 @@ export default function Navbar({ back }: { back?: string }) {
             )}
             onClick={() => setMenuOpen(false)}
           >
-            {l.label}
+            {t(l.key)}
           </Link>
         ))}
       </div>

@@ -14,6 +14,7 @@ export default defineConfig({
       components: srcDir("components"),
       context: srcDir("context"),
       hooks: srcDir("hooks"),
+      i18n: srcDir("i18n"),
       lib: srcDir("lib"),
       pages: srcDir("pages"),
       queries: srcDir("queries"),

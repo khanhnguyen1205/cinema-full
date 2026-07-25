@@ -1,0 +1,42 @@
+{
+  "common": {
+    "retry": "Thử lại",
+    "loading": "Đang tải...",
+    "loadError": "Không tải được dữ liệu. Kiểm tra kết nối rồi thử lại.",
+    "search": "Tìm kiếm",
+    "clear": "Xóa lọc",
+    "close": "Đóng",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "confirm": "Xác nhận"
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "movies": "Phim",
+    "cinemas": "Rạp",
+    "tickets": "Vé",
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "admin": "Quản trị",
+    "account": "Tài khoản",
+    "myTickets": "Vé của tôi",
+    "searchPlaceholder": "Tìm phim, rạp...",
+    "menu": "Menu",
+    "back": "Quay lại"
+  },
+  "footer": {
+    "brand": "THE CINEMATIC EDITORIAL",
+    "privacy": "Chính sách bảo mật",
+    "terms": "Điều khoản dịch vụ",
+    "help": "Trung tâm trợ giúp",
+    "rights": "BẢO LƯU MỌI QUYỀN"
+  },
+  "search": {
+    "groupMovies": "PHIM",
+    "groupCinemas": "RẠP",
+    "groupShowtimes": "SUẤT CHIẾU",
+    "seeAll": "Xem tất cả kết quả cho “{{q}}” →",
+    "dropdownEmpty": "Không tìm thấy. Nhấn Enter để tìm nâng cao."
+  }
+}

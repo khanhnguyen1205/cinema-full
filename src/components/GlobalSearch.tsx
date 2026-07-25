@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   useMovies,
   useCinemas,
@@ -29,6 +30,7 @@ const fmtTime = (iso: string) =>
 
 export default function GlobalSearch() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [raw, setRaw] = useState("");
   const [q, setQ] = useState(""); // đã debounce
   const [open, setOpen] = useState(false);
@@ -188,8 +190,8 @@ export default function GlobalSearch() {
           role="combobox"
           aria-expanded={showDropdown}
           aria-controls="gsearch-list"
-          aria-label="Tìm phim, rạp, suất chiếu"
-          placeholder="Tìm phim, rạp..."
+          aria-label={t("nav.searchPlaceholder")}
+          placeholder={t("nav.searchPlaceholder")}
           value={raw}
           onChange={(e) => {
             setRaw(e.target.value);
@@ -203,14 +205,14 @@ export default function GlobalSearch() {
       {showDropdown && (
         <div className="gsearch__drop" id="gsearch-list" role="listbox">
           {!hasResults ? (
-            <div className="gsearch__empty">
-              Không tìm thấy. Nhấn Enter để tìm nâng cao.
-            </div>
+            <div className="gsearch__empty">{t("search.dropdownEmpty")}</div>
           ) : (
             <>
               {movieHits.length > 0 && (
                 <div className="gsearch__group">
-                  <span className="gsearch__grouphd">PHIM</span>
+                  <span className="gsearch__grouphd">
+                    {t("search.groupMovies")}
+                  </span>
                   {movieHits.map((m) => {
                     const idx = flat.findIndex((f) => f.key === `m${m.id}`);
                     return (
@@ -247,7 +249,9 @@ export default function GlobalSearch() {
 
               {cinemaHits.length > 0 && (
                 <div className="gsearch__group">
-                  <span className="gsearch__grouphd">RẠP</span>
+                  <span className="gsearch__grouphd">
+                    {t("search.groupCinemas")}
+                  </span>
                   {cinemaHits.map((c) => {
                     const idx = flat.findIndex((f) => f.key === `c${c.id}`);
                     return (
@@ -275,7 +279,9 @@ export default function GlobalSearch() {
 
               {showHits.length > 0 && (
                 <div className="gsearch__group">
-                  <span className="gsearch__grouphd">SUẤT CHIẾU</span>
+                  <span className="gsearch__grouphd">
+                    {t("search.groupShowtimes")}
+                  </span>
                   {showHits.map((r) => {
                     const idx = flat.findIndex(
                       (f) => f.key === `s${r.showtime.id}`,
@@ -316,7 +322,7 @@ export default function GlobalSearch() {
                 }
                 onClick={() => go(`/search?q=${encodeURIComponent(q)}`)}
               >
-                Xem tất cả kết quả cho “{q.trim()}” →
+                {t("search.seeAll", { q: q.trim() })}
               </button>
             </>
           )}
