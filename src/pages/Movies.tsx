@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import MovieCard from "components/MovieCard";
@@ -18,22 +19,24 @@ import {
   useCities,
 } from "queries/catalog";
 import { normalize } from "lib/search";
+import { genreLabel } from "i18n/genres";
+import { formatDate } from "i18n/format";
 import "./Movies.css";
 
 const SORTS = [
-  { value: "name-asc", label: "Tên A→Z" },
-  { value: "name-desc", label: "Tên Z→A" },
-  { value: "dur-asc", label: "Thời lượng ↑" },
-  { value: "dur-desc", label: "Thời lượng ↓" },
+  { value: "name-asc", key: "movies.sortNameAsc" },
+  { value: "name-desc", key: "movies.sortNameDesc" },
+  { value: "dur-asc", key: "movies.sortDurAsc" },
+  { value: "dur-desc", key: "movies.sortDurDesc" },
 ];
 const DURATIONS = [
-  { value: "all", label: "Mọi thời lượng" },
-  { value: "short", label: "Dưới 90′" },
-  { value: "mid", label: "90–120′" },
-  { value: "long", label: "Trên 120′" },
+  { value: "all", key: "movies.durAll" },
+  { value: "short", key: "movies.durShort" },
+  { value: "mid", key: "movies.durMid" },
+  { value: "long", key: "movies.durLong" },
 ];
 const RATINGS = [
-  { value: "0", label: "Mọi điểm" },
+  { value: "0", key: "movies.allRatings" },
   { value: "7", label: "≥ 7" },
   { value: "8", label: "≥ 8" },
   { value: "9", label: "≥ 9" },
@@ -42,6 +45,7 @@ const FORMATS = ["2D", "3D", "IMAX"] as const;
 
 export default function Movies() {
   const location = useLocation();
+  const { t } = useTranslation();
   const [params, setParams] = useSearchParams();
 
   const moviesQ = useMovies();
@@ -163,7 +167,7 @@ export default function Movies() {
   }, [showtimes, roomType]);
 
   const fmtDate = (k: string) =>
-    new Date(k).toLocaleDateString("vi-VN", {
+    formatDate(k, {
       weekday: "short",
       day: "2-digit",
       month: "2-digit",
@@ -234,13 +238,13 @@ export default function Movies() {
 
       <Container>
         <header className="movies-k__header">
-          <span className="movies-k__label">Danh mục phim</span>
+          <span className="movies-k__label">{t("movies.eyebrow")}</span>
           <h1 className="movies-k__title">
-            <KineticHeading text="Tất cả phim" />
+            <KineticHeading text={t("movies.title")} />
           </h1>
           {!isLoading && !isError && (
             <span className="movies-k__count">
-              <b>{visible.length}</b> phim
+              {t("movies.count", { count: visible.length })}
             </span>
           )}
         </header>
@@ -264,10 +268,10 @@ export default function Movies() {
             </svg>
             <input
               type="text"
-              placeholder="Tìm phim theo tên..."
+              placeholder={t("movies.searchPlaceholder")}
               value={search}
               onChange={(e) => setParam("q", e.target.value, "")}
-              aria-label="Tìm phim theo tên"
+              aria-label={t("movies.searchPlaceholder")}
             />
           </div>
 
@@ -281,9 +285,9 @@ export default function Movies() {
                 next.delete("date");
                 setParams(next, { replace: true });
               }}
-              aria-label="Lọc theo thành phố"
+              aria-label={t("movies.allCities")}
             >
-              <option value="Tất cả">Tất cả thành phố</option>
+              <option value="Tất cả">{t("movies.allCities")}</option>
               {cityIds.map((cid) => (
                 <option key={cid} value={String(cid)}>
                   {cityName[cid]}
@@ -293,9 +297,9 @@ export default function Movies() {
             <select
               value={date}
               onChange={(e) => setParam("date", e.target.value, "Tất cả")}
-              aria-label="Lọc theo ngày"
+              aria-label={t("movies.allDates")}
             >
-              <option value="Tất cả">Tất cả ngày</option>
+              <option value="Tất cả">{t("movies.allDates")}</option>
               {dateKeys.map((dk) => (
                 <option key={dk} value={dk}>
                   {fmtDate(dk)}
@@ -305,17 +309,21 @@ export default function Movies() {
             <select
               value={sort}
               onChange={(e) => setParam("sort", e.target.value, "name-asc")}
-              aria-label="Sắp xếp"
+              aria-label={t("movies.sortLabel")}
             >
               {SORTS.map((s) => (
                 <option key={s.value} value={s.value}>
-                  {s.label}
+                  {t(s.key)}
                 </option>
               ))}
             </select>
           </div>
 
-          <div className="movies-k__genres" role="group" aria-label="Thể loại">
+          <div
+            className="movies-k__genres"
+            role="group"
+            aria-label={t("movies.genreLabel")}
+          >
             <button
               type="button"
               className={
@@ -324,7 +332,7 @@ export default function Movies() {
               aria-pressed={genres.length === 0}
               onClick={() => setParam("genres", "", "")}
             >
-              Tất cả
+              {t("common.all")}
             </button>
             {allGenres.map((g) => (
               <button
@@ -336,17 +344,23 @@ export default function Movies() {
                 aria-pressed={genres.includes(g)}
                 onClick={() => toggleInCsv("genres", g)}
               >
-                {g}
+                {genreLabel(g)}
               </button>
             ))}
           </div>
 
           {/* LỌC NÂNG CAO */}
           <details className="movies-k__adv" open>
-            <summary>Lọc nâng cao</summary>
+            <summary>{t("movies.advanced")}</summary>
             <div className="movies-k__advrow">
-              <div className="movies-k__chipset" role="group" aria-label="Điểm">
-                <span className="movies-k__advlabel">Điểm</span>
+              <div
+                className="movies-k__chipset"
+                role="group"
+                aria-label={t("movies.ratingLabel")}
+              >
+                <span className="movies-k__advlabel">
+                  {t("movies.ratingLabel")}
+                </span>
                 {RATINGS.map((r) => (
                   <button
                     key={r.value}
@@ -357,7 +371,7 @@ export default function Movies() {
                     aria-pressed={rating === r.value}
                     onClick={() => setParam("rating", r.value, "0")}
                   >
-                    {r.label}
+                    {r.key ? t(r.key) : r.label}
                   </button>
                 ))}
               </div>
@@ -365,9 +379,11 @@ export default function Movies() {
               <div
                 className="movies-k__chipset"
                 role="group"
-                aria-label="Định dạng"
+                aria-label={t("movies.formatLabel")}
               >
-                <span className="movies-k__advlabel">Định dạng</span>
+                <span className="movies-k__advlabel">
+                  {t("movies.formatLabel")}
+                </span>
                 {FORMATS.map((f) => (
                   <button
                     key={f}
@@ -386,11 +402,11 @@ export default function Movies() {
               <select
                 value={dur}
                 onChange={(e) => setParam("dur", e.target.value, "all")}
-                aria-label="Thời lượng"
+                aria-label={t("movies.durAll")}
               >
                 {DURATIONS.map((d) => (
                   <option key={d.value} value={d.value}>
-                    {d.label}
+                    {t(d.key)}
                   </option>
                 ))}
               </select>
@@ -401,7 +417,7 @@ export default function Movies() {
                   className="movies-k__clear"
                   onClick={clearAll}
                 >
-                  Xóa lọc
+                  {t("common.clear")}
                 </button>
               )}
             </div>
@@ -411,8 +427,10 @@ export default function Movies() {
         {/* KẾT QUẢ */}
         {isError ? (
           <div className="movies-k__empty">
-            <p>Không tải được dữ liệu. Kiểm tra kết nối rồi thử lại.</p>
-            <Button onClick={() => moviesQ.refetch()}>Thử lại</Button>
+            <p>{t("common.loadError")}</p>
+            <Button onClick={() => moviesQ.refetch()}>
+              {t("common.retry")}
+            </Button>
           </div>
         ) : isLoading ? (
           <Grid min="200px">
@@ -422,10 +440,8 @@ export default function Movies() {
           </Grid>
         ) : visible.length === 0 ? (
           <div className="movies-k__empty">
-            <p className="movies-k__empty-title">Không tìm thấy phim nào</p>
-            <p className="movies-k__empty-sub">
-              Thử đổi từ khóa hoặc bộ lọc khác.
-            </p>
+            <p className="movies-k__empty-title">{t("movies.emptyTitle")}</p>
+            <p className="movies-k__empty-sub">{t("movies.emptySub")}</p>
           </div>
         ) : (
           <Grid min="200px">

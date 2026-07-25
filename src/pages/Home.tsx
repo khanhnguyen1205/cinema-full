@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { genreLabel } from "i18n/genres";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import MovieCard from "components/MovieCard";
@@ -31,6 +33,7 @@ function prefersReducedMotion() {
 
 export default function Home() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const moviesQ = useMovies();
   const cinemasQ = useCinemas();
   const citiesQ = useCities();
@@ -71,8 +74,10 @@ export default function Home() {
         <Navbar />
         <Container>
           <div className="home-error">
-            <p>Không tải được dữ liệu. Kiểm tra kết nối rồi thử lại.</p>
-            <Button onClick={() => moviesQ.refetch()}>Thử lại</Button>
+            <p>{t("common.loadError")}</p>
+            <Button onClick={() => moviesQ.refetch()}>
+              {t("common.retry")}
+            </Button>
           </div>
         </Container>
         <Footer />
@@ -129,14 +134,15 @@ export default function Home() {
         <Container>
           <div className="hero-k__content" key={active.id}>
             <div className="hero-k__meta">
-              <span className="hero-k__label">Phim nổi bật</span>
+              <span className="hero-k__label">{t("home.featured")}</span>
               {active.rating != null && (
                 <span className="hero-k__rating">
                   ★ {active.rating.toFixed(1)}
                 </span>
               )}
               <span className="hero-k__genre">
-                {active.genre} · {active.duration} PHÚT
+                {genreLabel(active.genre)} · {active.duration}{" "}
+                {t("common.minutes")}
               </span>
             </div>
             <h1 className="hero-k__title">
@@ -145,14 +151,14 @@ export default function Home() {
             <p className="hero-k__desc">{active.description}</p>
             <div className="hero-k__actions">
               <Button size="lg" onClick={() => navigate(`/movie/${active.id}`)}>
-                ▶ Đặt vé
+                ▶ {t("home.book")}
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 onClick={() => navigate(`/movie/${active.id}`)}
               >
-                Chi tiết
+                {t("home.details")}
               </Button>
             </div>
             <div className="hero-k__tabs">
@@ -162,7 +168,7 @@ export default function Home() {
                   className={
                     "hero-k__tab" + (i === heroIndex ? " is-active" : "")
                   }
-                  aria-label={`Phim nổi bật ${i + 1}`}
+                  aria-label={t("home.featuredN", { n: i + 1 })}
                   onClick={() => setHeroIndex(i)}
                 >
                   N°{String(i + 1).padStart(2, "0")}
@@ -173,14 +179,14 @@ export default function Home() {
         </Container>
         <button
           className="hero-k__arrow hero-k__arrow--prev"
-          aria-label="Phim trước"
+          aria-label={t("home.prevMovie")}
           onClick={prev}
         >
           ‹
         </button>
         <button
           className="hero-k__arrow hero-k__arrow--next"
-          aria-label="Phim sau"
+          aria-label={t("home.nextMovie")}
           onClick={next}
         >
           ›
@@ -200,14 +206,14 @@ export default function Home() {
 
       <Container>
         {/* Phim đang chiếu */}
-        <Section label="Suất chiếu hôm nay" index={1}>
+        <Section label={t("home.todayShowtimes")} index={1}>
           <div className="home-head">
-            <h2 className="home-head__title">Phim đang chiếu</h2>
+            <h2 className="home-head__title">{t("home.nowShowing")}</h2>
             <button
               className="home-head__all"
               onClick={() => navigate("/movies")}
             >
-              Xem tất cả →
+              {t("home.seeAll")}
             </button>
           </div>
           <Grid min="200px">
@@ -218,8 +224,8 @@ export default function Home() {
         </Section>
 
         {/* Duyệt theo thể loại */}
-        <Section label="Khám phá" index={2}>
-          <h2 className="home-head__title">Duyệt theo thể loại</h2>
+        <Section label={t("home.explore")} index={2}>
+          <h2 className="home-head__title">{t("home.browseByGenre")}</h2>
           <div className="genre-k-grid">
             {genreStats.map(({ genre, count }) => (
               <button
@@ -227,8 +233,10 @@ export default function Home() {
                 className="genre-k"
                 onClick={() => navigate("/movies", { state: { genre } })}
               >
-                <span className="genre-k__name">{genre}</span>
-                <span className="genre-k__count">{count} phim</span>
+                <span className="genre-k__name">{genreLabel(genre)}</span>
+                <span className="genre-k__count">
+                  {t("home.movieCount", { count })}
+                </span>
               </button>
             ))}
           </div>
@@ -237,10 +245,10 @@ export default function Home() {
         {/* Thống kê */}
         <div className="stats-k">
           {[
-            { n: movies.length, l: "Phim" },
-            { n: cinemas.length, l: "Rạp chiếu" },
-            { n: cities.length, l: "Thành phố" },
-            { n: showtimeCount, l: "Suất chiếu" },
+            { n: movies.length, l: t("home.statMovies") },
+            { n: cinemas.length, l: t("home.statCinemas") },
+            { n: cities.length, l: t("home.statCities") },
+            { n: showtimeCount, l: t("home.statShowtimes") },
           ].map((s) => (
             <div className="stats-k__item" key={s.l}>
               <span className="stats-k__num">{s.n}</span>
@@ -250,14 +258,14 @@ export default function Home() {
         </div>
 
         {/* Hệ thống rạp */}
-        <Section label="Toàn quốc" index={3}>
+        <Section label={t("home.nationwide")} index={3}>
           <div className="home-head">
-            <h2 className="home-head__title">Hệ thống rạp</h2>
+            <h2 className="home-head__title">{t("home.cinemaSystem")}</h2>
             <button
               className="home-head__all"
               onClick={() => navigate("/cinemas")}
             >
-              Tất cả rạp →
+              {t("home.allCinemas")}
             </button>
           </div>
           <div className="cinema-k-grid">
@@ -285,13 +293,11 @@ export default function Home() {
         {/* CTA bone */}
         <div className="cta-k u-invert">
           <div>
-            <h2 className="cta-k__title">Sẵn sàng cho suất chiếu tiếp theo?</h2>
-            <p className="cta-k__sub">
-              Chọn phim, chọn ghế và đặt vé chỉ trong vài bước.
-            </p>
+            <h2 className="cta-k__title">{t("home.ctaTitle")}</h2>
+            <p className="cta-k__sub">{t("home.ctaSub")}</p>
           </div>
           <Button size="lg" onClick={() => navigate("/movies")}>
-            Đặt vé ngay
+            {t("home.ctaButton")}
           </Button>
         </div>
       </Container>

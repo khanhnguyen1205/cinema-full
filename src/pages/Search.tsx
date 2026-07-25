@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { formatDateTime } from "i18n/format";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import MovieCard from "components/MovieCard";
@@ -24,7 +26,7 @@ import type { Movie, Cinema, Showtime } from "types";
 import "./Search.css";
 
 const fmtTime = (iso: string) =>
-  new Date(iso).toLocaleString("vi-VN", {
+  formatDateTime(iso, {
     hour: "2-digit",
     minute: "2-digit",
     weekday: "short",
@@ -40,6 +42,7 @@ interface ShowResult {
 }
 
 export default function Search() {
+  const { t } = useTranslation();
   const [params, setParams] = useSearchParams();
   const navigate = useNavigate();
   const q = params.get("q") ?? "";
@@ -117,9 +120,9 @@ export default function Search() {
       <Navbar />
       <Container>
         <header className="search-k__header">
-          <span className="search-k__label">Tìm kiếm</span>
+          <span className="search-k__label">{t("search.eyebrow")}</span>
           <h1 className="search-k__title">
-            <KineticHeading text={q.trim() ? q.trim() : "Tìm kiếm"} />
+            <KineticHeading text={q.trim() ? q.trim() : t("search.title")} />
           </h1>
           <form
             className="search-k__box"
@@ -128,8 +131,8 @@ export default function Search() {
           >
             <input
               type="text"
-              aria-label="Tìm phim, rạp, suất chiếu"
-              placeholder="Tìm phim, rạp, suất chiếu..."
+              aria-label={t("search.placeholder")}
+              placeholder={t("search.placeholder")}
               value={q}
               onChange={(e) =>
                 setParams({ q: e.target.value }, { replace: true })
@@ -139,19 +142,21 @@ export default function Search() {
           </form>
           {qn && !isLoading && (
             <span className="search-k__count">
-              <b>{total}</b> kết quả
+              {t("search.resultCount", { count: total })}
             </span>
           )}
         </header>
 
         {isError ? (
           <div className="search-k__empty">
-            <p>Không tải được dữ liệu. Kiểm tra kết nối rồi thử lại.</p>
-            <Button onClick={() => moviesQ.refetch()}>Thử lại</Button>
+            <p>{t("common.loadError")}</p>
+            <Button onClick={() => moviesQ.refetch()}>
+              {t("common.retry")}
+            </Button>
           </div>
         ) : !qn ? (
           <div className="search-k__hint">
-            <p>Nhập từ khoá để tìm phim, rạp, suất chiếu.</p>
+            <p>{t("search.hint")}</p>
           </div>
         ) : isLoading ? (
           <Grid min="200px">
@@ -162,22 +167,22 @@ export default function Search() {
         ) : total === 0 ? (
           <div className="search-k__empty">
             <p className="search-k__empty-title">
-              Không tìm thấy kết quả cho “{q.trim()}”
+              {t("search.emptyTitle", { q: q.trim() })}
             </p>
-            <p className="search-k__empty-sub">Thử từ khoá ngắn hơn.</p>
+            <p className="search-k__empty-sub">{t("search.emptySub")}</p>
           </div>
         ) : (
           <>
             {movieHits.length > 0 && (
               <Section>
                 <div className="search-k__sechd">
-                  <KineticHeading text="Phim" />
+                  <KineticHeading text={t("search.sectionMovies")} />
                   <span className="search-k__seccount">{movieHits.length}</span>
                   <Link
                     to={`/movies?q=${encodeURIComponent(q)}`}
                     className="search-k__more"
                   >
-                    Lọc chi tiết trên trang Phim →
+                    {t("search.filterOnMovies")}
                   </Link>
                 </div>
                 <Grid min="200px">
@@ -191,7 +196,7 @@ export default function Search() {
             {cinemaHits.length > 0 && (
               <Section>
                 <div className="search-k__sechd">
-                  <KineticHeading text="Rạp" />
+                  <KineticHeading text={t("search.sectionCinemas")} />
                   <span className="search-k__seccount">
                     {cinemaHits.length}
                   </span>
@@ -211,7 +216,9 @@ export default function Search() {
                       {c.address && (
                         <span className="venue-k__addr">{c.address}</span>
                       )}
-                      <span className="venue-k__link">Xem lịch chiếu →</span>
+                      <span className="venue-k__link">
+                        {t("search.viewSchedule")}
+                      </span>
                     </button>
                   ))}
                 </Grid>
@@ -221,7 +228,7 @@ export default function Search() {
             {showHits.length > 0 && (
               <Section>
                 <div className="search-k__sechd">
-                  <KineticHeading text="Suất chiếu" />
+                  <KineticHeading text={t("search.sectionShowtimes")} />
                   <span className="search-k__seccount">{showHits.length}</span>
                 </div>
                 <ul className="search-k__shows">
@@ -233,13 +240,15 @@ export default function Search() {
                         onClick={() => navigate(`/seats/${r.showtime.id}`)}
                       >
                         <span className="search-k__showtitle">
-                          {r.movie?.title ?? "Phim"}
+                          {r.movie?.title ?? t("search.sectionMovies")}
                         </span>
                         <span className="search-k__showmeta">
                           {fmtTime(r.showtime.time)} · {r.cinema?.name ?? ""}
                           {r.roomType ? ` · ${r.roomType}` : ""}
                         </span>
-                        <span className="search-k__showgo">Chọn ghế →</span>
+                        <span className="search-k__showgo">
+                          {t("search.selectSeats")}
+                        </span>
                       </button>
                     </li>
                   ))}
