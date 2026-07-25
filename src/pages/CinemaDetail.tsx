@@ -1,8 +1,11 @@
 import { useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import { Container, KineticHeading, Reveal, Spinner } from "components/ui";
+import { genreLabel } from "i18n/genres";
+import { formatDate, formatPrice } from "i18n/format";
 import {
   useCinema,
   useShowtimesByCinema,
@@ -15,6 +18,7 @@ import "./CinemaDetail.css";
 export default function CinemaDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const cinemaId = id!;
 
   const cinemaQ = useCinema(cinemaId);
@@ -44,7 +48,7 @@ export default function CinemaDetail() {
       minute: "2-digit",
     });
   const fmtDate = (k: string) =>
-    new Date(k).toLocaleDateString("vi-VN", {
+    formatDate(k, {
       weekday: "short",
       day: "2-digit",
       month: "2-digit",
@@ -82,7 +86,9 @@ export default function CinemaDetail() {
 
       <section className="venue-hero">
         <Container>
-          <span className="venue-hero__label">Lịch chiếu tại rạp</span>
+          <span className="venue-hero__label">
+            {t("cinemas.detailEyebrow")}
+          </span>
           <h1 className="venue-hero__title">
             <KineticHeading text={cinema.name} />
           </h1>
@@ -95,15 +101,17 @@ export default function CinemaDetail() {
           <div className="venue-hero__stats">
             <div className="stat-k">
               <span className="stat-k__num">{roomsCount}</span>
-              <span className="stat-k__label">Phòng</span>
+              <span className="stat-k__label">{t("cinemas.statRooms")}</span>
             </div>
             <div className="stat-k">
               <span className="stat-k__num">{byMovie.length}</span>
-              <span className="stat-k__label">Phim</span>
+              <span className="stat-k__label">{t("cinemas.statMovies")}</span>
             </div>
             <div className="stat-k">
               <span className="stat-k__num">{showtimes.length}</span>
-              <span className="stat-k__label">Suất</span>
+              <span className="stat-k__label">
+                {t("cinemas.statShowtimes")}
+              </span>
             </div>
           </div>
         </Container>
@@ -111,7 +119,7 @@ export default function CinemaDetail() {
 
       <Container>
         {byMovie.length === 0 ? (
-          <div className="cinema-detail-empty">Rạp này chưa có suất chiếu</div>
+          <div className="cinema-detail-empty">{t("cinemas.detailEmpty")}</div>
         ) : (
           byMovie.map(({ movie, sts }) => {
             const dates = [
@@ -124,7 +132,7 @@ export default function CinemaDetail() {
                     type="button"
                     className="sched-k__poster"
                     onClick={() => navigate(`/movie/${movie.id}`)}
-                    aria-label={`Chi tiết ${movie.title}`}
+                    aria-label={t("cinemas.movieAria", { title: movie.title })}
                   >
                     {movie.poster ? (
                       <img
@@ -145,7 +153,8 @@ export default function CinemaDetail() {
                       {movie.title}
                     </button>
                     <span className="sched-k__meta">
-                      {movie.genre} · {movie.duration} phút
+                      {genreLabel(movie.genre)} · {movie.duration}{" "}
+                      {t("common.minutes")}
                     </span>
                     {dates.map((d) => (
                       <div key={d} className="sched-k__date-row">
@@ -166,7 +175,7 @@ export default function CinemaDetail() {
                                 </span>
                                 <span className="time-k-btn__meta">
                                   {roomMap[s.roomId]?.type} ·{" "}
-                                  {s.price.toLocaleString("vi-VN")}₫
+                                  {formatPrice(s.price)}
                                 </span>
                               </button>
                             ))}

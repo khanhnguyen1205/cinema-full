@@ -1,5 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { genreLabel } from "i18n/genres";
+import { formatDate, formatPrice } from "i18n/format";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import MovieCard from "components/MovieCard";
@@ -36,6 +39,7 @@ import "./MovieDetail.css";
 export default function MovieDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const movieId = id!;
 
   const movieQ = useMovie(movieId);
@@ -117,7 +121,7 @@ export default function MovieDetail() {
       minute: "2-digit",
     });
   const fmtDate = (k: string) =>
-    new Date(k).toLocaleDateString("vi-VN", {
+    formatDate(k, {
       weekday: "short",
       day: "2-digit",
       month: "2-digit",
@@ -227,14 +231,17 @@ export default function MovieDetail() {
           <div className="detail-k__grid">
             <div className="detail-k__info">
               <div className="detail-k__meta">
-                <span className="detail-k__tag">Đang chiếu</span>
+                <span className="detail-k__tag">
+                  {t("movieDetail.nowShowingTag")}
+                </span>
                 {movie.rating != null && (
                   <span className="detail-k__rating">
                     ★ {movie.rating.toFixed(1)}
                   </span>
                 )}
                 <span className="detail-k__genre">
-                  {movie.genre} · {movie.duration} PHÚT
+                  {genreLabel(movie.genre)} · {movie.duration}{" "}
+                  {t("common.minutes")}
                 </span>
               </div>
               <h1 className="detail-k__title">
@@ -248,13 +255,15 @@ export default function MovieDetail() {
             {/* PANEL ĐẶT VÉ — bone, sticky */}
             <aside className="detail-k__book">
               <TicketEdge className="book-k">
-                <div className="book-k__head">Đặt vé</div>
+                <div className="book-k__head">{t("movieDetail.book")}</div>
                 {enriched.length === 0 ? (
-                  <p className="book-k__empty">Chưa có suất chiếu</p>
+                  <p className="book-k__empty">
+                    {t("movieDetail.noShowtimes")}
+                  </p>
                 ) : (
                   <>
                     <div className="book-k__selects">
-                      <Field label="Thành phố" htmlFor="sel-city">
+                      <Field label={t("movieDetail.city")} htmlFor="sel-city">
                         <select
                           id="sel-city"
                           value={cityId ?? ""}
@@ -270,7 +279,7 @@ export default function MovieDetail() {
                             setDateKey(d ?? null);
                             setSelectedShowtime(null);
                           }}
-                          aria-label="Chọn thành phố"
+                          aria-label={t("movieDetail.chooseCity")}
                         >
                           {cityIds.map((cid) => (
                             <option key={cid} value={cid}>
@@ -279,7 +288,10 @@ export default function MovieDetail() {
                           ))}
                         </select>
                       </Field>
-                      <Field label="Rạp" htmlFor="sel-cinema">
+                      <Field
+                        label={t("movieDetail.cinema")}
+                        htmlFor="sel-cinema"
+                      >
                         <select
                           id="sel-cinema"
                           value={cinemaId ?? ""}
@@ -293,7 +305,7 @@ export default function MovieDetail() {
                             setDateKey(d ?? null);
                             setSelectedShowtime(null);
                           }}
-                          aria-label="Chọn rạp"
+                          aria-label={t("movieDetail.chooseCinema")}
                         >
                           {cinemaIds.map((cid) => (
                             <option key={cid} value={cid}>
@@ -322,7 +334,9 @@ export default function MovieDetail() {
                       ))}
                     </div>
 
-                    <div className="book-k__times-label">Giờ chiếu</div>
+                    <div className="book-k__times-label">
+                      {t("movieDetail.showtimeLabel")}
+                    </div>
                     <div className="book-k__times">
                       {times.map((e) => (
                         <button
@@ -338,7 +352,7 @@ export default function MovieDetail() {
                             {fmtTime(e.time)}
                           </span>
                           <span className="time-k-btn__meta">
-                            {e.room?.type} · {e.price.toLocaleString("vi-VN")}₫
+                            {e.room?.type} · {formatPrice(e.price)}
                           </span>
                         </button>
                       ))}
@@ -352,7 +366,7 @@ export default function MovieDetail() {
                         navigate(`/seats/${selectedShowtime}`)
                       }
                     >
-                      Đặt vé
+                      {t("movieDetail.book")}
                     </Button>
                   </>
                 )}
@@ -366,10 +380,10 @@ export default function MovieDetail() {
       <Container>
         {/* N°01 — Tóm tắt + thông số */}
         <Reveal>
-          <Section label="Tóm tắt" index={1}>
+          <Section label={t("movieDetail.secSummary")} index={1}>
             <div className="detail-k__about">
               <p className="detail-k__synopsis">
-                {movie.description || "Chưa có mô tả cho phim này."}
+                {movie.description || t("movieDetail.noDesc")}
               </p>
               <div className="spec-k">
                 {movie.rating != null && (
@@ -377,21 +391,29 @@ export default function MovieDetail() {
                     <span className="spec-k__num">
                       {movie.rating.toFixed(1)}
                     </span>
-                    <span className="spec-k__label">Điểm</span>
+                    <span className="spec-k__label">
+                      {t("movieDetail.specRating")}
+                    </span>
                   </div>
                 )}
                 <div className="spec-k__item">
-                  <span className="spec-k__val">{movie.genre}</span>
-                  <span className="spec-k__label">Thể loại</span>
+                  <span className="spec-k__val">{genreLabel(movie.genre)}</span>
+                  <span className="spec-k__label">
+                    {t("movieDetail.specGenre")}
+                  </span>
                 </div>
                 <div className="spec-k__item">
                   <span className="spec-k__val">{movie.duration}′</span>
-                  <span className="spec-k__label">Thời lượng</span>
+                  <span className="spec-k__label">
+                    {t("movieDetail.specDuration")}
+                  </span>
                 </div>
                 {formats.length > 0 && (
                   <div className="spec-k__item">
                     <span className="spec-k__val">{formats.join(" · ")}</span>
-                    <span className="spec-k__label">Định dạng</span>
+                    <span className="spec-k__label">
+                      {t("movieDetail.specFormat")}
+                    </span>
                   </div>
                 )}
               </div>
@@ -402,7 +424,7 @@ export default function MovieDetail() {
         {/* N°02 — Rạp đang chiếu */}
         {cinemasShowing.length > 0 && (
           <Reveal>
-            <Section label="Đang chiếu tại" index={2}>
+            <Section label={t("movieDetail.secShowingAt")} index={2}>
               <div className="detail-k__cinemas">
                 {cinemasShowing.map((c, i) => (
                   <button
@@ -429,7 +451,7 @@ export default function MovieDetail() {
         {/* N°03 — Phim cùng thể loại */}
         {related.length > 0 && (
           <Reveal>
-            <Section label="Cùng thể loại" index={3}>
+            <Section label={t("movieDetail.secSameGenre")} index={3}>
               <div className="detail-k__related">
                 {related.map((m) => (
                   <MovieCard key={m.id} movie={m} />
@@ -441,7 +463,7 @@ export default function MovieDetail() {
 
         {/* N°04 — Đánh giá của khán giả */}
         <Reveal>
-          <Section label="Đánh giá của khán giả" index={4}>
+          <Section label={t("movieDetail.secReviews")} index={4}>
             <ReviewsSection movieId={movie.id} />
           </Section>
         </Reveal>
@@ -453,6 +475,7 @@ export default function MovieDetail() {
 }
 
 function ReviewsSection({ movieId }: { movieId: number }) {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const reviewsQ = useMovieReviews(movieId);
   const reviews = useMemo(
@@ -485,7 +508,7 @@ function ReviewsSection({ movieId }: { movieId: number }) {
   const submit = async () => {
     setError(null);
     if (rating < 1) {
-      setError("Vui lòng chọn số sao.");
+      setError(t("movieDetail.chooseStars"));
       return;
     }
     try {
@@ -507,12 +530,12 @@ function ReviewsSection({ movieId }: { movieId: number }) {
         setComment("");
       }
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Không thể lưu đánh giá.");
+      setError(e instanceof Error ? e.message : t("movieDetail.saveError"));
     }
   };
 
   const remove = async (id: number) => {
-    if (!window.confirm("Xoá đánh giá này?")) return;
+    if (!window.confirm(t("movieDetail.confirmDelete"))) return;
     await deleteM.mutateAsync({ id, movieId });
     if (mine?.id === id) {
       setEditing(false);
@@ -533,7 +556,9 @@ function ReviewsSection({ movieId }: { movieId: number }) {
         <div className="rev-k__score">
           <span className="rev-k__avg">{stats.average.toFixed(1)}</span>
           <StarRating value={stats.average} readonly size="lg" />
-          <span className="rev-k__count">{stats.count} đánh giá</span>
+          <span className="rev-k__count">
+            {t("movieDetail.reviewCount", { count: stats.count })}
+          </span>
         </div>
         <div className="rev-k__dist" aria-hidden="true">
           {([5, 4, 3, 2, 1] as RatingKey[]).map((k) => (
@@ -557,15 +582,17 @@ function ReviewsSection({ movieId }: { movieId: number }) {
       {user ? (
         mine && !editing ? (
           <div className="rev-k__mine">
-            <span className="rev-k__mine-label">Đánh giá của bạn</span>
+            <span className="rev-k__mine-label">
+              {t("movieDetail.yourReview")}
+            </span>
             <StarRating value={mine.rating} readonly />
             {mine.comment && <p className="rev-k__mine-cmt">{mine.comment}</p>}
             <div className="rev-k__actions">
               <Button variant="ghost" onClick={() => setEditing(true)}>
-                Sửa
+                {t("movieDetail.edit")}
               </Button>
               <Button variant="ghost" onClick={() => remove(mine.id)}>
-                Xoá
+                {t("movieDetail.delete")}
               </Button>
             </div>
           </div>
@@ -575,7 +602,7 @@ function ReviewsSection({ movieId }: { movieId: number }) {
             <textarea
               className="rev-k__textarea"
               maxLength={500}
-              placeholder="Chia sẻ cảm nhận của bạn (tùy chọn)…"
+              placeholder={t("movieDetail.reviewPlaceholder")}
               value={comment}
               onChange={(e) => setComment(e.target.value)}
             />
@@ -584,14 +611,14 @@ function ReviewsSection({ movieId }: { movieId: number }) {
               <div className="rev-k__actions">
                 {editing && (
                   <Button variant="ghost" onClick={() => setEditing(false)}>
-                    Huỷ
+                    {t("movieDetail.cancel")}
                   </Button>
                 )}
                 <Button
                   onClick={submit}
                   disabled={createM.isPending || updateM.isPending}
                 >
-                  {mine ? "Cập nhật" : "Gửi đánh giá"}
+                  {mine ? t("movieDetail.update") : t("movieDetail.submit")}
                 </Button>
               </div>
             </div>
@@ -600,7 +627,8 @@ function ReviewsSection({ movieId }: { movieId: number }) {
         )
       ) : (
         <p className="rev-k__login">
-          <Link to="/login">Đăng nhập</Link> để viết đánh giá.
+          <Link to="/login">{t("nav.login")}</Link>{" "}
+          {t("movieDetail.toWriteReview")}
         </p>
       )}
 
@@ -608,28 +636,30 @@ function ReviewsSection({ movieId }: { movieId: number }) {
       {reviewsQ.isLoading ? (
         <Skeleton />
       ) : reviews.length === 0 ? (
-        <p className="rev-k__empty">
-          Chưa có đánh giá — hãy là người đầu tiên!
-        </p>
+        <p className="rev-k__empty">{t("movieDetail.noReviews")}</p>
       ) : (
         <ul className="rev-k__list">
           {reviews.map((r) => (
             <li key={r.id} className="rev-k__item">
               <div className="rev-k__item-top">
                 <span className="rev-k__name">{r.userName}</span>
-                {r.verified && <span className="rev-k__badge">Đã xem</span>}
+                {r.verified && (
+                  <span className="rev-k__badge">
+                    {t("movieDetail.watched")}
+                  </span>
+                )}
                 <StarRating value={r.rating} readonly size="sm" />
               </div>
               {r.comment && <p className="rev-k__cmt">{r.comment}</p>}
               <div className="rev-k__item-foot">
-                <time>{new Date(r.createdAt).toLocaleDateString("vi-VN")}</time>
+                <time>{formatDate(r.createdAt)}</time>
                 {(r.userId === user?.id || user?.role === "admin") && (
                   <button
                     type="button"
                     className="rev-k__del"
                     onClick={() => remove(r.id)}
                   >
-                    Xoá
+                    {t("movieDetail.delete")}
                   </button>
                 )}
               </div>

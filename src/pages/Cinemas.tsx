@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import {
@@ -15,6 +16,7 @@ import "./Cinemas.css";
 
 export default function Cinemas() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const citiesQ = useCities();
   const cinemasQ = useCinemas();
   const roomsQ = useRooms();
@@ -49,13 +51,13 @@ export default function Cinemas() {
       <Navbar />
       <Container>
         <header className="cinemas-k__header">
-          <span className="cinemas-k__label">Hệ thống rạp</span>
+          <span className="cinemas-k__label">{t("cinemas.eyebrow")}</span>
           <h1 className="cinemas-k__title">
-            <KineticHeading text="Rạp chiếu phim" />
+            <KineticHeading text={t("cinemas.title")} />
           </h1>
           {!isLoading && !isError && (
             <span className="cinemas-k__count">
-              <b>{visible.length}</b> rạp
+              {t("cinemas.count", { count: visible.length })}
             </span>
           )}
         </header>
@@ -63,7 +65,7 @@ export default function Cinemas() {
         <div
           className="cinemas-k__cities"
           role="group"
-          aria-label="Lọc theo thành phố"
+          aria-label={t("cinemas.filterByCity")}
         >
           <button
             type="button"
@@ -71,7 +73,7 @@ export default function Cinemas() {
             aria-pressed={cityId === "all"}
             onClick={() => setCityId("all")}
           >
-            Tất cả
+            {t("common.all")}
           </button>
           {cities.map((c) => (
             <button
@@ -88,8 +90,10 @@ export default function Cinemas() {
 
         {isError ? (
           <div className="cinemas-k__empty">
-            <p>Không tải được dữ liệu. Kiểm tra kết nối rồi thử lại.</p>
-            <Button onClick={() => cinemasQ.refetch()}>Thử lại</Button>
+            <p>{t("common.loadError")}</p>
+            <Button onClick={() => cinemasQ.refetch()}>
+              {t("common.retry")}
+            </Button>
           </div>
         ) : isLoading ? (
           <Grid min="280px">
@@ -99,7 +103,7 @@ export default function Cinemas() {
           </Grid>
         ) : visible.length === 0 ? (
           <div className="cinemas-k__empty">
-            <p className="cinemas-k__empty-title">Không có rạp nào</p>
+            <p className="cinemas-k__empty-title">{t("cinemas.empty")}</p>
           </div>
         ) : (
           <Grid min="280px">
@@ -119,9 +123,11 @@ export default function Cinemas() {
                   <span className="venue-k__addr">{c.address}</span>
                 )}
                 <span className="venue-k__rooms">
-                  {roomCount.get(c.id) ?? 0} phòng
+                  {t("cinemas.roomCount", { count: roomCount.get(c.id) ?? 0 })}
                 </span>
-                <span className="venue-k__link">Xem lịch chiếu →</span>
+                <span className="venue-k__link">
+                  {t("search.viewSchedule")}
+                </span>
               </button>
             ))}
           </Grid>
