@@ -9,6 +9,7 @@ import PrivateRoute from "routes/PrivateRoute";
 import Home from "pages/Home";
 import Movies from "pages/Movies";
 import Cinemas from "pages/Cinemas";
+import Search from "pages/Search";
 import CinemaDetail from "pages/CinemaDetail";
 import MovieDetail from "pages/MovieDetail";
 import BookingWizard from "pages/booking/BookingWizard";
@@ -51,6 +52,7 @@ function AppShell() {
         <Route path="/" element={<Home />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/cinemas" element={<Cinemas />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/cinema/:id" element={<CinemaDetail />} />
         <Route path="/movie/:id" element={<MovieDetail />} />
         {import.meta.env.DEV && (
