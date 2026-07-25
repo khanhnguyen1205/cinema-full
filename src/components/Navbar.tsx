@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "context/AuthContext";
 import { cx } from "lib/cx";
+import GlobalSearch from "components/GlobalSearch";
 import "./Navbar.css";
 
 const LINKS = [
@@ -86,6 +87,9 @@ export default function Navbar({ back }: { back?: string }) {
       </div>
 
       <div className="nav-k__right">
+        <div className="nav-k__search-desktop">
+          <GlobalSearch />
+        </div>
         {user ? (
           <div className="nav-k__menu" ref={dropRef}>
             <button
@@ -140,6 +144,9 @@ export default function Navbar({ back }: { back?: string }) {
         id="nav-mobile"
         className={cx("nav-k__mobile", menuOpen && "is-open")}
       >
+        <div className="nav-k__search-mobile">
+          <GlobalSearch />
+        </div>
         {LINKS.map((l) => (
           <Link
             key={l.to}

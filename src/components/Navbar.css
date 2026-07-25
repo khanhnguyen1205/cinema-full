@@ -68,6 +68,13 @@
   align-items: center;
   gap: var(--sp-3);
 }
+.nav-k__search-desktop {
+  width: 240px;
+  min-width: 0;
+}
+.nav-k__search-mobile {
+  display: none;
+}
 .nav-k__login {
   font-family: var(--font-mono);
   font-size: var(--fs-label);
@@ -154,6 +161,13 @@
 @media (max-width: 720px) {
   .nav-k__links {
     display: none;
+  }
+  .nav-k__search-desktop {
+    display: none;
+  }
+  .nav-k__search-mobile {
+    display: block;
+    margin-bottom: var(--sp-3);
   }
   .nav-k__hamburger {
     display: inline-flex;
