@@ -161,3 +161,29 @@ test("phim: khu đánh giá của khán giả hiển thị điểm + danh sách"
   await expect(page.locator(".rev-k__item").first()).toBeVisible();
   await expect(page.locator(".rev-k__badge").first()).toBeVisible(); // badge "Đã xem"
 });
+
+// Search nâng cao (chỉ đọc): ô toàn cục, trang /search, lọc Movies đồng bộ URL.
+test("ô search toàn cục: dropdown gợi ý + Enter tới /search", async ({
+  page,
+}) => {
+  await page.goto("/movies");
+  // Chỉ combobox desktop nằm trong accessibility tree (bản mobile display:none)
+  const box = page.getByRole("combobox", { name: /Tìm phim, rạp/ });
+  await box.fill("aveng");
+  await expect(page.locator(".gsearch__item").first()).toBeVisible();
+  await box.press("Enter");
+  await expect(page).toHaveURL(/\/search\?q=aveng/);
+});
+
+test("trang /search hiển thị khu kết quả", async ({ page }) => {
+  await page.goto("/search?q=a");
+  await expect(page.locator(".search-k__sechd").first()).toBeVisible();
+  await expect(page.locator(".movie-k").first()).toBeVisible();
+});
+
+test("Movies: lọc định dạng đồng bộ URL", async ({ page }) => {
+  await page.goto("/movies");
+  await page.getByRole("button", { name: "IMAX", exact: true }).click();
+  await expect(page).toHaveURL(/fmt=IMAX/);
+  await expect(page.locator(".movie-k").first()).toBeVisible();
+});
