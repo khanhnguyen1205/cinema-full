@@ -1,29 +1,23 @@
+import { useTranslation } from "react-i18next";
 import type { Concession } from "types";
 import { MAX_ITEM_QTY } from "lib/pricing";
+import { formatPrice } from "i18n/format";
 
-// Nhãn cho các danh mục quen thuộc + thứ tự ưu tiên hiển thị.
-const KNOWN_LABELS: Record<string, string> = {
-  combo: "Combo tiết kiệm",
-  popcorn: "Bắp rang",
-  drink: "Nước uống",
-  snack: "Snack",
+// Khoá i18n cho các danh mục quen thuộc + thứ tự ưu tiên hiển thị.
+const KNOWN_CAT_KEYS: Record<string, string> = {
+  combo: "booking.catCombo",
+  popcorn: "booking.catPopcorn",
+  drink: "booking.catDrink",
+  snack: "booking.catSnack",
 };
 
-const labelize = (key: string) =>
-  key ? key[0].toUpperCase() + key.slice(1) : "Khác";
-
 // Suy ra danh mục từ chính catalog: nhóm quen đi trước, nhóm lạ nối vào cuối.
-function categoriesOf(catalog: Concession[]) {
+function categoriesOf(catalog: Concession[]): string[] {
   const present = [...new Set(catalog.map((c) => c.category || "khac"))];
-  const known = Object.keys(KNOWN_LABELS).filter((k) => present.includes(k));
-  const extra = present.filter((k) => !(k in KNOWN_LABELS));
-  return [...known, ...extra].map((key) => ({
-    key,
-    label: KNOWN_LABELS[key] || labelize(key),
-  }));
+  const known = Object.keys(KNOWN_CAT_KEYS).filter((k) => present.includes(k));
+  const extra = present.filter((k) => !(k in KNOWN_CAT_KEYS));
+  return [...known, ...extra];
 }
-
-const fmt = (n: number) => n.toLocaleString("vi-VN") + "₫";
 
 export default function ConcessionStep({
   catalog = [],
@@ -40,36 +34,43 @@ export default function ConcessionStep({
   error?: boolean;
   onRetry?: () => void;
 }) {
-  if (loading) return <div className="fnb-k__msg">Đang tải bắp nước...</div>;
+  const { t } = useTranslation();
+  const catLabel = (key: string) =>
+    KNOWN_CAT_KEYS[key]
+      ? t(KNOWN_CAT_KEYS[key])
+      : key
+        ? key[0].toUpperCase() + key.slice(1)
+        : t("booking.catOther");
+
+  if (loading)
+    return <div className="fnb-k__msg">{t("booking.fnbLoading")}</div>;
   if (error)
     return (
       <div className="fnb-k__msg">
-        <p>Không tải được danh sách bắp nước.</p>
+        <p>{t("booking.fnbError")}</p>
         {onRetry && (
           <button type="button" className="fnb-k__retry" onClick={onRetry}>
-            Thử lại
+            {t("common.retry")}
           </button>
         )}
       </div>
     );
   if (!catalog.length)
-    return <div className="fnb-k__msg">Hiện chưa có bắp nước để chọn.</div>;
+    return <div className="fnb-k__msg">{t("booking.fnbEmpty")}</div>;
 
   return (
     <div className="fnb-k">
       <div className="fnb-k__head">
-        <h2 className="fnb-k__title">Thêm bắp nước</h2>
-        <p className="fnb-k__sub">
-          Không bắt buộc — bạn có thể xác nhận đặt vé mà không chọn món nào.
-        </p>
+        <h2 className="fnb-k__title">{t("booking.fnbTitle")}</h2>
+        <p className="fnb-k__sub">{t("booking.fnbSub")}</p>
       </div>
 
-      {categoriesOf(catalog).map(({ key, label }) => {
+      {categoriesOf(catalog).map((key) => {
         const items = catalog.filter((c) => (c.category || "khac") === key);
         if (!items.length) return null;
         return (
           <section key={key} className="fnb-k__group">
-            <h3 className="fnb-k__grouptitle">{label}</h3>
+            <h3 className="fnb-k__grouptitle">{catLabel(key)}</h3>
             <div className="fnb-k__grid">
               {items.map((item) => {
                 const n = qty[item.id] || 0;
@@ -84,7 +85,9 @@ export default function ConcessionStep({
                     <div className="fnb-k__info">
                       <h4 className="fnb-k__name">{item.name}</h4>
                       <p className="fnb-k__desc">{item.description}</p>
-                      <span className="fnb-k__price">{fmt(item.price)}</span>
+                      <span className="fnb-k__price">
+                        {formatPrice(item.price)}
+                      </span>
                     </div>
                     <div className="fnb-k__qty">
                       <button
@@ -92,7 +95,9 @@ export default function ConcessionStep({
                         className="fnb-k__btn"
                         disabled={n === 0}
                         onClick={() => onChange(item.id, -1)}
-                        aria-label={`Bớt ${item.name}`}
+                        aria-label={t("booking.fnbDecrease", {
+                          name: item.name,
+                        })}
                       >
                         −
                       </button>
@@ -102,7 +107,9 @@ export default function ConcessionStep({
                         className="fnb-k__btn"
                         disabled={n >= MAX_ITEM_QTY}
                         onClick={() => onChange(item.id, 1)}
-                        aria-label={`Thêm ${item.name}`}
+                        aria-label={t("booking.fnbIncrease", {
+                          name: item.name,
+                        })}
                       >
                         +
                       </button>

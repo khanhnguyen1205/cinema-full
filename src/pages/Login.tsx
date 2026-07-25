@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { loginUser } from "services/auth";
 import { useAuth } from "context/AuthContext";
 import AuthLayout from "./AuthLayout";
 import "./Auth.css";
 
 export default function Login() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -25,7 +27,7 @@ export default function Login() {
     if (loading) return; // chặn tái nhập (double-submit khi mạng chậm)
     setError("");
     if (!email || !password) {
-      setError("Vui lòng nhập đầy đủ thông tin.");
+      setError(t("auth.fillAll"));
       return;
     }
 
@@ -46,22 +48,25 @@ export default function Login() {
       codeNo="01"
       statement={
         <>
-          Xem phim
-          <br />
-          bắt đầu
-          <br />
-          từ đây
+          {t("auth.loginStatement")
+            .split("\n")
+            .map((line, i) => (
+              <Fragment key={i}>
+                {i > 0 && <br />}
+                {line}
+              </Fragment>
+            ))}
         </>
       }
-      sub="Đăng nhập để tiếp tục giữ ghế, chọn suất và soát vé bằng mã QR."
+      sub={t("auth.loginSub")}
     >
       <div className="authf-k">
         <Link to="/" className="auth-k__logo">
           CINEMA
         </Link>
 
-        <p className="authf-k__eyebrow">Đăng nhập</p>
-        <h1 className="authf-k__title">Chào mừng trở lại</h1>
+        <p className="authf-k__eyebrow">{t("auth.loginEyebrow")}</p>
+        <h1 className="authf-k__title">{t("auth.loginTitle")}</h1>
 
         {error && (
           <div className="authf-k__error">
@@ -103,7 +108,7 @@ export default function Login() {
 
           <div className="field-k">
             <label className="field-k__label" htmlFor="login-password">
-              Mật khẩu
+              {t("auth.password")}
             </label>
             <div className="field-k__wrap">
               <input
@@ -119,7 +124,9 @@ export default function Login() {
                 type="button"
                 className="field-k__eye"
                 onClick={() => setShowPass((v) => !v)}
-                aria-label={showPass ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
+                aria-label={
+                  showPass ? t("auth.hidePassword") : t("auth.showPassword")
+                }
               >
                 {showPass ? (
                   <svg
@@ -160,20 +167,24 @@ export default function Login() {
               checked={remember}
               onChange={(e) => setRemember(e.target.checked)}
             />
-            <span>Ghi nhớ đăng nhập</span>
+            <span>{t("auth.remember")}</span>
           </label>
 
           <button className="authf-k__submit" type="submit" disabled={loading}>
-            {loading ? <span className="authf-k__spinner" /> : "Đăng nhập"}
+            {loading ? (
+              <span className="authf-k__spinner" />
+            ) : (
+              t("auth.loginSubmit")
+            )}
           </button>
         </form>
 
         <div className="authf-k__divider">
-          <span>hoặc</span>
+          <span>{t("auth.or")}</span>
         </div>
 
         <p className="authf-k__switch">
-          Chưa có tài khoản?{" "}
+          {t("auth.noAccount")}{" "}
           <Link
             to="/register"
             state={{
@@ -181,7 +192,7 @@ export default function Login() {
             }}
             className="authf-k__link"
           >
-            Đăng ký ngay
+            {t("auth.registerNow")}
           </Link>
         </p>
       </div>

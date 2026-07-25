@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { registerUser } from "services/auth";
 import { useAuth } from "context/AuthContext";
 import AuthLayout from "./AuthLayout";
 import "./Auth.css";
 
 export default function Register() {
+  const { t } = useTranslation();
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -33,15 +35,15 @@ export default function Register() {
     setError("");
 
     if (!form.fullName || !form.email || !form.password || !form.confirm) {
-      setError("Vui lòng nhập đầy đủ thông tin.");
+      setError(t("auth.fillAll"));
       return;
     }
     if (form.password.length < 6) {
-      setError("Mật khẩu phải có ít nhất 6 ký tự.");
+      setError(t("auth.passMin"));
       return;
     }
     if (form.password !== form.confirm) {
-      setError("Mật khẩu xác nhận không khớp.");
+      setError(t("auth.passMismatch"));
       return;
     }
 
@@ -66,22 +68,25 @@ export default function Register() {
       codeNo="02"
       statement={
         <>
-          Một tài khoản
-          <br />
-          mở mọi
-          <br />
-          suất chiếu
+          {t("auth.registerStatement")
+            .split("\n")
+            .map((line, i) => (
+              <Fragment key={i}>
+                {i > 0 && <br />}
+                {line}
+              </Fragment>
+            ))}
         </>
       }
-      sub="Tạo tài khoản để đặt vé, lưu lịch sử và nhận vé điện tử có mã QR."
+      sub={t("auth.registerSub")}
     >
       <div className="authf-k">
         <Link to="/" className="auth-k__logo">
           CINEMA
         </Link>
 
-        <p className="authf-k__eyebrow">Đăng ký</p>
-        <h1 className="authf-k__title">Tạo tài khoản</h1>
+        <p className="authf-k__eyebrow">{t("auth.registerEyebrow")}</p>
+        <h1 className="authf-k__title">{t("auth.registerTitle")}</h1>
 
         {error && (
           <div className="authf-k__error">
@@ -106,14 +111,14 @@ export default function Register() {
         <form className="authf-k__form" onSubmit={handleSubmit}>
           <div className="field-k">
             <label className="field-k__label" htmlFor="reg-name">
-              Họ và tên
+              {t("auth.fullName")}
             </label>
             <div className="field-k__wrap">
               <input
                 id="reg-name"
                 className="field-k__input"
                 type="text"
-                placeholder="Nguyễn Văn A"
+                placeholder={t("auth.fullNamePlaceholder")}
                 value={form.fullName}
                 onChange={set("fullName")}
                 autoComplete="name"
@@ -141,7 +146,7 @@ export default function Register() {
           <div className="authf-k__row">
             <div className="field-k">
               <label className="field-k__label" htmlFor="reg-password">
-                Mật khẩu
+                {t("auth.password")}
               </label>
               <div className="field-k__wrap">
                 <input
@@ -157,7 +162,9 @@ export default function Register() {
                   type="button"
                   className="field-k__eye"
                   onClick={() => setShowPass((v) => !v)}
-                  aria-label={showPass ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
+                  aria-label={
+                    showPass ? t("auth.hidePassword") : t("auth.showPassword")
+                  }
                 >
                   {showPass ? (
                     <svg
@@ -194,7 +201,7 @@ export default function Register() {
 
             <div className="field-k">
               <label className="field-k__label" htmlFor="reg-confirm">
-                Xác nhận mật khẩu
+                {t("auth.confirmPassword")}
               </label>
               <div className="field-k__wrap">
                 <input
@@ -211,16 +218,20 @@ export default function Register() {
           </div>
 
           <button className="authf-k__submit" type="submit" disabled={loading}>
-            {loading ? <span className="authf-k__spinner" /> : "Tạo tài khoản"}
+            {loading ? (
+              <span className="authf-k__spinner" />
+            ) : (
+              t("auth.registerSubmit")
+            )}
           </button>
         </form>
 
         <div className="authf-k__divider">
-          <span>hoặc</span>
+          <span>{t("auth.or")}</span>
         </div>
 
         <p className="authf-k__switch">
-          Đã có tài khoản?{" "}
+          {t("auth.haveAccount")}{" "}
           <Link
             to="/login"
             state={{
@@ -228,7 +239,7 @@ export default function Register() {
             }}
             className="authf-k__link"
           >
-            Đăng nhập
+            {t("auth.loginNow")}
           </Link>
         </p>
       </div>

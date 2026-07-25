@@ -1,11 +1,14 @@
+import { useTranslation } from "react-i18next";
 import { vipPrice, couplePrice } from "lib/pricing";
 import type { FnbLine } from "lib/pricing";
 import type { Movie, Cinema, Room, Showtime, Seat } from "types";
+import { genreLabel } from "i18n/genres";
+import { formatPrice, formatDate } from "i18n/format";
 
-const fmt = (n: number) => n.toLocaleString("vi-VN") + "₫";
+const fmt = formatPrice;
 const fmtDate = (iso?: string) =>
   iso
-    ? new Date(iso).toLocaleDateString("vi-VN", {
+    ? formatDate(iso, {
         day: "numeric",
         month: "short",
         year: "numeric",
@@ -54,6 +57,7 @@ export default function OrderSummary({
   secondaryLabel?: string | null;
   onSecondary?: () => void;
 }) {
+  const { t } = useTranslation();
   const std = selected.filter((s) => !s.isVip && !s.isCouple);
   const vip = selected.filter((s) => s.isVip);
   const cpl = selected.filter((s) => s.isCouple);
@@ -64,27 +68,28 @@ export default function OrderSummary({
         <div className="os-k__movie">
           <h2 className="os-k__title">{movie.title}</h2>
           <p className="os-k__meta">
-            {movie.genre?.toUpperCase()} · {movie.duration} PHÚT
+            {genreLabel(movie.genre).toUpperCase()} · {movie.duration}{" "}
+            {t("common.minutes")}
           </p>
           <p className="os-k__cinema">
             {cinema?.name} · {room?.name} · {room?.type}
           </p>
           <div className="os-k__grid">
             <div>
-              <span className="os-k__label">Ngày</span>
+              <span className="os-k__label">{t("booking.osDate")}</span>
               <span className="os-k__value">{fmtDate(showtime?.time)}</span>
             </div>
             <div>
-              <span className="os-k__label">Giờ</span>
+              <span className="os-k__label">{t("booking.osTime")}</span>
               <span className="os-k__value">{fmtTime(showtime?.time)}</span>
             </div>
           </div>
           <div className="os-k__seats">
-            <span className="os-k__label">Ghế đã chọn</span>
+            <span className="os-k__label">{t("booking.osSeats")}</span>
             <span className="os-k__value os-k__seatlist">
               {selected.length
                 ? selected.map((s) => s.seatNumber).join(", ")
-                : "Chưa chọn"}
+                : t("booking.osNone")}
             </span>
           </div>
         </div>
@@ -92,23 +97,25 @@ export default function OrderSummary({
       <div className="os-k__breakdown">
         {std.length > 0 && (
           <div className="os-k__row">
-            <span>Ghế thường (×{std.length})</span>
+            <span>{t("booking.osSeatStandard", { count: std.length })}</span>
             <span>{fmt(std.length * base)}</span>
           </div>
         )}
         {vip.length > 0 && (
           <div className="os-k__row">
-            <span>Ghế VIP (×{vip.length})</span>
+            <span>{t("booking.osSeatVip", { count: vip.length })}</span>
             <span>{fmt(vip.length * vipPrice(base))}</span>
           </div>
         )}
         {cpl.length > 0 && (
           <div className="os-k__row">
-            <span>Ghế đôi (×{cpl.length})</span>
+            <span>{t("booking.osSeatCouple", { count: cpl.length })}</span>
             <span>{fmt(cpl.length * couplePrice(base))}</span>
           </div>
         )}
-        {fnb.length > 0 && <div className="os-k__subhead">Bắp nước</div>}
+        {fnb.length > 0 && (
+          <div className="os-k__subhead">{t("booking.osFnb")}</div>
+        )}
         {fnb.map((l) => (
           <div className="os-k__row" key={l.id}>
             <span>
@@ -119,12 +126,12 @@ export default function OrderSummary({
         ))}
         {selected.length > 0 && (
           <div className="os-k__row">
-            <span>Phí dịch vụ</span>
+            <span>{t("booking.osServiceFee")}</span>
             <span>{fmt(serviceFee)}</span>
           </div>
         )}
         <div className="os-k__row os-k__total">
-          <span>TỔNG CỘNG</span>
+          <span>{t("booking.osTotal").toUpperCase()}</span>
           <span className="os-k__total-amount">{fmt(total)}</span>
         </div>
       </div>
@@ -135,7 +142,7 @@ export default function OrderSummary({
         disabled={primaryDisabled || loading}
         onClick={onPrimary}
       >
-        {loading ? "Đang xử lý..." : primaryLabel}
+        {loading ? t("booking.osProcessing") : primaryLabel}
       </button>
       {secondaryLabel && (
         <button

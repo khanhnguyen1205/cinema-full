@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import ETicket from "components/ETicket";
 import type { Booking, Movie, Cinema, Room, Showtime } from "types";
 
@@ -16,6 +17,7 @@ export default function TicketStep({
   showtime?: Showtime | null;
 }) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   if (!booking) return null;
 
   return (
@@ -24,10 +26,8 @@ export default function TicketStep({
         <div className="ticket-k__check" aria-hidden="true">
           ✓
         </div>
-        <h2 className="ticket-k__successtitle">Đặt vé thành công!</h2>
-        <p className="ticket-k__successsub">
-          Vé điện tử của bạn đã sẵn sàng. Xuất trình mã QR tại rạp để vào cửa.
-        </p>
+        <h2 className="ticket-k__successtitle">{t("booking.ticketSuccess")}</h2>
+        <p className="ticket-k__successsub">{t("booking.ticketSub")}</p>
       </div>
 
       <ETicket
@@ -44,14 +44,14 @@ export default function TicketStep({
           className="ticket-k__primary"
           onClick={() => navigate("/tickets")}
         >
-          Xem vé của tôi
+          {t("booking.ticketViewMine")}
         </button>
         <button
           type="button"
           className="ticket-k__ghost"
           onClick={() => navigate("/")}
         >
-          Về trang chủ
+          {t("booking.ticketHome")}
         </button>
       </div>
     </div>

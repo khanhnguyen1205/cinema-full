@@ -1,8 +1,7 @@
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { Marquee, TicketEdge } from "components/ui";
 import "./Auth.css";
-
-const MARQUEE = "ĐẶT VÉ · CHỌN GHẾ · BẮP NƯỚC · QUÉT MÃ · ";
 
 export default function AuthLayout({
   codeNo,
@@ -15,6 +14,8 @@ export default function AuthLayout({
   sub: string;
   children: ReactNode;
 }) {
+  const { t } = useTranslation();
+  const marquee = t("auth.marquee");
   return (
     <div className="auth-k">
       <div className="auth-k__bg" aria-hidden="true">
@@ -31,7 +32,7 @@ export default function AuthLayout({
           <h2 className="auth-k__statement">{statement}</h2>
           <p className="auth-k__sub">{sub}</p>
           <Marquee className="auth-k__marquee" speed={42}>
-            <span>{MARQUEE.repeat(4)}</span>
+            <span>{marquee.repeat(4)}</span>
           </Marquee>
         </TicketEdge>
       </aside>

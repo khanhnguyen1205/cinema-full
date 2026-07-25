@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function SeatHoldTimer({
   seconds = 480,
@@ -11,6 +12,7 @@ export default function SeatHoldTimer({
   resetKey?: number;
   onExpire?: () => void;
 }) {
+  const { t } = useTranslation();
   const [left, setLeft] = useState(seconds);
   const firedRef = useRef(false);
 
@@ -38,7 +40,7 @@ export default function SeatHoldTimer({
 
   return (
     <div className={`hold-k ${left <= 60 ? "is-warn" : ""}`}>
-      <span className="hold-k__label">Giữ ghế</span>
+      <span className="hold-k__label">{t("booking.holdLabel")}</span>
       <span className="hold-k__time">
         {mm}:{ss}
       </span>

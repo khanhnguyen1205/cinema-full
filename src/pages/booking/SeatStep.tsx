@@ -1,9 +1,15 @@
 import { useState, useRef, useEffect, type KeyboardEvent } from "react";
+import { useTranslation } from "react-i18next";
 import type { SeatRow, Seat, Room } from "types";
-import { priceOf, seatType, SEAT_TYPE, aisleColsForRow } from "lib/pricing";
+import { priceOf, seatType, aisleColsForRow } from "lib/pricing";
 import { nextSeat, type SeatDir } from "lib/seatNav";
+import { formatPrice } from "i18n/format";
 
-const fmt = (n: number) => n.toLocaleString("vi-VN") + "₫";
+const SEAT_LABEL_KEY: Record<string, string> = {
+  standard: "booking.seatStandard",
+  vip: "booking.seatVip",
+  couple: "booking.seatCouple",
+};
 
 const KEY_DIR: Record<string, SeatDir> = {
   ArrowLeft: "left",
@@ -27,6 +33,7 @@ export default function SeatStep({
   room: Room | null;
   onToggle: (seat: Seat) => void;
 }) {
+  const { t } = useTranslation();
   const selKeys = new Set(selected.map((s) => s.seatNumber));
   const firstSeat = layout[0]?.seats[0]?.seatNumber ?? "";
   const [focused, setFocused] = useState<string>(firstSeat);
@@ -72,14 +79,14 @@ export default function SeatStep({
     <div className="seatmap-k">
       <div className="seatmap-k__screen">
         <div className="seatmap-k__screen-arc" aria-hidden="true" />
-        <span className="seatmap-k__screen-label">MÀN HÌNH CHIẾU</span>
+        <span className="seatmap-k__screen-label">{t("booking.screen")}</span>
       </div>
 
       <div className="seatmap-k__scroll">
         <div
           className="seatmap-k__grid"
           role="grid"
-          aria-label="Sơ đồ ghế"
+          aria-label={t("booking.seatmapAria")}
           ref={gridRef}
         >
           {layout.map(({ row, seats, isCouple }) => {
@@ -95,9 +102,14 @@ export default function SeatStep({
                     const isSel = selKeys.has(seat.seatNumber);
                     const type = seatType(seat);
                     const label =
-                      `Ghế ${seat.seatNumber}, ${SEAT_TYPE[type].label}, ` +
-                      `${fmt(priceOf(seat, base))}` +
-                      (isBooked ? ", đã đặt" : isSel ? ", đang chọn" : "");
+                      `${t("booking.seatWord")} ${seat.seatNumber}, ` +
+                      `${t(SEAT_LABEL_KEY[type])}, ` +
+                      `${formatPrice(priceOf(seat, base))}` +
+                      (isBooked
+                        ? t("booking.seatBooked")
+                        : isSel
+                          ? t("booking.seatSelected")
+                          : "");
                     return (
                       <button
                         key={seat.seatNumber}
@@ -139,16 +151,22 @@ export default function SeatStep({
         </div>
       </div>
 
-      <p className="seatmap-k__hint">
-        Dùng phím mũi tên để di chuyển, Enter để chọn.
-      </p>
+      <p className="seatmap-k__hint">{t("booking.seatHint")}</p>
 
       <div className="seatmap-k__legend">
-        <span className="seatmap-k__leg is-standard">Thường {fmt(base)}</span>
-        <span className="seatmap-k__leg is-vip">VIP</span>
-        <span className="seatmap-k__leg is-couple">Đôi</span>
-        <span className="seatmap-k__leg is-selected">Đang chọn</span>
-        <span className="seatmap-k__leg is-booked">Đã đặt</span>
+        <span className="seatmap-k__leg is-standard">
+          {t("booking.seatStandard")} {formatPrice(base)}
+        </span>
+        <span className="seatmap-k__leg is-vip">{t("booking.seatVip")}</span>
+        <span className="seatmap-k__leg is-couple">
+          {t("booking.seatCouple")}
+        </span>
+        <span className="seatmap-k__leg is-selected">
+          {t("booking.legSelected")}
+        </span>
+        <span className="seatmap-k__leg is-booked">
+          {t("booking.legBooked")}
+        </span>
       </div>
     </div>
   );

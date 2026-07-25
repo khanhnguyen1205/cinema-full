@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, useRef, useMemo } from "react";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   getShowtime,
   getMovie,
@@ -39,6 +40,7 @@ import "./Booking.css";
 export default function BookingWizard() {
   const { showtimeId = "" } = useParams();
   const { user } = useAuth();
+  const { t } = useTranslation();
 
   const [step, setStep] = useState(1);
   const [showtime, setShowtime] = useState<Showtime | null>(null);
@@ -122,7 +124,7 @@ export default function BookingWizard() {
           occupiedQ.refetch();
           setStep(1);
           setError(
-            `Ghế ${[...conflicts].join(", ")} vừa được người khác giữ. Vui lòng chọn lại.`,
+            t("booking.conflictSeats", { seats: [...conflicts].join(", ") }),
           );
         }
       })
@@ -144,18 +146,21 @@ export default function BookingWizard() {
   const layout = buildSeatLayout(room);
   const base = showtime?.price || 0;
 
-  const toggle = useCallback((seat: Seat) => {
-    setError("");
-    setSelected((prev) => {
-      if (prev.find((s) => s.seatNumber === seat.seatNumber))
-        return prev.filter((s) => s.seatNumber !== seat.seatNumber);
-      if (prev.length >= MAX_SEATS) {
-        setError(`Chỉ chọn tối đa ${MAX_SEATS} ghế mỗi lần.`);
-        return prev;
-      }
-      return [...prev, seat];
-    });
-  }, []);
+  const toggle = useCallback(
+    (seat: Seat) => {
+      setError("");
+      setSelected((prev) => {
+        if (prev.find((s) => s.seatNumber === seat.seatNumber))
+          return prev.filter((s) => s.seatNumber !== seat.seatNumber);
+        if (prev.length >= MAX_SEATS) {
+          setError(t("booking.maxSeats", { max: MAX_SEATS }));
+          return prev;
+        }
+        return [...prev, seat];
+      });
+    },
+    [t],
+  );
 
   const changeQty = useCallback((id: number, delta: number) => {
     setQty((prev) => {
@@ -193,7 +198,9 @@ export default function BookingWizard() {
         occupiedQ.refetch();
         setStep(1);
         setError(
-          `Ghế ${clash.map((s) => s.seatNumber).join(", ")} vừa được người khác đặt. Vui lòng chọn lại.`,
+          t("booking.clashSeats", {
+            seats: clash.map((s) => s.seatNumber).join(", "),
+          }),
         );
         return;
       }
@@ -225,7 +232,7 @@ export default function BookingWizard() {
       setBookingResult(created);
       setStep(4);
     } catch {
-      setError("Đặt vé thất bại. Vui lòng thử lại.");
+      setError(t("booking.bookFailed"));
     }
   };
 
@@ -243,7 +250,7 @@ export default function BookingWizard() {
     confirm();
   };
 
-  const primaryLabel = step === 3 ? "Thanh toán" : "Tiếp tục";
+  const primaryLabel = step === 3 ? t("booking.pay") : t("booking.continue");
 
   return (
     <div className="page booking-k">
@@ -263,9 +270,9 @@ export default function BookingWizard() {
       </div>
       {expired && step < 4 && (
         <div className="booking-k__expire">
-          Đã hết thời gian giữ ghế — vui lòng chọn lại ghế.
+          {t("booking.holdExpired")}
           <button type="button" onClick={() => setExpired(false)}>
-            Đã hiểu
+            {t("booking.gotIt")}
           </button>
         </div>
       )}
@@ -318,7 +325,7 @@ export default function BookingWizard() {
             total={total}
             primaryLabel={primaryLabel}
             primaryDisabled={!hasOrder}
-            secondaryLabel={step === 2 ? "Bỏ qua" : null}
+            secondaryLabel={step === 2 ? t("booking.skip") : null}
             onSecondary={() => {
               setError("");
               setStep(3);

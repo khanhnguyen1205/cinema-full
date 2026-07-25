@@ -1,8 +1,10 @@
+import { useTranslation } from "react-i18next";
+
 const BOOKING_STEPS = [
-  { n: 1, label: "Chọn ghế" },
-  { n: 2, label: "Bắp nước" },
-  { n: 3, label: "Thanh toán" },
-  { n: 4, label: "Vé của bạn" },
+  { n: 1, key: "booking.stepSeats" },
+  { n: 2, key: "booking.stepFnb" },
+  { n: 3, key: "booking.stepPay" },
+  { n: 4, key: "booking.stepTicket" },
 ];
 
 export default function BookingStepper({
@@ -12,6 +14,7 @@ export default function BookingStepper({
   step: number;
   onBack: () => void;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="stepper-k">
       <button
@@ -20,10 +23,10 @@ export default function BookingStepper({
         onClick={onBack}
         disabled={step <= 1}
       >
-        ← Quay lại
+        ← {t("booking.back")}
       </button>
       <ol className="stepper-k__list">
-        {BOOKING_STEPS.map(({ n, label }) => (
+        {BOOKING_STEPS.map(({ n, key }) => (
           <li
             key={n}
             className={
@@ -34,7 +37,7 @@ export default function BookingStepper({
             aria-current={n === step ? "step" : undefined}
           >
             <span className="stepper-k__no">{n < step ? "✓" : `N°0${n}`}</span>
-            <span className="stepper-k__label">{label}</span>
+            <span className="stepper-k__label">{t(key)}</span>
           </li>
         ))}
       </ol>

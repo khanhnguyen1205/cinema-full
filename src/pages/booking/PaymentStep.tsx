@@ -1,21 +1,23 @@
+import { useTranslation } from "react-i18next";
+
 const METHODS = [
   {
     key: "momo",
     emoji: "💗",
-    name: "Ví Momo",
-    desc: "Quét mã QR trên app Momo để thanh toán.",
+    nameKey: "booking.momoName",
+    descKey: "booking.momoDesc",
   },
   {
     key: "card",
     emoji: "💳",
-    name: "Thẻ ATM / Visa",
-    desc: "Thẻ nội địa hoặc quốc tế (Visa, Mastercard).",
+    nameKey: "booking.cardName",
+    descKey: "booking.cardDesc",
   },
   {
     key: "counter",
     emoji: "🏦",
-    name: "Thanh toán tại quầy",
-    desc: "Giữ chỗ và trả tiền mặt khi tới rạp.",
+    nameKey: "booking.counterName",
+    descKey: "booking.counterDesc",
   },
 ];
 
@@ -26,13 +28,12 @@ export default function PaymentStep({
   method: string;
   onChange: (m: string) => void;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="pay-k">
       <div className="pay-k__head">
-        <h2 className="pay-k__title">Phương thức thanh toán</h2>
-        <p className="pay-k__sub">
-          Đây là bản demo — không nhập và không lưu thông tin thẻ thật.
-        </p>
+        <h2 className="pay-k__title">{t("booking.payTitle")}</h2>
+        <p className="pay-k__sub">{t("booking.payDemo")}</p>
       </div>
 
       <div className="pay-k__methods">
@@ -52,16 +53,15 @@ export default function PaymentStep({
               {m.emoji}
             </span>
             <span className="pay-k__info">
-              <span className="pay-k__name">{m.name}</span>
-              <span className="pay-k__desc">{m.desc}</span>
+              <span className="pay-k__name">{t(m.nameKey)}</span>
+              <span className="pay-k__desc">{t(m.descKey)}</span>
             </span>
           </label>
         ))}
       </div>
 
       <p className="pay-k__note">
-        🔒 Thông tin đơn hàng được mã hoá. Nhấn “Thanh toán” để hoàn tất và nhận
-        vé điện tử.
+        {t("booking.payEncrypted", { action: t("booking.pay") })}
       </p>
     </div>
   );

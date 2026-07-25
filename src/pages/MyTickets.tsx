@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { getMovie, getShowtime, getCinema, getRoom } from "services/api";
 import { useMyBookings } from "queries/booking";
@@ -20,6 +21,7 @@ interface Enriched extends Booking {
 
 export default function MyTickets() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [tab, setTab] = useState<"upcoming" | "past">("upcoming");
 
@@ -61,11 +63,11 @@ export default function MyTickets() {
       <Navbar />
       <div className="mytk-k__content">
         <header className="mytk-k__header">
-          <span className="mytk-k__label">Tài khoản</span>
-          <h1 className="mytk-k__title">Vé của tôi</h1>
+          <span className="mytk-k__label">{t("nav.account")}</span>
+          <h1 className="mytk-k__title">{t("nav.myTickets")}</h1>
           {user && (
             <p className="mytk-k__hello">
-              Xin chào, <strong>{user.fullName}</strong>
+              {t("tickets.greeting")} <strong>{user.fullName}</strong>
             </p>
           )}
         </header>
@@ -78,7 +80,7 @@ export default function MyTickets() {
             className={"mytk-k__tab" + (tab === "upcoming" ? " is-active" : "")}
             onClick={() => setTab("upcoming")}
           >
-            Sắp tới
+            {t("tickets.tabUpcoming")}
           </button>
           <button
             type="button"
@@ -87,19 +89,19 @@ export default function MyTickets() {
             className={"mytk-k__tab" + (tab === "past" ? " is-active" : "")}
             onClick={() => setTab("past")}
           >
-            Đã xem
+            {t("tickets.tabPast")}
           </button>
         </div>
 
         {bookingsQ.isError ? (
           <div className="mytk-k__empty">
-            <p>Không tải được vé. Thử lại nhé.</p>
+            <p>{t("tickets.loadError")}</p>
             <button
               type="button"
               className="mytk-k__cta"
               onClick={() => bookingsQ.refetch()}
             >
-              Thử lại
+              {t("common.retry")}
             </button>
           </div>
         ) : loading ? (
@@ -110,14 +112,16 @@ export default function MyTickets() {
         ) : filtered.length === 0 ? (
           <div className="mytk-k__empty">
             <p className="mytk-k__empty-title">
-              {tab === "upcoming" ? "Chưa có vé sắp tới" : "Chưa có vé đã xem"}
+              {tab === "upcoming"
+                ? t("tickets.emptyUpcoming")
+                : t("tickets.emptyPast")}
             </p>
             <button
               type="button"
               className="mytk-k__cta"
               onClick={() => navigate("/movies")}
             >
-              Đặt vé ngay
+              {t("home.ctaButton")}
             </button>
           </div>
         ) : (
