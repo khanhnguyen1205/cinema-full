@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useMemo, useRef } from "react";
+import { useLocation, useSearchParams } from "react-router-dom";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import MovieCard from "components/MovieCard";
@@ -17,6 +17,7 @@ import {
   useCinemas,
   useCities,
 } from "queries/catalog";
+import { normalize } from "lib/search";
 import "./Movies.css";
 
 const SORTS = [
@@ -25,9 +26,23 @@ const SORTS = [
   { value: "dur-asc", label: "Thời lượng ↑" },
   { value: "dur-desc", label: "Thời lượng ↓" },
 ];
+const DURATIONS = [
+  { value: "all", label: "Mọi thời lượng" },
+  { value: "short", label: "Dưới 90′" },
+  { value: "mid", label: "90–120′" },
+  { value: "long", label: "Trên 120′" },
+];
+const RATINGS = [
+  { value: "0", label: "Mọi điểm" },
+  { value: "7", label: "≥ 7" },
+  { value: "8", label: "≥ 8" },
+  { value: "9", label: "≥ 9" },
+];
+const FORMATS = ["2D", "3D", "IMAX"] as const;
 
 export default function Movies() {
   const location = useLocation();
+  const [params, setParams] = useSearchParams();
 
   const moviesQ = useMovies();
   const showtimesQ = useAllShowtimes();
@@ -41,13 +56,52 @@ export default function Movies() {
   const cinemas = useMemo(() => cinemasQ.data ?? [], [cinemasQ.data]);
   const cities = useMemo(() => citiesQ.data ?? [], [citiesQ.data]);
 
-  const [search, setSearch] = useState("");
-  const [genre, setGenre] = useState<string>(
-    (location.state as { genre?: string } | null)?.genre || "Tất cả",
-  );
-  const [sort, setSort] = useState("name-asc");
-  const [city, setCity] = useState("Tất cả"); // cityId dạng chuỗi hoặc "Tất cả"
-  const [date, setDate] = useState("Tất cả"); // dateKey yyyy-mm-dd hoặc "Tất cả"
+  // ── Trạng thái đọc từ URL (nguồn sự thật) ──
+  const search = params.get("q") ?? "";
+  const genres = useMemo(() => {
+    const raw = params.get("genres") ?? "";
+    return raw ? raw.split(",").filter(Boolean) : [];
+  }, [params]);
+  const rating = params.get("rating") ?? "0";
+  const dur = params.get("dur") ?? "all";
+  const fmt = useMemo(() => {
+    const raw = params.get("fmt") ?? "";
+    return raw ? raw.split(",").filter(Boolean) : [];
+  }, [params]);
+  const city = params.get("city") ?? "Tất cả";
+  const date = params.get("date") ?? "Tất cả";
+  const sort = params.get("sort") ?? "name-asc";
+
+  // Genre truyền qua location.state (từ ô thể loại ở Home): đẩy vào URL 1 lần
+  const didInit = useRef(false);
+  useEffect(() => {
+    if (didInit.current) return;
+    didInit.current = true;
+    const g = (location.state as { genre?: string } | null)?.genre;
+    if (g && g !== "Tất cả" && !params.get("genres")) {
+      const next = new URLSearchParams(params);
+      next.set("genres", g);
+      setParams(next, { replace: true });
+    }
+    // chỉ chạy 1 lần lúc mount để nạp genre khởi tạo
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // ── Ghi URL ──
+  const setParam = (key: string, value: string, def: string) => {
+    const next = new URLSearchParams(params);
+    if (!value || value === def) next.delete(key);
+    else next.set(key, value);
+    setParams(next, { replace: true });
+  };
+  const toggleInCsv = (key: string, item: string) => {
+    const cur = (params.get(key) ?? "").split(",").filter(Boolean);
+    const nextArr = cur.includes(item)
+      ? cur.filter((x) => x !== item)
+      : [...cur, item];
+    setParam(key, nextArr.join(","), "");
+  };
+  const clearAll = () => setParams({}, { replace: true });
 
   // { movieId, cityId, dateKey } cho mỗi suất — suy từ rooms/cinemas
   const rows = useMemo(() => {
@@ -65,8 +119,8 @@ export default function Movies() {
     [cities],
   );
 
-  const genres = useMemo(
-    () => ["Tất cả", ...Array.from(new Set(movies.map((m) => m.genre)))],
+  const allGenres = useMemo(
+    () => Array.from(new Set(movies.map((m) => m.genre))),
     [movies],
   );
 
@@ -92,6 +146,22 @@ export default function Movies() {
     return ids;
   }, [rows, city, date]);
 
+  // Định dạng phòng (2D/3D/IMAX) mỗi phim có suất — suy từ rooms→showtimes
+  const roomType = useMemo(
+    () => Object.fromEntries(rooms.map((r) => [r.id, r.type])),
+    [rooms],
+  );
+  const formatsByMovie = useMemo(() => {
+    const m = new Map<number, Set<string>>();
+    showtimes.forEach((s) => {
+      const t = roomType[s.roomId];
+      if (!t) return;
+      if (!m.has(s.movieId)) m.set(s.movieId, new Set());
+      m.get(s.movieId)!.add(t);
+    });
+    return m;
+  }, [showtimes, roomType]);
+
   const fmtDate = (k: string) =>
     new Date(k).toLocaleDateString("vi-VN", {
       weekday: "short",
@@ -103,9 +173,22 @@ export default function Movies() {
     let list = movies;
     if (movieIdsByShowtime)
       list = list.filter((m) => movieIdsByShowtime.has(m.id));
-    if (genre !== "Tất cả") list = list.filter((m) => m.genre === genre);
-    const q = search.trim().toLowerCase();
-    if (q) list = list.filter((m) => m.title.toLowerCase().includes(q));
+    if (genres.length > 0) list = list.filter((m) => genres.includes(m.genre));
+    const minR = Number(rating);
+    if (minR > 0) list = list.filter((m) => (m.rating ?? -1) >= minR);
+    if (dur !== "all")
+      list = list.filter((m) => {
+        if (dur === "short") return m.duration < 90;
+        if (dur === "mid") return m.duration >= 90 && m.duration <= 120;
+        return m.duration > 120; // long
+      });
+    if (fmt.length > 0)
+      list = list.filter((m) => {
+        const fs = formatsByMovie.get(m.id);
+        return !!fs && fmt.some((f) => fs.has(f));
+      });
+    const qn = normalize(search);
+    if (qn) list = list.filter((m) => normalize(m.title).includes(qn));
     const sorted = [...list];
     switch (sort) {
       case "name-desc":
@@ -121,7 +204,26 @@ export default function Movies() {
         sorted.sort((a, b) => a.title.localeCompare(b.title));
     }
     return sorted;
-  }, [movies, genre, search, sort, movieIdsByShowtime]);
+  }, [
+    movies,
+    genres,
+    rating,
+    dur,
+    fmt,
+    search,
+    sort,
+    movieIdsByShowtime,
+    formatsByMovie,
+  ]);
+
+  const hasFilters =
+    !!search ||
+    genres.length > 0 ||
+    rating !== "0" ||
+    dur !== "all" ||
+    fmt.length > 0 ||
+    city !== "Tất cả" ||
+    date !== "Tất cả";
 
   const isLoading = moviesQ.isLoading;
   const isError = moviesQ.isError;
@@ -164,7 +266,7 @@ export default function Movies() {
               type="text"
               placeholder="Tìm phim theo tên..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => setParam("q", e.target.value, "")}
               aria-label="Tìm phim theo tên"
             />
           </div>
@@ -173,8 +275,11 @@ export default function Movies() {
             <select
               value={city}
               onChange={(e) => {
-                setCity(e.target.value);
-                setDate("Tất cả");
+                const next = new URLSearchParams(params);
+                if (e.target.value === "Tất cả") next.delete("city");
+                else next.set("city", e.target.value);
+                next.delete("date");
+                setParams(next, { replace: true });
               }}
               aria-label="Lọc theo thành phố"
             >
@@ -187,7 +292,7 @@ export default function Movies() {
             </select>
             <select
               value={date}
-              onChange={(e) => setDate(e.target.value)}
+              onChange={(e) => setParam("date", e.target.value, "Tất cả")}
               aria-label="Lọc theo ngày"
             >
               <option value="Tất cả">Tất cả ngày</option>
@@ -199,7 +304,7 @@ export default function Movies() {
             </select>
             <select
               value={sort}
-              onChange={(e) => setSort(e.target.value)}
+              onChange={(e) => setParam("sort", e.target.value, "name-asc")}
               aria-label="Sắp xếp"
             >
               {SORTS.map((s) => (
@@ -211,18 +316,96 @@ export default function Movies() {
           </div>
 
           <div className="movies-k__genres" role="group" aria-label="Thể loại">
-            {genres.map((g) => (
+            <button
+              type="button"
+              className={
+                "genre-k-chip" + (genres.length === 0 ? " is-active" : "")
+              }
+              aria-pressed={genres.length === 0}
+              onClick={() => setParam("genres", "", "")}
+            >
+              Tất cả
+            </button>
+            {allGenres.map((g) => (
               <button
                 key={g}
                 type="button"
-                className={"genre-k-chip" + (genre === g ? " is-active" : "")}
-                aria-pressed={genre === g}
-                onClick={() => setGenre(g)}
+                className={
+                  "genre-k-chip" + (genres.includes(g) ? " is-active" : "")
+                }
+                aria-pressed={genres.includes(g)}
+                onClick={() => toggleInCsv("genres", g)}
               >
                 {g}
               </button>
             ))}
           </div>
+
+          {/* LỌC NÂNG CAO */}
+          <details className="movies-k__adv" open>
+            <summary>Lọc nâng cao</summary>
+            <div className="movies-k__advrow">
+              <div className="movies-k__chipset" role="group" aria-label="Điểm">
+                <span className="movies-k__advlabel">Điểm</span>
+                {RATINGS.map((r) => (
+                  <button
+                    key={r.value}
+                    type="button"
+                    className={
+                      "genre-k-chip" + (rating === r.value ? " is-active" : "")
+                    }
+                    aria-pressed={rating === r.value}
+                    onClick={() => setParam("rating", r.value, "0")}
+                  >
+                    {r.label}
+                  </button>
+                ))}
+              </div>
+
+              <div
+                className="movies-k__chipset"
+                role="group"
+                aria-label="Định dạng"
+              >
+                <span className="movies-k__advlabel">Định dạng</span>
+                {FORMATS.map((f) => (
+                  <button
+                    key={f}
+                    type="button"
+                    className={
+                      "genre-k-chip" + (fmt.includes(f) ? " is-active" : "")
+                    }
+                    aria-pressed={fmt.includes(f)}
+                    onClick={() => toggleInCsv("fmt", f)}
+                  >
+                    {f}
+                  </button>
+                ))}
+              </div>
+
+              <select
+                value={dur}
+                onChange={(e) => setParam("dur", e.target.value, "all")}
+                aria-label="Thời lượng"
+              >
+                {DURATIONS.map((d) => (
+                  <option key={d.value} value={d.value}>
+                    {d.label}
+                  </option>
+                ))}
+              </select>
+
+              {hasFilters && (
+                <button
+                  type="button"
+                  className="movies-k__clear"
+                  onClick={clearAll}
+                >
+                  Xóa lọc
+                </button>
+              )}
+            </div>
+          </details>
         </div>
 
         {/* KẾT QUẢ */}
