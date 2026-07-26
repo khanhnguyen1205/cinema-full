@@ -165,6 +165,9 @@
   .nav-k__search-desktop {
     display: none;
   }
+  .install-k--desktop {
+    display: none;
+  }
   .nav-k__search-mobile {
     display: block;
     margin-bottom: var(--sp-3);
