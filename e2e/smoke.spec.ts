@@ -188,6 +188,13 @@ test("Movies: lọc định dạng đồng bộ URL", async ({ page }) => {
   await expect(page.locator(".movie-k").first()).toBeVisible();
 });
 
+// PWA: head có icon links + theme-color (tĩnh trong index.html, có ở cả dev).
+test("head có apple-touch-icon + theme-color cho PWA", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveCount(1);
+  await expect(page.locator('meta[name="theme-color"]')).toHaveCount(1);
+});
+
 // i18n: chuyển sang EN đổi nhãn điều hướng + <html lang> (chỉ đọc).
 test("chuyển ngôn ngữ sang EN đổi nhãn điều hướng", async ({ page }) => {
   await page.goto("/");

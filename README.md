@@ -107,4 +107,5 @@ A custom neo-brutalist CSS design system (no UI library). Tokens (colors, type s
 - `qrcode.react` (e-tickets) · `recharts` (admin charts)
 - **Vitest** + Testing Library (unit) · **Playwright** (e2e) · ESLint 9 + Prettier · GitHub Actions CI
 - Custom "Kinetic" CSS design system (no UI library) — fonts: Bebas Neue / Barlow / Barlow Condensed / Space Mono
-- User-facing copy is largely **Vietnamese**
+- **Bilingual (Vietnamese default + English)** via react-i18next (prices always VND; dates locale-aware)
+- **PWA** — installable, offline app-shell + cached public catalog, install button + update toast (`vite-plugin-pwa` / Workbox)
