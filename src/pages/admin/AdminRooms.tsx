@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useRooms, useCinemas, useAllShowtimes } from "queries/catalog";
 import { useCreateRoom, useUpdateRoom, useDeleteRoom } from "queries/admin";
 import Modal from "components/admin/Modal";
@@ -18,6 +19,7 @@ const EMPTY = {
 };
 
 export default function AdminRooms() {
+  const { t } = useTranslation();
   const roomsQ = useRooms();
   const cinemasQ = useCinemas();
   const rooms = useMemo(() => roomsQ.data ?? [], [roomsQ.data]);
@@ -79,7 +81,7 @@ export default function AdminRooms() {
 
   const save = async () => {
     if (!form.cinemaId || !form.name.trim() || !form.rows || !form.cols) {
-      setError("Nhập đủ rạp, tên, số hàng, số cột.");
+      setError(t("admin.roomsFormErr"));
       return;
     }
     const body = {
@@ -101,7 +103,7 @@ export default function AdminRooms() {
     if (confirmId == null) return;
     const used = showtimes.filter((s) => s.roomId === confirmId).length;
     if (used > 0) {
-      alert(`Không thể xóa: còn ${used} suất chiếu liên quan.`);
+      alert(t("admin.inUseShowtimes", { count: used }));
       setConfirmId(null);
       return;
     }
@@ -112,14 +114,16 @@ export default function AdminRooms() {
   return (
     <div>
       <div className="adm-k__head">
-        <span className="adm-k__eyebrow">Quản trị</span>
-        <h1 className="adm-k__title">Phòng</h1>
-        <span className="adm-k__count">{total} mục</span>
+        <span className="adm-k__eyebrow">{t("admin.role")}</span>
+        <h1 className="adm-k__title">{t("admin.roomsTitle")}</h1>
+        <span className="adm-k__count">
+          {t("admin.items", { count: total })}
+        </span>
       </div>
       <div className="adm-k__toolbar">
         <input
           className="adm-k__search"
-          placeholder="Tìm phòng hoặc rạp..."
+          placeholder={t("admin.roomSearchPh")}
           value={q}
           onChange={(e) => setQ(e.target.value)}
         />
@@ -128,7 +132,7 @@ export default function AdminRooms() {
           value={cinemaFilter}
           onChange={(e) => setCinemaFilter(e.target.value)}
         >
-          <option value="all">Tất cả rạp</option>
+          <option value="all">{t("admin.allCinemas")}</option>
           {cinemas.map((c) => (
             <option key={c.id} value={c.id}>
               {c.name}
@@ -136,18 +140,18 @@ export default function AdminRooms() {
           ))}
         </select>
         <button className="adm-k__btn" onClick={openNew}>
-          + Thêm phòng
+          {t("admin.addRoom")}
         </button>
       </div>
       <div className="adm-k__tablewrap">
         <table className="adm-k__table">
           <thead>
             <tr>
-              <th scope="col">Rạp</th>
-              <th scope="col">Phòng</th>
-              <th scope="col">Loại</th>
-              <th scope="col">Layout</th>
-              <th scope="col">Hàng VIP</th>
+              <th scope="col">{t("admin.thCinema")}</th>
+              <th scope="col">{t("admin.thRoom")}</th>
+              <th scope="col">{t("admin.thType")}</th>
+              <th scope="col">{t("admin.thLayout")}</th>
+              <th scope="col">{t("admin.thVipRows")}</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -167,13 +171,13 @@ export default function AdminRooms() {
                       className="adm-k__btn ghost sm"
                       onClick={() => openEdit(r)}
                     >
-                      Sửa
+                      {t("admin.edit")}
                     </button>
                     <button
                       className="adm-k__btn danger sm"
                       onClick={() => setConfirmId(r.id)}
                     >
-                      Xóa
+                      {t("admin.delete")}
                     </button>
                   </div>
                 </td>
@@ -182,7 +186,7 @@ export default function AdminRooms() {
             {visible.length === 0 && (
               <tr>
                 <td colSpan={6} className="adm-k__empty">
-                  Không có phòng
+                  {t("admin.roomsEmpty")}
                 </td>
               </tr>
             )}
@@ -200,13 +204,13 @@ export default function AdminRooms() {
 
       {editing && (
         <Modal
-          title={editing === "new" ? "Thêm phòng" : "Sửa phòng"}
+          title={editing === "new" ? t("admin.newRoom") : t("admin.editRoom")}
           onClose={() => setEditing(null)}
         >
           <div className="adm-k__field">
-            <label>Rạp</label>
+            <label>{t("admin.thCinema")}</label>
             <select value={form.cinemaId} onChange={set("cinemaId")}>
-              <option value="">— Chọn rạp —</option>
+              <option value="">{t("admin.chooseCinema")}</option>
               {cinemas.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.name}
@@ -216,15 +220,15 @@ export default function AdminRooms() {
           </div>
           <div className="adm-k__field-two">
             <div className="adm-k__field">
-              <label>Tên phòng</label>
+              <label>{t("admin.fRoomName")}</label>
               <input value={form.name} onChange={set("name")} />
             </div>
             <div className="adm-k__field">
-              <label>Loại</label>
+              <label>{t("admin.fType")}</label>
               <select value={form.type} onChange={set("type")}>
-                {TYPES.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
+                {TYPES.map((ty) => (
+                  <option key={ty} value={ty}>
+                    {ty}
                   </option>
                 ))}
               </select>
@@ -232,16 +236,16 @@ export default function AdminRooms() {
           </div>
           <div className="adm-k__field-two">
             <div className="adm-k__field">
-              <label>Số hàng</label>
+              <label>{t("admin.fRows")}</label>
               <input type="number" value={form.rows} onChange={set("rows")} />
             </div>
             <div className="adm-k__field">
-              <label>Số cột</label>
+              <label>{t("admin.fCols")}</label>
               <input type="number" value={form.cols} onChange={set("cols")} />
             </div>
           </div>
           <div className="adm-k__field">
-            <label>Hàng VIP (vd: E,F)</label>
+            <label>{t("admin.fVipRows")}</label>
             <input value={form.vipRows} onChange={set("vipRows")} />
           </div>
           {error && <div className="adm-k__formerr">{error}</div>}
@@ -250,17 +254,17 @@ export default function AdminRooms() {
               className="adm-k__btn ghost"
               onClick={() => setEditing(null)}
             >
-              Hủy
+              {t("admin.cancel")}
             </button>
             <button className="adm-k__btn" onClick={save}>
-              Lưu
+              {t("admin.save")}
             </button>
           </div>
         </Modal>
       )}
       {confirmId != null && (
         <ConfirmDialog
-          message="Bạn chắc chắn muốn xóa phòng này?"
+          message={t("admin.confirmDeleteRoom")}
           onConfirm={doDelete}
           onCancel={() => setConfirmId(null)}
         />

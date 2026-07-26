@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 export default function Pagination({
   page,
   totalPages,
@@ -13,6 +15,7 @@ export default function Pagination({
   to: number;
   total: number;
 }) {
+  const { t } = useTranslation();
   if (totalPages <= 1) return null;
   return (
     <div className="adm-k__pag">
@@ -24,18 +27,18 @@ export default function Pagination({
           className="adm-k__btn ghost sm"
           disabled={page <= 1}
           onClick={() => onPage(page - 1)}
-          aria-label="Trang trước"
+          aria-label={t("admin.pagPrev")}
         >
           ‹
         </button>
         <span className="adm-k__pag-page">
-          Trang {page}/{totalPages}
+          {t("admin.pagPage", { page, total: totalPages })}
         </span>
         <button
           className="adm-k__btn ghost sm"
           disabled={page >= totalPages}
           onClick={() => onPage(page + 1)}
-          aria-label="Trang sau"
+          aria-label={t("admin.pagNext")}
         >
           ›
         </button>

@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useMovies } from "queries/catalog";
 import { useAllReviews } from "queries/admin";
 import { useDeleteReview } from "queries/reviews";
@@ -6,8 +7,10 @@ import ConfirmDialog from "components/admin/ConfirmDialog";
 import usePagination from "hooks/usePagination";
 import Pagination from "components/admin/Pagination";
 import { StarRating } from "components/ui";
+import { formatDate } from "i18n/format";
 
 export default function AdminReviews() {
+  const { t } = useTranslation();
   const reviewsQ = useAllReviews();
   const moviesQ = useMovies();
   const reviews = useMemo(() => reviewsQ.data ?? [], [reviewsQ.data]);
@@ -50,14 +53,16 @@ export default function AdminReviews() {
   return (
     <div>
       <div className="adm-k__head">
-        <span className="adm-k__eyebrow">Quản trị</span>
-        <h1 className="adm-k__title">Đánh giá</h1>
-        <span className="adm-k__count">{total} mục</span>
+        <span className="adm-k__eyebrow">{t("admin.role")}</span>
+        <h1 className="adm-k__title">{t("admin.reviewsTitle")}</h1>
+        <span className="adm-k__count">
+          {t("admin.items", { count: total })}
+        </span>
       </div>
       <div className="adm-k__toolbar">
         <input
           className="adm-k__search"
-          placeholder="Tìm theo phim / người dùng / nội dung..."
+          placeholder={t("admin.reviewSearchPh")}
           value={q}
           onChange={(e) => setQ(e.target.value)}
         />
@@ -65,12 +70,12 @@ export default function AdminReviews() {
           className="adm-k__search"
           value={star}
           onChange={(e) => setStar(e.target.value)}
-          aria-label="Lọc theo số sao"
+          aria-label={t("admin.starFilter")}
         >
-          <option value="all">Tất cả sao</option>
+          <option value="all">{t("admin.allStars")}</option>
           {[5, 4, 3, 2, 1].map((s) => (
             <option key={s} value={s}>
-              {s} sao
+              {t("admin.starN", { n: s })}
             </option>
           ))}
         </select>
@@ -79,12 +84,12 @@ export default function AdminReviews() {
         <table className="adm-k__table">
           <thead>
             <tr>
-              <th scope="col">Phim</th>
-              <th scope="col">Người dùng</th>
-              <th scope="col">Sao</th>
-              <th scope="col">Bình luận</th>
-              <th scope="col">Đã xem</th>
-              <th scope="col">Ngày</th>
+              <th scope="col">{t("admin.fMovie")}</th>
+              <th scope="col">{t("admin.thUser")}</th>
+              <th scope="col">{t("admin.thStars")}</th>
+              <th scope="col">{t("admin.thComment")}</th>
+              <th scope="col">{t("admin.thWatched")}</th>
+              <th scope="col">{t("admin.thDate")}</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -98,15 +103,13 @@ export default function AdminReviews() {
                 </td>
                 <td>{r.comment ?? "—"}</td>
                 <td className="num">{r.verified ? "✓" : ""}</td>
-                <td className="num">
-                  {new Date(r.createdAt).toLocaleDateString("vi-VN")}
-                </td>
+                <td className="num">{formatDate(r.createdAt)}</td>
                 <td>
                   <button
                     className="adm-k__btn danger sm"
                     onClick={() => setConfirmId(r.id)}
                   >
-                    Xóa
+                    {t("admin.delete")}
                   </button>
                 </td>
               </tr>
@@ -114,7 +117,7 @@ export default function AdminReviews() {
             {visible.length === 0 && (
               <tr>
                 <td colSpan={7} className="adm-k__empty">
-                  Không có đánh giá
+                  {t("admin.reviewsEmpty")}
                 </td>
               </tr>
             )}
@@ -132,7 +135,7 @@ export default function AdminReviews() {
 
       {confirmId != null && (
         <ConfirmDialog
-          message="Bạn chắc chắn muốn xóa đánh giá này?"
+          message={t("admin.confirmDeleteReview")}
           onConfirm={doDelete}
           onCancel={() => setConfirmId(null)}
         />

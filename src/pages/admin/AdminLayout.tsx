@@ -1,23 +1,25 @@
 import { NavLink, Outlet } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import Navbar from "components/Navbar";
 import "./Admin.css";
 
 const LINKS = [
-  { to: "/admin", end: true, label: "Tổng quan" },
-  { to: "/admin/movies", label: "Phim" },
-  { to: "/admin/rooms", label: "Phòng" },
-  { to: "/admin/showtimes", label: "Suất chiếu" },
-  { to: "/admin/bookings", label: "Đơn đặt vé" },
-  { to: "/admin/reviews", label: "Đánh giá" },
+  { to: "/admin", end: true, labelKey: "admin.navOverview" },
+  { to: "/admin/movies", labelKey: "admin.navMovies" },
+  { to: "/admin/rooms", labelKey: "admin.navRooms" },
+  { to: "/admin/showtimes", labelKey: "admin.navShowtimes" },
+  { to: "/admin/bookings", labelKey: "admin.navBookings" },
+  { to: "/admin/reviews", labelKey: "admin.navReviews" },
 ];
 
 export default function AdminLayout() {
+  const { t } = useTranslation();
   return (
     <div className="page adm-k">
       <Navbar />
       <div className="adm-k__shell">
         <aside className="adm-k__side">
-          <div className="adm-k__side-title">Quản trị</div>
+          <div className="adm-k__side-title">{t("admin.role")}</div>
           <nav className="adm-k__nav">
             {LINKS.map((l) => (
               <NavLink
@@ -28,7 +30,7 @@ export default function AdminLayout() {
                   `adm-k__navlink${isActive ? " is-active" : ""}`
                 }
               >
-                {l.label}
+                {t(l.labelKey)}
               </NavLink>
             ))}
           </nav>

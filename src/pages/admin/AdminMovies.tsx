@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useMovies, useAllShowtimes } from "queries/catalog";
 import { useCreateMovie, useUpdateMovie, useDeleteMovie } from "queries/admin";
 import Modal from "components/admin/Modal";
@@ -16,6 +17,7 @@ const EMPTY = {
 };
 
 export default function AdminMovies() {
+  const { t } = useTranslation();
   const moviesQ = useMovies();
   const movies = useMemo(() => moviesQ.data ?? [], [moviesQ.data]);
   const showtimes = useAllShowtimes().data ?? [];
@@ -63,7 +65,7 @@ export default function AdminMovies() {
 
   const save = async () => {
     if (!form.title.trim() || !form.genre.trim() || !form.duration) {
-      setError("Nhập đủ tên, thể loại, thời lượng.");
+      setError(t("admin.moviesFormErr"));
       return;
     }
     const body = {
@@ -82,7 +84,7 @@ export default function AdminMovies() {
     if (confirmId == null) return;
     const used = showtimes.filter((s) => s.movieId === confirmId).length;
     if (used > 0) {
-      alert(`Không thể xóa: còn ${used} suất chiếu liên quan.`);
+      alert(t("admin.inUseShowtimes", { count: used }));
       setConfirmId(null);
       return;
     }
@@ -93,28 +95,30 @@ export default function AdminMovies() {
   return (
     <div>
       <div className="adm-k__head">
-        <span className="adm-k__eyebrow">Quản trị</span>
-        <h1 className="adm-k__title">Phim</h1>
-        <span className="adm-k__count">{total} mục</span>
+        <span className="adm-k__eyebrow">{t("admin.role")}</span>
+        <h1 className="adm-k__title">{t("admin.moviesTitle")}</h1>
+        <span className="adm-k__count">
+          {t("admin.items", { count: total })}
+        </span>
       </div>
       <div className="adm-k__toolbar">
         <input
           className="adm-k__search"
-          placeholder="Tìm phim theo tên..."
+          placeholder={t("admin.movieSearchPh")}
           value={q}
           onChange={(e) => setQ(e.target.value)}
         />
         <button className="adm-k__btn" onClick={openNew}>
-          + Thêm phim
+          {t("admin.addMovie")}
         </button>
       </div>
       <div className="adm-k__tablewrap">
         <table className="adm-k__table">
           <thead>
             <tr>
-              <th scope="col">Tên</th>
-              <th scope="col">Thể loại</th>
-              <th scope="col">Thời lượng</th>
+              <th scope="col">{t("admin.thName")}</th>
+              <th scope="col">{t("admin.thGenre")}</th>
+              <th scope="col">{t("admin.thDuration")}</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -123,20 +127,22 @@ export default function AdminMovies() {
               <tr key={m.id}>
                 <td>{m.title}</td>
                 <td>{m.genre}</td>
-                <td className="num">{m.duration} phút</td>
+                <td className="num">
+                  {m.duration} {t("common.minutes")}
+                </td>
                 <td>
                   <div className="adm-k__rowact">
                     <button
                       className="adm-k__btn ghost sm"
                       onClick={() => openEdit(m)}
                     >
-                      Sửa
+                      {t("admin.edit")}
                     </button>
                     <button
                       className="adm-k__btn danger sm"
                       onClick={() => setConfirmId(m.id)}
                     >
-                      Xóa
+                      {t("admin.delete")}
                     </button>
                   </div>
                 </td>
@@ -145,7 +151,7 @@ export default function AdminMovies() {
             {visible.length === 0 && (
               <tr>
                 <td colSpan={4} className="adm-k__empty">
-                  Không có phim
+                  {t("admin.moviesEmpty")}
                 </td>
               </tr>
             )}
@@ -163,20 +169,20 @@ export default function AdminMovies() {
 
       {editing && (
         <Modal
-          title={editing === "new" ? "Thêm phim" : "Sửa phim"}
+          title={editing === "new" ? t("admin.newMovie") : t("admin.editMovie")}
           onClose={() => setEditing(null)}
         >
           <div className="adm-k__field">
-            <label>Tên phim</label>
+            <label>{t("admin.fMovieTitle")}</label>
             <input value={form.title} onChange={set("title")} />
           </div>
           <div className="adm-k__field-two">
             <div className="adm-k__field">
-              <label>Thể loại</label>
+              <label>{t("admin.fGenre")}</label>
               <input value={form.genre} onChange={set("genre")} />
             </div>
             <div className="adm-k__field">
-              <label>Thời lượng (phút)</label>
+              <label>{t("admin.fDurationMin")}</label>
               <input
                 type="number"
                 value={form.duration}
@@ -185,7 +191,7 @@ export default function AdminMovies() {
             </div>
           </div>
           <div className="adm-k__field">
-            <label>Mô tả</label>
+            <label>{t("admin.fDescription")}</label>
             <textarea
               rows={3}
               value={form.description}
@@ -193,7 +199,7 @@ export default function AdminMovies() {
             />
           </div>
           <div className="adm-k__field">
-            <label>Poster (URL, tùy chọn)</label>
+            <label>{t("admin.fPoster")}</label>
             <input value={form.poster} onChange={set("poster")} />
           </div>
           {error && <div className="adm-k__formerr">{error}</div>}
@@ -202,17 +208,17 @@ export default function AdminMovies() {
               className="adm-k__btn ghost"
               onClick={() => setEditing(null)}
             >
-              Hủy
+              {t("admin.cancel")}
             </button>
             <button className="adm-k__btn" onClick={save}>
-              Lưu
+              {t("admin.save")}
             </button>
           </div>
         </Modal>
       )}
       {confirmId != null && (
         <ConfirmDialog
-          message="Bạn chắc chắn muốn xóa phim này?"
+          message={t("admin.confirmDeleteMovie")}
           onConfirm={doDelete}
           onCancel={() => setConfirmId(null)}
         />

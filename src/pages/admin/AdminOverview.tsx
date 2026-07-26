@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import {
   useMovies,
   useCinemas,
@@ -6,6 +7,7 @@ import {
   useAllShowtimes,
 } from "queries/catalog";
 import { useAllBookings } from "queries/admin";
+import { formatPrice } from "i18n/format";
 import {
   BarChart,
   Bar,
@@ -20,13 +22,15 @@ import type { Booking } from "types";
 const RED = "#e63030"; // SVG fill không đọc CSS var ổn định -> hardcode khớp --red
 const AXIS = "#9a978f";
 const MONO = '"Space Mono", monospace';
-const fmtVnd = (n?: number) => `${(n || 0).toLocaleString("vi-VN")}₫`;
+const fmtVnd = (n?: number) => formatPrice(n || 0);
 
 // Doanh thu vé (ghế) của một đơn: ưu tiên seatTotal; đơn cũ chưa tách thì lấy totalPrice
 const seatRev = (b: Booking) =>
   b.seatTotal != null ? b.seatTotal : b.totalPrice || 0;
 
 export default function AdminOverview() {
+  const { t, i18n } = useTranslation();
+  const numLocale = i18n.language.startsWith("en") ? "en-US" : "vi-VN";
   const moviesQ = useMovies();
   const cinemasQ = useCinemas();
   const bookingsQ = useAllBookings();
@@ -87,11 +91,11 @@ export default function AdminOverview() {
   }, [bookings, cinemaMap]);
 
   const tiles = [
-    { n: movies.length, l: "Phim" },
-    { n: cinemas.length, l: "Rạp" },
-    { n: rooms.length, l: "Phòng" },
-    { n: showtimes.length, l: "Suất chiếu" },
-    { n: bookings.length, l: "Đơn đặt vé" },
+    { n: movies.length, l: t("admin.statMovies") },
+    { n: cinemas.length, l: t("admin.statCinemas") },
+    { n: rooms.length, l: t("admin.statRooms") },
+    { n: showtimes.length, l: t("admin.statShowtimes") },
+    { n: bookings.length, l: t("admin.statBookings") },
   ];
 
   const tooltipStyle = {
@@ -105,8 +109,8 @@ export default function AdminOverview() {
   return (
     <div>
       <div className="adm-k__head">
-        <span className="adm-k__eyebrow">Quản trị</span>
-        <h1 className="adm-k__title">Tổng quan</h1>
+        <span className="adm-k__eyebrow">{t("admin.role")}</span>
+        <h1 className="adm-k__title">{t("admin.overviewTitle")}</h1>
       </div>
 
       <div className="adm-k__stats">
@@ -120,22 +124,22 @@ export default function AdminOverview() {
 
       <div className="adm-k__rev">
         <div className="adm-k__rev-card is-bone">
-          <div className="adm-k__rev-label">Tổng doanh thu</div>
+          <div className="adm-k__rev-label">{t("admin.totalRevenue")}</div>
           <div className="adm-k__rev-num">{fmtVnd(totalRevenue)}</div>
         </div>
         <div className="adm-k__rev-card">
-          <div className="adm-k__rev-label">Doanh thu bắp nước</div>
+          <div className="adm-k__rev-label">{t("admin.fnbRevenue")}</div>
           <div className="adm-k__rev-num">{fmtVnd(fnbRevenue)}</div>
         </div>
         <div className="adm-k__rev-card">
-          <div className="adm-k__rev-label">Tổng vé bán</div>
+          <div className="adm-k__rev-label">{t("admin.ticketsSold")}</div>
           <div className="adm-k__rev-num">{totalTickets}</div>
         </div>
       </div>
 
       <div className="adm-k__charts">
         <div className="adm-k__chartbox">
-          <h2 className="adm-k__chart-title">Doanh thu vé theo phim (Top 6)</h2>
+          <h2 className="adm-k__chart-title">{t("admin.chartByMovie")}</h2>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart
               data={revenueByMovie}
@@ -151,7 +155,9 @@ export default function AdminOverview() {
               />
               <YAxis
                 tick={{ fill: AXIS, fontSize: 11, fontFamily: MONO }}
-                tickFormatter={(v) => `${(v / 1000).toLocaleString("vi-VN")}k`}
+                tickFormatter={(v) =>
+                  `${(v / 1000).toLocaleString(numLocale)}k`
+                }
                 width={48}
               />
               <Tooltip
@@ -166,7 +172,7 @@ export default function AdminOverview() {
         </div>
 
         <div className="adm-k__chartbox">
-          <h2 className="adm-k__chart-title">Doanh thu vé theo rạp</h2>
+          <h2 className="adm-k__chart-title">{t("admin.chartByCinema")}</h2>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart
               data={revenueByCinema}
@@ -176,7 +182,9 @@ export default function AdminOverview() {
               <XAxis
                 type="number"
                 tick={{ fill: AXIS, fontSize: 11, fontFamily: MONO }}
-                tickFormatter={(v) => `${(v / 1000).toLocaleString("vi-VN")}k`}
+                tickFormatter={(v) =>
+                  `${(v / 1000).toLocaleString(numLocale)}k`
+                }
               />
               <YAxis
                 type="category"

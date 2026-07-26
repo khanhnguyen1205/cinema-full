@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import Modal from "./Modal";
 
 export default function ConfirmDialog({
@@ -9,15 +10,16 @@ export default function ConfirmDialog({
   onConfirm: () => void;
   onCancel: () => void;
 }) {
+  const { t } = useTranslation();
   return (
-    <Modal title="Xác nhận" onClose={onCancel}>
+    <Modal title={t("common.confirm")} onClose={onCancel}>
       <p className="adm-k__confirm-msg">{message}</p>
       <div className="adm-k__modalact">
         <button className="adm-k__btn ghost" onClick={onCancel}>
-          Hủy
+          {t("common.cancel")}
         </button>
         <button className="adm-k__btn danger" onClick={onConfirm}>
-          Xóa
+          {t("common.delete")}
         </button>
       </div>
     </Modal>

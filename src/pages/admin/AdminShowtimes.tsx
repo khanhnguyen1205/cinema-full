@@ -1,10 +1,12 @@
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   useAllShowtimes,
   useMovies,
   useRooms,
   useCinemas,
 } from "queries/catalog";
+import { formatDateTime, formatPrice } from "i18n/format";
 import {
   useCreateShowtime,
   useUpdateShowtime,
@@ -20,6 +22,7 @@ import type { Showtime } from "types";
 const EMPTY = { movieId: "", roomId: "", date: "", time: "", price: "" };
 
 export default function AdminShowtimes() {
+  const { t } = useTranslation();
   const showtimesQ = useAllShowtimes();
   const moviesQ = useMovies();
   const roomsQ = useRooms();
@@ -112,7 +115,7 @@ export default function AdminShowtimes() {
       !form.time ||
       !form.price
     ) {
-      setError("Nhập đủ phim, phòng, ngày, giờ, giá.");
+      setError(t("admin.showtimesFormErr"));
       return;
     }
     const body = {
@@ -134,7 +137,7 @@ export default function AdminShowtimes() {
   };
 
   const fmt = (iso: string) =>
-    new Date(iso).toLocaleString("vi-VN", {
+    formatDateTime(iso, {
       day: "2-digit",
       month: "2-digit",
       year: "numeric",
@@ -145,14 +148,16 @@ export default function AdminShowtimes() {
   return (
     <div>
       <div className="adm-k__head">
-        <span className="adm-k__eyebrow">Quản trị</span>
-        <h1 className="adm-k__title">Suất chiếu</h1>
-        <span className="adm-k__count">{total} mục</span>
+        <span className="adm-k__eyebrow">{t("admin.role")}</span>
+        <h1 className="adm-k__title">{t("admin.showtimesTitle")}</h1>
+        <span className="adm-k__count">
+          {t("admin.items", { count: total })}
+        </span>
       </div>
       <div className="adm-k__toolbar">
         <input
           className="adm-k__search"
-          placeholder="Tìm theo tên phim..."
+          placeholder={t("admin.showtimeSearchPh")}
           value={q}
           onChange={(e) => setQ(e.target.value)}
         />
@@ -161,7 +166,7 @@ export default function AdminShowtimes() {
           value={cinemaFilter}
           onChange={(e) => setCinemaFilter(e.target.value)}
         >
-          <option value="all">Tất cả rạp</option>
+          <option value="all">{t("admin.allCinemas")}</option>
           {cinemas.map((c) => (
             <option key={c.id} value={c.id}>
               {c.name}
@@ -169,17 +174,17 @@ export default function AdminShowtimes() {
           ))}
         </select>
         <button className="adm-k__btn" onClick={openNew}>
-          + Thêm suất
+          {t("admin.addShowtime")}
         </button>
       </div>
       <div className="adm-k__tablewrap">
         <table className="adm-k__table">
           <thead>
             <tr>
-              <th scope="col">Phim</th>
-              <th scope="col">Rạp · Phòng</th>
-              <th scope="col">Thời gian</th>
-              <th scope="col">Giá</th>
+              <th scope="col">{t("admin.fMovie")}</th>
+              <th scope="col">{t("admin.thRoomCinema")}</th>
+              <th scope="col">{t("admin.thTime")}</th>
+              <th scope="col">{t("admin.thPrice")}</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -189,20 +194,20 @@ export default function AdminShowtimes() {
                 <td>{movieMap[s.movieId]?.title || "—"}</td>
                 <td>{roomLabel(s.roomId)}</td>
                 <td className="num">{fmt(s.time)}</td>
-                <td className="num">{s.price.toLocaleString("vi-VN")}₫</td>
+                <td className="num">{formatPrice(s.price)}</td>
                 <td>
                   <div className="adm-k__rowact">
                     <button
                       className="adm-k__btn ghost sm"
                       onClick={() => openEdit(s)}
                     >
-                      Sửa
+                      {t("admin.edit")}
                     </button>
                     <button
                       className="adm-k__btn danger sm"
                       onClick={() => setConfirmId(s.id)}
                     >
-                      Xóa
+                      {t("admin.delete")}
                     </button>
                   </div>
                 </td>
@@ -211,7 +216,7 @@ export default function AdminShowtimes() {
             {visible.length === 0 && (
               <tr>
                 <td colSpan={5} className="adm-k__empty">
-                  Không có suất chiếu
+                  {t("admin.showtimesEmpty")}
                 </td>
               </tr>
             )}
@@ -229,13 +234,15 @@ export default function AdminShowtimes() {
 
       {editing && (
         <Modal
-          title={editing === "new" ? "Thêm suất chiếu" : "Sửa suất chiếu"}
+          title={
+            editing === "new" ? t("admin.newShowtime") : t("admin.editShowtime")
+          }
           onClose={() => setEditing(null)}
         >
           <div className="adm-k__field">
-            <label>Phim</label>
+            <label>{t("admin.fMovie")}</label>
             <select value={form.movieId} onChange={set("movieId")}>
-              <option value="">— Chọn phim —</option>
+              <option value="">{t("admin.chooseMovie")}</option>
               {movies.map((m) => (
                 <option key={m.id} value={m.id}>
                   {m.title}
@@ -244,9 +251,9 @@ export default function AdminShowtimes() {
             </select>
           </div>
           <div className="adm-k__field">
-            <label>Phòng (Rạp · Phòng · Loại)</label>
+            <label>{t("admin.fRoomCinemaType")}</label>
             <select value={form.roomId} onChange={set("roomId")}>
-              <option value="">— Chọn phòng —</option>
+              <option value="">{t("admin.chooseRoom")}</option>
               {rooms.map((r) => (
                 <option key={r.id} value={r.id}>
                   {roomLabel(r.id)}
@@ -256,16 +263,16 @@ export default function AdminShowtimes() {
           </div>
           <div className="adm-k__field-two">
             <div className="adm-k__field">
-              <label>Ngày</label>
+              <label>{t("admin.fDate")}</label>
               <input type="date" value={form.date} onChange={set("date")} />
             </div>
             <div className="adm-k__field">
-              <label>Giờ</label>
+              <label>{t("admin.fTime")}</label>
               <input type="time" value={form.time} onChange={set("time")} />
             </div>
           </div>
           <div className="adm-k__field">
-            <label>Giá (₫)</label>
+            <label>{t("admin.fPriceVnd")}</label>
             <input type="number" value={form.price} onChange={set("price")} />
           </div>
           {error && <div className="adm-k__formerr">{error}</div>}
@@ -274,17 +281,17 @@ export default function AdminShowtimes() {
               className="adm-k__btn ghost"
               onClick={() => setEditing(null)}
             >
-              Hủy
+              {t("admin.cancel")}
             </button>
             <button className="adm-k__btn" onClick={save}>
-              Lưu
+              {t("admin.save")}
             </button>
           </div>
         </Modal>
       )}
       {confirmId != null && (
         <ConfirmDialog
-          message="Bạn chắc chắn muốn xóa suất chiếu này?"
+          message={t("admin.confirmDeleteShowtime")}
           onConfirm={doDelete}
           onCancel={() => setConfirmId(null)}
         />

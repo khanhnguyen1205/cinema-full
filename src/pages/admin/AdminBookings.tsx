@@ -1,10 +1,12 @@
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   useAllShowtimes,
   useMovies,
   useCinemas,
   useRooms,
 } from "queries/catalog";
+import { formatDateTime, formatPrice } from "i18n/format";
 import {
   useAllBookings,
   useUpdateBooking,
@@ -23,6 +25,7 @@ import Pagination from "components/admin/Pagination";
 import type { Booking, Seat } from "types";
 
 export default function AdminBookings() {
+  const { t } = useTranslation();
   const bookingsQ = useAllBookings();
   const moviesQ = useMovies();
   const bookings = useMemo(() => bookingsQ.data ?? [], [bookingsQ.data]);
@@ -47,7 +50,7 @@ export default function AdminBookings() {
   const showtimeMap = Object.fromEntries(showtimes.map((s) => [s.id, s]));
   const fmt = (iso?: string) =>
     iso
-      ? new Date(iso).toLocaleString("vi-VN", {
+      ? formatDateTime(iso, {
           day: "2-digit",
           month: "2-digit",
           year: "numeric",
@@ -137,14 +140,16 @@ export default function AdminBookings() {
   return (
     <div>
       <div className="adm-k__head">
-        <span className="adm-k__eyebrow">Quản trị</span>
-        <h1 className="adm-k__title">Đơn đặt vé</h1>
-        <span className="adm-k__count">{total} mục</span>
+        <span className="adm-k__eyebrow">{t("admin.role")}</span>
+        <h1 className="adm-k__title">{t("admin.bookingsTitle")}</h1>
+        <span className="adm-k__count">
+          {t("admin.items", { count: total })}
+        </span>
       </div>
       <div className="adm-k__toolbar">
         <input
           className="adm-k__search"
-          placeholder="Tìm theo khách hoặc phim..."
+          placeholder={t("admin.bookingSearchPh")}
           value={q}
           onChange={(e) => setQ(e.target.value)}
         />
@@ -153,14 +158,14 @@ export default function AdminBookings() {
         <table className="adm-k__table">
           <thead>
             <tr>
-              <th scope="col">Mã</th>
-              <th scope="col">Khách</th>
-              <th scope="col">Phim</th>
-              <th scope="col">Rạp · Phòng</th>
-              <th scope="col">Ghế</th>
-              <th scope="col">Tổng</th>
-              <th scope="col">Suất</th>
-              <th scope="col">Thao tác</th>
+              <th scope="col">{t("admin.thCode")}</th>
+              <th scope="col">{t("admin.thCustomer")}</th>
+              <th scope="col">{t("admin.fMovie")}</th>
+              <th scope="col">{t("admin.thRoomCinema")}</th>
+              <th scope="col">{t("admin.thSeats")}</th>
+              <th scope="col">{t("admin.thTotal")}</th>
+              <th scope="col">{t("admin.thShowtime")}</th>
+              <th scope="col">{t("admin.thActions")}</th>
             </tr>
           </thead>
           <tbody>
@@ -174,9 +179,7 @@ export default function AdminBookings() {
                   {roomMap[b.roomId] ? ` · ${roomMap[b.roomId].name}` : ""}
                 </td>
                 <td>{(b.seats || []).join(", ")}</td>
-                <td className="num">
-                  {(b.totalPrice || 0).toLocaleString("vi-VN")}₫
-                </td>
+                <td className="num">{formatPrice(b.totalPrice || 0)}</td>
                 <td className="num">{fmt(showtimeMap[b.showtimeId]?.time)}</td>
                 <td>
                   <div className="adm-k__rowact">
@@ -184,13 +187,13 @@ export default function AdminBookings() {
                       className="adm-k__btn ghost sm"
                       onClick={() => openEdit(b)}
                     >
-                      Sửa ghế
+                      {t("admin.editSeats")}
                     </button>
                     <button
                       className="adm-k__btn danger sm"
                       onClick={() => setCancelId(b.id)}
                     >
-                      Hủy
+                      {t("admin.cancel")}
                     </button>
                   </div>
                 </td>
@@ -199,7 +202,7 @@ export default function AdminBookings() {
             {visible.length === 0 && (
               <tr>
                 <td colSpan={8} className="adm-k__empty">
-                  Không có đơn đặt vé
+                  {t("admin.bookingsEmpty")}
                 </td>
               </tr>
             )}
@@ -216,14 +219,16 @@ export default function AdminBookings() {
       />
       {cancelId != null && (
         <ConfirmDialog
-          message="Bạn chắc chắn muốn hủy đơn đặt vé này? Ghế sẽ được mở lại."
+          message={t("admin.confirmCancelBooking")}
           onConfirm={doCancel}
           onCancel={() => setCancelId(null)}
         />
       )}
       {editing && (
         <Modal
-          title={`Sửa ghế · #TK-${String(editing.id).padStart(5, "0")}`}
+          title={t("admin.editSeatsTitle", {
+            code: `#TK-${String(editing.id).padStart(5, "0")}`,
+          })}
           onClose={() => {
             setEditing(null);
             setSel([]);
@@ -243,7 +248,7 @@ export default function AdminBookings() {
                       key={seat.seatNumber}
                       className={`sgm-k__seat${seat.isVip ? " vip" : ""}${seat.isCouple ? " couple" : ""}${isBooked ? " booked" : ""}${isSel ? " selected" : ""}`}
                       disabled={isBooked}
-                      title={`${seat.seatNumber}${seat.isVip ? " · VIP" : ""}${seat.isCouple ? " · Đôi" : ""}`}
+                      title={`${seat.seatNumber}${seat.isVip ? " · VIP" : ""}${seat.isCouple ? ` · ${t("admin.coupleTitle")}` : ""}`}
                       onClick={() => toggleSeat(seat)}
                     />
                   );
@@ -254,33 +259,33 @@ export default function AdminBookings() {
           <div className="sgm-k__legend">
             <span>
               <i className="sgm-k__dot" />
-              Trống
+              {t("admin.legFree")}
             </span>
             <span>
               <i className="sgm-k__dot vip" />
-              VIP
+              {t("admin.legVip")}
             </span>
             <span>
               <i className="sgm-k__dot selected" />
-              Đang chọn
+              {t("admin.legSelecting")}
             </span>
             <span>
               <i className="sgm-k__dot booked" />
-              Đã đặt
+              {t("admin.legBooked")}
             </span>
           </div>
           <div className="sgm-k__summary">
             <span>
-              Ghế:{" "}
+              {t("admin.seatsLabel")}{" "}
               {sel.length
                 ? sel.map((s) => s.seatNumber).join(", ")
-                : "Chưa chọn"}
+                : t("admin.seatsNone")}
             </span>
             <span>
-              Thường ×{editStd} · VIP ×{editVip}
-              {editCpl ? ` · Đôi ×${editCpl}` : ""}
+              {t("admin.seatBreakdown", { std: editStd, vip: editVip })}
+              {editCpl ? t("admin.seatCoupleSuffix", { count: editCpl }) : ""}
             </span>
-            <strong>{editTotal.toLocaleString("vi-VN")}₫</strong>
+            <strong>{formatPrice(editTotal)}</strong>
           </div>
           <div className="adm-k__modalact">
             <button
@@ -290,14 +295,14 @@ export default function AdminBookings() {
                 setSel([]);
               }}
             >
-              Hủy
+              {t("admin.cancel")}
             </button>
             <button
               className="adm-k__btn"
               disabled={sel.length === 0}
               onClick={saveSeats}
             >
-              Lưu
+              {t("admin.save")}
             </button>
           </div>
         </Modal>
