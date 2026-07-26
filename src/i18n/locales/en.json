@@ -388,5 +388,11 @@
     "pagPrev": "Previous page",
     "pagNext": "Next page",
     "pagPage": "Page {{page}}/{{total}}"
+  },
+  "pwa": {
+    "install": "Install app",
+    "updateReady": "New version available",
+    "reload": "Reload",
+    "dismiss": "Dismiss"
   }
 }

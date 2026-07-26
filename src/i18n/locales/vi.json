@@ -388,5 +388,11 @@
     "pagPrev": "Trang trước",
     "pagNext": "Trang sau",
     "pagPage": "Trang {{page}}/{{total}}"
+  },
+  "pwa": {
+    "install": "Cài đặt ứng dụng",
+    "updateReady": "Có bản mới",
+    "reload": "Tải lại",
+    "dismiss": "Đóng"
   }
 }

@@ -5,6 +5,7 @@ import { useAuth } from "context/AuthContext";
 import { cx } from "lib/cx";
 import GlobalSearch from "components/GlobalSearch";
 import LanguageSwitcher from "components/LanguageSwitcher";
+import InstallButton from "components/InstallButton";
 import "./Navbar.css";
 
 const LINKS = [
@@ -95,6 +96,7 @@ export default function Navbar({ back }: { back?: string }) {
 
       <div className="nav-k__right">
         <LanguageSwitcher />
+        <InstallButton className="install-k--desktop" />
         <div className="nav-k__search-desktop">
           <GlobalSearch />
         </div>
@@ -157,6 +159,9 @@ export default function Navbar({ back }: { back?: string }) {
         </div>
         <div className="nav-k__lang-mobile">
           <LanguageSwitcher />
+        </div>
+        <div className="nav-k__install-mobile">
+          <InstallButton />
         </div>
         {LINKS.map((l) => (
           <Link

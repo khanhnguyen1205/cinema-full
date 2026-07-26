@@ -191,3 +191,25 @@
     padding-block: var(--sp-2);
   }
 }
+
+/* Nút cài đặt PWA — chỉ hiện khi trình duyệt cho phép (beforeinstallprompt) */
+.install-k {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  background: var(--surface-invert);
+  color: var(--text-invert);
+  border: var(--bw-1) solid var(--text-invert);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.install-k:hover {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+}
