@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { cx } from "lib/cx";
 
 interface StarRatingProps {
@@ -17,11 +18,12 @@ export default function StarRating({
   size = "md",
   ariaLabel,
 }: StarRatingProps) {
+  const { t } = useTranslation();
   if (readonly) {
     return (
       <span
         className={cx("ui-stars", `ui-stars--${size}`)}
-        aria-label={ariaLabel ?? `${value} trên 5 sao`}
+        aria-label={ariaLabel ?? t("common.starsOf", { value })}
         role="img"
       >
         {STARS.map((s) => (
@@ -46,7 +48,7 @@ export default function StarRating({
     <span
       className={cx("ui-stars", "ui-stars--input", `ui-stars--${size}`)}
       role="radiogroup"
-      aria-label={ariaLabel ?? "Chấm điểm từ 1 đến 5 sao"}
+      aria-label={ariaLabel ?? t("common.rateHint")}
       tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === "ArrowRight" || e.key === "ArrowUp") {
@@ -67,7 +69,7 @@ export default function StarRating({
           type="button"
           role="radio"
           aria-checked={value === s}
-          aria-label={`${s} sao`}
+          aria-label={t("common.starLabel", { n: s })}
           className={cx(
             "ui-stars__star",
             "ui-stars__btn",

@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { useTranslation } from "react-i18next";
 import { cx } from "lib/cx";
 import "./ui.css";
 
@@ -11,13 +12,14 @@ export default function Skeleton({
   height?: string;
   className?: string;
 }) {
+  const { t } = useTranslation();
   const style: CSSProperties = { width, height };
   return (
     <div
       className={cx("ui-skeleton", className)}
       style={style}
       role="status"
-      aria-label="Đang tải"
+      aria-label={t("common.loadingLabel")}
     />
   );
 }

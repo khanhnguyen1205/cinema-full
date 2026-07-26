@@ -9,6 +9,7 @@ import {
   useCities,
 } from "queries/catalog";
 import { normalize, matches, scoreMatch } from "lib/search";
+import { formatDateTime } from "i18n/format";
 import type { Movie, Cinema, Showtime } from "types";
 import "./GlobalSearch.css";
 
@@ -20,7 +21,7 @@ interface ShowResult {
 }
 
 const fmtTime = (iso: string) =>
-  new Date(iso).toLocaleString("vi-VN", {
+  formatDateTime(iso, {
     hour: "2-digit",
     minute: "2-digit",
     weekday: "short",

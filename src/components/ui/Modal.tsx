@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import IconButton from "./IconButton";
 import "./ui.css";
 
@@ -12,6 +13,7 @@ export default function Modal({
   onClose: () => void;
   children: ReactNode;
 }) {
+  const { t } = useTranslation();
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -31,7 +33,7 @@ export default function Modal({
       >
         <div className="ui-modal__head">
           <h2 className="ui-modal__title">{title}</h2>
-          <IconButton label="Đóng" onClick={onClose}>
+          <IconButton label={t("common.close")} onClick={onClose}>
             <span aria-hidden="true">×</span>
           </IconButton>
         </div>

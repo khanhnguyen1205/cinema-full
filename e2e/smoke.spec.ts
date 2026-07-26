@@ -187,3 +187,20 @@ test("Movies: lọc định dạng đồng bộ URL", async ({ page }) => {
   await expect(page).toHaveURL(/fmt=IMAX/);
   await expect(page.locator(".movie-k").first()).toBeVisible();
 });
+
+// i18n: chuyển sang EN đổi nhãn điều hướng + <html lang> (chỉ đọc).
+test("chuyển ngôn ngữ sang EN đổi nhãn điều hướng", async ({ page }) => {
+  await page.goto("/");
+  const links = page.locator(".nav-k__links");
+  await expect(links.getByRole("link", { name: "Phim" })).toBeVisible();
+  // Bấm nút EN trong bộ chuyển ngôn ngữ desktop (tránh bản mobile ẩn)
+  await page
+    .locator(".nav-k__right .lang-k")
+    .getByRole("button", { name: "EN" })
+    .click();
+  // Nhãn điều hướng dịch sang tiếng Anh
+  await expect(links.getByRole("link", { name: "Movies" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Sign in" })).toBeVisible();
+  // <html lang> cập nhật theo ngôn ngữ đã chọn
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+});

@@ -11,7 +11,11 @@
     "delete": "Xóa",
     "confirm": "Xác nhận",
     "all": "Tất cả",
-    "minutes": "phút"
+    "minutes": "phút",
+    "loadingLabel": "Đang tải",
+    "rateHint": "Chấm điểm từ 1 đến 5 sao",
+    "starsOf": "{{value}} trên 5 sao",
+    "starLabel": "{{n}} sao"
   },
   "nav": {
     "home": "Trang chủ",

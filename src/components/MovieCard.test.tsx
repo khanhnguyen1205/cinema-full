@@ -24,7 +24,8 @@ describe("MovieCard", () => {
   it("hiển thị tên, thể loại, rating", () => {
     renderCard(movie);
     expect(screen.getByText("Dune")).toBeInTheDocument();
-    expect(screen.getByText("Sci-Fi")).toBeInTheDocument();
+    // i18n khởi tạo mặc định vi -> nhãn thể loại đã dịch
+    expect(screen.getByText("Khoa học viễn tưởng")).toBeInTheDocument();
     expect(screen.getByText(/8\.4/)).toBeInTheDocument();
   });
 
