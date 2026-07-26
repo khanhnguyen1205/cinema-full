@@ -25,6 +25,7 @@ import AdminShowtimes from "pages/admin/AdminShowtimes";
 import AdminBookings from "pages/admin/AdminBookings";
 import AdminReviews from "pages/admin/AdminReviews";
 import KitchenSink from "pages/dev/KitchenSink";
+import PWAUpdatePrompt from "components/PWAUpdatePrompt";
 
 function AppShell() {
   const { loading } = useAuth();
@@ -92,6 +93,7 @@ function AppShell() {
           <Route path="reviews" element={<AdminReviews />} />
         </Route>
       </Routes>
+      <PWAUpdatePrompt />
     </BrowserRouter>
   );
 }

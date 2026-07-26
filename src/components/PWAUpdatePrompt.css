@@ -1,0 +1,67 @@
+/* Toast nhắc cập nhật PWA — khối "bone" viền cứng góc dưới */
+.pwa-k {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: calc(100vw - 32px);
+  padding: 12px 12px 12px 16px;
+  background: var(--surface-invert);
+  color: var(--text-invert);
+  border: var(--bw-2) solid var(--text-invert);
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow-hard);
+  animation: pwa-rise var(--dur-base) var(--ease-out) both;
+}
+.pwa-k__msg {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.pwa-k__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pwa-k__reload {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 6px 12px;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+}
+.pwa-k__dismiss {
+  background: none;
+  border: none;
+  color: var(--text-invert);
+  font-size: 16px;
+  line-height: 1;
+  padding: 4px;
+  cursor: pointer;
+}
+@keyframes pwa-rise {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 12px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pwa-k {
+    animation: none;
+  }
+}
