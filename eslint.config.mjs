@@ -69,6 +69,14 @@ export default tseslint.config(
     },
   },
 
+  // Script tiện ích chạy trong Node (sinh icon...)
+  {
+    files: ["scripts/**/*.{js,mjs}"],
+    languageOptions: {
+      globals: { ...globals.node },
+    },
+  },
+
   // Tắt các luật xung đột với Prettier (đặt cuối để thắng)
   prettier,
 );
