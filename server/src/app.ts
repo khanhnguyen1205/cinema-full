@@ -6,6 +6,7 @@ import { authRouter } from "./auth/routes";
 import { occupiedRouter } from "./api/occupied";
 import { holdsRouter } from "./api/holds";
 import { gatewayRouter } from "./api/gateway";
+import { paymentsRouter } from "./payments/routes";
 import { mountStatic } from "./static";
 
 export const app = express();
@@ -22,6 +23,7 @@ app.use("/auth", authRouter);
 // Routes riêng PHẢI khai báo trước catch-all "/api" (Express match theo thứ tự).
 app.use("/api/occupied-seats", occupiedRouter);
 app.use("/api/holds", holdsRouter);
+app.use("/api/payments", paymentsRouter);
 app.use("/api", gatewayRouter);
 
 // SPA đứng CUỐI: chỉ nhận những gì API không nhận.
