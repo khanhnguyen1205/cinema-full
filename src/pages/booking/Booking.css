@@ -776,3 +776,19 @@
     transform: none;
   }
 }
+
+/* --- Stripe Payment Element (bước ③) --- */
+.pay-k__stripe {
+  margin-top: var(--sp-4);
+  padding: var(--sp-4);
+  background: var(--surface-2);
+  border: var(--bw-1) solid var(--border-strong);
+}
+
+.pay-k__testcard {
+  margin: var(--sp-3) 0 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}

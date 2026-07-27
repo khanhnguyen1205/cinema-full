@@ -24,6 +24,8 @@ import {
   useConcessions,
   useCreateBooking,
 } from "queries/booking";
+import { usePaymentConfig } from "queries/payments";
+import { createPaymentIntent, type PaymentError } from "services/payments";
 import { useAuth } from "context/AuthContext";
 import type { Movie, Showtime, Room, Cinema, Seat, Booking } from "types";
 import Navbar from "components/Navbar";
@@ -32,6 +34,7 @@ import BookingStepper from "./BookingStepper";
 import SeatStep from "./SeatStep";
 import ConcessionStep from "./ConcessionStep";
 import PaymentStep from "./PaymentStep";
+import type { PayHandle } from "./StripePayForm";
 import TicketStep from "./TicketStep";
 import OrderSummary from "./OrderSummary";
 import SeatHoldTimer from "./SeatHoldTimer";
@@ -49,7 +52,9 @@ export default function BookingWizard() {
   const [cinema, setCinema] = useState<Cinema | null>(null);
   const [selected, setSelected] = useState<Seat[]>([]);
   const [qty, setQty] = useState<Record<number, number>>({});
-  const [paymentMethod, setPaymentMethod] = useState("momo");
+  const [paymentMethod, setPaymentMethod] = useState("counter");
+  const [paying, setPaying] = useState(false);
+  const payHandleRef = useRef<PayHandle | null>(null);
   const [error, setError] = useState("");
   const [bookingResult, setBookingResult] = useState<Booking | null>(null);
   const [expired, setExpired] = useState(false);
@@ -97,6 +102,14 @@ export default function BookingWizard() {
   const catalog = useMemo(() => concessionsQ.data ?? [], [concessionsQ.data]);
 
   const createMut = useCreateBooking();
+
+  // Có cấu hình Stripe thì chọn sẵn thẻ; không thì giữ "tại quầy".
+  const paymentConfigQ = usePaymentConfig();
+  const cardEnabled = paymentConfigQ.data?.enabled === true;
+  const publishableKey = paymentConfigQ.data?.publishableKey ?? "";
+  useEffect(() => {
+    if (cardEnabled) setPaymentMethod("card");
+  }, [cardEnabled]);
 
   const selectedRef = useRef(selected);
   useEffect(() => {
@@ -186,7 +199,7 @@ export default function BookingWizard() {
     setTimerEpoch((e) => e + 1);
   }, []);
 
-  const confirm = async () => {
+  const confirm = async (paymentRef?: string) => {
     if (selected.length === 0 || !showtime || !room) return;
     setError("");
     try {
@@ -221,6 +234,7 @@ export default function BookingWizard() {
           price,
         })),
         paymentMethod,
+        ...(paymentRef ? { paymentRef } : {}),
         userId: user?.id,
         userName: user?.fullName || user?.email,
         seatTotal,
@@ -236,6 +250,40 @@ export default function BookingWizard() {
     }
   };
 
+  // KHÔNG memo hoá: hai hàm dưới đọc selected/fnb rồi được truyền vào
+  // useImperativeHandle của StripePayForm — memo hoá sẽ đóng băng state cũ.
+  const createIntent = async () => {
+    try {
+      return await createPaymentIntent({
+        showtimeId: Number(showtimeId),
+        seats: selected.map((s) => s.seatNumber),
+        concessions: fnb.map((l) => ({ id: l.id, qty: l.qty })),
+      });
+    } catch (e) {
+      const err = e as PaymentError;
+      if (err.conflicts?.length) {
+        const clash = new Set(err.conflicts);
+        setSelected((prev) => prev.filter((s) => !clash.has(s.seatNumber)));
+        occupiedQ.refetch();
+        setStep(1);
+      }
+      throw err;
+    }
+  };
+
+  const runCardPayment = async () => {
+    if (!payHandleRef.current) return;
+    setError("");
+    setPaying(true);
+    try {
+      await payHandleRef.current.pay();
+    } catch (e) {
+      setError((e as Error).message || t("booking.payFailed"));
+    } finally {
+      setPaying(false);
+    }
+  };
+
   const onPrimary = () => {
     if (step === 1) {
       setError("");
@@ -245,6 +293,10 @@ export default function BookingWizard() {
     if (step === 2) {
       setError("");
       setStep(3);
+      return;
+    }
+    if (paymentMethod === "card") {
+      runCardPayment();
       return;
     }
     confirm();
@@ -310,7 +362,17 @@ export default function BookingWizard() {
               />
             )}
             {step === 3 && (
-              <PaymentStep method={paymentMethod} onChange={setPaymentMethod} />
+              <PaymentStep
+                method={paymentMethod}
+                onChange={setPaymentMethod}
+                cardEnabled={cardEnabled}
+                publishableKey={publishableKey}
+                amount={total}
+                payHandleRef={payHandleRef}
+                createIntent={createIntent}
+                onPaid={(paymentRef) => confirm(paymentRef)}
+                onError={setError}
+              />
             )}
           </div>
           <OrderSummary
@@ -330,7 +392,7 @@ export default function BookingWizard() {
               setError("");
               setStep(3);
             }}
-            loading={createMut.isPending}
+            loading={createMut.isPending || paying}
             onPrimary={onPrimary}
             error={error}
           />

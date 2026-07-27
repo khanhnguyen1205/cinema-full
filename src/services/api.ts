@@ -66,12 +66,20 @@ export const holdSeats = (showtimeId: Id, seats: string[]): Promise<Response> =>
 export const releaseSeats = (showtimeId: Id): Promise<Response> =>
   req(`/holds?showtimeId=${showtimeId}`, { method: "DELETE" });
 
-export const createBooking = (booking: Partial<Booking>): Promise<Booking> =>
-  req(`/bookings`, {
+// Gateway có thể từ chối (402 thanh toán chưa hoàn tất, 409 ghế vướng...) — phải
+// ném lỗi thay vì trả nguyên body lỗi như thể đó là một Booking.
+export const createBooking = async (
+  booking: Partial<Booking>,
+): Promise<Booking> => {
+  const r = await req(`/bookings`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(booking),
-  }).then((r) => r.json());
+  });
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(data.error || "Đặt vé thất bại.");
+  return data as Booking;
+};
 
 // GET /bookings: gateway tự lọc — user thường chỉ nhận đơn của mình, admin nhận tất cả.
 export const getBookings = () => get<Booking[]>(`/bookings`);

@@ -1,34 +1,50 @@
 import { useTranslation } from "react-i18next";
-
-const METHODS = [
-  {
-    key: "momo",
-    emoji: "💗",
-    nameKey: "booking.momoName",
-    descKey: "booking.momoDesc",
-  },
-  {
-    key: "card",
-    emoji: "💳",
-    nameKey: "booking.cardName",
-    descKey: "booking.cardDesc",
-  },
-  {
-    key: "counter",
-    emoji: "🏦",
-    nameKey: "booking.counterName",
-    descKey: "booking.counterDesc",
-  },
-];
+import type { MutableRefObject } from "react";
+import type { IntentResult } from "services/payments";
+import StripePayForm, { type PayHandle } from "./StripePayForm";
 
 export default function PaymentStep({
   method,
   onChange,
+  cardEnabled,
+  publishableKey,
+  amount,
+  payHandleRef,
+  createIntent,
+  onPaid,
+  onError,
 }: {
   method: string;
   onChange: (m: string) => void;
+  cardEnabled: boolean;
+  publishableKey: string;
+  amount: number;
+  payHandleRef: MutableRefObject<PayHandle | null>;
+  createIntent: () => Promise<IntentResult>;
+  onPaid: (paymentRef: string) => Promise<void>;
+  onError: (message: string) => void;
 }) {
   const { t } = useTranslation();
+  // Chỉ hiện thẻ khi server đã cấu hình Stripe; "tại quầy" thì luôn có.
+  const methods = [
+    ...(cardEnabled
+      ? [
+          {
+            key: "card",
+            emoji: "💳",
+            nameKey: "booking.cardName",
+            descKey: "booking.cardDesc",
+          },
+        ]
+      : []),
+    {
+      key: "counter",
+      emoji: "🏦",
+      nameKey: "booking.counterName",
+      descKey: "booking.counterDesc",
+    },
+  ];
+
   return (
     <div className="pay-k">
       <div className="pay-k__head">
@@ -37,7 +53,7 @@ export default function PaymentStep({
       </div>
 
       <div className="pay-k__methods">
-        {METHODS.map((m) => (
+        {methods.map((m) => (
           <label
             key={m.key}
             className={"pay-k__card" + (method === m.key ? " is-picked" : "")}
@@ -59,6 +75,17 @@ export default function PaymentStep({
           </label>
         ))}
       </div>
+
+      {cardEnabled && method === "card" && amount > 0 && (
+        <StripePayForm
+          publishableKey={publishableKey}
+          amount={amount}
+          handleRef={payHandleRef}
+          createIntent={createIntent}
+          onPaid={onPaid}
+          onError={onError}
+        />
+      )}
 
       <p className="pay-k__note">
         {t("booking.payEncrypted", { action: t("booking.pay") })}
