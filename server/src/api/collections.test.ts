@@ -109,3 +109,15 @@ describe("reviews collection", () => {
     });
   });
 });
+
+describe("bookings", () => {
+  it("nhận paymentRef qua whitelist", () => {
+    const picked = pickWritable("bookings", {
+      totalPrice: 1000,
+      paymentRef: "pi_123",
+      id: 999,
+    });
+    expect(picked.paymentRef).toBe("pi_123");
+    expect("id" in picked).toBe(false);
+  });
+});

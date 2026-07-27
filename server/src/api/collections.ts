@@ -77,6 +77,7 @@ export const COLLECTIONS: Record<CollectionName, CollectionSpec> = {
       "serviceFee",
       "totalPrice",
       "createdAt",
+      "paymentRef",
     ],
     json: ["seatTypes", "concessions"],
   },

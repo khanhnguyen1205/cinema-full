@@ -104,6 +104,7 @@ export interface Booking {
   serviceFee?: number;
   totalPrice: number;
   createdAt: string;
+  paymentRef?: string | null; // mã PaymentIntent Stripe, null nếu không trả bằng thẻ
 }
 
 export interface Review {

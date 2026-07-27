@@ -85,6 +85,9 @@ model Booking {
   serviceFee    Int?
   totalPrice    Int
   createdAt     String
+  // Mã PaymentIntent của Stripe ("pi_..."). null với đơn "Tại quầy" và đơn cũ.
+  // @unique là chốt chặn: một lần trả tiền chỉ tạo được đúng một đơn.
+  paymentRef    String?  @unique
 }
 
 model Concession {
