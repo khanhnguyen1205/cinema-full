@@ -2,6 +2,7 @@ import {
   test,
   expect,
   type Page,
+  type Frame,
   type APIRequestContext,
 } from "@playwright/test";
 
@@ -60,15 +61,33 @@ test("thanh toán bằng thẻ Stripe test → e-ticket", async ({
     await page.locator(".pay-k__card", { hasText: "Stripe" }).click();
     await expect(page.locator(".pay-k__stripe")).toBeVisible();
 
-    // Payment Element dựng nhiều iframe; iframe nhập liệu có title cố định này.
-    const frame = page.frameLocator(
-      'iframe[title="Secure payment input frame"]',
-    );
-    await frame
-      .getByPlaceholder("1234 1234 1234 1234")
-      .fill("4242424242424242");
-    await frame.getByPlaceholder("MM / YY").fill("12 / 34");
-    await frame.getByPlaceholder("CVC").fill("123");
+    // Payment Element dựng NHIỀU iframe trùng title và thứ tự không cố định ->
+    // thử từng cái, chờ tới khi thấy ô số thẻ. Chọn theo input[name=...] chứ
+    // không theo placeholder vì placeholder đổi theo ngôn ngữ.
+    // Stripe lồng iframe nhiều cấp và dựng dần -> duyệt page.frames() (đệ quy,
+    // không phụ thuộc cấp lồng) và poll cho tới khi thấy ô số thẻ. Chọn theo
+    // input[name=...] chứ không theo placeholder vì placeholder đổi theo ngôn ngữ.
+    let card: Frame | null = null;
+    await expect
+      .poll(
+        async () => {
+          for (const f of page.frames()) {
+            if (!f.url().includes("js.stripe.com")) continue;
+            if (await f.locator('input[name="number"]').count()) {
+              card = f;
+              return true;
+            }
+          }
+          return false;
+        },
+        { timeout: 30_000, message: "Không thấy iframe nhập thẻ của Stripe" },
+      )
+      .toBe(true);
+    if (!card) throw new Error("Không tìm thấy iframe nhập thẻ của Stripe");
+
+    await card.locator('input[name="number"]').fill("4242424242424242");
+    await card.locator('input[name="expiry"]').fill("12 / 34");
+    await card.locator('input[name="cvc"]').fill("123");
 
     await page.getByRole("button", { name: "Thanh toán" }).click();
 

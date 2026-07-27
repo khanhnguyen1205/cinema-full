@@ -87,6 +87,9 @@ export default function StripePayForm({
           mode: "payment",
           amount,
           currency: "vnd",
+          // Khớp payment_method_types của PaymentIntent phía server: chỉ thẻ,
+          // để confirmPayment không bao giờ cần return_url / chuyển hướng.
+          paymentMethodTypes: ["card"],
           locale: i18n.language === "en" ? "en" : "vi",
           appearance: {
             theme: "night",

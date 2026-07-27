@@ -47,7 +47,10 @@ paymentsRouter.post("/intent", async (req, res) => {
     const intent = await getStripe().paymentIntents.create({
       amount: result.quote.total, // VND là zero-decimal: không nhân 100
       currency: "vnd",
-      automatic_payment_methods: { enabled: true },
+      // CHỈ thẻ, cố ý: automatic_payment_methods mở cửa cho các phương thức có
+      // CHUYỂN HƯỚNG, mà cả luồng này dựa vào việc không rời trang (giữ ghế +
+      // đồng hồ + state wizard). Rời trang sau khi trả tiền = mất vé.
+      payment_method_types: ["card"],
       metadata: {
         userId: String(user.id),
         showtimeId: String(showtimeId),
