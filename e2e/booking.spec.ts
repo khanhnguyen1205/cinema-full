@@ -55,9 +55,13 @@ test("đặt vé đầy đủ: chọn ghế → bắp nước → thanh toán �
     await page.locator(".os-k__cta").click();
     await expect(page.locator(".fnb-k, .fnb-k__msg").first()).toBeVisible();
 
-    // ③ Thanh toán (demo) — bấm nút "Thanh toán" để GHI đơn thật.
+    // ③ Thanh toán — chọn "Tại quầy" (luồng KHÔNG qua Stripe) để GHI đơn thật.
+    // Khi server có key Stripe thì mặc định là thẻ, nên phải chọn lại tường minh.
     await page.locator(".os-k__cta").click();
     await expect(page.locator(".pay-k")).toBeVisible();
+    await page
+      .locator(".pay-k__card", { hasText: "Thanh toán tại quầy" })
+      .click();
     await page.getByRole("button", { name: "Thanh toán" }).click();
 
     // ④ Vé điện tử

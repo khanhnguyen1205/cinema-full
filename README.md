@@ -58,6 +58,23 @@ The `Dockerfile` is multi-stage: build (`npm ci` → `npm run build`) then a sli
 
 Required environment variables on the host: `DATABASE_URL`, `DIRECT_URL`, `JWT_SECRET` (a long random string — the server **refuses to start** in production with the dev default), `NODE_ENV=production`. `PORT` is supplied by the platform. Seat holds live in process memory, so run **one instance**.
 
+Optional: `STRIPE_SECRET_KEY` + `STRIPE_PUBLISHABLE_KEY` enable card payments (see below). Leave them unset and the card method simply doesn't appear — nothing else changes.
+
+## Thanh toán sandbox (Stripe test-mode)
+
+Bước ③ của luồng đặt vé có hai phương thức: **Thanh toán tại quầy** (giữ chỗ, trả tiền mặt ở rạp) và **Thẻ quốc tế (Stripe)**. Thẻ chạy hoàn toàn trên **Stripe test-mode — không có tiền thật nào bị trừ**; dùng thẻ thử `4242 4242 4242 4242`, ngày hết hạn bất kỳ trong tương lai, CVC bất kỳ.
+
+Điểm đáng chú ý về bảo mật: **server tự tính lại số tiền từ dữ liệu trong database** (giá suất chiếu, hàng ghế VIP/đôi, giá bắp nước) chứ không tin con số client gửi lên; và trước khi ghi vé, server hỏi lại Stripe xem giao dịch đó đã `succeeded` với đúng số tiền và đúng người mua chưa. Mã giao dịch được lưu ở `Booking.paymentRef` với ràng buộc `@unique`, nên gửi lại cùng một lần thanh toán sẽ nhận lại đúng vé cũ thay vì tạo vé trùng.
+
+Để bật ở máy dev: lấy hai key test tại `dashboard.stripe.com` (Developers → API keys) rồi thêm vào `.env`:
+
+```
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_PUBLISHABLE_KEY=pk_test_...
+```
+
+Publishable key được phục vụ qua `GET /api/payments/config` chứ không nhúng vào bundle, nên đổi key trên môi trường production **không cần build lại**.
+
 ## Pages
 
 | Route | Page |

@@ -179,7 +179,10 @@ export default function AdminBookings() {
                   {roomMap[b.roomId] ? ` · ${roomMap[b.roomId].name}` : ""}
                 </td>
                 <td>{(b.seats || []).join(", ")}</td>
-                <td className="num">{formatPrice(b.totalPrice || 0)}</td>
+                <td className="num">
+                  {formatPrice(b.totalPrice || 0)}
+                  {b.paymentRef ? ` · ${t("booking.paidBadge")}` : ""}
+                </td>
                 <td className="num">{fmt(showtimeMap[b.showtimeId]?.time)}</td>
                 <td>
                   <div className="adm-k__rowact">

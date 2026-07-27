@@ -86,6 +86,11 @@ export default function ETicket({
             <span className="eticket-k__label">{t("tickets.ePayment")}</span>
             <span className="eticket-k__value">
               {METHOD_KEY[method] ? t(METHOD_KEY[method]) : method || "—"}
+              {booking.paymentRef && (
+                <span className="eticket-k__paid">
+                  {t("booking.paidBadge")} · {booking.paymentRef}
+                </span>
+              )}
             </span>
           </div>
         </div>

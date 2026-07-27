@@ -1,3 +1,4 @@
+import "dotenv/config"; // payment.spec.ts tự skip khi .env không có key Stripe
 import { defineConfig, devices } from "@playwright/test";
 
 const PORT = 3000;

@@ -792,3 +792,13 @@
   color: var(--text-muted);
   letter-spacing: 0.04em;
 }
+
+/* Nhãn "Đã thanh toán · pi_..." trên vé điện tử */
+.eticket-k__paid {
+  display: block;
+  margin-top: var(--sp-1);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--red);
+  word-break: break-all;
+}
