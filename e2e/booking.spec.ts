@@ -71,6 +71,12 @@ test("đặt vé đầy đủ: chọn ghế → bắp nước → thanh toán �
     // Vé phải xuất hiện ở "Vé của tôi" (suất trong db có thể đã qua -> thử cả 2 tab).
     await page.locator(".ticket-k__primary").click();
     await expect(page).toHaveURL("/tickets");
+    // Mã vé cũng nằm trên trang ④; phải đợi trang đó unmount và danh sách vé
+    // render xong, nếu không cú dò isVisible() bên dưới sẽ bắt nhầm trang cũ.
+    await expect(page.locator(".ticket-k__successtitle")).toHaveCount(0);
+    await expect(
+      page.locator(".mytk-k__item, .mytk-k__empty").first(),
+    ).toBeVisible();
     const ticket = page.getByText(code, { exact: false });
     if (
       !(await ticket
