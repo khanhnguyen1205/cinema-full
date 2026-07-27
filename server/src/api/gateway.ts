@@ -4,6 +4,7 @@ import { getUserFromReq } from "../auth/middleware";
 import { releaseHolds } from "./holds";
 import { prisma } from "../db/prisma";
 import { validateReviewInput, ownerOrAdmin } from "./reviews-validate";
+import { settleCardPayment } from "../payments/settle";
 
 // Catalog: đọc công khai, ghi cần admin.
 const PUBLIC_READ = new Set([
@@ -61,8 +62,32 @@ gatewayRouter.use(async (req, res) => {
           deny(401, "Vui lòng đăng nhập.");
           return;
         }
-        req.body = { ...req.body, userId: user.id }; // ép userId = chính mình
-        const stId = req.body.showtimeId;
+        const body = { ...req.body } as Record<string, unknown>;
+        body.userId = user.id; // ép userId = chính mình
+        const stId = body.showtimeId as string | number | undefined;
+
+        if (body.paymentMethod === "card") {
+          const paid = await settleCardPayment(body, user.id);
+          if (!paid.ok) {
+            res.status(paid.status).json({
+              error: paid.error,
+              ...(paid.conflicts ? { conflicts: paid.conflicts } : {}),
+            });
+            return;
+          }
+          if (paid.existing) {
+            // Đã trả tiền và đơn đã tồn tại -> trả lại chính đơn đó, không tạo trùng.
+            res.status(200).json(paid.existing);
+            if (stId != null) releaseHolds(stId, user.id);
+            return;
+          }
+          // Tiền ghi vào đơn là con số SERVER tự tính, không phải số client gửi.
+          Object.assign(body, paid.totals);
+        } else {
+          delete body.paymentRef; // chỉ luồng thẻ mới được ghi mã giao dịch
+        }
+
+        req.body = body;
         await handleRest(req, res, rest);
         if (stId != null) releaseHolds(stId, user.id); // đặt xong -> nhả hold của mình
         return;
