@@ -46,12 +46,14 @@ function normalizeJson(
 }
 
 // Thay thế forward(): dịch REST kiểu json-server sang Prisma, giữ nguyên status code.
+// Trả về bản ghi vừa ghi (POST/PATCH/PUT) để nơi gọi làm tiếp việc phụ — vd gateway
+// cần id của đơn vừa tạo để gửi email vé. Các nhánh khác trả undefined.
 export async function handleRest(
   req: Request,
   res: Response,
   rest: string,
   extraFilters?: Record<string, string | number>,
-): Promise<void> {
+): Promise<unknown> {
   const [name, idPart, ...deeper] = rest.split("/");
   if (!isCollection(name) || deeper.length > 0) {
     res.status(404).json({});
@@ -98,7 +100,7 @@ export async function handleRest(
         data.createdAt = new Date().toISOString();
       const row = await delegate(c).create({ data });
       res.status(201).json(row); // json-server trả 201 khi tạo
-      return;
+      return row;
     }
 
     if (req.method === "PATCH" || req.method === "PUT") {
@@ -112,7 +114,7 @@ export async function handleRest(
       );
       const row = await delegate(c).update({ where: { id }, data });
       res.json(row);
-      return;
+      return row;
     }
 
     if (req.method === "DELETE") {

@@ -5,6 +5,8 @@ import { releaseHolds } from "./holds";
 import { prisma } from "../db/prisma";
 import { validateReviewInput, ownerOrAdmin } from "./reviews-validate";
 import { settleCardPayment } from "../payments/settle";
+import { sendTicketEmail } from "../email/send";
+import { pickLang } from "../email/lang";
 
 // Catalog: đọc công khai, ghi cần admin.
 const PUBLIC_READ = new Set([
@@ -88,8 +90,12 @@ gatewayRouter.use(async (req, res) => {
         }
 
         req.body = body;
-        await handleRest(req, res, rest);
+        const created = await handleRest(req, res, rest);
         if (stId != null) releaseHolds(stId, user.id); // đặt xong -> nhả hold của mình
+        // Gửi vé qua email ở NỀN: đơn đã trả về client rồi (tiền cũng đã trừ), email
+        // hỏng không được phép ảnh hưởng. sendTicketEmail không bao giờ throw.
+        const newId = (created as { id?: number } | undefined)?.id;
+        if (newId) void sendTicketEmail(newId, pickLang(req.headers["x-lang"]));
         return;
       }
       if (!isAdmin) {
