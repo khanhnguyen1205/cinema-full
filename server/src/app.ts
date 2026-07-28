@@ -7,6 +7,7 @@ import { occupiedRouter } from "./api/occupied";
 import { holdsRouter } from "./api/holds";
 import { gatewayRouter } from "./api/gateway";
 import { paymentsRouter } from "./payments/routes";
+import { emailsRouter } from "./email/routes";
 import { mountStatic } from "./static";
 
 export const app = express();
@@ -24,6 +25,7 @@ app.use("/auth", authRouter);
 app.use("/api/occupied-seats", occupiedRouter);
 app.use("/api/holds", holdsRouter);
 app.use("/api/payments", paymentsRouter);
+app.use("/api/emails", emailsRouter);
 app.use("/api", gatewayRouter);
 
 // SPA đứng CUỐI: chỉ nhận những gì API không nhận.
