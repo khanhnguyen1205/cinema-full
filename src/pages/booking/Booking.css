@@ -741,6 +741,13 @@
 .ticket-k .eticket-k {
   width: 100%;
 }
+.ticket-k__mailed {
+  margin-top: var(--sp-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--text-dim);
+  text-align: center;
+}
 .ticket-k__actions {
   display: flex;
   gap: 12px;

@@ -1,5 +1,6 @@
 // Data qua cong co phan quyen o API server (:4000/api) — server truy van Postgres qua Prisma.
 // credentials:"include" de gui cookie phien -> gateway biet user/role.
+import i18n from "i18n";
 import type {
   Booking,
   Cinema,
@@ -73,7 +74,11 @@ export const createBooking = async (
 ): Promise<Booking> => {
   const r = await req(`/bookings`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    // x-lang: server dùng để chọn ngôn ngữ email vé (không import chéo được src/i18n).
+    headers: {
+      "Content-Type": "application/json",
+      "x-lang": i18n.language || "vi",
+    },
     body: JSON.stringify(booking),
   });
   const data = await r.json().catch(() => ({}));

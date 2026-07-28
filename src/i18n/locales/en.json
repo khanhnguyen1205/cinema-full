@@ -231,6 +231,12 @@
     "osTotal": "Total",
     "osProcessing": "Processing..."
   },
+  "email": {
+    "sentTo": "Ticket sent to {{email}}",
+    "resend": "Resend ticket by email",
+    "sending": "Sending…",
+    "resendOk": "Sent!"
+  },
   "tickets": {
     "tabUpcoming": "Upcoming",
     "tabPast": "Watched",

@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getMovie, getShowtime, getCinema, getRoom } from "services/api";
 import { useMyBookings } from "queries/booking";
 import ETicket from "components/ETicket";
+import ResendTicketButton from "components/ResendTicketButton";
 import { useAuth } from "context/AuthContext";
 import { Skeleton } from "components/ui";
 import Navbar from "components/Navbar";
@@ -139,6 +140,8 @@ export default function MyTickets() {
                   showtime={b.showtime}
                   size="compact"
                 />
+                {/* Cả vé đã xem cũng gửi lại được: email vé đồng thời là biên lai. */}
+                <ResendTicketButton bookingId={b.id} />
               </div>
             ))}
           </div>

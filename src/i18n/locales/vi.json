@@ -231,6 +231,12 @@
     "osTotal": "Tổng cộng",
     "osProcessing": "Đang xử lý..."
   },
+  "email": {
+    "sentTo": "Đã gửi vé tới {{email}}",
+    "resend": "Gửi lại vé qua email",
+    "sending": "Đang gửi…",
+    "resendOk": "Đã gửi!"
+  },
   "tickets": {
     "tabUpcoming": "Sắp tới",
     "tabPast": "Đã xem",

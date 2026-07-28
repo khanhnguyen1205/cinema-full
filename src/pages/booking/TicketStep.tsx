@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import ETicket from "components/ETicket";
+import ResendTicketButton from "components/ResendTicketButton";
+import { useAuth } from "context/AuthContext";
+import { useEmailConfig } from "queries/email";
 import type { Booking, Movie, Cinema, Room, Showtime } from "types";
 
 export default function TicketStep({
@@ -18,6 +21,9 @@ export default function TicketStep({
 }) {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  // Hook phải chạy vô điều kiện -> đặt TRƯỚC early-return dưới đây.
+  const { user } = useAuth();
+  const emailConfig = useEmailConfig();
   if (!booking) return null;
 
   return (
@@ -37,6 +43,13 @@ export default function TicketStep({
         room={room}
         showtime={showtime}
       />
+
+      {emailConfig.data?.enabled && user?.email && (
+        <p className="ticket-k__mailed">
+          {t("email.sentTo", { email: user.email })}
+        </p>
+      )}
+      <ResendTicketButton bookingId={booking.id} />
 
       <div className="ticket-k__actions">
         <button

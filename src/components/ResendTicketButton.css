@@ -1,0 +1,47 @@
+.resend-k {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  margin-top: var(--sp-3);
+}
+
+.resend-k__btn {
+  background: transparent;
+  color: var(--text);
+  border: var(--bw-1) solid var(--border-strong);
+  border-radius: 0;
+  padding: 10px 16px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.resend-k__btn:hover:not(:disabled) {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+
+.resend-k__btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.resend-k__ok,
+.resend-k__err {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+}
+
+.resend-k__ok {
+  color: var(--text-dim);
+}
+
+.resend-k__err {
+  color: var(--red);
+}

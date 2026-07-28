@@ -19,4 +19,5 @@ export const qk = {
   reviews: (movieId: number | string) => ["reviews", movieId] as const,
   allReviews: ["reviews", "all"] as const,
   paymentConfig: ["paymentConfig"] as const,
+  emailConfig: ["emailConfig"] as const,
 };
