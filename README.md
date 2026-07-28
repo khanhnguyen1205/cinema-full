@@ -58,7 +58,7 @@ The `Dockerfile` is multi-stage: build (`npm ci` → `npm run build`) then a sli
 
 Required environment variables on the host: `DATABASE_URL`, `DIRECT_URL`, `JWT_SECRET` (a long random string — the server **refuses to start** in production with the dev default), `NODE_ENV=production`. `PORT` is supplied by the platform. Seat holds live in process memory, so run **one instance**.
 
-Optional: `STRIPE_SECRET_KEY` + `STRIPE_PUBLISHABLE_KEY` enable card payments (see below). Leave them unset and the card method simply doesn't appear — nothing else changes.
+Optional: `STRIPE_SECRET_KEY` + `STRIPE_PUBLISHABLE_KEY` enable card payments (see below). Leave them unset and the card method simply doesn't appear — nothing else changes. Likewise `RESEND_API_KEY` (+ optional `MAIL_FROM`) enables the ticket email; without it no mail is sent and the resend button is hidden.
 
 ## Thanh toán sandbox (Stripe test-mode)
 
@@ -74,6 +74,21 @@ STRIPE_PUBLISHABLE_KEY=pk_test_...
 ```
 
 Publishable key được phục vụ qua `GET /api/payments/config` chứ không nhúng vào bundle, nên đổi key trên môi trường production **không cần build lại**.
+
+## Email vé (Resend)
+
+Đặt vé xong, hệ thống **gửi vé qua email**: mã vé, phim, rạp/phòng, ngày giờ, ghế, bắp nước, tổng tiền, kèm **mã QR đính kèm dạng PNG** (Gmail chặn ảnh nhúng base64 nên đính kèm là cách duy nhất chạy được ở mọi phần mềm mail). Email theo đúng ngôn ngữ đang chọn trên web (vi/en). Bước ④ và mỗi vé ở trang "Vé của tôi" đều có nút **Gửi lại vé qua email**.
+
+Email được gửi **ở nền, sau khi đơn đã trả về** — Resend hỏng thì vé vẫn ra bình thường, lỗi chỉ nằm trong log server. Riêng nút gửi lại thì chờ kết quả thật và báo lỗi cụ thể; endpoint đó yêu cầu đăng nhập, chỉ **chủ vé hoặc admin** gọi được, và giới hạn 5 lần/15 phút.
+
+Để bật ở máy dev: tạo API key tại `resend.com` (API Keys → Create API Key) rồi thêm vào `.env`:
+
+```
+RESEND_API_KEY=re_...
+MAIL_FROM=Cinema <onboarding@resend.dev>
+```
+
+Lưu ý: khi **chưa verify domain riêng**, Resend chỉ cho gửi tới đúng địa chỉ email của chủ tài khoản Resend — gửi tới user seed (`a@cinema.vn`) sẽ bị từ chối, và đó là hành vi đúng như thiết kế (đơn vẫn thành công). Verify domain là gỡ được hạn chế này mà không phải sửa dòng code nào.
 
 ## Pages
 
@@ -126,3 +141,4 @@ A custom neo-brutalist CSS design system (no UI library). Tokens (colors, type s
 - Custom "Kinetic" CSS design system (no UI library) — fonts: Bebas Neue / Barlow / Barlow Condensed / Space Mono
 - **Bilingual (Vietnamese default + English)** via react-i18next (prices always VND; dates locale-aware)
 - **PWA** — installable, offline app-shell + cached public catalog, install button + update toast (`vite-plugin-pwa` / Workbox)
+- **Email vé** qua Resend (HTTP API, không SDK) — gửi nền sau khi đặt + nút gửi lại; thiếu key thì tự tắt
