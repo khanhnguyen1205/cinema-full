@@ -1,6 +1,8 @@
 // Thanh toán qua cổng phân quyền (:4000/api/payments). Publishable key lấy TỪ SERVER
 // (không phải biến VITE_*) nên đổi key trên Render không cần build lại image.
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+const BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.PROD ? "/api" : "http://localhost:4000/api");
 
 export interface PaymentConfig {
   enabled: boolean;

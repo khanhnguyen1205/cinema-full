@@ -12,7 +12,13 @@ import type {
   Showtime,
 } from "types";
 
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+// Prod: SPA do CHÍNH server Express phục vụ => đường dẫn tương đối, cùng origin.
+// Dev: web :3000 và API :4000 khác cổng nên phải ghi rõ host.
+// (Docker build không có .env — .dockerignore loại nó — nên KHÔNG được để fallback
+// localhost lọt vào bundle production: trình duyệt của khách sẽ gọi về máy họ.)
+const BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.PROD ? "/api" : "http://localhost:4000/api");
 
 type Id = number | string;
 

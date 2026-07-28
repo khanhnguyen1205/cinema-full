@@ -2,7 +2,11 @@
 // Moi request kem credentials:"include" de trinh duyet gui cookie phien.
 import type { User } from "types";
 
-const AUTH_URL = import.meta.env.VITE_AUTH_URL || "http://localhost:4000";
+// Prod: cùng origin => chuỗi rỗng, `${AUTH_URL}/auth/me` thành "/auth/me".
+// Dev: web :3000 khác cổng với API :4000 nên phải ghi rõ host.
+const AUTH_URL =
+  import.meta.env.VITE_AUTH_URL ||
+  (import.meta.env.PROD ? "" : "http://localhost:4000");
 
 const post = async (path: string, body?: unknown): Promise<Response> => {
   const res = await fetch(`${AUTH_URL}${path}`, {

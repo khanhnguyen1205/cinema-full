@@ -1,7 +1,9 @@
 // Email vé qua cổng phân quyền (:4000/api/emails).
 import i18n from "i18n";
 
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+const BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.PROD ? "/api" : "http://localhost:4000/api");
 
 export interface EmailConfig {
   enabled: boolean;
