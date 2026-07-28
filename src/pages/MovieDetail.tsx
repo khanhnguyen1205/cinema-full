@@ -33,6 +33,7 @@ import {
   useDeleteReview,
 } from "queries/reviews";
 import { reviewStats, type RatingKey } from "lib/reviewStats";
+import { isUpcoming, nowKey } from "lib/time";
 import { useAuth } from "context/AuthContext";
 import "./MovieDetail.css";
 
@@ -62,20 +63,25 @@ export default function MovieDetail() {
   );
 
   // enriched: showtime + room + cinema + cityId + dateKey
+  // Chỉ suất CHƯA chiếu: phễu thành phố → rạp → ngày → giờ là để đặt vé, mà rạp
+  // không bán vé cho suất đã bắt đầu.
   const enriched = useMemo(() => {
     const roomMap = Object.fromEntries(rooms.map((r) => [r.id, r]));
     const cinemaMap = Object.fromEntries(cinemas.map((c) => [c.id, c]));
-    return showtimes.map((s) => {
-      const room = roomMap[s.roomId];
-      const cinema = room ? cinemaMap[room.cinemaId] : undefined;
-      return {
-        ...s,
-        room,
-        cinema,
-        cityId: cinema?.cityId,
-        dateKey: s.time.slice(0, 10),
-      };
-    });
+    const now = nowKey();
+    return showtimes
+      .filter((s) => isUpcoming(s.time, now))
+      .map((s) => {
+        const room = roomMap[s.roomId];
+        const cinema = room ? cinemaMap[room.cinemaId] : undefined;
+        return {
+          ...s,
+          room,
+          cinema,
+          cityId: cinema?.cityId,
+          dateKey: s.time.slice(0, 10),
+        };
+      });
   }, [showtimes, rooms, cinemas]);
 
   const [cityId, setCityId] = useState<number | null>(null);

@@ -9,6 +9,7 @@ import {
   useCities,
 } from "queries/catalog";
 import { normalize, matches, scoreMatch } from "lib/search";
+import { isUpcoming, nowKey } from "lib/time";
 import { formatDateTime } from "i18n/format";
 import type { Movie, Cinema, Showtime } from "types";
 import "./GlobalSearch.css";
@@ -93,9 +94,9 @@ export default function GlobalSearch() {
 
   const showHits = useMemo<ShowResult[]>(() => {
     if (!qn) return [];
-    const now = new Date().toISOString();
+    const now = nowKey();
     return showtimes
-      .filter((s) => s.time >= now)
+      .filter((s) => isUpcoming(s.time, now))
       .map((s) => {
         const room = roomById[s.roomId];
         const cinema = room ? cinemaById[room.cinemaId] : undefined;

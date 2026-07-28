@@ -1,7 +1,16 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import db from "../../db.json";
+import { addDays, dayOf, offsetDaysFor } from "./date-shift";
 
 const prisma = new PrismaClient();
+
+// db.json giữ ngày cứng; seed dịch cả bộ về quanh HÔM NAY để suất chiếu không bao giờ
+// cũ (xem date-shift.ts). Một offset duy nhất cho mọi bảng nên quan hệ thời gian giữa
+// đơn đặt, suất chiếu và đánh giá vẫn y như trong fixture.
+const TODAY = new Date().toISOString().slice(0, 10);
+const EARLIEST = db.showtimes.map((s) => dayOf(s.time)).sort()[0] ?? TODAY;
+const OFFSET = offsetDaysFor(EARLIEST, TODAY);
+const shift = (iso: string): string => addDays(iso, OFFSET);
 
 // Bảng theo thứ tự FK (cha trước con). Reset sequence sau khi insert id thủ công.
 const TABLES = [
@@ -67,7 +76,9 @@ async function seed() {
     })),
   });
 
-  await prisma.showtime.createMany({ data: db.showtimes });
+  await prisma.showtime.createMany({
+    data: db.showtimes.map((s) => ({ ...s, time: shift(s.time) })),
+  });
 
   await prisma.booking.createMany({
     data: db.bookings.map((b) => ({
@@ -83,11 +94,13 @@ async function seed() {
       userId: b.userId,
       userName: b.userName,
       totalPrice: b.totalPrice,
-      createdAt: b.createdAt,
+      createdAt: shift(b.createdAt),
     })),
   });
 
-  await prisma.review.createMany({ data: db.reviews });
+  await prisma.review.createMany({
+    data: db.reviews.map((r) => ({ ...r, createdAt: shift(r.createdAt) })),
+  });
 
   await resetSequences();
 }
@@ -130,6 +143,16 @@ async function verify() {
         .join("; ")}`,
     );
   }
+  const days = [
+    ...new Set(
+      (await prisma.showtime.findMany({ select: { time: true } })).map((s) =>
+        dayOf(s.time),
+      ),
+    ),
+  ].sort();
+  console.log(
+    `📅 Đã dịch mốc thời gian ${OFFSET >= 0 ? "+" : ""}${OFFSET} ngày: suất chiếu trải từ ${days[0]} đến ${days[days.length - 1]} (hôm nay ${TODAY}).`,
+  );
   console.log("✅ Seed khớp db.json (id giữ nguyên, sequence đã reset).");
 }
 

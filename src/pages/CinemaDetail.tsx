@@ -6,6 +6,7 @@ import Footer from "components/Footer";
 import { Container, KineticHeading, Reveal, Spinner } from "components/ui";
 import { genreLabel } from "i18n/genres";
 import { formatDate, formatPrice } from "i18n/format";
+import { isUpcoming, nowKey } from "lib/time";
 import {
   useCinema,
   useShowtimesByCinema,
@@ -54,16 +55,18 @@ export default function CinemaDetail() {
       month: "2-digit",
     });
 
-  const byMovie = useMemo(
-    () =>
-      movies
-        .map((m) => ({
-          movie: m,
-          sts: showtimes.filter((s) => s.movieId === m.id),
-        }))
-        .filter((x) => x.sts.length > 0),
-    [movies, showtimes],
-  );
+  // Chỉ suất CHƯA chiếu — lịch chiếu của rạp là để đặt vé.
+  const byMovie = useMemo(() => {
+    const now = nowKey();
+    return movies
+      .map((m) => ({
+        movie: m,
+        sts: showtimes.filter(
+          (s) => s.movieId === m.id && isUpcoming(s.time, now),
+        ),
+      }))
+      .filter((x) => x.sts.length > 0);
+  }, [movies, showtimes]);
 
   const roomsCount = useMemo(
     () => rooms.filter((r) => r.cinemaId === Number(cinemaId)).length,
