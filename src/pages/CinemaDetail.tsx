@@ -68,6 +68,13 @@ export default function CinemaDetail() {
       .filter((x) => x.sts.length > 0);
   }, [movies, showtimes]);
 
+  // Đếm đúng thứ đang liệt kê bên dưới, nếu không header ghi "12 suất" mà lịch chỉ
+  // hiện 2 (số cũ đếm cả suất đã chiếu).
+  const upcomingCount = useMemo(
+    () => byMovie.reduce((n, x) => n + x.sts.length, 0),
+    [byMovie],
+  );
+
   const roomsCount = useMemo(
     () => rooms.filter((r) => r.cinemaId === Number(cinemaId)).length,
     [rooms, cinemaId],
@@ -111,7 +118,7 @@ export default function CinemaDetail() {
               <span className="stat-k__label">{t("cinemas.statMovies")}</span>
             </div>
             <div className="stat-k">
-              <span className="stat-k__num">{showtimes.length}</span>
+              <span className="stat-k__num">{upcomingCount}</span>
               <span className="stat-k__label">
                 {t("cinemas.statShowtimes")}
               </span>
