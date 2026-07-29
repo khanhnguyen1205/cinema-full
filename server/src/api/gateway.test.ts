@@ -197,6 +197,134 @@ describe("gateway — bookings: giới hạn theo chủ sở hữu", () => {
   });
 });
 
+describe("gateway — reviews: đọc công khai, sửa/xoá là chủ-hoặc-admin", () => {
+  it("khách đọc được", async () => {
+    prismaMock.review.findMany.mockResolvedValue([]);
+    const res = await request(app).get("/api/reviews?movieId=1");
+    expect(res.status).toBe(200);
+    expect(prismaMock.review.findMany).toHaveBeenCalledWith({
+      where: { movieId: 1 },
+      orderBy: { id: "asc" },
+    });
+  });
+
+  it("khách POST bị 401", async () => {
+    const res = await request(app)
+      .post("/api/reviews")
+      .send({ movieId: 1, rating: 5 });
+    expect(res.status).toBe(401);
+  });
+
+  it("rating ngoài 1..5 bị 400", async () => {
+    const res = await request(app)
+      .post("/api/reviews")
+      .set("Cookie", cookieFor(2, "user"))
+      .send({ movieId: 1, rating: 9 });
+    expect(res.status).toBe(400);
+    expect(prismaMock.review.create).not.toHaveBeenCalled();
+  });
+
+  it("phim không tồn tại bị 404", async () => {
+    prismaMock.movie.findUnique.mockResolvedValue(null);
+    const res = await request(app)
+      .post("/api/reviews")
+      .set("Cookie", cookieFor(2, "user"))
+      .send({ movieId: 99, rating: 5 });
+    expect(res.status).toBe(404);
+  });
+
+  it("server tự đóng dấu userId/userName/verified, không tin client", async () => {
+    prismaMock.movie.findUnique.mockResolvedValue({ id: 1 });
+    prismaMock.booking.count.mockResolvedValue(1); // đã đặt vé -> verified
+    prismaMock.user.findUnique.mockResolvedValue({
+      id: 2,
+      fullName: "Người Dùng",
+    });
+    prismaMock.review.create.mockResolvedValue({ id: 10 });
+
+    const res = await request(app)
+      .post("/api/reviews")
+      .set("Cookie", cookieFor(2, "user"))
+      .send({
+        movieId: 1,
+        rating: 4,
+        comment: "Ổn",
+        userId: 999,
+        verified: true,
+        userName: "Kẻ giả mạo",
+      });
+
+    expect(res.status).toBe(201);
+    const arg = prismaMock.review.create.mock.calls[0][0] as {
+      data: Record<string, unknown>;
+    };
+    expect(arg.data.userId).toBe(2);
+    expect(arg.data.userName).toBe("Người Dùng");
+    expect(arg.data.verified).toBe(true);
+  });
+
+  it("chưa đặt vé thì verified = false", async () => {
+    prismaMock.movie.findUnique.mockResolvedValue({ id: 1 });
+    prismaMock.booking.count.mockResolvedValue(0);
+    prismaMock.user.findUnique.mockResolvedValue({
+      id: 3,
+      fullName: "Người Lạ",
+    });
+    prismaMock.review.create.mockResolvedValue({ id: 11 });
+
+    await request(app)
+      .post("/api/reviews")
+      .set("Cookie", cookieFor(3, "user"))
+      .send({ movieId: 1, rating: 3 });
+
+    const arg = prismaMock.review.create.mock.calls[0][0] as {
+      data: Record<string, unknown>;
+    };
+    expect(arg.data.verified).toBe(false);
+  });
+
+  it("người khác KHÔNG xoá được review của mình", async () => {
+    prismaMock.review.findUnique.mockResolvedValue({ id: 1, userId: 2 });
+    const res = await request(app)
+      .delete("/api/reviews/1")
+      .set("Cookie", cookieFor(3, "user"));
+    expect(res.status).toBe(403);
+    expect(prismaMock.review.delete).not.toHaveBeenCalled();
+  });
+
+  it("chủ review xoá được", async () => {
+    prismaMock.review.findUnique.mockResolvedValue({ id: 1, userId: 2 });
+    prismaMock.review.delete.mockResolvedValue({ id: 1 });
+    const res = await request(app)
+      .delete("/api/reviews/1")
+      .set("Cookie", cookieFor(2, "user"));
+    expect(res.status).toBe(200);
+  });
+
+  it("admin xoá được review của người khác", async () => {
+    prismaMock.review.findUnique.mockResolvedValue({ id: 1, userId: 2 });
+    prismaMock.review.delete.mockResolvedValue({ id: 1 });
+    const res = await request(app)
+      .delete("/api/reviews/1")
+      .set("Cookie", cookieFor(1, "admin"));
+    expect(res.status).toBe(200);
+  });
+
+  it("PATCH của chủ chỉ ghi được rating/comment", async () => {
+    prismaMock.review.findUnique.mockResolvedValue({ id: 1, userId: 2 });
+    prismaMock.review.update.mockResolvedValue({ id: 1 });
+    await request(app)
+      .patch("/api/reviews/1")
+      .set("Cookie", cookieFor(2, "user"))
+      .send({ rating: 2, comment: "Đổi ý", verified: true, userId: 999 });
+
+    const arg = prismaMock.review.update.mock.calls[0][0] as {
+      data: Record<string, unknown>;
+    };
+    expect(arg.data).toEqual({ rating: 2, comment: "Đổi ý" });
+  });
+});
+
 describe("gateway — collection lạ bị chặn mặc định", () => {
   it("GET /api/secrets bị 403 dù là admin", async () => {
     const res = await request(app)
