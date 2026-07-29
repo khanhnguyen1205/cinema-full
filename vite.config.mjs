@@ -86,7 +86,9 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "html"],
-      include: ["src/**/*.{ts,tsx}", "server/src/**/*.ts"],
+      // .jsx cũng phải vào: repo còn 3 file .jsx (2 route guard + Modal shim),
+      // bỏ sót thì số đo nói dối là chúng không được test.
+      include: ["src/**/*.{ts,tsx,jsx}", "server/src/**/*.ts"],
       exclude: [
         "**/*.test.{ts,tsx}",
         "src/test/**",
