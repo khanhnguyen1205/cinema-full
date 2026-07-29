@@ -23,7 +23,8 @@ function Probe(): ReactElement {
 
 describe("AuthContext — nạp phiên", () => {
   it("hiện trạng thái đang tải rồi mới ra kết quả", async () => {
-    renderWithProviders(<Probe />);
+    // waitForAuth:false để quan sát chính cửa sổ đang-kiểm-tra-phiên.
+    renderWithProviders(<Probe />, { waitForAuth: false });
     expect(screen.getByText("đang tải")).toBeInTheDocument();
     await waitFor(() => expect(screen.getByText("khách")).toBeInTheDocument());
   });
