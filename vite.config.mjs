@@ -82,6 +82,20 @@ export default defineConfig({
     outDir: "build", // giữ thư mục output như CRA (đã có trong .gitignore)
   },
   test: {
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html"],
+      include: ["src/**/*.{ts,tsx}", "server/src/**/*.ts"],
+      exclude: [
+        "**/*.test.{ts,tsx}",
+        "src/test/**",
+        "server/src/test/**",
+        "src/pages/dev/**",
+        "src/types/**",
+        "src/vite-env.d.ts",
+        "server/src/index.ts",
+      ],
+    },
     projects: [
       {
         extends: true,
