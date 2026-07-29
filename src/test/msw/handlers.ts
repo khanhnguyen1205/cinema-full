@@ -14,7 +14,11 @@ export const handlers = [
   http.post(`${AUTH}/auth/refresh`, () =>
     HttpResponse.json({ error: "Phiên hết hạn." }, { status: 401 }),
   ),
-  http.post(`${AUTH}/auth/logout`, () => HttpResponse.json({})),
+  // Server thật trả 204 không thân (auth/routes.ts).
+  http.post(
+    `${AUTH}/auth/logout`,
+    () => new HttpResponse(null, { status: 204 }),
+  ),
 
   http.get(`${API}/cities`, () => HttpResponse.json(fx.cities)),
   http.get(`${API}/cinemas`, () => HttpResponse.json(fx.cinemas)),
@@ -23,7 +27,11 @@ export const handlers = [
   http.get(`${API}/showtimes`, () => HttpResponse.json(fx.showtimes)),
   http.get(`${API}/concessions`, () => HttpResponse.json(fx.concessions)),
   http.get(`${API}/reviews`, () => HttpResponse.json(fx.reviews)),
-  http.get(`${API}/occupied-seats`, () => HttpResponse.json(["A1", "A2"])),
+  http.get(`${API}/occupied-seats`, ({ request }) => {
+    const showtimeId = new URL(request.url).searchParams.get("showtimeId");
+    // Hình dạng PHẢI khớp server thật: { showtimeId, seats } — client đọc d.seats.
+    return HttpResponse.json({ showtimeId, seats: ["A1", "A2"] });
+  }),
   http.get(`${API}/payments/config`, () =>
     HttpResponse.json({ enabled: false, publishableKey: null }),
   ),
