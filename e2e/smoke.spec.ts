@@ -64,11 +64,20 @@ test("đăng nhập admin và thấy mục Quản trị", async ({ page }) => {
 
 test("trang chi tiết phim: hero, panel đặt vé và giờ chiếu", async ({
   page,
+  request,
 }) => {
-  // Vào từ trang phim để lấy một phim thật (không hardcode id)
-  await page.goto("/movies");
-  await page.locator(".movie-k").first().click();
-  await expect(page).toHaveURL(/\/movie\/\d+/);
+  // Hỏi API lấy một phim CÒN suất chưa chiếu (không hardcode id).
+  // Không lấy thẻ phim đầu bảng: panel chỉ chào bán suất chưa chiếu, mà phim đầu
+  // bảng có thể đã chiếu hết suất -> test đỏ theo giờ chạy.
+  const res = await request.get("http://localhost:4000/api/showtimes");
+  const showtimes = (await res.json()) as { movieId: number; time: string }[];
+  const p = (n: number): string => String(n).padStart(2, "0");
+  const now = new Date();
+  const nowKey = `${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())}T${p(now.getHours())}:${p(now.getMinutes())}`;
+  const upcoming = showtimes.find((s) => s.time >= nowKey);
+  expect(upcoming, "cần ít nhất một suất chưa chiếu trong DB").toBeTruthy();
+
+  await page.goto(`/movie/${upcoming!.movieId}`);
   // Panel đặt vé hiển thị
   await expect(page.locator(".book-k")).toBeVisible();
   // Có ít nhất một nút giờ chiếu -> bấm -> nút Đặt vé bật (không disabled)
