@@ -96,6 +96,107 @@ describe("gateway — users: chỉ admin", () => {
   });
 });
 
+describe("gateway — bookings: giới hạn theo chủ sở hữu", () => {
+  it("khách GET /api/bookings bị 401", async () => {
+    const res = await request(app).get("/api/bookings");
+    expect(res.status).toBe(401);
+  });
+
+  it("user thường chỉ thấy đơn của chính mình", async () => {
+    prismaMock.booking.findMany.mockResolvedValue([]);
+    const res = await request(app)
+      .get("/api/bookings")
+      .set("Cookie", cookieFor(2, "user"));
+    expect(res.status).toBe(200);
+    expect(prismaMock.booking.findMany).toHaveBeenCalledWith({
+      where: { userId: 2 },
+      orderBy: { id: "asc" },
+    });
+  });
+
+  it("admin thấy tất cả (không kèm bộ lọc userId)", async () => {
+    prismaMock.booking.findMany.mockResolvedValue([]);
+    await request(app)
+      .get("/api/bookings")
+      .set("Cookie", cookieFor(1, "admin"));
+    expect(prismaMock.booking.findMany).toHaveBeenCalledWith({
+      where: {},
+      orderBy: { id: "asc" },
+    });
+  });
+
+  it("user thường KHÔNG đọc được đơn lẻ của người khác", async () => {
+    const res = await request(app)
+      .get("/api/bookings/7")
+      .set("Cookie", cookieFor(2, "user"));
+    expect(res.status).toBe(403);
+    expect(prismaMock.booking.findUnique).not.toHaveBeenCalled();
+  });
+
+  it("POST ép userId về chính người gọi dù client gửi userId giả", async () => {
+    prismaMock.booking.create.mockResolvedValue({ id: 5 });
+    const res = await request(app)
+      .post("/api/bookings")
+      .set("Cookie", cookieFor(2, "user"))
+      .send({
+        userId: 999, // giả mạo
+        movieId: 1,
+        showtimeId: 1,
+        cinemaId: 1,
+        roomId: 1,
+        seats: ["B3"],
+        seatTypes: { standard: 1, vip: 0, couple: 0 },
+        totalPrice: 105000,
+      });
+
+    expect(res.status).toBe(201);
+    const arg = prismaMock.booking.create.mock.calls[0][0] as {
+      data: Record<string, unknown>;
+    };
+    expect(arg.data.userId).toBe(2);
+  });
+
+  it("POST không phải thẻ thì paymentRef bị tước", async () => {
+    prismaMock.booking.create.mockResolvedValue({ id: 6 });
+    await request(app)
+      .post("/api/bookings")
+      .set("Cookie", cookieFor(2, "user"))
+      .send({
+        paymentMethod: "counter",
+        paymentRef: "pi_gia_mao",
+        movieId: 1,
+        showtimeId: 1,
+        cinemaId: 1,
+        roomId: 1,
+        seats: ["B3"],
+        seatTypes: { standard: 1, vip: 0, couple: 0 },
+        totalPrice: 105000,
+      });
+
+    const arg = prismaMock.booking.create.mock.calls[0][0] as {
+      data: Record<string, unknown>;
+    };
+    expect(arg.data.paymentRef ?? null).toBeNull();
+  });
+
+  it("user thường không được PATCH đơn", async () => {
+    const res = await request(app)
+      .patch("/api/bookings/1")
+      .set("Cookie", cookieFor(2, "user"))
+      .send({ seats: ["A1"] });
+    expect(res.status).toBe(403);
+    expect(prismaMock.booking.update).not.toHaveBeenCalled();
+  });
+
+  it("admin được DELETE đơn", async () => {
+    prismaMock.booking.delete.mockResolvedValue({ id: 1 });
+    const res = await request(app)
+      .delete("/api/bookings/1")
+      .set("Cookie", cookieFor(1, "admin"));
+    expect(res.status).toBe(200);
+  });
+});
+
 describe("gateway — collection lạ bị chặn mặc định", () => {
   it("GET /api/secrets bị 403 dù là admin", async () => {
     const res = await request(app)
