@@ -82,8 +82,31 @@ export default defineConfig({
     outDir: "build", // giữ thư mục output như CRA (đã có trong .gitignore)
   },
   test: {
-    environment: "happy-dom", // cần DOM cho test component (Testing Library)
-    setupFiles: ["./src/test/setup.ts"],
-    include: ["src/**/*.{test,spec}.{ts,tsx}", "server/**/*.{test,spec}.ts"],
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: "client",
+          environment: "happy-dom", // cần DOM cho test component (Testing Library)
+          setupFiles: ["./src/test/setup.ts"],
+          include: ["src/**/*.{test,spec}.{ts,tsx}"],
+          // Ghim URL để handler MSW cố định — CI không có .env, máy dev thì có.
+          env: {
+            VITE_API_URL: "http://localhost:4000/api",
+            VITE_AUTH_URL: "http://localhost:4000",
+          },
+        },
+      },
+      {
+        extends: true,
+        test: {
+          name: "server",
+          // Test server bắn request vào app Express thật (supertest), không cần DOM.
+          environment: "node",
+          setupFiles: ["./server/src/test/setup.ts"],
+          include: ["server/**/*.{test,spec}.ts"],
+        },
+      },
+    ],
   },
 });
