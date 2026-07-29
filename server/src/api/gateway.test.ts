@@ -1,16 +1,17 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import request from "supertest";
+import { app } from "../app";
+import { prismaMock, resetPrismaMock } from "../test/prismaMock";
 
-// Mock TRƯỚC khi app.ts được import (vi.mock được hoisted).
+// vi.mock được hoist LÊN TRÊN mọi import, nên app.ts nhận prisma giả.
+// Factory dùng dynamic import (không phải biến ngoài) để tránh lỗi truy cập
+// trước khởi tạo; module trả về vẫn là đúng instance mà file này import tĩnh.
 vi.mock("../db/prisma", async () => {
-  const { prismaMock } = await import("../test/prismaMock");
-  return { prisma: prismaMock };
+  const { prismaMock: mock } = await import("../test/prismaMock");
+  return { prisma: mock };
 });
 // Email chạy ở nền sau khi đặt vé — chặn để test không chạm mạng.
 vi.mock("../email/send", () => ({ sendTicketEmail: vi.fn() }));
-
-const { app } = await import("../app");
-const { prismaMock, resetPrismaMock } = await import("../test/prismaMock");
 
 beforeEach(() => resetPrismaMock());
 
