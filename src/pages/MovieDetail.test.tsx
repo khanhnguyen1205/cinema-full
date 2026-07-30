@@ -17,6 +17,8 @@ const setup = async (movieId: number) => {
     <>
       <Routes>
         <Route path="/movie/:id" element={<MovieDetail />} />
+        {/* Bắt mọi đích điều hướng để router không log "No routes matched". */}
+        <Route path="*" element={null} />
       </Routes>
       <Probe />
     </>,
