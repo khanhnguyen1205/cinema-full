@@ -18,6 +18,8 @@ interface Options {
    * Đặt false khi muốn quan sát chính trạng thái loading.
    */
   waitForAuth?: boolean;
+  /** location.state của mục đầu tiên — vài trang đọc nó (Home -> Movies). */
+  state?: unknown;
 }
 
 // Fast Refresh cảnh báo vì file có cả component lẫn hàm helper — đây là tiện ích
@@ -33,7 +35,7 @@ function AuthGate({ children }: { children: ReactNode }): ReactElement | null {
 // Nơi gọi vẫn nhận đủ screen-queries + queryClient.
 export function renderWithProviders(
   ui: ReactElement,
-  { route = "/", user = null, waitForAuth = true }: Options = {},
+  { route = "/", user = null, waitForAuth = true, state }: Options = {},
 ) {
   // AuthProvider hydrate bằng fetchMe() lúc mount -> phải cài handler TRƯỚC render.
   if (user) {
@@ -51,7 +53,9 @@ export function renderWithProviders(
   const Wrapper = ({ children }: { children: ReactNode }): ReactElement => (
     <QueryClientProvider client={queryClient}>
       <MemoryRouter
-        initialEntries={[route]}
+        initialEntries={[
+          state === undefined ? route : { pathname: route, state },
+        ]}
         // Khớp future flags của BrowserRouter trong App.tsx — nếu không, test
         // chạy một cấu hình router khác app thật (và in warning v7).
         future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
