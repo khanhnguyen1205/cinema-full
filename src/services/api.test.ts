@@ -24,7 +24,7 @@ describe("services/api — đọc catalog", () => {
     );
 
     const movies = await getMovies();
-    expect(movies).toHaveLength(2);
+    expect(movies).toHaveLength(fx.movies.length);
     expect(credentials).toBe("include");
   });
 

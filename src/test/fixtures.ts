@@ -75,6 +75,16 @@ export const fx = {
       genre: "Sci-Fi",
       rating: 7.1,
     },
+    // Phim KHÔNG có suất nào — để test trạng thái "chưa có lịch chiếu".
+    {
+      id: 3,
+      title: "Phim Chưa Xếp Lịch",
+      poster: "",
+      description: "Phim thử nghiệm số ba.",
+      duration: 80,
+      genre: "Drama",
+      rating: 6.2,
+    },
   ] as Movie[],
 
   showtimes: [
@@ -170,6 +180,18 @@ export const fx = {
       comment: "Rất hay.",
       verified: true,
       createdAt: shift(-2),
+    },
+    // Review của NGƯỜI KHÁC (không phải fx.user) và chưa xác thực đã xem —
+    // để phân biệt "đánh giá của bạn" với đánh giá của người lạ.
+    {
+      id: 2,
+      movieId: 1,
+      userId: 9,
+      userName: "Khán Giả Khác",
+      rating: 3,
+      comment: "Tạm được.",
+      verified: false,
+      createdAt: shift(-3),
     },
   ] as Review[],
 };
