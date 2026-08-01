@@ -86,6 +86,17 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "html"],
+      // Cổng chặn thật, chạy trong CI qua `npm run test:cov` (KHÔNG phải
+      // `test:run` — lệnh đó không bật coverage nên ngưỡng sẽ bị bỏ qua).
+      // Chốt ở T9 thấp hơn mức đo được (90.93/88.37/85.56) đúng ~1 điểm: đặt
+      // sát tuyệt đối thì một refactor vô hại cũng làm CI đỏ, rồi người ta
+      // quen tay hạ ngưỡng và cổng mất tác dụng.
+      thresholds: {
+        statements: 90,
+        lines: 90,
+        branches: 87,
+        functions: 84,
+      },
       // .jsx cũng phải vào: repo còn 3 file .jsx (2 route guard + Modal shim),
       // bỏ sót thì số đo nói dối là chúng không được test.
       include: ["src/**/*.{ts,tsx,jsx}", "server/src/**/*.ts"],

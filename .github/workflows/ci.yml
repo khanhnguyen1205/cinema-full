@@ -19,7 +19,9 @@ jobs:
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run format:check
-      - run: npm run test:run
+      # test:cov chứ không phải test:run: chỉ lệnh này bật coverage, mà ngưỡng
+      # trong vite.config.mjs mới là thứ chặn khi độ phủ tụt.
+      - run: npm run test:cov
       - run: npm run build
 
   e2e:
