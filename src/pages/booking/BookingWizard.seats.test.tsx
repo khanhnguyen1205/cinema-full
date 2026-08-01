@@ -82,6 +82,16 @@ describe("BookingWizard — bước ① chọn ghế", () => {
     expect(screen.getByText("Ghế thường (×1)")).toBeInTheDocument();
   });
 
+  it("ghế đang chọn được đánh dấu bằng aria-selected", async () => {
+    await setup();
+    // role="gridcell" KHÔNG cho aria-pressed (axe: aria-allowed-attr, critical)
+    // nên trạng thái chọn phải nằm ở aria-selected.
+    expect(seat("B1")).toHaveAttribute("aria-selected", "false");
+    await pick("B1");
+    expect(seat("B1")).toHaveAttribute("aria-selected", "true");
+    expect(seat("B1")).not.toHaveAttribute("aria-pressed");
+  });
+
   it("bấm lại ghế đang chọn thì bỏ chọn và khoá nút tiếp tục", async () => {
     await setup();
     await pick("B1");

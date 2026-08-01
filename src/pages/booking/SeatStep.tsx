@@ -129,7 +129,9 @@ export default function SeatStep({
                         }
                         tabIndex={seat.seatNumber === focused ? 0 : -1}
                         aria-label={label}
-                        aria-pressed={isSel}
+                        // gridcell không cho aria-pressed (axe:
+                        // aria-allowed-attr) — trạng thái chọn dùng aria-selected.
+                        aria-selected={isSel}
                         aria-disabled={isBooked}
                         onFocus={() => setFocused(seat.seatNumber)}
                         onKeyDown={(e) => onKeyDown(e, seat)}
