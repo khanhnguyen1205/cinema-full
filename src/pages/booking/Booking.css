@@ -49,28 +49,24 @@
   margin: 0;
   padding: 0;
 }
+/* KHÔNG làm mờ bằng opacity: 0.5 kéo --red xuống #781d1d (1.87:1) và
+   --text-muted xuống #494949 (2.19:1) — bước chưa tới trở thành không đọc nổi.
+   Trạng thái bước nay thể hiện bằng MÀU, không bằng độ mờ. */
 .stepper-k__item {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 0 16px;
   border-right: 1px solid var(--border);
-  opacity: 0.5;
 }
 .stepper-k__item:last-child {
   border-right: none;
-}
-.stepper-k__item.is-current {
-  opacity: 1;
-}
-.stepper-k__item.is-done {
-  opacity: 0.8;
 }
 .stepper-k__no {
   font-family: "Bebas Neue", sans-serif;
   font-size: 18px;
   letter-spacing: 1px;
-  color: var(--red);
+  color: var(--red-text);
 }
 .stepper-k__item.is-done .stepper-k__no {
   color: var(--text);
@@ -111,7 +107,7 @@
   border-color: var(--red);
 }
 .hold-k.is-warn .hold-k__time {
-  color: var(--red);
+  color: var(--red-text);
   animation: holdBlink 1s steps(2) infinite;
 }
 @keyframes holdBlink {
@@ -135,7 +131,7 @@
 }
 .booking-k__expire button {
   margin-left: auto;
-  background: var(--red);
+  background: var(--red-bg);
   color: #fff;
   border: none;
   padding: 6px 14px;
@@ -213,7 +209,7 @@
   gap: 2px;
 }
 .os-k__seatlist {
-  color: var(--red);
+  color: var(--red-text);
 }
 .os-k__breakdown {
   border-top: 1px solid var(--border);
@@ -252,13 +248,13 @@
 }
 .os-k__error {
   border: 1px solid var(--red);
-  color: var(--red);
+  color: var(--red-text);
   font-family: var(--font-mono);
   font-size: 12px;
   padding: 8px 10px;
 }
 .os-k__cta {
-  background: var(--red);
+  background: var(--red-bg);
   color: #fff;
   border: none;
   padding: 14px;
@@ -411,7 +407,7 @@
 }
 .seatmap-k__seat.is-vip {
   border-color: var(--red);
-  color: var(--red);
+  color: var(--red-text);
 }
 .seatmap-k__seat.is-couplecell {
   width: 66px;
@@ -582,7 +578,7 @@
 .fnb-k__price {
   font-family: var(--font-mono);
   font-size: 13px;
-  color: var(--red);
+  color: var(--red-text);
 }
 .fnb-k__qty {
   display: flex;
@@ -720,7 +716,7 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: var(--red);
+  background: var(--red-bg);
   color: #fff;
   display: flex;
   align-items: center;
@@ -755,7 +751,7 @@
   justify-content: center;
 }
 .ticket-k__primary {
-  background: var(--red);
+  background: var(--red-bg);
   color: #fff;
   border: none;
   padding: 14px 24px;
@@ -806,6 +802,6 @@
   margin-top: var(--sp-1);
   font-family: var(--font-mono);
   font-size: var(--fs-label);
-  color: var(--red);
+  color: var(--red-text);
   word-break: break-all;
 }

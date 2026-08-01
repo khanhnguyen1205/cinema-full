@@ -83,7 +83,7 @@
   color: var(--text);
 }
 .mytk-k__cta {
-  background: var(--red);
+  background: var(--red-bg);
   color: #fff;
   border: none;
   padding: 12px 24px;

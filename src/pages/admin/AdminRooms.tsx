@@ -129,6 +129,7 @@ export default function AdminRooms() {
         />
         <select
           className="adm-k__filter"
+          aria-label={t("admin.cinemaFilter")}
           value={cinemaFilter}
           onChange={(e) => setCinemaFilter(e.target.value)}
         >

@@ -82,7 +82,7 @@
   letter-spacing: var(--tr-wide);
   text-transform: uppercase;
   color: #fff;
-  background: var(--red);
+  background: var(--red-bg);
   padding: var(--sp-2) var(--sp-4);
   border-radius: var(--r-sm);
   transition: background var(--dur-fast);
@@ -212,7 +212,7 @@
   transition: background var(--dur-fast) var(--ease-out);
 }
 .install-k:hover {
-  background: var(--red);
+  background: var(--red-bg);
   color: #fff;
   border-color: var(--red);
 }

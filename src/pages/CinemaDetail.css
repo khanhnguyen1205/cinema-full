@@ -147,7 +147,7 @@
 }
 
 .sched-k__title:hover {
-  color: var(--red);
+  color: var(--red-text);
 }
 
 .sched-k__meta {

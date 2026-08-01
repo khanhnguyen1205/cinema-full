@@ -135,7 +135,7 @@
   font-size: var(--fs-label);
   letter-spacing: var(--tr-wider);
   text-transform: uppercase;
-  color: var(--red);
+  color: var(--red-text);
 }
 .authf-k__title {
   font-family: var(--font-display);
@@ -286,7 +286,7 @@
     box-shadow var(--dur-fast) var(--ease-out);
 }
 .authf-k__submit:hover:not(:disabled) {
-  background: var(--red);
+  background: var(--red-bg);
   color: #fff;
   border-color: var(--red);
   box-shadow: var(--shadow-hard-dark);
@@ -335,7 +335,7 @@
   color: var(--text-muted);
 }
 .authf-k__link {
-  color: var(--red);
+  color: var(--red-text);
   font-weight: 600;
   text-decoration: none;
 }

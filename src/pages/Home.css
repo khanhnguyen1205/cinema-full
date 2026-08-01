@@ -70,12 +70,12 @@
 }
 .hero-k__label {
   color: #fff;
-  background: var(--red);
+  background: var(--red-bg);
   padding: var(--sp-1) var(--sp-2);
   font-weight: 700;
 }
 .hero-k__rating {
-  color: var(--red);
+  color: var(--red-text);
   font-weight: 700;
 }
 .hero-k__genre {
@@ -126,7 +126,7 @@
   color: var(--text-muted);
 }
 .hero-k__tab.is-active {
-  color: var(--red);
+  color: var(--red-text);
   border-top-color: var(--red);
 }
 .hero-k__tab:focus-visible {
@@ -209,7 +209,7 @@
   transition: color var(--dur-fast);
 }
 .home-head__all:hover {
-  color: var(--red);
+  color: var(--red-text);
 }
 
 /* ===== Genre tiles ===== */
@@ -315,7 +315,7 @@
 .cinema-k__no {
   font-family: var(--font-mono);
   font-size: var(--fs-sm);
-  color: var(--red);
+  color: var(--red-text);
 }
 .cinema-k__body {
   display: flex;

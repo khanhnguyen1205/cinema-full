@@ -35,7 +35,7 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   padding: 6px 12px;
-  background: var(--red);
+  background: var(--red-bg);
   color: #fff;
   border: none;
   border-radius: var(--r-sm);

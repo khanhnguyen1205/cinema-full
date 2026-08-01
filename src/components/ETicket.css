@@ -32,7 +32,7 @@
   letter-spacing: 2px;
 }
 .eticket-k__code {
-  color: var(--red);
+  color: var(--red-text);
   white-space: nowrap;
 }
 .eticket-k__title {
@@ -70,7 +70,7 @@
   font-weight: 600;
 }
 .eticket-k__seats {
-  color: var(--red);
+  color: var(--red-text);
 }
 .eticket-k__fnb {
   margin-top: 12px;

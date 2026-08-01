@@ -78,7 +78,7 @@
   font-family: var(--font-mono);
   font-size: 14px;
   font-weight: 700;
-  color: var(--red);
+  color: var(--red-text);
 }
 
 .detail-k__genre {
@@ -188,7 +188,7 @@
 }
 
 .date-k-btn.is-active {
-  background: var(--red);
+  background: var(--red-bg);
   border-color: var(--red);
   color: #fff;
 }
@@ -230,7 +230,7 @@
 }
 
 .time-k-btn.is-active {
-  background: var(--red);
+  background: var(--red-bg);
   border-color: var(--red);
   color: #fff;
 }
@@ -349,7 +349,7 @@
 .detail-k__cinemas .cinema-k__no {
   font-family: var(--font-mono);
   font-size: var(--fs-sm, 13px);
-  color: var(--red);
+  color: var(--red-text);
 }
 .detail-k__cinemas .cinema-k__body {
   display: flex;
@@ -464,7 +464,7 @@
 .rev-k__dist-fill {
   display: block;
   height: 100%;
-  background: var(--red);
+  background: var(--red-bg);
 }
 .rev-k__dist-n {
   text-align: right;
@@ -516,7 +516,7 @@
   gap: var(--sp-2);
 }
 .rev-k__error {
-  color: var(--red);
+  color: var(--red-text);
   font-size: var(--fs-sm);
 }
 .rev-k__mine-cmt {
@@ -527,7 +527,7 @@
   font-size: var(--fs-sm);
 }
 .rev-k__login a {
-  color: var(--red);
+  color: var(--red-text);
   text-decoration: underline;
 }
 
@@ -577,7 +577,7 @@
 .rev-k__del {
   background: none;
   border: none;
-  color: var(--red);
+  color: var(--red-text);
   cursor: pointer;
   font: inherit;
   padding: 0;

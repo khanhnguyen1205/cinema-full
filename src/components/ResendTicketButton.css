@@ -22,7 +22,7 @@
 }
 
 .resend-k__btn:hover:not(:disabled) {
-  background: var(--red);
+  background: var(--red-bg);
   border-color: var(--red);
   color: #fff;
 }
@@ -43,5 +43,5 @@
 }
 
 .resend-k__err {
-  color: var(--red);
+  color: var(--red-text);
 }

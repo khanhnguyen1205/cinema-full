@@ -35,7 +35,7 @@
   color: var(--text-muted);
 }
 .search-k__count b {
-  color: var(--red);
+  color: var(--red-text);
 }
 .search-k__sechd {
   display: flex;
@@ -47,7 +47,7 @@
 .search-k__seccount {
   font-family: var(--font-mono);
   font-size: var(--fs-md);
-  color: var(--red);
+  color: var(--red-text);
 }
 .search-k__more {
   margin-left: auto;
@@ -116,7 +116,7 @@
 .search-k__showgo {
   font-family: var(--font-mono);
   font-size: var(--fs-sm);
-  color: var(--red);
+  color: var(--red-text);
 }
 
 /* --- .venue-k: COPY từ src/pages/Cinemas.css để trang search tự chứa --- */
@@ -167,5 +167,5 @@
   padding-top: 6px;
   font-family: var(--font-mono);
   font-size: 13px;
-  color: var(--red);
+  color: var(--red-text);
 }
