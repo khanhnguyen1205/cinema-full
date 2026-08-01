@@ -1,19 +1,29 @@
 // Server giả ở tầng HTTP: test đi qua services/* và queries/* THẬT.
 // URL khớp VITE_API_URL / VITE_AUTH_URL đã ghim trong vite.config.mjs.
 import { http, HttpResponse } from "msw";
-import type { Booking, Review } from "types";
+import type { Booking, Movie, Review, Room, Showtime } from "types";
 import { fx } from "../fixtures";
 
 const API = "http://localhost:4000/api";
 const AUTH = "http://localhost:4000";
 
-// Các bảng có GHI phải là bản sao thay đổi được + reset sau mỗi test (gọi trong
-// src/test/setup.ts): `reviews` (chi tiết phim gửi/sửa/xoá), `bookings` (đặt vé).
-let reviews: Review[] = [];
-let bookings: Booking[] = [];
+// Các bảng CÓ GHI là bản sao thay đổi được, reset sau mỗi test (gọi trong
+// src/test/setup.ts). Gom vào một object để handler luôn đọc mảng hiện tại —
+// nếu để biến rời rồi gán lại khi reset, handler sẽ ôm mảng cũ của test trước.
+export const db = {
+  movies: [] as Movie[],
+  rooms: [] as Room[],
+  showtimes: [] as Showtime[],
+  bookings: [] as Booking[],
+  reviews: [] as Review[],
+};
+
 export const resetFixtureDb = () => {
-  reviews = fx.reviews.map((r) => ({ ...r }));
-  bookings = fx.bookings.map((b) => ({ ...b }));
+  db.movies = fx.movies.map((r) => ({ ...r }));
+  db.rooms = fx.rooms.map((r) => ({ ...r }));
+  db.showtimes = fx.showtimes.map((r) => ({ ...r }));
+  db.bookings = fx.bookings.map((r) => ({ ...r }));
+  db.reviews = fx.reviews.map((r) => ({ ...r }));
 };
 resetFixtureDb();
 
@@ -24,6 +34,37 @@ const found = <T>(row: T | undefined) =>
   row
     ? HttpResponse.json(row)
     : HttpResponse.json({ error: "Not found" }, { status: 404 });
+
+const notFound = () =>
+  HttpResponse.json({ error: "Not found" }, { status: 404 });
+
+// Bộ 3 POST/PATCH/DELETE cho một bảng admin. Giữ đúng hợp đồng của
+// server/src/api/repo.ts: POST -> 201 + hàng vừa tạo, DELETE -> {} + 200,
+// id không có -> 404. Ghi thật vào bảng bản sao để danh sách sau khi
+// invalidate phản ánh đúng thay đổi (test giả mà không ghi thì xanh giả).
+const crudFor = <T extends { id: number }>(path: string, rows: () => T[]) => [
+  http.post(`${API}/${path}`, async ({ request }) => {
+    const body = (await request.json()) as Record<string, unknown>;
+    const list = rows();
+    const row = { ...body, id: Math.max(0, ...list.map((r) => r.id)) + 1 } as T;
+    list.push(row);
+    return HttpResponse.json(row, { status: 201 });
+  }),
+  http.patch(`${API}/${path}/:id`, async ({ params, request }) => {
+    const body = (await request.json()) as Record<string, unknown>;
+    const row = byId(rows(), params.id as string);
+    if (!row) return notFound();
+    Object.assign(row, body);
+    return HttpResponse.json(row);
+  }),
+  http.delete(`${API}/${path}/:id`, ({ params }) => {
+    const list = rows();
+    const i = list.findIndex((r) => String(r.id) === params.id);
+    if (i < 0) return notFound();
+    list.splice(i, 1);
+    return HttpResponse.json({});
+  }),
+];
 
 // Mặc định: KHÁCH (chưa đăng nhập). Test nào cần user thì server.use(...) đè lại.
 export const handlers = [
@@ -83,38 +124,43 @@ export const handlers = [
     const cinemaId = new URL(request.url).searchParams.get("cinemaId");
     return HttpResponse.json(
       cinemaId
-        ? fx.rooms.filter((r) => String(r.cinemaId) === cinemaId)
-        : fx.rooms,
+        ? db.rooms.filter((r) => String(r.cinemaId) === cinemaId)
+        : db.rooms,
     );
   }),
   http.get(`${API}/rooms/:id`, ({ params }) =>
-    found(byId(fx.rooms, params.id as string)),
+    found(byId(db.rooms, params.id as string)),
   ),
+  ...crudFor("rooms", () => db.rooms),
 
-  http.get(`${API}/movies`, () => HttpResponse.json(fx.movies)),
+  http.get(`${API}/movies`, () => HttpResponse.json(db.movies)),
   http.get(`${API}/movies/:id`, ({ params }) =>
-    found(byId(fx.movies, params.id as string)),
+    found(byId(db.movies, params.id as string)),
   ),
+  ...crudFor("movies", () => db.movies),
 
   http.get(`${API}/showtimes`, ({ request }) => {
     const sp = new URL(request.url).searchParams;
     const movieId = sp.get("movieId");
     const roomId = sp.get("roomId");
-    let list = fx.showtimes;
+    let list = db.showtimes;
     if (movieId) list = list.filter((s) => String(s.movieId) === movieId);
     if (roomId) list = list.filter((s) => String(s.roomId) === roomId);
     return HttpResponse.json(list);
   }),
   http.get(`${API}/showtimes/:id`, ({ params }) =>
-    found(byId(fx.showtimes, params.id as string)),
+    found(byId(db.showtimes, params.id as string)),
   ),
+  ...crudFor("showtimes", () => db.showtimes),
 
   http.get(`${API}/concessions`, () => HttpResponse.json(fx.concessions)),
 
   http.get(`${API}/reviews`, ({ request }) => {
     const movieId = new URL(request.url).searchParams.get("movieId");
     return HttpResponse.json(
-      movieId ? reviews.filter((r) => String(r.movieId) === movieId) : reviews,
+      movieId
+        ? db.reviews.filter((r) => String(r.movieId) === movieId)
+        : db.reviews,
     );
   }),
   // Cổng thật đóng dấu userId/userName/verified/createdAt phía server; ở đây
@@ -126,7 +172,7 @@ export const handlers = [
       comment?: string;
     };
     const row: Review = {
-      id: Math.max(0, ...reviews.map((r) => r.id)) + 1,
+      id: Math.max(0, ...db.reviews.map((r) => r.id)) + 1,
       movieId: body.movieId,
       userId: fx.user.id,
       userName: fx.user.fullName,
@@ -135,32 +181,24 @@ export const handlers = [
       verified: false,
       createdAt: new Date().toISOString(),
     };
-    reviews.push(row);
+    db.reviews.push(row);
     return HttpResponse.json(row, { status: 201 });
   }),
-  http.patch(`${API}/reviews/:id`, async ({ params, request }) => {
-    const body = (await request.json()) as Partial<Review>;
-    const row = byId(reviews, params.id as string);
-    if (!row) return HttpResponse.json({ error: "Not found" }, { status: 404 });
-    Object.assign(row, body);
-    return HttpResponse.json(row);
-  }),
-  http.delete(`${API}/reviews/:id`, ({ params }) => {
-    reviews = reviews.filter((r) => String(r.id) !== params.id);
-    return HttpResponse.json({});
-  }),
+  ...crudFor("reviews", () => db.reviews).slice(1), // POST ở trên đã có riêng
 
-  // Cổng thật đã scope GET /bookings theo người gọi -> đây chính là "vé của tôi".
-  http.get(`${API}/bookings`, () => HttpResponse.json(bookings)),
+  // Cổng thật scope GET /bookings theo người gọi: user thấy vé của mình, admin
+  // thấy tất cả. Bản giả trả cả bảng — fixture chỉ có vé của fx.user.
+  http.get(`${API}/bookings`, () => HttpResponse.json(db.bookings)),
   http.post(`${API}/bookings`, async ({ request }) => {
     const body = (await request.json()) as Partial<Booking>;
     const row = {
       ...body,
-      id: Math.max(0, ...bookings.map((b) => b.id)) + 1,
+      id: Math.max(0, ...db.bookings.map((b) => b.id)) + 1,
     } as Booking;
-    bookings.push(row);
+    db.bookings.push(row);
     return HttpResponse.json(row, { status: 201 });
   }),
+  ...crudFor("bookings", () => db.bookings).slice(1), // chỉ PATCH + DELETE
 
   // Giữ ghế: mặc định luôn thành công. Test xung đột đè handler này bằng
   // 409 + { conflicts } (đúng hình dạng server/src/api/holds.ts trả về).
