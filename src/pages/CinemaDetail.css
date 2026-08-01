@@ -214,6 +214,11 @@
   font-family: var(--font-mono);
   font-size: 10px;
   color: var(--text-muted);
+  /* Huỷ opacity 0.75 kế thừa từ MovieDetail.css (CSS nạp toàn cục): nút giờ ở
+     đây nền TỐI nên 0.75 kéo #a3a3a3 xuống #757575 = 4.12:1, không đạt. Bên
+     MovieDetail nút nền bone chữ đen nên độ mờ đó vẫn đọc được — vì thế chỉ
+     ghi đè trong phạm vi này. */
+  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {

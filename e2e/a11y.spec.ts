@@ -101,6 +101,15 @@ test("a11y: chi tiết rạp", async ({ page }) => {
   await page.locator(".venue-k").first().click();
   await expect(page).toHaveURL(/\/cinema\/\d+/);
   await expect(page.locator(".venue-hero__title")).toBeVisible();
+
+  // Khối lịch chiếu nằm trong <Reveal> — chưa cuộn tới thì nó còn opacity:0 và
+  // axe bỏ qua. Không chờ ở đây thì phép quét thành MAY RỦI: chạy nhanh là
+  // xanh, chạy chậm là đỏ. Đúng cách này mới lộ ra lỗi tương phản ở nút giờ.
+  await page.locator(".sched-k").first().scrollIntoViewIfNeeded();
+  await expect(
+    page.locator(".ui-reveal.is-visible .sched-k").first(),
+  ).toBeVisible();
+
   await scan(page, "/cinema/:id");
 });
 
