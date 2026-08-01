@@ -43,3 +43,12 @@ button {
   padding-top: 60px;
   min-height: 100vh;
 }
+
+/* Màn chờ: kiểm tra phiên lúc mở app, và route nạp muộn (admin / đặt vé). */
+.route-fallback {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+}

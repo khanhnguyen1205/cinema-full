@@ -20,7 +20,18 @@ export function mountStatic(app: Express): void {
     );
     return;
   }
-  app.use(express.static(buildDir));
+  app.use(
+    express.static(buildDir, {
+      // Tài sản trong /assets mang hash trong tên nên nội dung không bao giờ đổi
+      // dưới cùng một tên — cache một năm là an toàn và bỏ được toàn bộ lượt tải
+      // lại của khách quay lại. index.html, sw.js và manifest KHÔNG có hash nên
+      // giữ mặc định (không cache), nếu không người dùng sẽ kẹt ở bản cũ.
+      setHeaders: (res, filePath) => {
+        if (filePath.includes(`${path.sep}assets${path.sep}`))
+          res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+      },
+    }),
+  );
   // Fallback: mọi route SPA trả index.html để React Router tự điều hướng.
   app.get(spaFallbackPattern, (_req, res) => {
     res.sendFile(indexHtml);

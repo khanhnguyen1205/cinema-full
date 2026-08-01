@@ -1,0 +1,9 @@
+# Không có file này thì SPA fallback trả index.html cho /robots.txt và trình thu
+# thập đọc được một trang HTML thay vì chỉ dẫn (Lighthouse báo 19 lỗi cú pháp).
+User-agent: *
+Allow: /
+
+# Khu vực cần đăng nhập hoặc quyền quản trị — không có gì để lập chỉ mục.
+Disallow: /admin
+Disallow: /seats/
+Disallow: /tickets
