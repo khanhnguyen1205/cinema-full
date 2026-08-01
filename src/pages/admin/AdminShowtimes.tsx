@@ -240,8 +240,12 @@ export default function AdminShowtimes() {
           onClose={() => setEditing(null)}
         >
           <div className="adm-k__field">
-            <label>{t("admin.fMovie")}</label>
-            <select value={form.movieId} onChange={set("movieId")}>
+            <label htmlFor="adm-showtime-movie">{t("admin.fMovie")}</label>
+            <select
+              id="adm-showtime-movie"
+              value={form.movieId}
+              onChange={set("movieId")}
+            >
               <option value="">{t("admin.chooseMovie")}</option>
               {movies.map((m) => (
                 <option key={m.id} value={m.id}>
@@ -251,8 +255,14 @@ export default function AdminShowtimes() {
             </select>
           </div>
           <div className="adm-k__field">
-            <label>{t("admin.fRoomCinemaType")}</label>
-            <select value={form.roomId} onChange={set("roomId")}>
+            <label htmlFor="adm-showtime-room">
+              {t("admin.fRoomCinemaType")}
+            </label>
+            <select
+              id="adm-showtime-room"
+              value={form.roomId}
+              onChange={set("roomId")}
+            >
               <option value="">{t("admin.chooseRoom")}</option>
               {rooms.map((r) => (
                 <option key={r.id} value={r.id}>
@@ -263,17 +273,32 @@ export default function AdminShowtimes() {
           </div>
           <div className="adm-k__field-two">
             <div className="adm-k__field">
-              <label>{t("admin.fDate")}</label>
-              <input type="date" value={form.date} onChange={set("date")} />
+              <label htmlFor="adm-showtime-date">{t("admin.fDate")}</label>
+              <input
+                id="adm-showtime-date"
+                type="date"
+                value={form.date}
+                onChange={set("date")}
+              />
             </div>
             <div className="adm-k__field">
-              <label>{t("admin.fTime")}</label>
-              <input type="time" value={form.time} onChange={set("time")} />
+              <label htmlFor="adm-showtime-time">{t("admin.fTime")}</label>
+              <input
+                id="adm-showtime-time"
+                type="time"
+                value={form.time}
+                onChange={set("time")}
+              />
             </div>
           </div>
           <div className="adm-k__field">
-            <label>{t("admin.fPriceVnd")}</label>
-            <input type="number" value={form.price} onChange={set("price")} />
+            <label htmlFor="adm-showtime-price">{t("admin.fPriceVnd")}</label>
+            <input
+              id="adm-showtime-price"
+              type="number"
+              value={form.price}
+              onChange={set("price")}
+            />
           </div>
           {error && <div className="adm-k__formerr">{error}</div>}
           <div className="adm-k__modalact">

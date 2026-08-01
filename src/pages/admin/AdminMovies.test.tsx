@@ -99,6 +99,19 @@ describe("AdminMovies", () => {
     );
   });
 
+  it("mọi ô nhập trong form đều có nhãn nối đúng", async () => {
+    await setup();
+    await userEvent.click(screen.getByRole("button", { name: "+ Thêm phim" }));
+
+    // <label> phải có htmlFor trỏ tới id của ô nhập; nhãn trần đứng cạnh input
+    // là vi phạm axe (rule `label`, critical) và trình đọc màn hình đọc ô trống.
+    expect(screen.getByLabelText("Tên phim")).toBeInTheDocument();
+    expect(screen.getByLabelText("Thể loại")).toBeInTheDocument();
+    expect(screen.getByLabelText("Thời lượng (phút)")).toBeInTheDocument();
+    expect(screen.getByLabelText("Mô tả")).toBeInTheDocument();
+    expect(screen.getByLabelText("Poster (URL, tùy chọn)")).toBeInTheDocument();
+  });
+
   it("thiếu trường bắt buộc thì báo lỗi và không gọi API", async () => {
     await setup();
     await userEvent.click(screen.getByRole("button", { name: "+ Thêm phim" }));

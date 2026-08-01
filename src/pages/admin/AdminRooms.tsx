@@ -208,8 +208,12 @@ export default function AdminRooms() {
           onClose={() => setEditing(null)}
         >
           <div className="adm-k__field">
-            <label>{t("admin.thCinema")}</label>
-            <select value={form.cinemaId} onChange={set("cinemaId")}>
+            <label htmlFor="adm-room-cinema">{t("admin.thCinema")}</label>
+            <select
+              id="adm-room-cinema"
+              value={form.cinemaId}
+              onChange={set("cinemaId")}
+            >
               <option value="">{t("admin.chooseCinema")}</option>
               {cinemas.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -220,12 +224,20 @@ export default function AdminRooms() {
           </div>
           <div className="adm-k__field-two">
             <div className="adm-k__field">
-              <label>{t("admin.fRoomName")}</label>
-              <input value={form.name} onChange={set("name")} />
+              <label htmlFor="adm-room-name">{t("admin.fRoomName")}</label>
+              <input
+                id="adm-room-name"
+                value={form.name}
+                onChange={set("name")}
+              />
             </div>
             <div className="adm-k__field">
-              <label>{t("admin.fType")}</label>
-              <select value={form.type} onChange={set("type")}>
+              <label htmlFor="adm-room-type">{t("admin.fType")}</label>
+              <select
+                id="adm-room-type"
+                value={form.type}
+                onChange={set("type")}
+              >
                 {TYPES.map((ty) => (
                   <option key={ty} value={ty}>
                     {ty}
@@ -236,17 +248,31 @@ export default function AdminRooms() {
           </div>
           <div className="adm-k__field-two">
             <div className="adm-k__field">
-              <label>{t("admin.fRows")}</label>
-              <input type="number" value={form.rows} onChange={set("rows")} />
+              <label htmlFor="adm-room-rows">{t("admin.fRows")}</label>
+              <input
+                id="adm-room-rows"
+                type="number"
+                value={form.rows}
+                onChange={set("rows")}
+              />
             </div>
             <div className="adm-k__field">
-              <label>{t("admin.fCols")}</label>
-              <input type="number" value={form.cols} onChange={set("cols")} />
+              <label htmlFor="adm-room-cols">{t("admin.fCols")}</label>
+              <input
+                id="adm-room-cols"
+                type="number"
+                value={form.cols}
+                onChange={set("cols")}
+              />
             </div>
           </div>
           <div className="adm-k__field">
-            <label>{t("admin.fVipRows")}</label>
-            <input value={form.vipRows} onChange={set("vipRows")} />
+            <label htmlFor="adm-room-viprows">{t("admin.fVipRows")}</label>
+            <input
+              id="adm-room-viprows"
+              value={form.vipRows}
+              onChange={set("vipRows")}
+            />
           </div>
           {error && <div className="adm-k__formerr">{error}</div>}
           <div className="adm-k__modalact">

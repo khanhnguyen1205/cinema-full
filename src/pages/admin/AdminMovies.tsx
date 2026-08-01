@@ -173,17 +173,28 @@ export default function AdminMovies() {
           onClose={() => setEditing(null)}
         >
           <div className="adm-k__field">
-            <label>{t("admin.fMovieTitle")}</label>
-            <input value={form.title} onChange={set("title")} />
+            <label htmlFor="adm-movie-title">{t("admin.fMovieTitle")}</label>
+            <input
+              id="adm-movie-title"
+              value={form.title}
+              onChange={set("title")}
+            />
           </div>
           <div className="adm-k__field-two">
             <div className="adm-k__field">
-              <label>{t("admin.fGenre")}</label>
-              <input value={form.genre} onChange={set("genre")} />
+              <label htmlFor="adm-movie-genre">{t("admin.fGenre")}</label>
+              <input
+                id="adm-movie-genre"
+                value={form.genre}
+                onChange={set("genre")}
+              />
             </div>
             <div className="adm-k__field">
-              <label>{t("admin.fDurationMin")}</label>
+              <label htmlFor="adm-movie-duration">
+                {t("admin.fDurationMin")}
+              </label>
               <input
+                id="adm-movie-duration"
                 type="number"
                 value={form.duration}
                 onChange={set("duration")}
@@ -191,16 +202,21 @@ export default function AdminMovies() {
             </div>
           </div>
           <div className="adm-k__field">
-            <label>{t("admin.fDescription")}</label>
+            <label htmlFor="adm-movie-desc">{t("admin.fDescription")}</label>
             <textarea
+              id="adm-movie-desc"
               rows={3}
               value={form.description}
               onChange={set("description")}
             />
           </div>
           <div className="adm-k__field">
-            <label>{t("admin.fPoster")}</label>
-            <input value={form.poster} onChange={set("poster")} />
+            <label htmlFor="adm-movie-poster">{t("admin.fPoster")}</label>
+            <input
+              id="adm-movie-poster"
+              value={form.poster}
+              onChange={set("poster")}
+            />
           </div>
           {error && <div className="adm-k__formerr">{error}</div>}
           <div className="adm-k__modalact">
