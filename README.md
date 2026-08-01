@@ -46,11 +46,12 @@ npm run typecheck        # app + server
 npm run lint             # ESLint 9 (flat config)
 npm run format           # Prettier write   ·   npm run format:check
 npm run test             # Vitest (watch)   ·   npm run test:run (once)
+npm run test:cov         # Vitest + coverage (this is the CI gate)
 npm run e2e              # Playwright (chromium): smoke + full booking flow
 npm run prisma:studio    # browse the database
 ```
 
-**CI** (GitHub Actions) runs six gates on every push — `typecheck` · `lint` (0 warnings) · `format:check` · `test:run` · `e2e` · `build` — plus a **Docker image build**. The e2e job spins up a throwaway Postgres 16 container, migrates and seeds it, then runs Playwright.
+**CI** (GitHub Actions) runs six gates on every push — `typecheck` · `lint` (0 warnings) · `format:check` · `test:cov` (unit tests **+ coverage thresholds**) · `e2e` · `build` — plus a **Docker image build**. The e2e job spins up a throwaway Postgres 16 container, migrates and seeds it, then runs Playwright.
 
 ## Deployment
 
@@ -129,15 +130,16 @@ Prisma models (`server/prisma/schema.prisma`): `User`, `Movie` (with `rating`), 
 A custom neo-brutalist CSS design system (no UI library). Tokens (colors, type scale, spacing, borders, motion) live in `src/styles/tokens.css`; the look is near-black + huge **Bebas Neue** display type, **Space Mono** labels, hard borders, a decisive **red** accent, and inverted **"bone"** blocks for emphasis (`N°` numbering, ticket edges, marquees; `prefers-reduced-motion` respected). Reusable primitives are in `src/components/ui/`; a DEV-only `/kitchen-sink` route previews them. Fonts are self-hosted via `@fontsource` (Bebas Neue / Barlow / Barlow Condensed / Space Mono).
 
 ## Testing
-- **Vitest** unit tests colocated as `src/**/*.test.ts(x)` (pure helpers + UI primitives via Testing Library + happy-dom).
-- **Playwright** in `e2e/` — `smoke.spec.ts` is read-only; `booking.spec.ts` books a ticket for real, then deletes it via the admin API so the database is left untouched.
+- **477 Vitest tests** in two projects — `client` (happy-dom + Testing Library) and `server` (supertest against the real Express app with a mocked Prisma, so it runs without a database). Coverage: **90.9% statements**, enforced in CI by thresholds in `vite.config.mjs` (`npm run test:cov`).
+- **No module-level mocking on the client**: tests exercise the real `services/*` and `queries/*`, answered by **MSW** at the HTTP layer with writable fixture tables — so "save the form" is asserted all the way down to the list refreshing.
+- **Playwright** in `e2e/` — `smoke.spec.ts` is read-only; `booking.spec.ts` books a ticket for real and `reviews.spec.ts` posts a review, each deleting its own data afterwards; `payment.spec.ts` drives a real Stripe test-mode card payment and self-skips when no keys are present.
 
 ## Tech stack
 - React 18 + **TypeScript 5** + React Router v6, built with **Vite 6**
 - **TanStack Query v5** (server state) · **Express 5 + TypeScript** (auth · API gateway · SPA host) · **Prisma 6 + PostgreSQL** · **Docker** (multi-stage)
 - bcryptjs + jsonwebtoken (bcrypt hashes + JWT httpOnly cookies)
 - `qrcode.react` (e-tickets) · `recharts` (admin charts)
-- **Vitest** + Testing Library (unit) · **Playwright** (e2e) · ESLint 9 + Prettier · GitHub Actions CI
+- **Vitest** + Testing Library + **MSW** (unit, coverage-gated) · **supertest** (server) · **Playwright** (e2e) · ESLint 9 + Prettier · GitHub Actions CI
 - Custom "Kinetic" CSS design system (no UI library) — fonts: Bebas Neue / Barlow / Barlow Condensed / Space Mono
 - **Bilingual (Vietnamese default + English)** via react-i18next (prices always VND; dates locale-aware)
 - **PWA** — installable, offline app-shell + cached public catalog, install button + update toast (`vite-plugin-pwa` / Workbox)
