@@ -35,9 +35,11 @@ const stat = (label: string) =>
 describe("CinemaDetail", () => {
   it("hero hiện tên rạp, thành phố và địa chỉ", async () => {
     await setup(1);
-    expect(document.querySelector(".venue-hero__title")?.textContent).toBe(
-      "Cinema Hoàn Kiếm",
-    );
+    // Nguyên văn nằm ở khối ẩn dành cho trình đọc màn hình (KineticHeading).
+    expect(
+      document.querySelector(".venue-hero__title .ui-visually-hidden")
+        ?.textContent,
+    ).toBe("Cinema Hoàn Kiếm");
     expect(screen.getByText("Hà Nội")).toBeInTheDocument();
     expect(screen.getByText(/1 Tràng Tiền/)).toBeInTheDocument();
   });

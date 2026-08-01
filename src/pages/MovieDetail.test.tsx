@@ -35,9 +35,11 @@ const timeButtons = () =>
 describe("MovieDetail — phễu đặt vé", () => {
   it("hiện thông tin phim: tên, điểm, thể loại đã dịch", async () => {
     await setup(1);
-    expect(document.querySelector(".detail-k__title")?.textContent).toBe(
-      "Điện Biên Phủ",
-    );
+    // Nguyên văn nằm ở khối ẩn dành cho trình đọc màn hình (KineticHeading).
+    expect(
+      document.querySelector(".detail-k__title .ui-visually-hidden")
+        ?.textContent,
+    ).toBe("Điện Biên Phủ");
     expect(screen.getByText("★ 8.4")).toBeInTheDocument();
     expect(screen.getByText(/Hành động · 120/)).toBeInTheDocument();
   });

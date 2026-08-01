@@ -224,6 +224,21 @@
 }
 
 /* ===== KineticHeading ===== */
+/* Ẩn khỏi mắt nhưng vẫn nằm trong cây trợ năng. KHÔNG dùng display:none hay
+   visibility:hidden — cả hai xoá phần tử khỏi cây đó, đúng thứ ta đang tránh. */
+.ui-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 .ui-kinetic {
   font-family: var(--font-display);
   line-height: 0.9;

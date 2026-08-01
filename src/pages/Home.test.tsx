@@ -36,10 +36,11 @@ const setup = async () => {
 };
 
 const hero = () => screen.getByText("Phim nổi bật").closest("section")!;
-// Tiêu đề hero đi qua KineticHeading (mỗi ký tự một <span>) nên getByText không
-// khớp — đọc textContent của chính khối tiêu đề.
+// Tiêu đề hero đi qua KineticHeading: chữ trang trí bị tách thành từng <span>
+// aria-hidden, còn nguyên văn nằm trong khối .ui-visually-hidden dành cho trình
+// đọc màn hình — đọc chính khối đó (textContent của cả tiêu đề sẽ ra hai lần).
 const heroTitle = () =>
-  hero().querySelector(".hero-k__title")?.textContent ?? "";
+  hero().querySelector(".hero-k__title .ui-visually-hidden")?.textContent ?? "";
 
 describe("Home", () => {
   it("hiện skeleton trước, rồi tới lưới phim thật", async () => {
