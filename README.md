@@ -133,6 +133,7 @@ A custom neo-brutalist CSS design system (no UI library). Tokens (colors, type s
 - **477 Vitest tests** in two projects — `client` (happy-dom + Testing Library) and `server` (supertest against the real Express app with a mocked Prisma, so it runs without a database). Coverage: **90.9% statements**, enforced in CI by thresholds in `vite.config.mjs` (`npm run test:cov`).
 - **No module-level mocking on the client**: tests exercise the real `services/*` and `queries/*`, answered by **MSW** at the HTTP layer with writable fixture tables — so "save the form" is asserted all the way down to the list refreshing.
 - **Playwright** in `e2e/` — `smoke.spec.ts` is read-only; `booking.spec.ts` books a ticket for real and `reviews.spec.ts` posts a review, each deleting its own data afterwards; `payment.spec.ts` drives a real Stripe test-mode card payment and self-skips when no keys are present.
+- **Accessibility is a gate**: `a11y.spec.ts` runs **axe-core over 16 states** (public pages, the booking wizard's three steps, admin, and an open dialog) in a real browser, and fails the build on any critical or serious violation. Lighthouse scores **100/100 accessibility** on every public page — see `docs/superpowers/plans/2026-08-01-lighthouse-baseline.md` for the full before/after.
 
 ## Tech stack
 - React 18 + **TypeScript 5** + React Router v6, built with **Vite 6**
