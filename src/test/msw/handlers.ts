@@ -1,17 +1,19 @@
 // Server giả ở tầng HTTP: test đi qua services/* và queries/* THẬT.
 // URL khớp VITE_API_URL / VITE_AUTH_URL đã ghim trong vite.config.mjs.
 import { http, HttpResponse } from "msw";
-import type { Review } from "types";
+import type { Booking, Review } from "types";
 import { fx } from "../fixtures";
 
 const API = "http://localhost:4000/api";
 const AUTH = "http://localhost:4000";
 
-// Bảng `reviews` có ghi (trang chi tiết phim cho gửi/sửa/xoá), nên phải là bản
-// sao có thể thay đổi + reset sau mỗi test (gọi trong src/test/setup.ts).
+// Các bảng có GHI phải là bản sao thay đổi được + reset sau mỗi test (gọi trong
+// src/test/setup.ts): `reviews` (chi tiết phim gửi/sửa/xoá), `bookings` (đặt vé).
 let reviews: Review[] = [];
+let bookings: Booking[] = [];
 export const resetFixtureDb = () => {
   reviews = fx.reviews.map((r) => ({ ...r }));
+  bookings = fx.bookings.map((b) => ({ ...b }));
 };
 resetFixtureDb();
 
@@ -36,6 +38,30 @@ export const handlers = [
     `${AUTH}/auth/logout`,
     () => new HttpResponse(null, { status: 204 }),
   ),
+
+  // Đúng một cặp thông tin đăng nhập là hợp lệ; sai thì 401 với thông điệp
+  // CHUNG CHUNG y như server thật (không tiết lộ email có tồn tại hay không).
+  http.post(`${AUTH}/auth/login`, async ({ request }) => {
+    const body = (await request.json()) as { email: string; password: string };
+    if (body.email === fx.user.email && body.password === "123456")
+      return HttpResponse.json(fx.user);
+    return HttpResponse.json(
+      { error: "Email hoặc mật khẩu không đúng." },
+      { status: 401 },
+    );
+  }),
+  http.post(`${AUTH}/auth/register`, async ({ request }) => {
+    const body = (await request.json()) as { fullName: string; email: string };
+    if (body.email === fx.user.email)
+      return HttpResponse.json(
+        { error: "Email đã được sử dụng." },
+        { status: 409 },
+      );
+    return HttpResponse.json(
+      { id: 99, fullName: body.fullName, email: body.email, role: "user" },
+      { status: 201 },
+    );
+  }),
 
   http.get(`${API}/cities`, () => HttpResponse.json(fx.cities)),
 
@@ -123,6 +149,26 @@ export const handlers = [
     reviews = reviews.filter((r) => String(r.id) !== params.id);
     return HttpResponse.json({});
   }),
+
+  // Cổng thật đã scope GET /bookings theo người gọi -> đây chính là "vé của tôi".
+  http.get(`${API}/bookings`, () => HttpResponse.json(bookings)),
+  http.post(`${API}/bookings`, async ({ request }) => {
+    const body = (await request.json()) as Partial<Booking>;
+    const row = {
+      ...body,
+      id: Math.max(0, ...bookings.map((b) => b.id)) + 1,
+    } as Booking;
+    bookings.push(row);
+    return HttpResponse.json(row, { status: 201 });
+  }),
+
+  // Giữ ghế: mặc định luôn thành công. Test xung đột đè handler này bằng
+  // 409 + { conflicts } (đúng hình dạng server/src/api/holds.ts trả về).
+  http.post(`${API}/holds`, () =>
+    HttpResponse.json({ ok: true, expiresAt: Date.now() + 480_000 }),
+  ),
+  // Server thật trả 204 không thân (holds.ts) — giữ đúng để không xanh giả.
+  http.delete(`${API}/holds`, () => new HttpResponse(null, { status: 204 })),
 
   http.get(`${API}/occupied-seats`, ({ request }) => {
     const showtimeId = new URL(request.url).searchParams.get("showtimeId");

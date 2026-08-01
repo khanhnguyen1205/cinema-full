@@ -168,6 +168,27 @@ export const fx = {
       createdAt: shift(-1),
       paymentRef: null,
     },
+    // Vé của suất ĐÃ CHIẾU (showtime 2) — để "Vé của tôi" có dữ liệu cho tab
+    // "Đã xem"; nếu chỉ có vé tương lai thì test tách tab không chứng minh gì.
+    {
+      id: 2,
+      movieId: 1,
+      showtimeId: 2,
+      cinemaId: 1,
+      roomId: 1,
+      seats: ["D2", "D3"],
+      seatTypes: { standard: 2, vip: 0, couple: 0 },
+      concessions: [{ id: 1, name: "Bắp rang bơ", qty: 1, price: 45000 }],
+      paymentMethod: "counter",
+      userId: 2,
+      userName: "Người Dùng",
+      seatTotal: 180000,
+      fnbTotal: 45000,
+      serviceFee: 15000,
+      totalPrice: 240000,
+      createdAt: shift(-50),
+      paymentRef: null,
+    },
   ] as Booking[],
 
   reviews: [
