@@ -5,13 +5,13 @@
 
 ## Tổng
 
-| Chỉ số     | Sau T1+T2 | Sau T3 | Sau T4 | Sau T5 | Sau T6 | Sau T7     |
-| ---------- | --------- | ------ | ------ | ------ | ------ | ---------- |
-| statements | 19.39%    | 23.71% | 25.30% | 34.13% | 55.03% | **73.06%** |
-| branches   | 77.41%    | 77.33% | 79.05% | 82.74% | 86.17% | **87.56%** |
-| functions  | 49.54%    | 53.81% | 61.20% | 69.09% | 76.35% | **79.48%** |
-| lines      | 19.39%    | 23.71% | 25.30% | 34.13% | 55.03% | **73.06%** |
-| số test    | 207       | 252    | 289    | 334    | 383    | **432**    |
+| Chỉ số     | Sau T1+T2 | Sau T3 | Sau T4 | Sau T5 | Sau T6 | Sau T7 | Sau T8     |
+| ---------- | --------- | ------ | ------ | ------ | ------ | ------ | ---------- |
+| statements | 19.39%    | 23.71% | 25.30% | 34.13% | 55.03% | 73.06% | **90.93%** |
+| branches   | 77.41%    | 77.33% | 79.05% | 82.74% | 86.17% | 87.56% | **88.37%** |
+| functions  | 49.54%    | 53.81% | 61.20% | 69.09% | 76.35% | 79.48% | **85.56%** |
+| lines      | 19.39%    | 23.71% | 25.30% | 34.13% | 55.03% | 73.06% | **90.93%** |
+| số test    | 207       | 252    | 289    | 334    | 383    | 432    | **477**    |
 
 Con số `branches` cao lệch hẳn so với `statements` là **bình thường và dễ hiểu
 sai**: v8 chỉ đếm nhánh trong những file đã được nạp, mà phần lớn `src/pages/*`
@@ -24,31 +24,36 @@ chúng không được test.
 
 ## Theo khu vực
 
-| Khu vực               | T3        | T4        | T5        | T6        | T7        | Ghi chú                              |
-| --------------------- | --------- | --------- | --------- | --------- | --------- | ------------------------------------ |
-| `src/lib`             | 100       | 100       | 100       | 100       | 100       | helper thuần                         |
-| `src/routes`          | —         | **100**   | 100       | 100       | 100       | T4                                   |
-| `src/hooks`           | 62.74     | **100**   | 100       | 100       | 100       | T4: `usePagination`                  |
-| `src/i18n`            | 93.47     | 93.47     | **100**   | 100       | 100       | T5                                   |
-| `src/components/ui`   | 97.04     | 97.04     | **98.76** | 98.76     | 98.76     | T5                                   |
-| `src/context`         | 82.22     | **93.33** | 93.33     | 93.33     | **96.66** | nhích ở T7 (đăng nhập thật qua Login) |
-| `src/pages`           | 0         | 0         | 0         | 71.80     | **95.52** | ⬆ T7 (Login/Register/MyTickets)      |
-| `server/src/auth`     | **95.38** | 95.38     | 95.38     | 95.38     | 95.38     | T3                                   |
-| `server/src/api`      | **90.87** | 90.87     | 90.87     | 90.87     | 90.87     | T3                                   |
-| `src/pages/booking`   | 0         | 0         | 0         | 0         | **91.10** | ⬆ T7 — lát này (wizard 4 bước)       |
-| **`src/components`**  | 3.51      | 3.51      | **81.79** | **84.78** | 84.78     | ⬆ T5, nhích thêm ở T6                |
-| **`src/services`**    | 32.88     | 59.45     | 68.91     | 76.57     | **79.27** | ⬆ T7                                 |
-| `server/src/payments` | **70.99** | 70.99     | 70.99     | 70.99     | 70.99     | T3                                   |
-| `server/src/email`    | **67.20** | 67.20     | 67.20     | 67.20     | 67.20     | T3                                   |
-| `server/src`          | 64.61     | 64.61     | 64.61     | 64.61     | 64.61     |                                      |
-| **`src/queries`**     | 8.53      | 19.91     | 32.11     | 52.84     | **56.91** | còn `admin.ts` + `client.ts` = 0     |
-| `src/pages/admin`     | 0         | 0         | 0         | 0         | 0         | → lát **T8**                         |
-| `server/src/db`       | 0         | 0         | 0         | 0         | 0         | prisma singleton — bị mock, luôn 0   |
+| Khu vực               | T3        | T4        | T5        | T6        | T7        | T8        | Ghi chú                            |
+| --------------------- | --------- | --------- | --------- | --------- | --------- | --------- | ---------------------------------- |
+| `src/lib`             | 100       | 100       | 100       | 100       | 100       | 100       | helper thuần                       |
+| `src/routes`          | —         | **100**   | 100       | 100       | 100       | 100       | T4                                 |
+| `src/hooks`           | 62.74     | **100**   | 100       | 100       | 100       | 100       | T4: `usePagination`                |
+| `src/i18n`            | 93.47     | 93.47     | **100**   | 100       | 100       | 100       | T5                                 |
+| `src/pages/admin`     | 0         | 0         | 0         | 0         | 0         | **99.48** | ⬆ T8 — lát này (6 trang)           |
+| `src/components/ui`   | 97.04     | 97.04     | **98.76** | 98.76     | 98.76     | 98.76     | T5                                 |
+| `src/context`         | 82.22     | **93.33** | 93.33     | 93.33     | **96.66** | 96.66     | T7 (đăng nhập thật qua Login)      |
+| **`src/queries`**     | 8.53      | 19.91     | 32.11     | 52.84     | 56.91     | **95.93** | ⬆ T8 kéo theo `admin.ts`           |
+| `src/pages`           | 0         | 0         | 0         | 71.80     | **95.52** | 95.52     | T7 (Login/Register/MyTickets)      |
+| `server/src/auth`     | **95.38** | 95.38     | 95.38     | 95.38     | 95.38     | 95.38     | T3                                 |
+| `src/pages/booking`   | 0         | 0         | 0         | 0         | **91.10** | 91.10     | T7 (wizard 4 bước)                 |
+| `server/src/api`      | **90.87** | 90.87     | 90.87     | 90.87     | 90.87     | 90.87     | T3                                 |
+| **`src/services`**    | 32.88     | 59.45     | 68.91     | 76.57     | 79.27     | **86.03** | ⬆ T8 (CRUD admin)                  |
+| **`src/components`**  | 3.51      | 3.51      | **81.79** | **84.78** | 84.78     | 84.78     | T5, nhích thêm ở T6                |
+| `server/src/payments` | **70.99** | 70.99     | 70.99     | 70.99     | 70.99     | 70.99     | T3                                 |
+| `server/src/email`    | **67.20** | 67.20     | 67.20     | 67.20     | 67.20     | 67.20     | T3                                 |
+| `server/src`          | 64.61     | 64.61     | 64.61     | 64.61     | 64.61     | 64.61     |                                    |
+| `server/src/db`       | 0         | 0         | 0         | 0         | 0         | 0         | prisma singleton — bị mock, luôn 0 |
 
-**Toàn bộ phần người dùng cuối chạm tới đã có lưới**: server, tầng dữ liệu
-client, components, 6 trang công khai, wizard đặt vé, đăng nhập/đăng ký và
-"Vé của tôi". Còn lại đúng **6 trang admin** (T8) — chính là khối 0% duy nhất
-còn đáng kể, kéo theo `src/queries/admin.ts`.
+**Không còn khu vực nào 0%** ngoài ba thứ cố ý: `server/src/db` (singleton bị
+mock), `src/styles/fonts.ts` (chỉ import font) và `App.tsx`/`index.tsx` (điểm
+vào — dựng cây provider, e2e mới là chỗ phủ chúng).
+
+**Ghi chú T8:** 45 test cho 6 trang admin, đưa `src/pages/admin` từ 0 lên
+**99.48** và kéo `src/queries` lên **95.93** (mọi mutation admin nay có đường
+chạy thật). Phần còn thiếu của toàn dự án dồn về **đường Stripe + email**
+(`payments/settle.ts` 6.77, `email/resend.ts` 8.33, `email/qr.ts` 11.11) —
+đều là mã gọi dịch vụ ngoài, đã có e2e thật hoặc cố ý không unit-test.
 
 **Ghi chú T7:** 49 test cho 4 trang có luồng. Đo được `src/pages/booking`
 **91.10** ngay lát đầu vì `BookingWizard` gánh gần hết logic (bốn bước + giữ ghế
