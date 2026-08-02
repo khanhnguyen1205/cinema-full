@@ -5,9 +5,10 @@ import { useAllReviews } from "queries/admin";
 import { useDeleteReview } from "queries/reviews";
 import ConfirmDialog from "components/admin/ConfirmDialog";
 import usePagination from "hooks/usePagination";
-import Pagination from "components/admin/Pagination";
 import { StarRating } from "components/ui";
 import { formatDate } from "i18n/format";
+import { AdminHead, SearchBox, TablePager } from "./AdminUI";
+import { useConfirmDelete } from "./adminUtils";
 
 export default function AdminReviews() {
   const { t } = useTranslation();
@@ -19,7 +20,6 @@ export default function AdminReviews() {
 
   const [q, setQ] = useState("");
   const [star, setStar] = useState("all");
-  const [confirmId, setConfirmId] = useState<number | null>(null);
 
   const movieTitle = useMemo(() => {
     const map = new Map(movies.map((mv) => [mv.id, mv.title]));
@@ -40,31 +40,23 @@ export default function AdminReviews() {
       );
   }, [reviews, q, star, movieTitle]);
 
-  const { pageItems, page, totalPages, setPage, from, to, total } =
-    usePagination(visible);
+  const { pageItems, ...pag } = usePagination(visible);
 
-  const doDelete = async () => {
-    if (confirmId == null) return;
-    const r = reviews.find((x) => x.id === confirmId);
-    await deleteM.mutateAsync({ id: confirmId, movieId: r?.movieId });
-    setConfirmId(null);
-  };
+  const del = useConfirmDelete((id) =>
+    deleteM.mutateAsync({
+      id,
+      movieId: reviews.find((r) => r.id === id)?.movieId,
+    }),
+  );
 
   return (
     <div>
-      <div className="adm-k__head">
-        <span className="adm-k__eyebrow">{t("admin.role")}</span>
-        <h1 className="adm-k__title">{t("admin.reviewsTitle")}</h1>
-        <span className="adm-k__count">
-          {t("admin.items", { count: total })}
-        </span>
-      </div>
+      <AdminHead title={t("admin.reviewsTitle")} count={pag.total} />
       <div className="adm-k__toolbar">
-        <input
-          className="adm-k__search"
+        <SearchBox
           placeholder={t("admin.reviewSearchPh")}
           value={q}
-          onChange={(e) => setQ(e.target.value)}
+          onChange={setQ}
         />
         <select
           className="adm-k__search"
@@ -107,7 +99,7 @@ export default function AdminReviews() {
                 <td>
                   <button
                     className="adm-k__btn danger sm"
-                    onClick={() => setConfirmId(r.id)}
+                    onClick={() => del.ask(r.id)}
                   >
                     {t("admin.delete")}
                   </button>
@@ -124,20 +116,13 @@ export default function AdminReviews() {
           </tbody>
         </table>
       </div>
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        onPage={setPage}
-        from={from}
-        to={to}
-        total={total}
-      />
+      <TablePager {...pag} />
 
-      {confirmId != null && (
+      {del.confirmId != null && (
         <ConfirmDialog
           message={t("admin.confirmDeleteReview")}
-          onConfirm={doDelete}
-          onCancel={() => setConfirmId(null)}
+          onConfirm={del.confirm}
+          onCancel={del.cancel}
         />
       )}
     </div>

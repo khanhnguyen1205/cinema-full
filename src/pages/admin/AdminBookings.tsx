@@ -6,7 +6,7 @@ import {
   useCinemas,
   useRooms,
 } from "queries/catalog";
-import { formatDateTime, formatPrice } from "i18n/format";
+import { formatPrice } from "i18n/format";
 import {
   useAllBookings,
   useUpdateBooking,
@@ -21,43 +21,41 @@ import {
 import ConfirmDialog from "components/admin/ConfirmDialog";
 import Modal from "components/admin/Modal";
 import usePagination from "hooks/usePagination";
-import Pagination from "components/admin/Pagination";
 import type { Booking, Seat } from "types";
+import {
+  AdminHead,
+  ModalActions,
+  RowActions,
+  SearchBox,
+  TablePager,
+} from "./AdminUI";
+import { adminDateTime, useById, useConfirmDelete } from "./adminUtils";
+
+const bookingCode = (id: number) => `#TK-${String(id).padStart(5, "0")}`;
 
 export default function AdminBookings() {
   const { t } = useTranslation();
   const bookingsQ = useAllBookings();
   const moviesQ = useMovies();
+  const cinemasQ = useCinemas();
+  const roomsQ = useRooms();
+  const showtimesQ = useAllShowtimes();
   const bookings = useMemo(() => bookingsQ.data ?? [], [bookingsQ.data]);
   const movies = useMemo(() => moviesQ.data ?? [], [moviesQ.data]);
-  const cinemas = useCinemas().data ?? [];
-  const rooms = useRooms().data ?? [];
-  const showtimes = useAllShowtimes().data ?? [];
+  const cinemas = useMemo(() => cinemasQ.data ?? [], [cinemasQ.data]);
+  const rooms = useMemo(() => roomsQ.data ?? [], [roomsQ.data]);
+  const showtimes = useMemo(() => showtimesQ.data ?? [], [showtimesQ.data]);
   const updateBk = useUpdateBooking();
   const deleteBk = useDeleteBooking();
 
   const [q, setQ] = useState("");
-  const [cancelId, setCancelId] = useState<number | null>(null);
   const [editing, setEditing] = useState<Booking | null>(null);
   const [sel, setSel] = useState<Seat[]>([]);
 
-  const movieMap = useMemo(
-    () => Object.fromEntries(movies.map((m) => [m.id, m])),
-    [movies],
-  );
-  const cinemaMap = Object.fromEntries(cinemas.map((c) => [c.id, c]));
-  const roomMap = Object.fromEntries(rooms.map((r) => [r.id, r]));
-  const showtimeMap = Object.fromEntries(showtimes.map((s) => [s.id, s]));
-  const fmt = (iso?: string) =>
-    iso
-      ? formatDateTime(iso, {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      : "—";
+  const movieMap = useById(movies);
+  const cinemaMap = useById(cinemas);
+  const roomMap = useById(rooms);
+  const showtimeMap = useById(showtimes);
 
   const visible = useMemo(() => {
     const term = q.trim().toLowerCase();
@@ -69,19 +67,17 @@ export default function AdminBookings() {
     );
   }, [bookings, q, movieMap]);
 
-  const { pageItems, page, totalPages, setPage, from, to, total } =
-    usePagination(visible);
+  const { pageItems, ...pag } = usePagination(visible);
 
-  const doCancel = async () => {
-    if (cancelId == null) return;
-    const showtimeId = bookings.find((b) => b.id === cancelId)?.showtimeId;
-    await deleteBk.mutateAsync({ id: cancelId, showtimeId });
-    setCancelId(null);
-  };
+  const cancelBk = useConfirmDelete((id) =>
+    deleteBk.mutateAsync({
+      id,
+      showtimeId: bookings.find((b) => b.id === id)?.showtimeId,
+    }),
+  );
 
-  const editRoom = editing ? roomMap[editing.roomId] : null;
   const editShowtime = editing ? showtimeMap[editing.showtimeId] : null;
-  const editLayout = buildSeatLayout(editRoom);
+  const editLayout = buildSeatLayout(editing ? roomMap[editing.roomId] : null);
   const editBase = editShowtime?.price || 0;
 
   // Ghế của các đơn KHÁC cho suất này (loại trừ đơn đang sửa)
@@ -92,14 +88,18 @@ export default function AdminBookings() {
   }, [editing, editShowtime, bookings]);
 
   const openEdit = (b: Booking) => {
-    const room = roomMap[b.roomId];
-    const layout = buildSeatLayout(room);
-    const all = layout.flatMap((r) => r.seats);
-    const seatObjs = (b.seats || [])
-      .map((sn) => all.find((s) => s.seatNumber === sn))
-      .filter((s): s is Seat => Boolean(s));
-    setSel(seatObjs);
+    const all = buildSeatLayout(roomMap[b.roomId]).flatMap((r) => r.seats);
+    setSel(
+      (b.seats || [])
+        .map((sn) => all.find((s) => s.seatNumber === sn))
+        .filter((s): s is Seat => Boolean(s)),
+    );
     setEditing(b);
+  };
+
+  const closeEdit = () => {
+    setEditing(null);
+    setSel([]);
   };
 
   const toggleSeat = (seat: Seat) => {
@@ -121,9 +121,8 @@ export default function AdminBookings() {
 
   const saveSeats = async () => {
     if (!editing) return;
-    const seats = sel.map((s) => s.seatNumber);
     const body = {
-      seats,
+      seats: sel.map((s) => s.seatNumber),
       seatTypes: { standard: editStd, vip: editVip, couple: editCpl },
       seatTotal: editSeatTotal,
       totalPrice: editTotal,
@@ -133,25 +132,17 @@ export default function AdminBookings() {
       body,
       showtimeId: editing.showtimeId,
     });
-    setEditing(null);
-    setSel([]);
+    closeEdit();
   };
 
   return (
     <div>
-      <div className="adm-k__head">
-        <span className="adm-k__eyebrow">{t("admin.role")}</span>
-        <h1 className="adm-k__title">{t("admin.bookingsTitle")}</h1>
-        <span className="adm-k__count">
-          {t("admin.items", { count: total })}
-        </span>
-      </div>
+      <AdminHead title={t("admin.bookingsTitle")} count={pag.total} />
       <div className="adm-k__toolbar">
-        <input
-          className="adm-k__search"
+        <SearchBox
           placeholder={t("admin.bookingSearchPh")}
           value={q}
-          onChange={(e) => setQ(e.target.value)}
+          onChange={setQ}
         />
       </div>
       <div className="adm-k__tablewrap">
@@ -169,39 +160,36 @@ export default function AdminBookings() {
             </tr>
           </thead>
           <tbody>
-            {pageItems.map((b) => (
-              <tr key={b.id}>
-                <td className="num">#TK-{String(b.id).padStart(5, "0")}</td>
-                <td>{b.userName}</td>
-                <td>{movieMap[b.movieId]?.title || "—"}</td>
-                <td>
-                  {cinemaMap[b.cinemaId]?.name || "—"}
-                  {roomMap[b.roomId] ? ` · ${roomMap[b.roomId].name}` : ""}
-                </td>
-                <td>{(b.seats || []).join(", ")}</td>
-                <td className="num">
-                  {formatPrice(b.totalPrice || 0)}
-                  {b.paymentRef ? ` · ${t("booking.paidBadge")}` : ""}
-                </td>
-                <td className="num">{fmt(showtimeMap[b.showtimeId]?.time)}</td>
-                <td>
-                  <div className="adm-k__rowact">
-                    <button
-                      className="adm-k__btn ghost sm"
-                      onClick={() => openEdit(b)}
-                    >
-                      {t("admin.editSeats")}
-                    </button>
-                    <button
-                      className="adm-k__btn danger sm"
-                      onClick={() => setCancelId(b.id)}
-                    >
-                      {t("admin.cancel")}
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {pageItems.map((b) => {
+              const room = roomMap[b.roomId];
+              return (
+                <tr key={b.id}>
+                  <td className="num">{bookingCode(b.id)}</td>
+                  <td>{b.userName}</td>
+                  <td>{movieMap[b.movieId]?.title || "—"}</td>
+                  <td>
+                    {cinemaMap[b.cinemaId]?.name || "—"}
+                    {room ? ` · ${room.name}` : ""}
+                  </td>
+                  <td>{(b.seats || []).join(", ")}</td>
+                  <td className="num">
+                    {formatPrice(b.totalPrice || 0)}
+                    {b.paymentRef ? ` · ${t("booking.paidBadge")}` : ""}
+                  </td>
+                  <td className="num">
+                    {adminDateTime(showtimeMap[b.showtimeId]?.time)}
+                  </td>
+                  <td>
+                    <RowActions
+                      onEdit={() => openEdit(b)}
+                      onDelete={() => cancelBk.ask(b.id)}
+                      editLabel={t("admin.editSeats")}
+                      deleteLabel={t("admin.cancel")}
+                    />
+                  </td>
+                </tr>
+              );
+            })}
             {visible.length === 0 && (
               <tr>
                 <td colSpan={8} className="adm-k__empty">
@@ -212,30 +200,18 @@ export default function AdminBookings() {
           </tbody>
         </table>
       </div>
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        onPage={setPage}
-        from={from}
-        to={to}
-        total={total}
-      />
-      {cancelId != null && (
+      <TablePager {...pag} />
+      {cancelBk.confirmId != null && (
         <ConfirmDialog
           message={t("admin.confirmCancelBooking")}
-          onConfirm={doCancel}
-          onCancel={() => setCancelId(null)}
+          onConfirm={cancelBk.confirm}
+          onCancel={cancelBk.cancel}
         />
       )}
       {editing && (
         <Modal
-          title={t("admin.editSeatsTitle", {
-            code: `#TK-${String(editing.id).padStart(5, "0")}`,
-          })}
-          onClose={() => {
-            setEditing(null);
-            setSel([]);
-          }}
+          title={t("admin.editSeatsTitle", { code: bookingCode(editing.id) })}
+          onClose={closeEdit}
         >
           <div className="sgm-k">
             {editLayout.map(({ row, seats }) => (
@@ -243,7 +219,7 @@ export default function AdminBookings() {
                 <span className="sgm-k__label">{row}</span>
                 {seats.map((seat) => {
                   const isBooked = otherBooked.has(seat.seatNumber);
-                  const isSel = sel.find(
+                  const isSel = sel.some(
                     (s) => s.seatNumber === seat.seatNumber,
                   );
                   return (
@@ -290,24 +266,11 @@ export default function AdminBookings() {
             </span>
             <strong>{formatPrice(editTotal)}</strong>
           </div>
-          <div className="adm-k__modalact">
-            <button
-              className="adm-k__btn ghost"
-              onClick={() => {
-                setEditing(null);
-                setSel([]);
-              }}
-            >
-              {t("admin.cancel")}
-            </button>
-            <button
-              className="adm-k__btn"
-              disabled={sel.length === 0}
-              onClick={saveSeats}
-            >
-              {t("admin.save")}
-            </button>
-          </div>
+          <ModalActions
+            onCancel={closeEdit}
+            onSave={saveSeats}
+            saveDisabled={sel.length === 0}
+          />
         </Modal>
       )}
     </div>

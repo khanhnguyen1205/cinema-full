@@ -6,7 +6,7 @@ import {
   useRooms,
   useCinemas,
 } from "queries/catalog";
-import { formatDateTime, formatPrice } from "i18n/format";
+import { formatPrice } from "i18n/format";
 import {
   useCreateShowtime,
   useUpdateShowtime,
@@ -16,10 +16,31 @@ import { ROOM_TYPE_PRICE } from "lib/pricing";
 import Modal from "components/admin/Modal";
 import ConfirmDialog from "components/admin/ConfirmDialog";
 import usePagination from "hooks/usePagination";
-import Pagination from "components/admin/Pagination";
 import type { Showtime } from "types";
+import {
+  AdminHead,
+  CinemaFilter,
+  ModalActions,
+  RowActions,
+  SearchBox,
+  TablePager,
+} from "./AdminUI";
+import {
+  adminDateTime,
+  useAdminForm,
+  useById,
+  useConfirmDelete,
+} from "./adminUtils";
 
 const EMPTY = { movieId: "", roomId: "", date: "", time: "", price: "" };
+
+const toForm = (s: Showtime): typeof EMPTY => ({
+  movieId: String(s.movieId),
+  roomId: String(s.roomId),
+  date: s.time.slice(0, 10),
+  time: s.time.slice(11, 16),
+  price: String(s.price),
+});
 
 export default function AdminShowtimes() {
   const { t } = useTranslation();
@@ -37,27 +58,22 @@ export default function AdminShowtimes() {
 
   const [q, setQ] = useState("");
   const [cinemaFilter, setCinemaFilter] = useState("all");
-  const [editing, setEditing] = useState<Showtime | "new" | null>(null);
-  const [form, setForm] = useState<typeof EMPTY>(EMPTY);
-  const [error, setError] = useState("");
-  const [confirmId, setConfirmId] = useState<number | null>(null);
 
-  const roomMap = useMemo(
-    () => Object.fromEntries(rooms.map((r) => [r.id, r])),
-    [rooms],
-  );
-  const cinemaMap = useMemo(
-    () => Object.fromEntries(cinemas.map((c) => [c.id, c])),
-    [cinemas],
-  );
-  const movieMap = useMemo(
-    () => Object.fromEntries(movies.map((m) => [m.id, m])),
-    [movies],
-  );
+  const roomMap = useById(rooms);
+  const cinemaMap = useById(cinemas);
+  const movieMap = useById(movies);
   const roomLabel = (rid: number) => {
     const r = roomMap[rid];
     return r ? `${cinemaMap[r.cinemaId]?.name} · ${r.name} · ${r.type}` : "—";
   };
+
+  // Chọn phòng khi chưa nhập giá thì điền sẵn giá gợi ý của loại phòng đó.
+  const { editing, form, error, setError, openNew, openEdit, close, set } =
+    useAdminForm<Showtime, typeof EMPTY>(EMPTY, (next, key) => {
+      if (key !== "roomId" || next.price) return next;
+      const r = roomMap[Number(next.roomId)];
+      return r ? { ...next, price: String(ROOM_TYPE_PRICE[r.type]) } : next;
+    });
 
   const visible = useMemo(() => {
     const term = q.trim().toLowerCase();
@@ -74,38 +90,7 @@ export default function AdminShowtimes() {
       .sort((a, b) => a.time.localeCompare(b.time));
   }, [showtimes, q, cinemaFilter, roomMap, movieMap]);
 
-  const { pageItems, page, totalPages, setPage, from, to, total } =
-    usePagination(visible);
-
-  const openNew = () => {
-    setForm(EMPTY);
-    setError("");
-    setEditing("new");
-  };
-  const openEdit = (s: Showtime) => {
-    setForm({
-      movieId: String(s.movieId),
-      roomId: String(s.roomId),
-      date: s.time.slice(0, 10),
-      time: s.time.slice(11, 16),
-      price: String(s.price),
-    });
-    setError("");
-    setEditing(s);
-  };
-  const set =
-    (k: keyof typeof EMPTY) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      const v = e.target.value;
-      setForm((f) => {
-        const next = { ...f, [k]: v };
-        if (k === "roomId") {
-          const r = roomMap[Number(v)];
-          if (r && !next.price) next.price = String(ROOM_TYPE_PRICE[r.type]);
-        }
-        return next;
-      });
-    };
+  const { pageItems, ...pag } = usePagination(visible);
 
   const save = async () => {
     if (
@@ -123,57 +108,30 @@ export default function AdminShowtimes() {
       roomId: Number(form.roomId),
       time: `${form.date}T${form.time}:00`,
       price: Number(form.price),
-      bookedSeats:
-        editing === "new" ? [] : editing ? editing.bookedSeats || [] : [],
+      // Suất mới luôn trống ghế; sửa suất cũ thì giữ nguyên ghế đã bán.
+      bookedSeats: editing === "new" ? [] : editing?.bookedSeats || [],
     };
     if (editing === "new") await createS.mutateAsync(body);
     else if (editing) await updateS.mutateAsync({ id: editing.id, body });
-    setEditing(null);
-  };
-  const doDelete = async () => {
-    if (confirmId == null) return;
-    await deleteS.mutateAsync(confirmId);
-    setConfirmId(null);
+    close();
   };
 
-  const fmt = (iso: string) =>
-    formatDateTime(iso, {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+  const del = useConfirmDelete((id) => deleteS.mutateAsync(id));
 
   return (
     <div>
-      <div className="adm-k__head">
-        <span className="adm-k__eyebrow">{t("admin.role")}</span>
-        <h1 className="adm-k__title">{t("admin.showtimesTitle")}</h1>
-        <span className="adm-k__count">
-          {t("admin.items", { count: total })}
-        </span>
-      </div>
+      <AdminHead title={t("admin.showtimesTitle")} count={pag.total} />
       <div className="adm-k__toolbar">
-        <input
-          className="adm-k__search"
+        <SearchBox
           placeholder={t("admin.showtimeSearchPh")}
           value={q}
-          onChange={(e) => setQ(e.target.value)}
+          onChange={setQ}
         />
-        <select
-          className="adm-k__filter"
-          aria-label={t("admin.cinemaFilter")}
+        <CinemaFilter
+          cinemas={cinemas}
           value={cinemaFilter}
-          onChange={(e) => setCinemaFilter(e.target.value)}
-        >
-          <option value="all">{t("admin.allCinemas")}</option>
-          {cinemas.map((c) => (
-            <option key={c.id} value={c.id}>
-              {c.name}
-            </option>
-          ))}
-        </select>
+          onChange={setCinemaFilter}
+        />
         <button className="adm-k__btn" onClick={openNew}>
           {t("admin.addShowtime")}
         </button>
@@ -194,23 +152,13 @@ export default function AdminShowtimes() {
               <tr key={s.id}>
                 <td>{movieMap[s.movieId]?.title || "—"}</td>
                 <td>{roomLabel(s.roomId)}</td>
-                <td className="num">{fmt(s.time)}</td>
+                <td className="num">{adminDateTime(s.time)}</td>
                 <td className="num">{formatPrice(s.price)}</td>
                 <td>
-                  <div className="adm-k__rowact">
-                    <button
-                      className="adm-k__btn ghost sm"
-                      onClick={() => openEdit(s)}
-                    >
-                      {t("admin.edit")}
-                    </button>
-                    <button
-                      className="adm-k__btn danger sm"
-                      onClick={() => setConfirmId(s.id)}
-                    >
-                      {t("admin.delete")}
-                    </button>
-                  </div>
+                  <RowActions
+                    onEdit={() => openEdit(s, toForm(s))}
+                    onDelete={() => del.ask(s.id)}
+                  />
                 </td>
               </tr>
             ))}
@@ -224,21 +172,14 @@ export default function AdminShowtimes() {
           </tbody>
         </table>
       </div>
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        onPage={setPage}
-        from={from}
-        to={to}
-        total={total}
-      />
+      <TablePager {...pag} />
 
       {editing && (
         <Modal
           title={
             editing === "new" ? t("admin.newShowtime") : t("admin.editShowtime")
           }
-          onClose={() => setEditing(null)}
+          onClose={close}
         >
           <div className="adm-k__field">
             <label htmlFor="adm-showtime-movie">{t("admin.fMovie")}</label>
@@ -302,24 +243,14 @@ export default function AdminShowtimes() {
             />
           </div>
           {error && <div className="adm-k__formerr">{error}</div>}
-          <div className="adm-k__modalact">
-            <button
-              className="adm-k__btn ghost"
-              onClick={() => setEditing(null)}
-            >
-              {t("admin.cancel")}
-            </button>
-            <button className="adm-k__btn" onClick={save}>
-              {t("admin.save")}
-            </button>
-          </div>
+          <ModalActions onCancel={close} onSave={save} />
         </Modal>
       )}
-      {confirmId != null && (
+      {del.confirmId != null && (
         <ConfirmDialog
           message={t("admin.confirmDeleteShowtime")}
-          onConfirm={doDelete}
-          onCancel={() => setConfirmId(null)}
+          onConfirm={del.confirm}
+          onCancel={del.cancel}
         />
       )}
     </div>

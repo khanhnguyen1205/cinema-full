@@ -18,6 +18,8 @@ import {
   Cell,
 } from "recharts";
 import type { Booking } from "types";
+import { AdminHead } from "./AdminUI";
+import { useById } from "./adminUtils";
 
 const RED = "#e63030"; // SVG fill không đọc CSS var ổn định -> hardcode khớp --red
 const AXIS = "#9a978f";
@@ -40,14 +42,8 @@ export default function AdminOverview() {
   const cinemas = useMemo(() => cinemasQ.data ?? [], [cinemasQ.data]);
   const bookings = useMemo(() => bookingsQ.data ?? [], [bookingsQ.data]);
 
-  const movieMap = useMemo(
-    () => Object.fromEntries(movies.map((m) => [m.id, m])),
-    [movies],
-  );
-  const cinemaMap = useMemo(
-    () => Object.fromEntries(cinemas.map((c) => [c.id, c])),
-    [cinemas],
-  );
+  const movieMap = useById(movies);
+  const cinemaMap = useById(cinemas);
 
   const totalRevenue = useMemo(
     () => bookings.reduce((s, b) => s + (b.totalPrice || 0), 0),
@@ -91,11 +87,11 @@ export default function AdminOverview() {
   }, [bookings, cinemaMap]);
 
   const tiles = [
-    { n: movies.length, l: t("admin.statMovies") },
-    { n: cinemas.length, l: t("admin.statCinemas") },
-    { n: rooms.length, l: t("admin.statRooms") },
-    { n: showtimes.length, l: t("admin.statShowtimes") },
-    { n: bookings.length, l: t("admin.statBookings") },
+    { count: movies.length, label: t("admin.statMovies") },
+    { count: cinemas.length, label: t("admin.statCinemas") },
+    { count: rooms.length, label: t("admin.statRooms") },
+    { count: showtimes.length, label: t("admin.statShowtimes") },
+    { count: bookings.length, label: t("admin.statBookings") },
   ];
 
   const tooltipStyle = {
@@ -108,16 +104,13 @@ export default function AdminOverview() {
 
   return (
     <div>
-      <div className="adm-k__head">
-        <span className="adm-k__eyebrow">{t("admin.role")}</span>
-        <h1 className="adm-k__title">{t("admin.overviewTitle")}</h1>
-      </div>
+      <AdminHead title={t("admin.overviewTitle")} />
 
       <div className="adm-k__stats">
-        {tiles.map((t) => (
-          <div key={t.l} className="adm-k__stat">
-            <div className="adm-k__stat-num">{t.n}</div>
-            <div className="adm-k__stat-label">{t.l}</div>
+        {tiles.map((tile) => (
+          <div key={tile.label} className="adm-k__stat">
+            <div className="adm-k__stat-num">{tile.count}</div>
+            <div className="adm-k__stat-label">{tile.label}</div>
           </div>
         ))}
       </div>

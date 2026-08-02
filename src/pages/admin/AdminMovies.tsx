@@ -5,8 +5,15 @@ import { useCreateMovie, useUpdateMovie, useDeleteMovie } from "queries/admin";
 import Modal from "components/admin/Modal";
 import ConfirmDialog from "components/admin/ConfirmDialog";
 import usePagination from "hooks/usePagination";
-import Pagination from "components/admin/Pagination";
 import type { Movie } from "types";
+import {
+  AdminHead,
+  ModalActions,
+  RowActions,
+  SearchBox,
+  TablePager,
+} from "./AdminUI";
+import { useAdminForm, useConfirmDelete } from "./adminUtils";
 
 const EMPTY = {
   title: "",
@@ -15,6 +22,14 @@ const EMPTY = {
   description: "",
   poster: "",
 };
+
+const toForm = (m: Movie): typeof EMPTY => ({
+  title: m.title,
+  genre: m.genre,
+  duration: String(m.duration),
+  description: m.description || "",
+  poster: m.poster || "",
+});
 
 export default function AdminMovies() {
   const { t } = useTranslation();
@@ -26,10 +41,8 @@ export default function AdminMovies() {
   const deleteM = useDeleteMovie();
 
   const [q, setQ] = useState("");
-  const [editing, setEditing] = useState<Movie | "new" | null>(null);
-  const [form, setForm] = useState<typeof EMPTY>(EMPTY);
-  const [error, setError] = useState("");
-  const [confirmId, setConfirmId] = useState<number | null>(null);
+  const { editing, form, error, setError, openNew, openEdit, close, set } =
+    useAdminForm<Movie, typeof EMPTY>(EMPTY);
 
   const visible = useMemo(
     () =>
@@ -39,29 +52,7 @@ export default function AdminMovies() {
     [movies, q],
   );
 
-  const { pageItems, page, totalPages, setPage, from, to, total } =
-    usePagination(visible);
-
-  const openNew = () => {
-    setForm(EMPTY);
-    setError("");
-    setEditing("new");
-  };
-  const openEdit = (m: Movie) => {
-    setForm({
-      title: m.title,
-      genre: m.genre,
-      duration: String(m.duration),
-      description: m.description || "",
-      poster: m.poster || "",
-    });
-    setError("");
-    setEditing(m);
-  };
-  const set =
-    (k: keyof typeof EMPTY) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-      setForm((f) => ({ ...f, [k]: e.target.value }));
+  const { pageItems, ...pag } = usePagination(visible);
 
   const save = async () => {
     if (!form.title.trim() || !form.genre.trim() || !form.duration) {
@@ -77,36 +68,27 @@ export default function AdminMovies() {
     };
     if (editing === "new") await createM.mutateAsync(body);
     else if (editing) await updateM.mutateAsync({ id: editing.id, body });
-    setEditing(null);
+    close();
   };
 
-  const doDelete = async () => {
-    if (confirmId == null) return;
-    const used = showtimes.filter((s) => s.movieId === confirmId).length;
+  // Chặn xoá phim còn suất chiếu: báo bằng alert, không gọi API.
+  const del = useConfirmDelete(async (id) => {
+    const used = showtimes.filter((s) => s.movieId === id).length;
     if (used > 0) {
       alert(t("admin.inUseShowtimes", { count: used }));
-      setConfirmId(null);
       return;
     }
-    await deleteM.mutateAsync(confirmId);
-    setConfirmId(null);
-  };
+    await deleteM.mutateAsync(id);
+  });
 
   return (
     <div>
-      <div className="adm-k__head">
-        <span className="adm-k__eyebrow">{t("admin.role")}</span>
-        <h1 className="adm-k__title">{t("admin.moviesTitle")}</h1>
-        <span className="adm-k__count">
-          {t("admin.items", { count: total })}
-        </span>
-      </div>
+      <AdminHead title={t("admin.moviesTitle")} count={pag.total} />
       <div className="adm-k__toolbar">
-        <input
-          className="adm-k__search"
+        <SearchBox
           placeholder={t("admin.movieSearchPh")}
           value={q}
-          onChange={(e) => setQ(e.target.value)}
+          onChange={setQ}
         />
         <button className="adm-k__btn" onClick={openNew}>
           {t("admin.addMovie")}
@@ -131,20 +113,10 @@ export default function AdminMovies() {
                   {m.duration} {t("common.minutes")}
                 </td>
                 <td>
-                  <div className="adm-k__rowact">
-                    <button
-                      className="adm-k__btn ghost sm"
-                      onClick={() => openEdit(m)}
-                    >
-                      {t("admin.edit")}
-                    </button>
-                    <button
-                      className="adm-k__btn danger sm"
-                      onClick={() => setConfirmId(m.id)}
-                    >
-                      {t("admin.delete")}
-                    </button>
-                  </div>
+                  <RowActions
+                    onEdit={() => openEdit(m, toForm(m))}
+                    onDelete={() => del.ask(m.id)}
+                  />
                 </td>
               </tr>
             ))}
@@ -158,19 +130,12 @@ export default function AdminMovies() {
           </tbody>
         </table>
       </div>
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        onPage={setPage}
-        from={from}
-        to={to}
-        total={total}
-      />
+      <TablePager {...pag} />
 
       {editing && (
         <Modal
           title={editing === "new" ? t("admin.newMovie") : t("admin.editMovie")}
-          onClose={() => setEditing(null)}
+          onClose={close}
         >
           <div className="adm-k__field">
             <label htmlFor="adm-movie-title">{t("admin.fMovieTitle")}</label>
@@ -219,24 +184,14 @@ export default function AdminMovies() {
             />
           </div>
           {error && <div className="adm-k__formerr">{error}</div>}
-          <div className="adm-k__modalact">
-            <button
-              className="adm-k__btn ghost"
-              onClick={() => setEditing(null)}
-            >
-              {t("admin.cancel")}
-            </button>
-            <button className="adm-k__btn" onClick={save}>
-              {t("admin.save")}
-            </button>
-          </div>
+          <ModalActions onCancel={close} onSave={save} />
         </Modal>
       )}
-      {confirmId != null && (
+      {del.confirmId != null && (
         <ConfirmDialog
           message={t("admin.confirmDeleteMovie")}
-          onConfirm={doDelete}
-          onCancel={() => setConfirmId(null)}
+          onConfirm={del.confirm}
+          onCancel={del.cancel}
         />
       )}
     </div>
