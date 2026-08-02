@@ -1,22 +1,15 @@
 // Auth qua backend that (server/auth-server.js): cookie httpOnly, JS khong cham token.
 // Moi request kem credentials:"include" de trinh duyet gui cookie phien.
 import type { User } from "types";
+import { AUTH_URL } from "./http";
 
-// Prod: cùng origin => chuỗi rỗng, `${AUTH_URL}/auth/me` thành "/auth/me".
-// Dev: web :3000 khác cổng với API :4000 nên phải ghi rõ host.
-const AUTH_URL =
-  import.meta.env.VITE_AUTH_URL ||
-  (import.meta.env.PROD ? "" : "http://localhost:4000");
-
-const post = async (path: string, body?: unknown): Promise<Response> => {
-  const res = await fetch(`${AUTH_URL}${path}`, {
+const post = (path: string, body?: unknown): Promise<Response> =>
+  fetch(`${AUTH_URL}${path}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
     body: body ? JSON.stringify(body) : undefined,
   });
-  return res;
-};
 
 const readError = async (res: Response, fallback: string): Promise<string> => {
   try {
@@ -68,10 +61,6 @@ export const refreshSession = async (): Promise<User | null> => {
 // Lay user hien tai tu cookie phien. Neu access het han -> thu refresh 1 lan.
 export const fetchMe = async (): Promise<User | null> => {
   const res = await fetch(`${AUTH_URL}/auth/me`, { credentials: "include" });
-  if (res.status === 401) {
-    const refreshed = await refreshSession();
-    if (refreshed) return refreshed;
-    return null;
-  }
+  if (res.status === 401) return refreshSession();
   return res.ok ? res.json() : null;
 };

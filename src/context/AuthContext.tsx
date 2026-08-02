@@ -83,10 +83,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!user) return;
     const id = setInterval(async () => {
       const u = await refreshSession();
+      // refresh het han -> ket thuc phien
       if (!u) {
         setUser(null);
         broadcast({ type: "logout" });
-      } // refresh het han -> ket thuc phien
+      }
     }, REFRESH_MS);
     return () => clearInterval(id);
   }, [user, broadcast]);

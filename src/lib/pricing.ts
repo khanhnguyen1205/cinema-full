@@ -37,9 +37,11 @@ export const SEAT_TYPE: Record<SeatTypeKey, { label: string }> = {
   couple: { label: "Đôi" },
 };
 
-export const seatType = (
-  seat: Pick<Seat, "isVip" | "isCouple">,
-): SeatTypeKey => (seat.isCouple ? "couple" : seat.isVip ? "vip" : "standard");
+export function seatType(seat: Pick<Seat, "isVip" | "isCouple">): SeatTypeKey {
+  if (seat.isCouple) return "couple";
+  if (seat.isVip) return "vip";
+  return "standard";
+}
 
 // Cột nào chèn lối đi ngay sau: đọc từ room.aisleAfterCols, mặc định 1 lối giữa
 export function aisleCols(room?: Room | null): number[] {
@@ -98,15 +100,14 @@ export function bookedSeatSet(
   return set;
 }
 
-export const priceOf = (
+export function priceOf(
   seat: Pick<Seat, "isVip" | "isCouple">,
   basePrice: number,
-): number =>
-  seat.isCouple
-    ? couplePrice(basePrice)
-    : seat.isVip
-      ? vipPrice(basePrice)
-      : basePrice;
+): number {
+  if (seat.isCouple) return couplePrice(basePrice);
+  if (seat.isVip) return vipPrice(basePrice);
+  return basePrice;
+}
 
 // --- Bắp nước (F&B) ---
 export interface FnbLine {

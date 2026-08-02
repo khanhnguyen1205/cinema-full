@@ -1,12 +1,15 @@
 // Lõi tìm kiếm thuần: chuẩn hoá bỏ dấu tiếng Việt + so khớp/xếp hạng.
 // Không phụ thuộc React/Prisma -> test chạy không cần DB.
 
+// Dải Combining Diacritical Marks — viết dạng \u để dấu tổ hợp không "tàng hình" trong mã nguồn.
+const COMBINING_MARKS = /[\u0300-\u036f]/g;
+
 export function normalize(s: string): string {
   return s
     .normalize("NFD") // tách dấu tổ hợp khỏi nguyên âm
-    .replace(/[̀-ͯ]/g, "") // xoá dấu tổ hợp
-    .replace(/đ/g, "d") // đ
-    .replace(/Đ/g, "D") // Đ
+    .replace(COMBINING_MARKS, "")
+    .replace(/đ/g, "d")
+    .replace(/Đ/g, "D")
     .toLowerCase()
     .trim();
 }

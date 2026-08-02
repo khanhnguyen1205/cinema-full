@@ -1,8 +1,6 @@
 // Thanh toán qua cổng phân quyền (:4000/api/payments). Publishable key lấy TỪ SERVER
 // (không phải biến VITE_*) nên đổi key trên Render không cần build lại image.
-const BASE_URL =
-  import.meta.env.VITE_API_URL ||
-  (import.meta.env.PROD ? "/api" : "http://localhost:4000/api");
+import { API_URL } from "./http";
 
 export interface PaymentConfig {
   enabled: boolean;
@@ -10,7 +8,7 @@ export interface PaymentConfig {
 }
 
 export const getPaymentConfig = (): Promise<PaymentConfig> =>
-  fetch(`${BASE_URL}/payments/config`, { credentials: "include" }).then(
+  fetch(`${API_URL}/payments/config`, { credentials: "include" }).then(
     (r) => r.json() as Promise<PaymentConfig>,
   );
 
@@ -34,7 +32,7 @@ export interface PaymentError extends Error {
 export async function createPaymentIntent(
   payload: IntentPayload,
 ): Promise<IntentResult> {
-  const r = await fetch(`${BASE_URL}/payments/intent`, {
+  const r = await fetch(`${API_URL}/payments/intent`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },

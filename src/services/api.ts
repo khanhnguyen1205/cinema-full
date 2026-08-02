@@ -11,21 +11,27 @@ import type {
   Room,
   Showtime,
 } from "types";
-
-// Prod: SPA do CHÍNH server Express phục vụ => đường dẫn tương đối, cùng origin.
-// Dev: web :3000 và API :4000 khác cổng nên phải ghi rõ host.
-// (Docker build không có .env — .dockerignore loại nó — nên KHÔNG được để fallback
-// localhost lọt vào bundle production: trình duyệt của khách sẽ gọi về máy họ.)
-const BASE_URL =
-  import.meta.env.VITE_API_URL ||
-  (import.meta.env.PROD ? "/api" : "http://localhost:4000/api");
+import { API_URL } from "./http";
 
 type Id = number | string;
 
 const req = (path: string, opts: RequestInit = {}): Promise<Response> =>
-  fetch(`${BASE_URL}${path}`, { credentials: "include", ...opts });
+  fetch(`${API_URL}${path}`, { credentials: "include", ...opts });
 const get = <T>(path: string): Promise<T> =>
   req(path).then((r) => r.json() as Promise<T>);
+
+// Gửi thân JSON. extraHeaders chỉ dùng cho x-lang khi đặt vé.
+const reqJson = (
+  path: string,
+  method: "POST" | "PATCH",
+  body: unknown,
+  extraHeaders?: Record<string, string>,
+): Promise<Response> =>
+  req(path, {
+    method,
+    headers: { "Content-Type": "application/json", ...extraHeaders },
+    body: JSON.stringify(body),
+  });
 
 export const getMovies = () => get<Movie[]>(`/movies`);
 export const getMovie = (id: Id) => get<Movie>(`/movies/${id}`);
@@ -63,11 +69,7 @@ export const getOccupiedSeats = (showtimeId: Id): Promise<string[]> =>
 // Giữ ghế phía server: gửi toàn bộ ghế đang chọn (đặt lại + gia hạn TTL, kiêm heartbeat).
 // Trả nguyên Response để nơi gọi đọc status (409 = ghế vừa bị người khác giữ).
 export const holdSeats = (showtimeId: Id, seats: string[]): Promise<Response> =>
-  req(`/holds`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ showtimeId, seats }),
-  });
+  reqJson(`/holds`, "POST", { showtimeId, seats });
 
 // Nhả toàn bộ ghế đang giữ của mình ở 1 suất.
 export const releaseSeats = (showtimeId: Id): Promise<Response> =>
@@ -78,14 +80,9 @@ export const releaseSeats = (showtimeId: Id): Promise<Response> =>
 export const createBooking = async (
   booking: Partial<Booking>,
 ): Promise<Booking> => {
-  const r = await req(`/bookings`, {
-    method: "POST",
-    // x-lang: server dùng để chọn ngôn ngữ email vé (không import chéo được src/i18n).
-    headers: {
-      "Content-Type": "application/json",
-      "x-lang": i18n.language || "vi",
-    },
-    body: JSON.stringify(booking),
+  // x-lang: server dùng để chọn ngôn ngữ email vé (không import chéo được src/i18n).
+  const r = await reqJson(`/bookings`, "POST", booking, {
+    "x-lang": i18n.language || "vi",
   });
   const data = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(data.error || "Đặt vé thất bại.");
@@ -99,17 +96,9 @@ export const getConcessions = () => get<Concession[]>(`/concessions`);
 
 // --- Admin CRUD (gateway yêu cầu quyền admin cho các thao tác ghi) ---
 const post = <T>(path: string, body: unknown): Promise<T> =>
-  req(path, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  }).then((r) => r.json());
+  reqJson(path, "POST", body).then((r) => r.json());
 const patch = <T>(path: string, body: unknown): Promise<T> =>
-  req(path, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  }).then((r) => r.json());
+  reqJson(path, "PATCH", body).then((r) => r.json());
 const del = (path: string): Promise<Response> =>
   req(path, { method: "DELETE" });
 
@@ -144,11 +133,7 @@ const sendReview = async <T>(
   method: "POST" | "PATCH",
   body: unknown,
 ): Promise<T> => {
-  const r = await req(path, {
-    method,
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
+  const r = await reqJson(path, method, body);
   if (!r.ok) {
     const msg = await r
       .json()
