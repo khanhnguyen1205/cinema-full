@@ -30,9 +30,35 @@ export function addDays(iso: string, days: number): string {
   return `${yyyy}-${mm}-${dd}${rest ?? ""}`;
 }
 
+// Số ngày lịch từ `from` đến `to`. NaN nếu một trong hai không phải ngày.
+const dayDiff = (from: string, to: string): number =>
+  (Date.parse(`${dayOf(to)}T00:00:00Z`) -
+    Date.parse(`${dayOf(from)}T00:00:00Z`)) /
+  86_400_000;
+
 // Số ngày cần cộng vào MỌI mốc để ngày sớm nhất của fixture thành (today - PAST_DAYS).
 export function offsetDaysFor(earliestDay: string, today: string): number {
-  const a = Date.parse(`${dayOf(earliestDay)}T00:00:00Z`);
-  const b = Date.parse(`${dayOf(today)}T00:00:00Z`);
-  return Math.round((b - a) / 86_400_000) - PAST_DAYS;
+  return Math.round(dayDiff(earliestDay, today)) - PAST_DAYS;
+}
+
+// Cửa sổ phải luôn còn ít nhất chừng này ngày phía trước, nếu không thì dịch. Cửa sổ
+// khoẻ có ngày muộn nhất = hôm nay + 4, nên thực tế cứ ~3 ngày dịch một lần.
+export const AHEAD_DAYS_MIN = 2;
+
+const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+// Cần dịch bao nhiêu ngày để cửa sổ về lại [today - PAST_DAYS, ...]? null = đang khoẻ,
+// hoặc không đủ dữ kiện để quyết — cả hai đều nghĩa là ĐỪNG ĐỤNG VÀO.
+export function planShift(times: string[], today: string): number | null {
+  const days = times.map(dayOf).filter((d) => DAY_RE.test(d));
+  if (days.length === 0) return null;
+  days.sort();
+
+  // So theo NGÀY LỊCH, không theo giờ: suất 23:00 tối mai vẫn là "1 ngày phía trước",
+  // đúng như người dùng nhìn vào dải chọn ngày.
+  const ahead = dayDiff(today, days[days.length - 1]);
+  if (!Number.isFinite(ahead) || ahead >= AHEAD_DAYS_MIN) return null;
+
+  const offset = offsetDaysFor(days[0], today);
+  return Number.isFinite(offset) && offset !== 0 ? offset : null;
 }
