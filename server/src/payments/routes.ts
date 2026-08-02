@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { getUserFromReq } from "../auth/middleware";
-import { amountFor } from "./amount";
+import { requireUser } from "../auth/middleware";
+import { amountFor, orderFromBody } from "./amount";
 import { getStripe, isStripeEnabled, publishableKey } from "./stripe";
 
 export const paymentsRouter: Router = Router();
@@ -17,24 +17,15 @@ paymentsRouter.get("/config", (_req, res) => {
 
 // Tạo PaymentIntent. Server TỰ TÍNH số tiền từ DB — không đọc số tiền của client.
 paymentsRouter.post("/intent", async (req, res) => {
-  const user = getUserFromReq(req);
-  if (!user) {
-    res.status(401).json({ error: "Vui lòng đăng nhập." });
-    return;
-  }
+  const user = requireUser(req, res);
+  if (!user) return;
   if (!isStripeEnabled()) {
     res.status(503).json({ error: "Chưa cấu hình thanh toán thẻ." });
     return;
   }
 
-  const body = req.body ?? {};
-  const showtimeId = Number(body.showtimeId);
-  const seats: string[] = Array.isArray(body.seats)
-    ? body.seats.map(String)
-    : [];
-  const concessions = Array.isArray(body.concessions) ? body.concessions : [];
-
-  const result = await amountFor({ showtimeId, seats, concessions }, user.id);
+  const order = orderFromBody(req.body ?? {});
+  const result = await amountFor(order, user.id);
   if (!result.ok) {
     res.status(result.status).json({
       error: result.error,
@@ -53,8 +44,8 @@ paymentsRouter.post("/intent", async (req, res) => {
       payment_method_types: ["card"],
       metadata: {
         userId: String(user.id),
-        showtimeId: String(showtimeId),
-        seats: seats.join(","),
+        showtimeId: String(order.showtimeId),
+        seats: order.seats.join(","),
       },
     });
     res.json({ clientSecret: intent.client_secret, amount: intent.amount });

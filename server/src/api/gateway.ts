@@ -48,15 +48,13 @@ gatewayRouter.use(async (req, res) => {
           deny(401, "Vui lòng đăng nhập.");
           return;
         }
-        if (isAdmin) {
-          await handleRest(req, res, rest);
-          return;
-        }
-        if (rest !== "bookings") {
+        if (!isAdmin && rest !== "bookings") {
           deny(403, "Không có quyền."); // chặn đọc đơn lẻ của người khác
           return;
         }
-        await handleRest(req, res, rest, { userId: user.id }); // chỉ đơn của mình
+        // Admin thấy tất cả; người thường bị kẹp về đúng đơn của mình.
+        const scope = isAdmin ? undefined : { userId: user.id };
+        await handleRest(req, res, rest, scope);
         return;
       }
       if (req.method === "POST") {
@@ -176,13 +174,9 @@ gatewayRouter.use(async (req, res) => {
       return;
     }
 
-    // catalog
+    // catalog: ai cũng đọc được, chỉ admin mới ghi
     if (PUBLIC_READ.has(collection)) {
-      if (isRead) {
-        await handleRest(req, res, rest);
-        return;
-      }
-      if (!isAdmin) {
+      if (!isRead && !isAdmin) {
         deny(403, "Không có quyền.");
         return;
       }

@@ -31,18 +31,20 @@ export async function refreshShowtimes(): Promise<number | null> {
     );
     if (offset === null) return null;
 
+    const shifted = rows.map((r) => ({
+      id: r.id,
+      time: addDays(r.time, offset),
+    }));
+
     // Một transaction: hoặc cả bộ dịch, hoặc không dòng nào — không để lịch chiếu
     // rơi vào trạng thái nửa cũ nửa mới.
     await prisma.$transaction(
-      rows.map((r) =>
-        prisma.showtime.update({
-          where: { id: r.id },
-          data: { time: addDays(r.time, offset) },
-        }),
+      shifted.map((r) =>
+        prisma.showtime.update({ where: { id: r.id }, data: { time: r.time } }),
       ),
     );
 
-    const days = rows.map((r) => dayOf(addDays(r.time, offset))).sort();
+    const days = shifted.map((r) => dayOf(r.time)).sort();
     console.log(
       `🔄 Đã dịch lịch chiếu ${offset > 0 ? "+" : ""}${offset} ngày: ${days[0]} → ${days[days.length - 1]}`,
     );

@@ -10,6 +10,18 @@ export type OrderInput = {
   concessions: { id: number; qty: number }[];
 };
 
+// Body của client -> đơn hàng. Client CHỈ được gửi id/số lượng; mọi giá tiền đều
+// do amountFor() tra từ DB. Dùng chung cho /payments/intent và lúc chốt đơn thẻ.
+export function orderFromBody(body: Record<string, unknown>): OrderInput {
+  return {
+    showtimeId: Number(body.showtimeId),
+    seats: Array.isArray(body.seats) ? body.seats.map(String) : [],
+    concessions: Array.isArray(body.concessions)
+      ? (body.concessions as OrderInput["concessions"])
+      : [],
+  };
+}
+
 export type AmountResult =
   | { ok: true; quote: Quote }
   | { ok: false; status: number; error: string; conflicts?: string[] };

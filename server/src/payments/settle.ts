@@ -1,5 +1,5 @@
 import { prisma } from "../db/prisma";
-import { amountFor } from "./amount";
+import { amountFor, orderFromBody } from "./amount";
 import { checkIntent } from "./verify";
 import { getStripe, isStripeEnabled } from "./stripe";
 
@@ -42,16 +42,7 @@ export async function settleCardPayment(
     return { ok: true, existing };
   }
 
-  const order = {
-    showtimeId: Number(body.showtimeId),
-    seats: Array.isArray(body.seats)
-      ? (body.seats as unknown[]).map(String)
-      : [],
-    concessions: Array.isArray(body.concessions)
-      ? (body.concessions as { id: number; qty: number }[])
-      : [],
-  };
-  const amount = await amountFor(order, userId);
+  const amount = await amountFor(orderFromBody(body), userId);
   if (!amount.ok)
     return {
       ok: false,

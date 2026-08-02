@@ -60,6 +60,12 @@ export async function handleRest(
     return;
   }
   const c: CollectionName = name;
+  // Body -> data ghi được: lọc whitelist rồi vá null của cột Json.
+  const writableData = (): Record<string, unknown> =>
+    normalizeJson(
+      c,
+      pickWritable(c, (req.body ?? {}) as Record<string, unknown>),
+    );
   const hasId = idPart != null && idPart !== "";
   const id = hasId ? Number(idPart) : undefined;
   if (hasId && !Number.isFinite(id)) {
@@ -92,10 +98,7 @@ export async function handleRest(
     }
 
     if (req.method === "POST") {
-      const data = normalizeJson(
-        c,
-        pickWritable(c, (req.body ?? {}) as Record<string, unknown>),
-      );
+      const data = writableData();
       if (c === "bookings" && data.createdAt == null)
         data.createdAt = new Date().toISOString();
       const row = await delegate(c).create({ data });
@@ -108,11 +111,10 @@ export async function handleRest(
         res.status(404).json({});
         return;
       }
-      const data = normalizeJson(
-        c,
-        pickWritable(c, (req.body ?? {}) as Record<string, unknown>),
-      );
-      const row = await delegate(c).update({ where: { id }, data });
+      const row = await delegate(c).update({
+        where: { id },
+        data: writableData(),
+      });
       res.json(row);
       return row;
     }

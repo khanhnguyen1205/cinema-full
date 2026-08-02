@@ -1,4 +1,4 @@
-import type { Request } from "express";
+import type { Request, Response } from "express";
 import { verifyToken } from "./tokens";
 import type { ReqUser } from "../types";
 
@@ -12,4 +12,15 @@ export function getUserFromReq(req: Request): ReqUser | null {
   } catch {
     return null;
   }
+}
+
+// Route bắt buộc đăng nhập: trả user, hoặc TỰ trả 401 rồi trả null để nơi gọi
+// `if (!user) return;`. Gom đúng một chỗ status + câu thông báo cho mọi route.
+export function requireUser(req: Request, res: Response): ReqUser | null {
+  const user = getUserFromReq(req);
+  if (!user) {
+    res.status(401).json({ error: "Vui lòng đăng nhập." });
+    return null;
+  }
+  return user;
 }

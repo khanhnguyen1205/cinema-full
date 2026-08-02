@@ -1,6 +1,6 @@
 import { Router } from "express";
 import rateLimit from "express-rate-limit";
-import { getUserFromReq } from "../auth/middleware";
+import { requireUser } from "../auth/middleware";
 import { prisma } from "../db/prisma";
 import { ownerOrAdmin } from "../api/reviews-validate";
 import { isEmailEnabled } from "./resend";
@@ -24,11 +24,8 @@ const resendLimiter = rateLimit({
 });
 
 emailsRouter.post("/ticket", resendLimiter, async (req, res) => {
-  const user = getUserFromReq(req);
-  if (!user) {
-    res.status(401).json({ error: "Vui lòng đăng nhập." });
-    return;
-  }
+  const user = requireUser(req, res);
+  if (!user) return;
   if (!isEmailEnabled()) {
     res.status(503).json({ error: "Chưa cấu hình gửi email." });
     return;

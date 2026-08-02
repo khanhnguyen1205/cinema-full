@@ -12,23 +12,36 @@ const EARLIEST = db.showtimes.map((s) => dayOf(s.time)).sort()[0] ?? TODAY;
 const OFFSET = offsetDaysFor(EARLIEST, TODAY);
 const shift = (iso: string): string => addDays(iso, OFFSET);
 
-// Bảng theo thứ tự FK (cha trước con). Reset sequence sau khi insert id thủ công.
+// Mỗi bảng khai báo ĐÚNG MỘT LẦN: thứ tự FK (cha trước con), nguồn fixture để đối
+// chiếu số dòng, và cách đếm sau khi nạp. Thêm bảng mới chỉ phải sửa danh sách này.
 const TABLES = [
-  "City",
-  "Movie",
-  "User",
-  "Concession",
-  "Cinema",
-  "Room",
-  "Showtime",
-  "Booking",
-  "Review",
+  { name: "City", fixture: db.cities, count: () => prisma.city.count() },
+  { name: "Movie", fixture: db.movies, count: () => prisma.movie.count() },
+  { name: "User", fixture: db.users, count: () => prisma.user.count() },
+  {
+    name: "Concession",
+    fixture: db.concessions,
+    count: () => prisma.concession.count(),
+  },
+  { name: "Cinema", fixture: db.cinemas, count: () => prisma.cinema.count() },
+  { name: "Room", fixture: db.rooms, count: () => prisma.room.count() },
+  {
+    name: "Showtime",
+    fixture: db.showtimes,
+    count: () => prisma.showtime.count(),
+  },
+  {
+    name: "Booking",
+    fixture: db.bookings,
+    count: () => prisma.booking.count(),
+  },
+  { name: "Review", fixture: db.reviews, count: () => prisma.review.count() },
 ] as const;
 
 async function clearAll() {
   // Xoá ngược thứ tự FK để không vướng ràng buộc.
   for (const t of [...TABLES].reverse()) {
-    await prisma.$executeRawUnsafe(`DELETE FROM "${t}";`);
+    await prisma.$executeRawUnsafe(`DELETE FROM "${t.name}";`);
   }
 }
 
@@ -36,7 +49,7 @@ async function resetSequences() {
   // Sau khi insert id thủ công, đẩy sequence tới MAX(id) để insert tự-tăng sau không đụng.
   for (const t of TABLES) {
     await prisma.$queryRawUnsafe(
-      `SELECT setval(pg_get_serial_sequence('"${t}"', 'id'), COALESCE((SELECT MAX(id) FROM "${t}"), 1), (SELECT COUNT(*) > 0 FROM "${t}"));`,
+      `SELECT setval(pg_get_serial_sequence('"${t.name}"', 'id'), COALESCE((SELECT MAX(id) FROM "${t.name}"), 1), (SELECT COUNT(*) > 0 FROM "${t.name}"));`,
     );
   }
 }
@@ -105,41 +118,17 @@ async function seed() {
   await resetSequences();
 }
 
-// Kỳ vọng khớp db.json — dùng làm "kiểm thử" của lát 3a.
-const EXPECTED = {
-  City: db.cities.length,
-  Movie: db.movies.length,
-  User: db.users.length,
-  Concession: db.concessions.length,
-  Cinema: db.cinemas.length,
-  Room: db.rooms.length,
-  Showtime: db.showtimes.length,
-  Booking: db.bookings.length,
-  Review: db.reviews.length,
-};
-
+// Số dòng phải khớp db.json — dùng làm "kiểm thử" của lát 3a.
 async function verify() {
-  const counts = {
-    City: await prisma.city.count(),
-    Movie: await prisma.movie.count(),
-    User: await prisma.user.count(),
-    Concession: await prisma.concession.count(),
-    Cinema: await prisma.cinema.count(),
-    Room: await prisma.room.count(),
-    Showtime: await prisma.showtime.count(),
-    Booking: await prisma.booking.count(),
-    Review: await prisma.review.count(),
-  };
+  const counts: Record<string, number> = {};
+  for (const t of TABLES) counts[t.name] = await t.count();
   console.table(counts);
-  const mismatch = Object.entries(EXPECTED).filter(
-    ([k, v]) => counts[k as keyof typeof counts] !== v,
-  );
+
+  const mismatch = TABLES.filter((t) => counts[t.name] !== t.fixture.length);
   if (mismatch.length) {
     throw new Error(
       `Seed đếm KHÔNG khớp db.json: ${mismatch
-        .map(
-          ([k, v]) => `${k}: có ${counts[k as keyof typeof counts]}, cần ${v}`,
-        )
+        .map((t) => `${t.name}: có ${counts[t.name]}, cần ${t.fixture.length}`)
         .join("; ")}`,
     );
   }
