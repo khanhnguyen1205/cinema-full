@@ -1,6 +1,6 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import db from "../../db.json";
-import { addDays, dayOf, offsetDaysFor } from "./date-shift";
+import { addDays, dayOf, offsetDaysFor } from "../src/schedule/date-shift";
 
 const prisma = new PrismaClient();
 
