@@ -68,7 +68,7 @@ export default class ErrorBoundary extends Component<Props, State> {
               overflow: "auto",
               padding: "12px 16px",
               borderRadius: "8px",
-              background: "var(--bg-card)",
+              background: "var(--surface)",
               border: "1px solid var(--border)",
               color: "var(--text-dim)",
               fontSize: "12px",

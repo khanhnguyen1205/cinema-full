@@ -1,21 +1,19 @@
 :root {
   /* ===== Màu (GIỮ NGUYÊN giá trị cũ) ===== */
   --bg: #0a0a0a;
-  --bg-card: #111111;
-  --bg-card2: #161616;
   --border: rgba(255, 255, 255, 0.07);
   /* Ba sắc đỏ vì một màu KHÔNG phục vụ được cả hai vai trò: chữ trắng trên nền
      đỏ cần đỏ TỐI hơn, chữ đỏ trên nền tối cần đỏ SÁNG hơn. #e63030 hỏng cả
-     hai chiều (4.34:1, cần 4.5). Đừng gộp lại — sẽ làm đỏ cổng a11y. */
+     hai chiều (4.34:1, cần 4.5). Đừng gộp lại — sẽ làm đỏ cổng a11y.
+     Chỉ có ĐÚNG ba sắc này; đừng thêm bí danh mới trỏ vào cùng mã màu, vì bí
+     danh là cách #e63030 lẻn ngược vào vai trò nền/chữ mà nó không đạt chuẩn. */
   --red: #e63030; /* nhận diện: viền, bóng cứng, số lớn trang trí */
   --red-bg: #dd2b2b; /* nền có chữ trắng đè lên — 4.72:1 */
   --red-text: #ff5a5a; /* chữ đỏ trên nền tối — 6.2:1 */
   --red-dark: #b52424;
-  --red-glow: rgba(230, 48, 48, 0.3);
   --text: #f0f0f0;
   --text-muted: #a3a3a3; /* cũ #888 — nâng để giữ bậc với --text-dim */
   --text-dim: #8a8a8a; /* cũ #555 = 2.65:1, chữ nhỏ không đọc nổi */
-  --accent: #e63030;
 
   /* ===== Màu bổ sung (kinetic) ===== */
   --surface: #111111;

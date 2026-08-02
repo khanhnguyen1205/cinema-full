@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { cx } from "lib/cx";
 import "./LanguageSwitcher.css";
 
 const LANGS = [
@@ -15,7 +16,7 @@ export default function LanguageSwitcher() {
         <button
           key={l.code}
           type="button"
-          className={"lang-k__btn" + (current === l.code ? " is-active" : "")}
+          className={cx("lang-k__btn", current === l.code && "is-active")}
           aria-pressed={current === l.code}
           onClick={() => i18n.changeLanguage(l.code)}
         >

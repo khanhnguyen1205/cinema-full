@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from "react";
+import type { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -8,6 +9,7 @@ import {
   useRooms,
   useCities,
 } from "queries/catalog";
+import { cx } from "lib/cx";
 import { normalize, matches, scoreMatch } from "lib/search";
 import { isUpcoming, nowKey } from "lib/time";
 import { formatDateTime } from "i18n/format";
@@ -29,6 +31,43 @@ const fmtTime = (iso: string) =>
     day: "2-digit",
     month: "2-digit",
   });
+
+function ResultOption({
+  isActive,
+  onSelect,
+  children,
+}: {
+  isActive: boolean;
+  onSelect: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      role="option"
+      aria-selected={isActive}
+      className={cx("gsearch__item", isActive && "is-active")}
+      onClick={onSelect}
+    >
+      {children}
+    </button>
+  );
+}
+
+function ResultGroup({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="gsearch__group">
+      <span className="gsearch__grouphd">{title}</span>
+      {children}
+    </div>
+  );
+}
 
 export default function GlobalSearch() {
   const navigate = useNavigate();
@@ -132,6 +171,9 @@ export default function GlobalSearch() {
   const hasResults = movieHits.length + cinemaHits.length + showHits.length > 0;
   const loading = moviesQ.isLoading || cinemasQ.isLoading;
   const showDropdown = open && qn.length > 0 && !loading;
+  // Khoá của mục đang focus. So khoá thay vì so chỉ số giúp mỗi mục tự biết
+  // mình có đang được chọn không, khỏi quét lại `flat` một lần cho mỗi mục.
+  const activeKey = active >= 0 ? flat[active]?.key : undefined;
 
   // đóng khi click ngoài
   useEffect(() => {
@@ -211,117 +253,82 @@ export default function GlobalSearch() {
           ) : (
             <>
               {movieHits.length > 0 && (
-                <div className="gsearch__group">
-                  <span className="gsearch__grouphd">
-                    {t("search.groupMovies")}
-                  </span>
-                  {movieHits.map((m) => {
-                    const idx = flat.findIndex((f) => f.key === `m${m.id}`);
-                    return (
-                      <button
-                        key={m.id}
-                        type="button"
-                        role="option"
-                        aria-selected={active === idx}
-                        className={
-                          "gsearch__item" + (active === idx ? " is-active" : "")
-                        }
-                        onClick={() => go(`/movie/${m.id}`)}
-                      >
-                        {m.poster ? (
-                          <img
-                            src={m.poster}
-                            alt=""
-                            className="gsearch__poster"
-                          />
-                        ) : (
-                          <span className="gsearch__poster gsearch__poster--ph">
-                            {m.title[0]}
-                          </span>
-                        )}
-                        <span className="gsearch__meta">
-                          <span className="gsearch__name">{m.title}</span>
-                          <span className="gsearch__sub">{m.genre}</span>
+                <ResultGroup title={t("search.groupMovies")}>
+                  {movieHits.map((m) => (
+                    <ResultOption
+                      key={m.id}
+                      isActive={activeKey === `m${m.id}`}
+                      onSelect={() => go(`/movie/${m.id}`)}
+                    >
+                      {m.poster ? (
+                        <img
+                          src={m.poster}
+                          alt=""
+                          className="gsearch__poster"
+                        />
+                      ) : (
+                        <span className="gsearch__poster gsearch__poster--ph">
+                          {m.title[0]}
                         </span>
-                      </button>
-                    );
-                  })}
-                </div>
+                      )}
+                      <span className="gsearch__meta">
+                        <span className="gsearch__name">{m.title}</span>
+                        <span className="gsearch__sub">{m.genre}</span>
+                      </span>
+                    </ResultOption>
+                  ))}
+                </ResultGroup>
               )}
 
               {cinemaHits.length > 0 && (
-                <div className="gsearch__group">
-                  <span className="gsearch__grouphd">
-                    {t("search.groupCinemas")}
-                  </span>
-                  {cinemaHits.map((c) => {
-                    const idx = flat.findIndex((f) => f.key === `c${c.id}`);
-                    return (
-                      <button
-                        key={c.id}
-                        type="button"
-                        role="option"
-                        aria-selected={active === idx}
-                        className={
-                          "gsearch__item" + (active === idx ? " is-active" : "")
-                        }
-                        onClick={() => go(`/cinema/${c.id}`)}
-                      >
-                        <span className="gsearch__meta">
-                          <span className="gsearch__name">{c.name}</span>
-                          <span className="gsearch__sub">
-                            {c.address ?? cityName[c.cityId] ?? ""}
-                          </span>
+                <ResultGroup title={t("search.groupCinemas")}>
+                  {cinemaHits.map((c) => (
+                    <ResultOption
+                      key={c.id}
+                      isActive={activeKey === `c${c.id}`}
+                      onSelect={() => go(`/cinema/${c.id}`)}
+                    >
+                      <span className="gsearch__meta">
+                        <span className="gsearch__name">{c.name}</span>
+                        <span className="gsearch__sub">
+                          {c.address ?? cityName[c.cityId] ?? ""}
                         </span>
-                      </button>
-                    );
-                  })}
-                </div>
+                      </span>
+                    </ResultOption>
+                  ))}
+                </ResultGroup>
               )}
 
               {showHits.length > 0 && (
-                <div className="gsearch__group">
-                  <span className="gsearch__grouphd">
-                    {t("search.groupShowtimes")}
-                  </span>
-                  {showHits.map((r) => {
-                    const idx = flat.findIndex(
-                      (f) => f.key === `s${r.showtime.id}`,
-                    );
-                    return (
-                      <button
-                        key={r.showtime.id}
-                        type="button"
-                        role="option"
-                        aria-selected={active === idx}
-                        className={
-                          "gsearch__item" + (active === idx ? " is-active" : "")
-                        }
-                        onClick={() => go(`/seats/${r.showtime.id}`)}
-                      >
-                        <span className="gsearch__meta">
-                          <span className="gsearch__name">
-                            {r.movie?.title ?? "Phim"}
-                          </span>
-                          <span className="gsearch__sub">
-                            {fmtTime(r.showtime.time)} · {r.cinema?.name ?? ""}
-                            {r.roomType ? ` · ${r.roomType}` : ""}
-                          </span>
+                <ResultGroup title={t("search.groupShowtimes")}>
+                  {showHits.map((r) => (
+                    <ResultOption
+                      key={r.showtime.id}
+                      isActive={activeKey === `s${r.showtime.id}`}
+                      onSelect={() => go(`/seats/${r.showtime.id}`)}
+                    >
+                      <span className="gsearch__meta">
+                        <span className="gsearch__name">
+                          {r.movie?.title ?? "Phim"}
                         </span>
-                      </button>
-                    );
-                  })}
-                </div>
+                        <span className="gsearch__sub">
+                          {fmtTime(r.showtime.time)} · {r.cinema?.name ?? ""}
+                          {r.roomType ? ` · ${r.roomType}` : ""}
+                        </span>
+                      </span>
+                    </ResultOption>
+                  ))}
+                </ResultGroup>
               )}
 
               <button
                 type="button"
                 role="option"
-                aria-selected={active === flat.length - 1}
-                className={
-                  "gsearch__all" +
-                  (active === flat.length - 1 ? " is-active" : "")
-                }
+                aria-selected={activeKey === "all"}
+                className={cx(
+                  "gsearch__all",
+                  activeKey === "all" && "is-active",
+                )}
                 onClick={() => go(`/search?q=${encodeURIComponent(q)}`)}
               >
                 {t("search.seeAll", { q: q.trim() })}
