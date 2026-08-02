@@ -43,6 +43,15 @@ const RATINGS = [
 ];
 const FORMATS = ["2D", "3D", "IMAX"] as const;
 
+// Giá trị "không lọc" của hai select thành phố/ngày. Là một sentinel nằm trong
+// URL (?city=…&date=…), KHÔNG phải chữ hiển thị — nhãn đi qua t("movies.*").
+const ALL = "Tất cả";
+
+// Tham số dạng "a,b,c" (genres, fmt) -> mảng.
+function csvParam(params: URLSearchParams, key: string): string[] {
+  return (params.get(key) ?? "").split(",").filter(Boolean);
+}
+
 export default function Movies() {
   const location = useLocation();
   const { t } = useTranslation();
@@ -62,18 +71,12 @@ export default function Movies() {
 
   // ── Trạng thái đọc từ URL (nguồn sự thật) ──
   const search = params.get("q") ?? "";
-  const genres = useMemo(() => {
-    const raw = params.get("genres") ?? "";
-    return raw ? raw.split(",").filter(Boolean) : [];
-  }, [params]);
+  const genres = useMemo(() => csvParam(params, "genres"), [params]);
   const rating = params.get("rating") ?? "0";
   const dur = params.get("dur") ?? "all";
-  const fmt = useMemo(() => {
-    const raw = params.get("fmt") ?? "";
-    return raw ? raw.split(",").filter(Boolean) : [];
-  }, [params]);
-  const city = params.get("city") ?? "Tất cả";
-  const date = params.get("date") ?? "Tất cả";
+  const fmt = useMemo(() => csvParam(params, "fmt"), [params]);
+  const city = params.get("city") ?? ALL;
+  const date = params.get("date") ?? ALL;
   const sort = params.get("sort") ?? "name-asc";
 
   // Genre truyền qua location.state (từ ô thể loại ở Home): đẩy vào URL 1 lần
@@ -82,7 +85,7 @@ export default function Movies() {
     if (didInit.current) return;
     didInit.current = true;
     const g = (location.state as { genre?: string } | null)?.genre;
-    if (g && g !== "Tất cả" && !params.get("genres")) {
+    if (g && g !== ALL && !params.get("genres")) {
       const next = new URLSearchParams(params);
       next.set("genres", g);
       setParams(next, { replace: true });
@@ -99,7 +102,7 @@ export default function Movies() {
     setParams(next, { replace: true });
   };
   const toggleInCsv = (key: string, item: string) => {
-    const cur = (params.get(key) ?? "").split(",").filter(Boolean);
+    const cur = csvParam(params, key);
     const nextArr = cur.includes(item)
       ? cur.filter((x) => x !== item)
       : [...cur, item];
@@ -135,16 +138,16 @@ export default function Movies() {
 
   const dateKeys = useMemo(() => {
     const relevant =
-      city === "Tất cả" ? rows : rows.filter((r) => String(r.cityId) === city);
+      city === ALL ? rows : rows.filter((r) => String(r.cityId) === city);
     return [...new Set(relevant.map((r) => r.dateKey))].sort();
   }, [rows, city]);
 
   const movieIdsByShowtime = useMemo(() => {
-    if (city === "Tất cả" && date === "Tất cả") return null;
+    if (city === ALL && date === ALL) return null;
     const ids = new Set<number>();
     rows.forEach((r) => {
-      if (city !== "Tất cả" && String(r.cityId) !== city) return;
-      if (date !== "Tất cả" && r.dateKey !== date) return;
+      if (city !== ALL && String(r.cityId) !== city) return;
+      if (date !== ALL && r.dateKey !== date) return;
       ids.add(r.movieId);
     });
     return ids;
@@ -226,8 +229,8 @@ export default function Movies() {
     rating !== "0" ||
     dur !== "all" ||
     fmt.length > 0 ||
-    city !== "Tất cả" ||
-    date !== "Tất cả";
+    city !== ALL ||
+    date !== ALL;
 
   const isLoading = moviesQ.isLoading;
   const isError = moviesQ.isError;
@@ -279,15 +282,16 @@ export default function Movies() {
             <select
               value={city}
               onChange={(e) => {
+                // Đổi thành phố thì ngày đã chọn có thể không còn suất -> bỏ luôn.
                 const next = new URLSearchParams(params);
-                if (e.target.value === "Tất cả") next.delete("city");
+                if (e.target.value === ALL) next.delete("city");
                 else next.set("city", e.target.value);
                 next.delete("date");
                 setParams(next, { replace: true });
               }}
               aria-label={t("movies.allCities")}
             >
-              <option value="Tất cả">{t("movies.allCities")}</option>
+              <option value={ALL}>{t("movies.allCities")}</option>
               {cityIds.map((cid) => (
                 <option key={cid} value={String(cid)}>
                   {cityName[cid]}
@@ -296,10 +300,10 @@ export default function Movies() {
             </select>
             <select
               value={date}
-              onChange={(e) => setParam("date", e.target.value, "Tất cả")}
+              onChange={(e) => setParam("date", e.target.value, ALL)}
               aria-label={t("movies.allDates")}
             >
-              <option value="Tất cả">{t("movies.allDates")}</option>
+              <option value={ALL}>{t("movies.allDates")}</option>
               {dateKeys.map((dk) => (
                 <option key={dk} value={dk}>
                   {fmtDate(dk)}

@@ -37,6 +37,31 @@ import { isUpcoming, nowKey } from "lib/time";
 import { useAuth } from "context/AuthContext";
 import "./MovieDetail.css";
 
+// Phễu chọn suất là thành phố -> rạp -> ngày. Hai hàm dưới là ĐỊNH NGHĨA DUY NHẤT
+// của mỗi bậc: vừa đổ dữ liệu cho dropdown, vừa cho biết mục nào được chọn sẵn —
+// nên danh sách hiển thị và giá trị mặc định không thể lệch nhau.
+type Slot = {
+  cityId: number | undefined;
+  cinema: { id: number } | undefined;
+  dateKey: string;
+};
+
+function cinemaIdsIn(slots: Slot[], cityId: number | null): number[] {
+  const ids = slots.filter((s) => s.cityId === cityId).map((s) => s.cinema?.id);
+  return [...new Set(ids)].filter(Boolean) as number[];
+}
+
+function dateKeysIn(
+  slots: Slot[],
+  cityId: number | null,
+  cinemaId: number | null,
+): string[] {
+  const keys = slots
+    .filter((s) => s.cityId === cityId && s.cinema?.id === cinemaId)
+    .map((s) => s.dateKey);
+  return [...new Set(keys)].sort();
+}
+
 export default function MovieDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -89,29 +114,44 @@ export default function MovieDetail() {
   const [dateKey, setDateKey] = useState<string | null>(null);
   const [selectedShowtime, setSelectedShowtime] = useState<number | null>(null);
 
-  const firstCinemaOf = (c: number) =>
-    [
-      ...new Set(
-        enriched.filter((e) => e.cityId === c).map((e) => e.cinema?.id),
-      ),
-    ].filter(Boolean)[0] as number | undefined;
+  // Nội dung từng bậc theo lựa chọn hiện tại.
+  const cityIds = useMemo(
+    () =>
+      [...new Set(enriched.map((e) => e.cityId))].filter(Boolean) as number[],
+    [enriched],
+  );
+  const cinemaIds = useMemo(
+    () => cinemaIdsIn(enriched, cityId),
+    [enriched, cityId],
+  );
+  const dateKeys = useMemo(
+    () => dateKeysIn(enriched, cityId, cinemaId),
+    [enriched, cityId, cinemaId],
+  );
+  const times = useMemo(
+    () =>
+      enriched
+        .filter(
+          (e) =>
+            e.cityId === cityId &&
+            e.cinema?.id === cinemaId &&
+            e.dateKey === dateKey,
+        )
+        .sort((a, b) => a.time.localeCompare(b.time)),
+    [enriched, cityId, cinemaId, dateKey],
+  );
+
+  // Bậc kế tiếp của MỘT lựa chọn bất kỳ — dùng khi đổi thành phố/rạp và lúc khởi tạo.
+  const firstCinemaOf = (c: number) => cinemaIdsIn(enriched, c)[0];
   const firstDateOf = (c: number, cin: number) =>
-    [
-      ...new Set(
-        enriched
-          .filter((e) => e.cityId === c && e.cinema?.id === cin)
-          .map((e) => e.dateKey),
-      ),
-    ].sort()[0];
+    dateKeysIn(enriched, c, cin)[0];
   const cinemaName = (cid: number) =>
     enriched.find((e) => e.cinema?.id === cid)?.cinema?.name || "";
 
   // Khởi tạo default khi enriched sẵn sàng và chưa chọn gì
   useEffect(() => {
     if (!enriched.length || cityId !== null) return;
-    const c0 = [...new Set(enriched.map((e) => e.cityId))].filter(
-      Boolean,
-    )[0] as number | undefined;
+    const c0 = cityIds[0];
     if (c0 === undefined) return;
     const cin0 = firstCinemaOf(c0);
     const d0 = cin0 !== undefined ? firstDateOf(c0, cin0) : undefined;
@@ -132,44 +172,6 @@ export default function MovieDetail() {
       day: "2-digit",
       month: "2-digit",
     });
-
-  const cityIds = useMemo(
-    () =>
-      [...new Set(enriched.map((e) => e.cityId))].filter(Boolean) as number[],
-    [enriched],
-  );
-  const cinemaIds = useMemo(
-    () =>
-      [
-        ...new Set(
-          enriched.filter((e) => e.cityId === cityId).map((e) => e.cinema?.id),
-        ),
-      ].filter(Boolean) as number[],
-    [enriched, cityId],
-  );
-  const dateKeys = useMemo(
-    () =>
-      [
-        ...new Set(
-          enriched
-            .filter((e) => e.cityId === cityId && e.cinema?.id === cinemaId)
-            .map((e) => e.dateKey),
-        ),
-      ].sort(),
-    [enriched, cityId, cinemaId],
-  );
-  const times = useMemo(
-    () =>
-      enriched
-        .filter(
-          (e) =>
-            e.cityId === cityId &&
-            e.cinema?.id === cinemaId &&
-            e.dateKey === dateKey,
-        )
-        .sort((a, b) => a.time.localeCompare(b.time)),
-    [enriched, cityId, cinemaId, dateKey],
-  );
 
   // Rạp có suất cho phim (khu N°02)
   const cinemasShowing = useMemo(() => {

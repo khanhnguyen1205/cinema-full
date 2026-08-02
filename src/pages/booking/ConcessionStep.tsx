@@ -66,8 +66,8 @@ export default function ConcessionStep({
       </div>
 
       {categoriesOf(catalog).map((key) => {
+        // categoriesOf chỉ trả về danh mục CÓ mặt trong catalog -> items luôn khác rỗng.
         const items = catalog.filter((c) => (c.category || "khac") === key);
-        if (!items.length) return null;
         return (
           <section key={key} className="fnb-k__group">
             <h3 className="fnb-k__grouptitle">{catLabel(key)}</h3>

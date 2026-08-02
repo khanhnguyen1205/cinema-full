@@ -111,11 +111,6 @@ export default function BookingWizard() {
     if (cardEnabled) setPaymentMethod("card");
   }, [cardEnabled]);
 
-  const selectedRef = useRef(selected);
-  useEffect(() => {
-    selectedRef.current = selected;
-  }, [selected]);
-
   // Giữ ghế phía server mỗi khi lựa chọn đổi (kiêm heartbeat khi sang bước 2/3).
   const seatKey = selected.map((s) => s.seatNumber).join(",");
   useEffect(() => {
@@ -156,7 +151,9 @@ export default function BookingWizard() {
     };
   }, [showtimeId]);
 
-  const layout = buildSeatLayout(room);
+  // Giữ nguyên tham chiếu giữa các lần render: SeatStep dùng `layout` làm dep của
+  // useEffect, mảng mới mỗi render sẽ bắt effect đó chạy lại vô ích.
+  const layout = useMemo(() => buildSeatLayout(room), [room]);
   const base = showtime?.price || 0;
 
   const toggle = useCallback(

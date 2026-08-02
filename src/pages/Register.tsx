@@ -1,9 +1,9 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { registerUser } from "services/auth";
 import { useAuth } from "context/AuthContext";
-import AuthLayout from "./AuthLayout";
+import AuthLayout, { AuthError, PasswordField } from "./AuthLayout";
 import "./Auth.css";
 
 export default function Register() {
@@ -21,9 +21,8 @@ export default function Register() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from =
-    (location.state as { from?: { pathname?: string } } | null)?.from
-      ?.pathname || "/";
+  const fromState = (location.state as { from?: { pathname?: string } } | null)
+    ?.from;
 
   const set =
     (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -55,7 +54,7 @@ export default function Register() {
         password: form.password,
       });
       login(user);
-      navigate(from, { replace: true });
+      navigate(fromState?.pathname || "/", { replace: true });
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -66,18 +65,7 @@ export default function Register() {
   return (
     <AuthLayout
       codeNo="02"
-      statement={
-        <>
-          {t("auth.registerStatement")
-            .split("\n")
-            .map((line, i) => (
-              <Fragment key={i}>
-                {i > 0 && <br />}
-                {line}
-              </Fragment>
-            ))}
-        </>
-      }
+      statement={t("auth.registerStatement")}
       sub={t("auth.registerSub")}
     >
       <div className="authf-k">
@@ -88,25 +76,7 @@ export default function Register() {
         <p className="authf-k__eyebrow">{t("auth.registerEyebrow")}</p>
         <h1 className="authf-k__title">{t("auth.registerTitle")}</h1>
 
-        {error && (
-          <div className="authf-k__error">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <line x1="12" y1="8" x2="12" y2="12" />
-              <line x1="12" y1="16" x2="12.01" y2="16" />
-            </svg>
-            {error}
-          </div>
-        )}
+        {error && <AuthError message={error} />}
 
         <form className="authf-k__form" onSubmit={handleSubmit}>
           <div className="field-k">
@@ -144,77 +114,23 @@ export default function Register() {
           </div>
 
           <div className="authf-k__row">
-            <div className="field-k">
-              <label className="field-k__label" htmlFor="reg-password">
-                {t("auth.password")}
-              </label>
-              <div className="field-k__wrap">
-                <input
-                  id="reg-password"
-                  className="field-k__input"
-                  type={showPass ? "text" : "password"}
-                  placeholder="••••••••"
-                  value={form.password}
-                  onChange={set("password")}
-                  autoComplete="new-password"
-                />
-                <button
-                  type="button"
-                  className="field-k__eye"
-                  onClick={() => setShowPass((v) => !v)}
-                  aria-label={
-                    showPass ? t("auth.hidePassword") : t("auth.showPassword")
-                  }
-                >
-                  {showPass ? (
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" />
-                      <line x1="1" y1="1" x2="23" y2="23" />
-                    </svg>
-                  ) : (
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                  )}
-                </button>
-              </div>
-            </div>
-
-            <div className="field-k">
-              <label className="field-k__label" htmlFor="reg-confirm">
-                {t("auth.confirmPassword")}
-              </label>
-              <div className="field-k__wrap">
-                <input
-                  id="reg-confirm"
-                  className="field-k__input"
-                  type={showPass ? "text" : "password"}
-                  placeholder="••••••••"
-                  value={form.confirm}
-                  onChange={set("confirm")}
-                  autoComplete="new-password"
-                />
-              </div>
-            </div>
+            <PasswordField
+              id="reg-password"
+              label={t("auth.password")}
+              value={form.password}
+              onChange={set("password")}
+              autoComplete="new-password"
+              visible={showPass}
+              onToggle={() => setShowPass((v) => !v)}
+            />
+            <PasswordField
+              id="reg-confirm"
+              label={t("auth.confirmPassword")}
+              value={form.confirm}
+              onChange={set("confirm")}
+              autoComplete="new-password"
+              visible={showPass}
+            />
           </div>
 
           <button className="authf-k__submit" type="submit" disabled={loading}>
@@ -234,9 +150,7 @@ export default function Register() {
           {t("auth.haveAccount")}{" "}
           <Link
             to="/login"
-            state={{
-              from: (location.state as { from?: unknown } | null)?.from,
-            }}
+            state={{ from: fromState }}
             className="authf-k__link"
           >
             {t("auth.loginNow")}
