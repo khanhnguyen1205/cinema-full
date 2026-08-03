@@ -39,10 +39,16 @@ test("trang phim hiển thị tiêu đề, danh sách và lọc theo thể loạ
   ).toBeVisible();
   // Lưới dựng từ MovieCard -> có ít nhất một thẻ .movie-k
   await expect(page.locator(".movie-k").first()).toBeVisible();
-  // Bấm một chip thể loại (không phải "Tất cả") -> lưới vẫn còn thẻ
+  // Bấm một chip thể loại (không phải "Tất cả") -> lưới vẫn còn thẻ.
+  // Bọc trong toPass vì dải chip dựng lại khi dữ liệu thể loại về: cú bấm có
+  // thể rơi đúng lúc React thay node, DOM nhận click nhưng handler thì không.
   const chip = page.locator(".genre-k-chip", { hasNotText: "Tất cả" }).first();
-  await chip.click();
-  await expect(chip).toHaveAttribute("aria-pressed", "true");
+  await expect(async () => {
+    await chip.click();
+    await expect(chip).toHaveAttribute("aria-pressed", "true", {
+      timeout: 1500,
+    });
+  }).toPass({ timeout: 15000 });
   await expect(page.locator(".movie-k").first()).toBeVisible();
 });
 
@@ -95,9 +101,14 @@ test("trang rạp: tiêu đề, danh sách và lọc theo thành phố", async (
     page.getByRole("heading", { name: "Rạp chiếu phim" }),
   ).toBeVisible();
   await expect(page.locator(".venue-k").first()).toBeVisible();
+  // Cùng lý do giòn như chip thể loại ở trên — xem chú thích ở đó.
   const chip = page.locator(".city-k-chip", { hasNotText: "Tất cả" }).first();
-  await chip.click();
-  await expect(chip).toHaveAttribute("aria-pressed", "true");
+  await expect(async () => {
+    await chip.click();
+    await expect(chip).toHaveAttribute("aria-pressed", "true", {
+      timeout: 1500,
+    });
+  }).toPass({ timeout: 15000 });
 });
 
 test("trang chi tiết rạp: hero và giờ chiếu", async ({ page }) => {
@@ -189,13 +200,21 @@ test("ô search toàn cục: dropdown gợi ý + Enter tới /search", async ({
 // element.focus() không kích hoạt :focus-visible.
 test("ô search toàn cục có vòng focus nhìn thấy được", async ({ page }) => {
   await page.goto("/");
-  for (let i = 0; i < 12; i++) {
+  // PHẢI chờ navbar gắn xong rồi mới bấm Tab. Bấm sớm thì phím rơi vào lúc
+  // React chưa mount, activeElement còn là <body>, và vòng lặp đếm hết lượt mà
+  // không tới ô search — test đỏ giả. Đã cắn đúng lỗi này khi chạy song song.
+  const box = page.getByRole("combobox", { name: /Tìm phim, rạp/ });
+  await expect(box).toBeVisible();
+
+  let daToi = false;
+  for (let i = 0; i < 30 && !daToi; i++) {
     await page.keyboard.press("Tab");
-    const toi = await page.evaluate(
+    daToi = await page.evaluate(
       () => document.activeElement?.getAttribute("role") === "combobox",
     );
-    if (toi) break;
   }
+  expect(daToi, "không Tab tới được ô search sau 30 lượt").toBe(true);
+
   const vien = await page.evaluate(() => {
     const s = getComputedStyle(document.querySelector(".gsearch__box")!);
     return { w: parseFloat(s.outlineWidth), style: s.outlineStyle };
