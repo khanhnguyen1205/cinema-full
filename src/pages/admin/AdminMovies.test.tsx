@@ -66,7 +66,7 @@ const dialog = () => screen.getByRole("dialog");
 const field = (label: string) =>
   (
     within(dialog()).getByText(label).closest(".adm-k__field") as HTMLElement
-  ).querySelector("input, textarea") as HTMLInputElement;
+  ).querySelector("input, textarea, select") as HTMLInputElement;
 
 const confirmDelete = () =>
   userEvent.click(within(dialog()).getByRole("button", { name: "Xóa" }));
@@ -75,6 +75,11 @@ const type = async (label: string, value: string) => {
   const el = field(label);
   await userEvent.clear(el);
   await userEvent.type(el, value);
+};
+
+// Thể loại là <select> (enum cố định), không phải ô gõ tay.
+const pick = async (label: string, value: string) => {
+  await userEvent.selectOptions(field(label), value);
 };
 
 describe("AdminMovies", () => {
@@ -128,7 +133,7 @@ describe("AdminMovies", () => {
     await setup();
     await userEvent.click(screen.getByRole("button", { name: "+ Thêm phim" }));
     await type("Tên phim", "Phim Mới");
-    await type("Thể loại", "Drama");
+    await pick("Thể loại", "Drama");
     await type("Thời lượng (phút)", "101");
     await userEvent.click(screen.getByRole("button", { name: "Lưu" }));
 

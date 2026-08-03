@@ -6,6 +6,7 @@ import Modal from "components/admin/Modal";
 import ConfirmDialog from "components/admin/ConfirmDialog";
 import usePagination from "hooks/usePagination";
 import type { Movie } from "types";
+import { GENRE_CODES, genreLabel } from "i18n/genres";
 import {
   AdminHead,
   ModalActions,
@@ -148,11 +149,20 @@ export default function AdminMovies() {
           <div className="adm-k__field-two">
             <div className="adm-k__field">
               <label htmlFor="adm-movie-genre">{t("admin.fGenre")}</label>
-              <input
+              {/* Select chứ không phải ô chữ tự do: thể loại là enum cố định mà
+                  bộ lọc trang Phim so khớp đúng mã, và genreLabel dịch theo mã. */}
+              <select
                 id="adm-movie-genre"
                 value={form.genre}
                 onChange={set("genre")}
-              />
+              >
+                <option value="">{t("admin.fGenrePick")}</option>
+                {GENRE_CODES.map((code) => (
+                  <option key={code} value={code}>
+                    {genreLabel(code)}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="adm-k__field">
               <label htmlFor="adm-movie-duration">

@@ -320,6 +320,7 @@
     "newMovie": "Add movie",
     "fMovieTitle": "Movie title",
     "fGenre": "Genre",
+    "fGenrePick": "— Pick a genre —",
     "fDurationMin": "Duration (min)",
     "fDescription": "Description",
     "fPoster": "Poster (URL, optional)",

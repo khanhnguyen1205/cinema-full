@@ -320,6 +320,7 @@
     "newMovie": "Thêm phim",
     "fMovieTitle": "Tên phim",
     "fGenre": "Thể loại",
+    "fGenrePick": "— Chọn thể loại —",
     "fDurationMin": "Thời lượng (phút)",
     "fDescription": "Mô tả",
     "fPoster": "Poster (URL, tùy chọn)",
