@@ -305,13 +305,41 @@
   }
 }
 
+/* Chỉ báo "3/4" thừa ở khổ rộng vì cả bốn bước đều nhìn thấy. */
+.stepper-k__count {
+  display: none;
+}
+
 @media (max-width: 640px) {
-  .stepper-k__label {
+  /* Trước đây khổ hẹp giấu HẾT nhãn, để lại "N°01 N°02 N°03 N°04" — tức giữ
+     đúng phần trang trí và vứt phần mang nghĩa. Đảo lại: chỉ còn bước hiện
+     tại NHƯNG có tên đầy đủ, kèm "3/4" cho biết còn bao xa. */
+  .stepper-k__item {
     display: none;
+  }
+  .stepper-k__item.is-current {
+    display: flex;
+    padding-left: 0;
+    border-right: none;
+  }
+  .stepper-k__count {
+    display: inline;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+  }
+  .stepper-k {
+    gap: 12px;
   }
   .booking-k__topbar {
     padding: 12px 16px;
   }
+}
+
+/* Nút quay lại bị ngắt thành hai dòng ở khổ hẹp, dính vào thanh bước. */
+.stepper-k__back {
+  white-space: nowrap;
 }
 
 /* ============================================================

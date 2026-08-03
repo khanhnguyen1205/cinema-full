@@ -41,6 +41,11 @@ export default function BookingStepper({
           </li>
         ))}
       </ol>
+      {/* Chỉ hiện ở khổ hẹp, nơi CSS thu danh sách còn mỗi bước hiện tại:
+          "N°03 THANH TOÁN" cho biết đang ở đâu, còn "3/4" cho biết còn bao xa. */}
+      <span className="stepper-k__count">
+        {step}/{BOOKING_STEPS.length}
+      </span>
     </div>
   );
 }
