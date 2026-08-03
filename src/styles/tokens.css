@@ -37,10 +37,13 @@
   --sp-20: 80px;
   --sp-24: 96px;
 
-  /* ===== Typography ===== */
-  --font-display: "Bebas Neue", sans-serif;
+  /* ===== Typography =====
+     Cả ba bộ chữ đều phải có subset `vietnamese` — xem src/styles/fonts.ts.
+     Luôn dùng biến, đừng viết thẳng tên font vào CSS: có 28 chỗ từng làm vậy
+     và khi cần đổi font thì phải sửa cả 28. */
+  --font-display: "Anton", sans-serif;
   --font-body: "Barlow", sans-serif;
-  --font-mono: "Space Mono", monospace;
+  --font-mono: "IBM Plex Mono", monospace;
   --fs-label: 11px;
   --fs-sm: 13px;
   --fs-base: 15px;

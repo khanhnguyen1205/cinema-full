@@ -83,6 +83,7 @@
 }
 .hero-k__title {
   font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: var(--fs-2xl);
   line-height: 0.86;
   letter-spacing: var(--tr-tight);
@@ -176,6 +177,7 @@
 }
 .home-ticker__inner {
   font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: var(--fs-lg);
   letter-spacing: var(--tr-wide);
   color: var(--text-dim);
@@ -191,6 +193,7 @@
 }
 .home-head__title {
   font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: var(--fs-xl);
   letter-spacing: var(--tr-tight);
   line-height: 1;
@@ -271,6 +274,7 @@
 }
 .stats-k__num {
   font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: var(--fs-2xl);
   line-height: 0.9;
   color: var(--red);
@@ -353,6 +357,7 @@
 }
 .cta-k__title {
   font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: var(--fs-xl);
   line-height: 1;
   letter-spacing: var(--tr-tight);

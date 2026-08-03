@@ -123,6 +123,7 @@
 .auth-k__logo {
   display: none;
   font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 26px;
   letter-spacing: var(--tr-wide);
   color: var(--red);

@@ -268,6 +268,7 @@
 }
 .adm-k__stat-num {
   font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 44px;
   line-height: 0.9;
   color: var(--red);
@@ -307,6 +308,7 @@
 }
 .adm-k__rev-num {
   font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: var(--fs-lg);
   margin-top: var(--sp-2);
   font-variant-numeric: tabular-nums;
@@ -492,6 +494,7 @@
   margin-left: auto;
   color: var(--red-text);
   font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: var(--fs-md);
   font-variant-numeric: tabular-nums;
 }

@@ -29,7 +29,8 @@
 }
 
 .venue-hero__title {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: clamp(44px, 7vw, 96px);
   line-height: 0.9;
   letter-spacing: 1px;
@@ -64,7 +65,8 @@
 }
 
 .stat-k__num {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 48px;
   line-height: 0.9;
   color: var(--red);
@@ -121,7 +123,8 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 48px;
   color: var(--text-dim);
 }
@@ -138,7 +141,8 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 32px;
   letter-spacing: 1px;
   color: var(--text);
@@ -204,7 +208,8 @@
 }
 
 .sched-k__times .time-k-btn__t {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 20px;
   line-height: 1;
   letter-spacing: 1px;

@@ -241,6 +241,7 @@
 
 .ui-kinetic {
   font-family: var(--font-display);
+  text-transform: uppercase;
   line-height: 0.9;
   display: inline;
 }
@@ -366,6 +367,7 @@
 }
 .ui-modal__title {
   font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: var(--fs-lg);
   letter-spacing: var(--tr-wide);
 }

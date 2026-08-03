@@ -66,6 +66,7 @@
 }
 .search-k__empty-title {
   font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: var(--fs-xl);
   color: var(--text);
   margin-bottom: var(--sp-2);
@@ -152,7 +153,8 @@
 .venue-k__name {
   position: relative;
   z-index: 1;
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 28px;
   letter-spacing: 1px;
   color: var(--text);

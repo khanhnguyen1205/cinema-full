@@ -40,6 +40,7 @@
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: var(--fs-2xl);
   color: var(--text-dim);
 }

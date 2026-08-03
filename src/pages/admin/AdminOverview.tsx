@@ -23,7 +23,7 @@ import { useById } from "./adminUtils";
 
 const RED = "#e63030"; // SVG fill không đọc CSS var ổn định -> hardcode khớp --red
 const AXIS = "#9a978f";
-const MONO = '"Space Mono", monospace';
+const MONO = '"IBM Plex Mono", monospace'; // cùng lý do hardcode như RED
 const fmtVnd = (n?: number) => formatPrice(n || 0);
 
 // Doanh thu vé (ghế) của một đơn: ưu tiên seatTotal; đơn cũ chưa tách thì lấy totalPrice

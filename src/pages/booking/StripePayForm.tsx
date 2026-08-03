@@ -98,7 +98,7 @@ export default function StripePayForm({
               colorBackground: "#161616",
               colorText: "#f0f0f0",
               borderRadius: "0px",
-              fontFamily: "'Space Mono', monospace",
+              fontFamily: "'IBM Plex Mono', monospace",
             },
           },
         }}

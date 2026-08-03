@@ -63,7 +63,8 @@
   border-right: none;
 }
 .stepper-k__no {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 18px;
   letter-spacing: 1px;
   color: var(--red-text);
@@ -98,7 +99,8 @@
   color: var(--text-muted);
 }
 .hold-k__time {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 20px;
   letter-spacing: 1px;
   color: var(--text);
@@ -168,7 +170,8 @@
   gap: 14px;
 }
 .os-k__title {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 28px;
   line-height: 1;
   letter-spacing: 0.5px;
@@ -241,7 +244,8 @@
   color: var(--text);
 }
 .os-k__total-amount {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 30px;
   letter-spacing: 1px;
   color: var(--red);
@@ -517,7 +521,8 @@
   margin-bottom: 20px;
 }
 .fnb-k__title {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 32px;
   letter-spacing: 0.5px;
 }
@@ -619,7 +624,8 @@
   margin-bottom: 20px;
 }
 .pay-k__title {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 32px;
   letter-spacing: 0.5px;
 }
@@ -725,7 +731,8 @@
   margin: 0 auto 12px;
 }
 .ticket-k__successtitle {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 40px;
   letter-spacing: 0.5px;
 }

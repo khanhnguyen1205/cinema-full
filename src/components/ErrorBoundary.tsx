@@ -49,7 +49,8 @@ export default class ErrorBoundary extends Component<Props, State> {
         <h1
           style={{
             margin: 0,
-            fontFamily: "'Bebas Neue', sans-serif",
+            fontFamily: "var(--font-display, 'Anton', sans-serif)",
+            textTransform: "uppercase",
             fontSize: "40px",
             letterSpacing: "1px",
             color: "var(--red)",

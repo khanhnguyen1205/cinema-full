@@ -19,6 +19,7 @@
 }
 .nav-k__logo {
   font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: var(--fs-lg);
   letter-spacing: var(--tr-wide);
   color: var(--text);

@@ -90,7 +90,8 @@
 }
 
 .detail-k__title {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: clamp(48px, 8vw, 108px);
   line-height: 0.9;
   letter-spacing: 1px;
@@ -119,7 +120,8 @@
 }
 
 .book-k__head {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 30px;
   letter-spacing: 1px;
   color: var(--text-invert);
@@ -236,7 +238,8 @@
 }
 
 .time-k-btn__t {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 20px;
   letter-spacing: 1px;
   line-height: 1;
@@ -296,14 +299,16 @@
 }
 
 .spec-k__num {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 56px;
   line-height: 0.9;
   color: var(--red);
 }
 
 .spec-k__val {
-  font-family: "Bebas Neue", sans-serif;
+  font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: 32px;
   letter-spacing: 1px;
   color: var(--text);
@@ -431,6 +436,7 @@
 }
 .rev-k__avg {
   font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: var(--fs-display);
   line-height: 0.85;
   color: var(--red);
@@ -551,6 +557,7 @@
 }
 .rev-k__name {
   font-family: var(--font-display);
+  text-transform: uppercase;
   font-size: var(--fs-lg);
   letter-spacing: 0.02em;
 }

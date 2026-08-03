@@ -220,3 +220,44 @@ test("chuyển ngôn ngữ sang EN đổi nhãn điều hướng", async ({ page
   // <html lang> cập nhật theo ngôn ngữ đã chọn
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
 });
+
+// Bộ chữ hiển thị và bộ chữ nhãn PHẢI phủ tiếng Việt.
+//
+// Bebas Neue (cũ) chỉ phát hành subset `latin`/`latin-ext`, nên mọi nguyên âm
+// có dấu chồng rơi sang font dự phòng ngay giữa một từ — "DUYỆT THEO THỂ LOẠI"
+// hiện thành "DUYệT THEO THể LOạI". Không cổng nào khác bắt được: axe không
+// kiểm font fallback và unit test chạy trên happy-dom vốn không dựng chữ.
+// Phép đo: nếu ép một font mà bề rộng glyph BẰNG hệt lúc để font dự phòng thì
+// font đó không có glyph ấy.
+test("font hiển thị và font nhãn có glyph tiếng Việt", async ({ page }) => {
+  await page.goto("/");
+  await page.waitForLoadState("networkidle");
+  const thieu = await page.evaluate(() => {
+    const rong = (ch: string, family: string) => {
+      const s = document.createElement("span");
+      s.style.cssText = `position:absolute;visibility:hidden;font-size:100px;font-family:${family}`;
+      s.textContent = ch;
+      document.body.appendChild(s);
+      const w = s.getBoundingClientRect().width;
+      s.remove();
+      return w;
+    };
+    const css = getComputedStyle(document.documentElement);
+    // Chỉ lấy family ĐẦU trong stack rồi tự nối "cursive" làm dự phòng: để
+    // nguyên stack thì glyph thiếu sẽ rơi sang sans-serif của chính stack đó,
+    // bề rộng lệch đi, và phép so sẽ báo ĐẠT nhầm.
+    const dau = (v: string) => v.split(",")[0].trim();
+    const vaiTro = {
+      display: dau(css.getPropertyValue("--font-display")),
+      mono: dau(css.getPropertyValue("--font-mono")),
+      body: dau(css.getPropertyValue("--font-body")),
+    };
+    const out: string[] = [];
+    for (const [ten, font] of Object.entries(vaiTro))
+      for (const ch of "ỆẾỀỘẬỌƯỞỹ")
+        if (Math.abs(rong(ch, `${font}, cursive`) - rong(ch, "cursive")) < 0.5)
+          out.push(`${ten} (${font}) thiếu "${ch}"`);
+    return out;
+  });
+  expect(thieu, thieu.join(" · ")).toEqual([]);
+});
