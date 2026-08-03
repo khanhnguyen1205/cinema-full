@@ -351,11 +351,41 @@
   color: var(--text-muted);
 }
 
-/* Cuộn ngang khi phòng rộng */
+/* Cuộn ngang khi phòng rộng.
+   12 cột KHÔNG thể vừa màn hình điện thoại: ở mức đích chạm tối thiểu 24px của
+   WCAG 2.5.8, một hàng vẫn cần 355px trong khi khung chỉ có 358px trên máy
+   390px và 328px trên máy 360px. Nên giữ cuộn, nhưng phải BÁO là còn cuộn
+   được — trước đây ghế đứt ngay mép phải, không dấu hiệu gì, người dùng tưởng
+   phòng chỉ có ngần ấy cột.
+   Bóng dưới đây tự hiện/tắt theo vị trí cuộn nhờ background-attachment: hai
+   lớp `local` là mảng che màu nền trôi theo nội dung, hai lớp `scroll` là bóng
+   đứng yên — khi cuộn hết cỡ thì mảng che phủ kín bóng. Không cần JS. */
 .seatmap-k__scroll {
   max-width: 100%;
   overflow-x: auto;
   padding-bottom: 8px;
+  background:
+    linear-gradient(to right, var(--bg), transparent) left center,
+    linear-gradient(to left, var(--bg), transparent) right center,
+    radial-gradient(
+        farthest-side at 0 50%,
+        color-mix(in srgb, var(--text) 22%, transparent),
+        transparent
+      )
+      left center,
+    radial-gradient(
+        farthest-side at 100% 50%,
+        color-mix(in srgb, var(--text) 22%, transparent),
+        transparent
+      )
+      right center;
+  background-repeat: no-repeat;
+  background-size:
+    28px 100%,
+    28px 100%,
+    12px 100%,
+    12px 100%;
+  background-attachment: local, local, scroll, scroll;
 }
 .seatmap-k__grid {
   display: flex;
@@ -474,9 +504,17 @@
   background: var(--surface-invert);
   border-color: var(--surface-invert);
 }
+/* Dùng đúng hoạ tiết gạch chéo của ghế đã đặt. Trước đây là ô xám làm mờ bằng
+   opacity — vừa trông y hệt ô "Thường", vừa trái quy ước cấm dùng opacity để
+   biểu đạt trạng thái phụ. */
 .seatmap-k__leg.is-booked::before {
-  background: var(--surface-2);
-  opacity: 0.6;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--surface-2),
+    var(--surface-2) 3px,
+    transparent 3px,
+    transparent 6px
+  );
 }
 
 @media (prefers-reduced-motion: reduce) {

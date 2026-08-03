@@ -1,7 +1,13 @@
 import { useState, useRef, useEffect, type KeyboardEvent } from "react";
 import { useTranslation } from "react-i18next";
 import type { SeatRow, Seat, Room } from "types";
-import { priceOf, seatType, aisleColsForRow } from "lib/pricing";
+import {
+  priceOf,
+  seatType,
+  aisleColsForRow,
+  vipPrice,
+  couplePrice,
+} from "lib/pricing";
 import { nextSeat, type SeatDir } from "lib/seatNav";
 import { formatPrice } from "i18n/format";
 
@@ -159,9 +165,13 @@ export default function SeatStep({
         <span className="seatmap-k__leg is-standard">
           {t("booking.seatStandard")} {formatPrice(base)}
         </span>
-        <span className="seatmap-k__leg is-vip">{t("booking.seatVip")}</span>
+        {/* Cả ba loại đều hiện giá. Trước đây chỉ "Thường" có, nên chú thích
+            vừa không cho biết VIP/Đôi đắt hơn bao nhiêu, vừa trông như thiếu. */}
+        <span className="seatmap-k__leg is-vip">
+          {t("booking.seatVip")} {formatPrice(vipPrice(base))}
+        </span>
         <span className="seatmap-k__leg is-couple">
-          {t("booking.seatCouple")}
+          {t("booking.seatCouple")} {formatPrice(couplePrice(base))}
         </span>
         <span className="seatmap-k__leg is-selected">
           {t("booking.legSelected")}
