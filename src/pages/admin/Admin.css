@@ -510,6 +510,10 @@
     border-right: none;
     border-bottom: var(--bw-1) solid var(--border-strong);
     padding: var(--sp-3) 0;
+    /* Grid item mặc định min-width:auto nên nó NỞ theo bề rộng tự nhiên của
+       dải tab (~666px) thay vì để .adm-k__nav cuộn — kéo cả trang trượt ngang.
+       Đúng cái bẫy đã cắn .auth-k__ticket ở lát 2f. */
+    min-width: 0;
   }
   .adm-k__side-title {
     display: none;

@@ -261,3 +261,40 @@ test("font hiển thị và font nhãn có glyph tiếng Việt", async ({ page 
   });
   expect(thieu, thieu.join(" · ")).toEqual([]);
 });
+
+// Không trang nào được kéo CẢ TRANG trượt ngang trên điện thoại.
+//
+// Khu quản trị từng dựng khung 666px trong màn hình 390px: .adm-k__side là
+// grid item nên min-width mặc định là auto, nó nở theo bề rộng tự nhiên của
+// dải tab thay vì để .adm-k__nav cuộn. Bảng dữ liệu ĐƯỢC PHÉP trượt (chúng có
+// .adm-k__tablewrap riêng) — thứ bị cấm là chính tài liệu trượt.
+test("không trang nào tràn ngang ở khổ điện thoại", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await loginAdmin(page);
+  const routes = [
+    "/",
+    "/movies",
+    "/cinemas",
+    "/search?q=cgv",
+    "/login",
+    "/register",
+    "/tickets",
+    "/admin",
+    "/admin/movies",
+    "/admin/rooms",
+    "/admin/showtimes",
+    "/admin/bookings",
+    "/admin/reviews",
+  ];
+  const tran: string[] = [];
+  for (const r of routes) {
+    await page.goto(r);
+    await page.waitForLoadState("networkidle");
+    const d = await page.evaluate(() => {
+      const de = document.documentElement;
+      return { sw: de.scrollWidth, cw: de.clientWidth };
+    });
+    if (d.sw > d.cw + 1) tran.push(`${r} (${d.sw} > ${d.cw})`);
+  }
+  expect(tran, tran.join(" · ")).toEqual([]);
+});
