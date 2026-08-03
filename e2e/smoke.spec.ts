@@ -184,6 +184,26 @@ test("ô search toàn cục: dropdown gợi ý + Enter tới /search", async ({
   await expect(page).toHaveURL(/\/search\?q=aveng/);
 });
 
+// Ô search nằm trên Navbar nên có mặt ở mọi trang; nó từng chỉ đổi viền mờ khi
+// nhận focus (1,97:1 — dưới ngưỡng 3:1 của WCAG 1.4.11). Phải Tab THẬT: gọi
+// element.focus() không kích hoạt :focus-visible.
+test("ô search toàn cục có vòng focus nhìn thấy được", async ({ page }) => {
+  await page.goto("/");
+  for (let i = 0; i < 12; i++) {
+    await page.keyboard.press("Tab");
+    const toi = await page.evaluate(
+      () => document.activeElement?.getAttribute("role") === "combobox",
+    );
+    if (toi) break;
+  }
+  const vien = await page.evaluate(() => {
+    const s = getComputedStyle(document.querySelector(".gsearch__box")!);
+    return { w: parseFloat(s.outlineWidth), style: s.outlineStyle };
+  });
+  expect(vien.style).not.toBe("none");
+  expect(vien.w).toBeGreaterThanOrEqual(2);
+});
+
 test("trang /search hiển thị khu kết quả", async ({ page }) => {
   await page.goto("/search?q=a");
   await expect(page.locator(".search-k__sechd").first()).toBeVisible();

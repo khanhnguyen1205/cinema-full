@@ -16,6 +16,16 @@
 .gsearch__box:focus-within {
   border-color: var(--border-strong);
 }
+/* Ô này nằm trên Navbar nên có mặt ở MỌI trang. Đổi viền từ rgba(255,255,255,.07)
+   sang .22 chỉ cho 1,97:1 so với nền — dưới ngưỡng 3:1 của WCAG 1.4.11, và so
+   với chính nó lúc chưa focus thì chỉ 1,66:1, tức gần như không thấy.
+   Dùng lại đúng khuôn mẫu focus của hệ (Button/IconButton/nav admin): 6,63:1.
+   `:has(input:focus-visible)` chứ không phải `:focus-within` để vòng focus chỉ
+   hiện khi đi bằng bàn phím, không bật lên mỗi lần bấm chuột. */
+.gsearch__box:has(input:focus-visible) {
+  outline: var(--bw-2) solid var(--focus);
+  outline-offset: 2px;
+}
 .gsearch__box input {
   flex: 1;
   min-width: 0;
