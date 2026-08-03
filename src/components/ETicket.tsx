@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { QRCodeSVG } from "qrcode.react";
 import TicketEdge from "components/ui/TicketEdge";
 import type { Booking, Movie, Cinema, Room, Showtime } from "types";
-import { formatPrice, formatDate } from "i18n/format";
+import { formatPrice, formatDate, formatClock } from "i18n/format";
 import "./ETicket.css";
 
 const fmt = (n?: number) => formatPrice(n || 0);
@@ -15,13 +15,7 @@ const fmtDate = (iso?: string) =>
         year: "numeric",
       })
     : "—";
-const fmtTime = (iso?: string) =>
-  iso
-    ? new Date(iso).toLocaleTimeString("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-      })
-    : "—";
+const fmtTime = (iso?: string) => (iso ? formatClock(iso) : "—");
 
 const METHOD_KEY: Record<string, string> = {
   momo: "tickets.payMomo",

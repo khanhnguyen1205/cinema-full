@@ -3,7 +3,7 @@ import { vipPrice, couplePrice } from "lib/pricing";
 import type { FnbLine } from "lib/pricing";
 import type { Movie, Cinema, Room, Showtime, Seat } from "types";
 import { genreLabel } from "i18n/genres";
-import { formatPrice, formatDate } from "i18n/format";
+import { formatPrice, formatDate, formatClock } from "i18n/format";
 
 const fmt = formatPrice;
 const fmtDate = (iso?: string) =>
@@ -14,13 +14,7 @@ const fmtDate = (iso?: string) =>
         year: "numeric",
       })
     : "";
-const fmtTime = (iso?: string) =>
-  iso
-    ? new Date(iso).toLocaleTimeString("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-      })
-    : "";
+const fmtTime = (iso?: string) => (iso ? formatClock(iso) : "");
 
 export default function OrderSummary({
   movie,

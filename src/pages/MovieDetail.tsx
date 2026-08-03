@@ -2,7 +2,12 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { genreLabel } from "i18n/genres";
-import { formatDate, formatPrice } from "i18n/format";
+import {
+  formatDate,
+  formatPrice,
+  formatDayShort,
+  formatClock,
+} from "i18n/format";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import MovieCard from "components/MovieCard";
@@ -160,18 +165,6 @@ export default function MovieDetail() {
     setDateKey(d0 ?? null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enriched]);
-
-  const fmtTime = (iso: string) =>
-    new Date(iso).toLocaleTimeString("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  const fmtDate = (k: string) =>
-    formatDate(k, {
-      weekday: "short",
-      day: "2-digit",
-      month: "2-digit",
-    });
 
   // Rạp có suất cho phim (khu N°02)
   const cinemasShowing = useMemo(() => {
@@ -337,7 +330,7 @@ export default function MovieDetail() {
                             setSelectedShowtime(null);
                           }}
                         >
-                          {fmtDate(dk)}
+                          {formatDayShort(dk)}
                         </button>
                       ))}
                     </div>
@@ -357,7 +350,7 @@ export default function MovieDetail() {
                           onClick={() => setSelectedShowtime(e.id)}
                         >
                           <span className="time-k-btn__t">
-                            {fmtTime(e.time)}
+                            {formatClock(e.time)}
                           </span>
                           <span className="time-k-btn__meta">
                             {e.room?.type} · {formatPrice(e.price)}

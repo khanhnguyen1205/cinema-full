@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { formatDateTime } from "i18n/format";
+import { formatShowtimeLabel } from "i18n/format";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import MovieCard from "components/MovieCard";
@@ -25,15 +25,6 @@ import { normalize, matches, scoreMatch } from "lib/search";
 import { isUpcoming, nowKey } from "lib/time";
 import type { Movie, Cinema, Showtime } from "types";
 import "./Search.css";
-
-const fmtTime = (iso: string) =>
-  formatDateTime(iso, {
-    hour: "2-digit",
-    minute: "2-digit",
-    weekday: "short",
-    day: "2-digit",
-    month: "2-digit",
-  });
 
 interface ShowResult {
   showtime: Showtime;
@@ -244,7 +235,8 @@ export default function Search() {
                           {r.movie?.title ?? t("search.sectionMovies")}
                         </span>
                         <span className="search-k__showmeta">
-                          {fmtTime(r.showtime.time)} · {r.cinema?.name ?? ""}
+                          {formatShowtimeLabel(r.showtime.time)} ·{" "}
+                          {r.cinema?.name ?? ""}
                           {r.roomType ? ` · ${r.roomType}` : ""}
                         </span>
                         <span className="search-k__showgo">

@@ -12,7 +12,7 @@ import {
 import { cx } from "lib/cx";
 import { normalize, matches, scoreMatch } from "lib/search";
 import { isUpcoming, nowKey } from "lib/time";
-import { formatDateTime } from "i18n/format";
+import { formatShowtimeLabel } from "i18n/format";
 import type { Movie, Cinema, Showtime } from "types";
 import "./GlobalSearch.css";
 
@@ -22,15 +22,6 @@ interface ShowResult {
   cinema?: Cinema;
   roomType?: string;
 }
-
-const fmtTime = (iso: string) =>
-  formatDateTime(iso, {
-    hour: "2-digit",
-    minute: "2-digit",
-    weekday: "short",
-    day: "2-digit",
-    month: "2-digit",
-  });
 
 function ResultOption({
   isActive,
@@ -312,7 +303,8 @@ export default function GlobalSearch() {
                           {r.movie?.title ?? "Phim"}
                         </span>
                         <span className="gsearch__sub">
-                          {fmtTime(r.showtime.time)} · {r.cinema?.name ?? ""}
+                          {formatShowtimeLabel(r.showtime.time)} ·{" "}
+                          {r.cinema?.name ?? ""}
                           {r.roomType ? ` · ${r.roomType}` : ""}
                         </span>
                       </span>

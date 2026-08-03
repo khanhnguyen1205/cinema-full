@@ -20,7 +20,7 @@ import {
 } from "queries/catalog";
 import { normalize } from "lib/search";
 import { genreLabel } from "i18n/genres";
-import { formatDate } from "i18n/format";
+import { formatDayShort } from "i18n/format";
 import "./Movies.css";
 
 const SORTS = [
@@ -169,13 +169,6 @@ export default function Movies() {
     return m;
   }, [showtimes, roomType]);
 
-  const fmtDate = (k: string) =>
-    formatDate(k, {
-      weekday: "short",
-      day: "2-digit",
-      month: "2-digit",
-    });
-
   const visible = useMemo(() => {
     let list = movies;
     if (movieIdsByShowtime)
@@ -306,7 +299,7 @@ export default function Movies() {
               <option value={ALL}>{t("movies.allDates")}</option>
               {dateKeys.map((dk) => (
                 <option key={dk} value={dk}>
-                  {fmtDate(dk)}
+                  {formatDayShort(dk)}
                 </option>
               ))}
             </select>

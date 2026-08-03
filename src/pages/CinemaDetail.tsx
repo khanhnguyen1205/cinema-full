@@ -5,7 +5,7 @@ import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import { Container, KineticHeading, Reveal, Spinner } from "components/ui";
 import { genreLabel } from "i18n/genres";
-import { formatDate, formatPrice } from "i18n/format";
+import { formatPrice, formatDayShort, formatClock } from "i18n/format";
 import { isUpcoming, nowKey } from "lib/time";
 import {
   useCinema,
@@ -42,18 +42,6 @@ export default function CinemaDetail() {
     () => Object.fromEntries(cities.map((c) => [c.id, c.name])),
     [cities],
   );
-
-  const fmtTime = (iso: string) =>
-    new Date(iso).toLocaleTimeString("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  const fmtDate = (k: string) =>
-    formatDate(k, {
-      weekday: "short",
-      day: "2-digit",
-      month: "2-digit",
-    });
 
   // Chỉ suất CHƯA chiếu — lịch chiếu của rạp là để đặt vé.
   const byMovie = useMemo(() => {
@@ -168,7 +156,9 @@ export default function CinemaDetail() {
                     </span>
                     {dates.map((d) => (
                       <div key={d} className="sched-k__date-row">
-                        <span className="sched-k__date">{fmtDate(d)}</span>
+                        <span className="sched-k__date">
+                          {formatDayShort(d)}
+                        </span>
                         <div className="sched-k__times">
                           {sts
                             .filter((s) => s.time.slice(0, 10) === d)
@@ -181,7 +171,7 @@ export default function CinemaDetail() {
                                 onClick={() => navigate(`/seats/${s.id}`)}
                               >
                                 <span className="time-k-btn__t">
-                                  {fmtTime(s.time)}
+                                  {formatClock(s.time)}
                                 </span>
                                 <span className="time-k-btn__meta">
                                   {roomMap[s.roomId]?.type} ·{" "}
