@@ -94,7 +94,11 @@ export default function StripePayForm({
           appearance: {
             theme: "night",
             variables: {
-              colorPrimary: "#e63030",
+              // Stripe dùng colorPrimary cho CHỮ NHỎ (nhãn tab "Thẻ", dòng
+              // quảng bá Link) trên nền tối — đúng vai trò mà quy ước ba sắc
+              // đỏ của dự án dành riêng cho --red-text (6,2:1). --red #e63030
+              // chỉ đo được 4,34:1 nên không được phép ở đây.
+              colorPrimary: "#ff5a5a",
               colorBackground: "#161616",
               colorText: "#f0f0f0",
               borderRadius: "0px",

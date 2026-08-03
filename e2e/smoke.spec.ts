@@ -266,8 +266,17 @@ test("chuyển ngôn ngữ sang EN đổi nhãn điều hướng", async ({ page
 // có dấu chồng rơi sang font dự phòng ngay giữa một từ — "DUYỆT THEO THỂ LOẠI"
 // hiện thành "DUYệT THEO THể LOạI". Không cổng nào khác bắt được: axe không
 // kiểm font fallback và unit test chạy trên happy-dom vốn không dựng chữ.
-// Phép đo: nếu ép một font mà bề rộng glyph BẰNG hệt lúc để font dự phòng thì
-// font đó không có glyph ấy.
+// Phép đo: ép "<font cần kiểm>, <mốc>" rồi so với chính "<mốc>". Trùng bề rộng
+// nghĩa là chữ đã rơi về mốc, tức font thiếu glyph đó.
+//
+// Dùng HAI mốc và chỉ kết luận thiếu khi trùng CẢ HAI. Một mốc thôi thì báo
+// nhầm: Anton vẽ "ỹ" rộng 92,19px còn Barlow 92,20px — lệch 0,01px nên phép so
+// tưởng là đã rơi về mốc, trong khi Anton có glyph đó hẳn hoi. Va chạm với cả
+// hai mốc cùng lúc thì gần như không xảy ra.
+//
+// Đã thử `document.fonts.check()` trước — nó trả true cho cả chữ Hán trong
+// Anton lẫn một font không tồn tại, tức chỉ kiểm "face đã tải chưa" chứ không
+// kiểm glyph. Không dùng được.
 test("font hiển thị và font nhãn có glyph tiếng Việt", async ({ page }) => {
   await page.goto("/");
   await page.waitForLoadState("networkidle");
@@ -282,10 +291,8 @@ test("font hiển thị và font nhãn có glyph tiếng Việt", async ({ page 
       return w;
     };
     const css = getComputedStyle(document.documentElement);
-    // Chỉ lấy family ĐẦU trong stack rồi tự nối "cursive" làm dự phòng: để
-    // nguyên stack thì glyph thiếu sẽ rơi sang sans-serif của chính stack đó,
-    // bề rộng lệch đi, và phép so sẽ báo ĐẠT nhầm.
     const dau = (v: string) => v.split(",")[0].trim();
+    const MOC = ["monospace", "serif"];
     const vaiTro = {
       display: dau(css.getPropertyValue("--font-display")),
       mono: dau(css.getPropertyValue("--font-mono")),
@@ -293,9 +300,12 @@ test("font hiển thị và font nhãn có glyph tiếng Việt", async ({ page 
     };
     const out: string[] = [];
     for (const [ten, font] of Object.entries(vaiTro))
-      for (const ch of "ỆẾỀỘẬỌƯỞỹ")
-        if (Math.abs(rong(ch, `${font}, cursive`) - rong(ch, "cursive")) < 0.5)
-          out.push(`${ten} (${font}) thiếu "${ch}"`);
+      for (const ch of "ỆẾỀỘẬỌƯỞỹ") {
+        const roiVe = MOC.every(
+          (m) => Math.abs(rong(ch, `${font}, ${m}`) - rong(ch, m)) < 0.5,
+        );
+        if (roiVe) out.push(`${ten} (${font}) thiếu "${ch}"`);
+      }
     return out;
   });
   expect(thieu, thieu.join(" · ")).toEqual([]);
