@@ -89,6 +89,21 @@ describe("AdminMovies", () => {
     expect(screen.getByText(`${fx.movies.length} mục`)).toBeInTheDocument();
   });
 
+  it("bảng chỉ rõ phim nào thiếu ảnh nền", async () => {
+    // Thiếu ảnh nền thì hero rơi về poster làm mờ — vẫn chạy nên không ai để ý.
+    // Fixture: chỉ phim đầu có backdrop.
+    const { container } = renderWithProviders(<AdminMovies />, {
+      user: { ...fx.user, role: "admin" },
+    });
+    await screen.findByText(fx.movies[0].title);
+    const flags = Array.from(
+      container.querySelectorAll(".adm-k__flag"),
+      (n) => n.textContent,
+    );
+    expect(flags[0]).toBe("Có");
+    expect(flags.slice(1)).toEqual(fx.movies.slice(1).map(() => "Thiếu"));
+  });
+
   it("ô tìm kiếm lọc theo tên và báo rỗng khi không khớp", async () => {
     await setup();
     const box = screen.getByPlaceholderText("Tìm phim theo tên...");

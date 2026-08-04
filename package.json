@@ -52,6 +52,7 @@
     "prisma:migrate": "prisma migrate dev --schema server/prisma/schema.prisma",
     "prisma:deploy": "prisma migrate deploy --schema server/prisma/schema.prisma",
     "prisma:seed": "prisma db seed",
+    "backfill:backdrops": "tsx server/prisma/backfill-backdrops.ts",
     "prisma:studio": "prisma studio --schema server/prisma/schema.prisma"
   },
   "prisma": {

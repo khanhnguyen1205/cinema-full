@@ -542,3 +542,52 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ===== Ô nhập ảnh có xem trước ===== */
+.adm-k__imgprev {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2);
+  background: var(--bg);
+  border: var(--bw-1) solid var(--border);
+  border-radius: var(--r-sm);
+}
+.adm-k__imgprev img {
+  flex: 0 0 auto;
+  object-fit: contain;
+  background: var(--surface-2);
+  border-radius: 2px;
+}
+/* Khung xem trước theo đúng khung ảnh cần dán: mắt so được ngay mà không phải
+   đọc số. */
+.adm-k__imgprev.is-portrait img {
+  width: 48px;
+  height: 72px;
+}
+.adm-k__imgprev.is-landscape img {
+  width: 96px;
+  height: 54px;
+}
+.adm-k__imgmsg {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.adm-k__imgmsg.is-warn,
+.adm-k__imgmsg.is-bad {
+  color: var(--red-text);
+}
+
+/* Dấu "thiếu ảnh nền" trong bảng phim */
+.adm-k__flag {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.adm-k__flag.is-missing {
+  color: var(--red-text);
+}

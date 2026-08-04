@@ -236,24 +236,25 @@ test("Movies: lọc định dạng đồng bộ URL", async ({ page }) => {
   await expect(page.locator(".movie-k").first()).toBeVisible();
 });
 
-// Nền hero phải là ảnh NGANG thật, không phải poster dọc bị cắt.
+// Nền hero phải lấy từ trường `backdrop`, không phải poster dọc bị cắt.
 //
 // Chốt chặn cả chuỗi: cột Movie.backdrop -> gateway trả về -> client dựng <img>.
 // Rơi mất một mắt xích nào cũng đưa hero về đường lui poster-làm-mờ, mà đường
 // lui thì trông vẫn "chạy được" nên không có test này thì không ai biết.
-test("nền hero dùng ảnh backdrop ngang", async ({ page }) => {
+//
+// Bản đầu còn đo `naturalWidth` để chắc ảnh tải được thật. Bỏ, vì hai lý do:
+// nó XANH DO CACHE (ảnh còn trong bộ nhớ đệm từ lần chạy trước; máy sạch thì
+// naturalWidth vẫn là 0 lúc phần tử đã hiển thị), và nó biến một cổng CI thành
+// phép thử xem CDN của TMDB có sống không — hỏng bên họ thì đỏ bên mình. Việc
+// "đường dẫn này có ra ảnh thật, đúng khung ngang không" đã có ô xem trước
+// trong form quản trị lo, ngay lúc người ta dán vào.
+test("nền hero dùng ảnh backdrop, không phải poster", async ({ page }) => {
   await page.goto("/");
   const bg = page.locator(".hero-k__backdrop");
   await expect(bg).toBeVisible();
-  const box = await bg.boundingBox();
-  const kich = await bg.evaluate((el) => ({
-    w: (el as HTMLImageElement).naturalWidth,
-    h: (el as HTMLImageElement).naturalHeight,
-  }));
-  expect(box).not.toBeNull();
-  // Ảnh tải được thật (naturalWidth > 0) và là khung ngang.
-  expect(kich.w).toBeGreaterThan(0);
-  expect(kich.w / kich.h).toBeGreaterThan(1.5);
+  await expect(bg).toHaveAttribute("src", /^https?:\/\/\S+$/);
+  // Đường lui poster-làm-mờ KHÔNG được dựng khi đã có backdrop.
+  await expect(page.locator(".hero-k__poster")).toHaveCount(0);
 });
 
 // Không màn hình nào được là ngõ cụt.

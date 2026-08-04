@@ -7,6 +7,7 @@ import { validateReviewInput, ownerOrAdmin } from "./reviews-validate";
 import { settleCardPayment } from "../payments/settle";
 import { sendTicketEmail } from "../email/send";
 import { pickLang } from "../email/lang";
+import { validateMovieImages } from "./movies-validate";
 
 // Catalog: đọc công khai, ghi cần admin.
 const PUBLIC_READ = new Set([
@@ -179,6 +180,13 @@ gatewayRouter.use(async (req, res) => {
       if (!isRead && !isAdmin) {
         deny(403, "Không có quyền.");
         return;
+      }
+      if (collection === "movies" && !isRead) {
+        const v = validateMovieImages(req.body ?? {});
+        if (!v.ok) {
+          deny(400, v.message);
+          return;
+        }
       }
       await handleRest(req, res, rest);
       return;

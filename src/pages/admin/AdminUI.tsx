@@ -1,3 +1,4 @@
+import { useState, type ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 import Pagination from "components/admin/Pagination";
 import type { Pagination as PageState } from "hooks/usePagination";
@@ -130,5 +131,88 @@ export function TablePager({
       to={to}
       total={total}
     />
+  );
+}
+
+// Ô nhập đường dẫn ảnh KÈM ảnh xem trước.
+//
+// Đây là chỗ đúng để bắt lỗi ảnh. Cổng dữ liệu chỉ kiểm được dạng đường dẫn —
+// nó không thể đi tải ảnh về mà không làm request ghi treo theo máy chủ bên
+// thứ ba. Còn ở đây thì trình duyệt vốn ĐANG tải ảnh để hiện, nên biết ngay
+// ảnh có thật không và khung ngang hay dọc. Dán sai là thấy sai trong một
+// giây, không phải đợi tới lúc có người mở trang chủ.
+export function ImageField({
+  id,
+  label,
+  value,
+  onChange,
+  placeholder,
+  shape,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  shape: "portrait" | "landscape";
+}) {
+  const { t } = useTranslation();
+  const [size, setSize] = useState<{ w: number; h: number } | null>(null);
+  const [failed, setFailed] = useState(false);
+  const url = value.trim();
+
+  const ratio = size ? size.w / size.h : 0;
+  const wrongShape =
+    size !== null && (shape === "landscape" ? ratio < 1.2 : ratio > 0.9);
+
+  return (
+    <div className="adm-k__field">
+      <label htmlFor={id}>{label}</label>
+      <input
+        id={id}
+        value={value}
+        placeholder={placeholder}
+        onChange={(e) => {
+          setSize(null);
+          setFailed(false);
+          onChange(e);
+        }}
+      />
+      {url !== "" && (
+        <div className={"adm-k__imgprev is-" + shape}>
+          {failed ? (
+            <span className="adm-k__imgmsg is-bad">{t("admin.imgBad")}</span>
+          ) : (
+            <>
+              <img
+                src={url}
+                alt=""
+                onLoad={(e) =>
+                  setSize({
+                    w: e.currentTarget.naturalWidth,
+                    h: e.currentTarget.naturalHeight,
+                  })
+                }
+                onError={() => setFailed(true)}
+              />
+              <span
+                className={"adm-k__imgmsg" + (wrongShape ? " is-warn" : "")}
+              >
+                {size === null
+                  ? t("admin.imgLoading")
+                  : wrongShape
+                    ? t(
+                        shape === "landscape"
+                          ? "admin.imgWantLandscape"
+                          : "admin.imgWantPortrait",
+                        { w: size.w, h: size.h },
+                      )
+                    : `${size.w}×${size.h}`}
+              </span>
+            </>
+          )}
+        </div>
+      )}
+    </div>
   );
 }

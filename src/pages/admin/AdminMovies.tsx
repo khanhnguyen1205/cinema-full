@@ -9,6 +9,7 @@ import type { Movie } from "types";
 import { GENRE_CODES, genreLabel } from "i18n/genres";
 import {
   AdminHead,
+  ImageField,
   ModalActions,
   RowActions,
   SearchBox,
@@ -105,6 +106,9 @@ export default function AdminMovies() {
               <th scope="col">{t("admin.thName")}</th>
               <th scope="col">{t("admin.thGenre")}</th>
               <th scope="col">{t("admin.thDuration")}</th>
+              {/* Thiếu ảnh nền thì hero rơi về poster làm mờ — vẫn chạy, nên
+                  không ai phát hiện. Cột này làm nó hết im lặng. */}
+              <th scope="col">{t("admin.thBackdrop")}</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -117,6 +121,17 @@ export default function AdminMovies() {
                   {m.duration} {t("common.minutes")}
                 </td>
                 <td>
+                  <span
+                    className={
+                      "adm-k__flag" + (m.backdrop ? "" : " is-missing")
+                    }
+                  >
+                    {m.backdrop
+                      ? t("admin.backdropOk")
+                      : t("admin.backdropMissing")}
+                  </span>
+                </td>
+                <td>
                   <RowActions
                     onEdit={() => openEdit(m, toForm(m))}
                     onDelete={() => del.ask(m.id)}
@@ -126,7 +141,7 @@ export default function AdminMovies() {
             ))}
             {visible.length === 0 && (
               <tr>
-                <td colSpan={4} className="adm-k__empty">
+                <td colSpan={5} className="adm-k__empty">
                   {t("admin.moviesEmpty")}
                 </td>
               </tr>
@@ -188,23 +203,21 @@ export default function AdminMovies() {
               onChange={set("description")}
             />
           </div>
-          <div className="adm-k__field">
-            <label htmlFor="adm-movie-poster">{t("admin.fPoster")}</label>
-            <input
-              id="adm-movie-poster"
-              value={form.poster}
-              onChange={set("poster")}
-            />
-          </div>
-          <div className="adm-k__field">
-            <label htmlFor="adm-movie-backdrop">{t("admin.fBackdrop")}</label>
-            <input
-              id="adm-movie-backdrop"
-              value={form.backdrop}
-              onChange={set("backdrop")}
-              placeholder={t("admin.fBackdropPh")}
-            />
-          </div>
+          <ImageField
+            id="adm-movie-poster"
+            label={t("admin.fPoster")}
+            value={form.poster}
+            onChange={set("poster")}
+            shape="portrait"
+          />
+          <ImageField
+            id="adm-movie-backdrop"
+            label={t("admin.fBackdrop")}
+            value={form.backdrop}
+            onChange={set("backdrop")}
+            placeholder={t("admin.fBackdropPh")}
+            shape="landscape"
+          />
           {error && <div className="adm-k__formerr">{error}</div>}
           <ModalActions onCancel={close} onSave={save} />
         </Modal>
