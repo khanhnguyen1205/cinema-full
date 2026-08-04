@@ -39,8 +39,11 @@ button {
 }
 
 /* COMMON */
+/* KHONG padding-top o day. 60px cu la di tich tu hoi thanh dieu huong con
+   `position: fixed` — fixed thi phai chen noi dung xuong. Nav gio la `sticky`,
+   tu chiem cho trong luong, nen 60px ay chi la khoang trang chet nam TREN ca
+   thanh dieu huong o moi trang. */
 .page {
-  padding-top: 60px;
   min-height: 100vh;
 }
 

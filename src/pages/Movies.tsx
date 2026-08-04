@@ -4,13 +4,7 @@ import { useTranslation } from "react-i18next";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import MovieCard from "components/MovieCard";
-import {
-  Container,
-  Grid,
-  KineticHeading,
-  Skeleton,
-  Button,
-} from "components/ui";
+import { Container, Grid, Skeleton, Button } from "components/ui";
 import {
   useMovies,
   useAllShowtimes,
@@ -235,9 +229,7 @@ export default function Movies() {
       <Container>
         <header className="movies-k__header">
           <span className="movies-k__label">{t("movies.eyebrow")}</span>
-          <h1 className="movies-k__title">
-            <KineticHeading text={t("movies.title")} />
-          </h1>
+          <h1 className="movies-k__title">{t("movies.title")}</h1>
           {!isLoading && !isError && (
             <span className="movies-k__count">
               {t("movies.count", { count: visible.length })}

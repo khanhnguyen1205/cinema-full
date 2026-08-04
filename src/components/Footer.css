@@ -14,7 +14,8 @@
 .foot-k__brand {
   font-family: var(--font-display);
   text-transform: uppercase;
-  font-size: var(--fs-lg);
+  /* Cùng lý do như .nav-k__logo: chữ "MA" đỏ phải ở cỡ chữ lớn. */
+  font-size: 26px;
   letter-spacing: var(--tr-wide);
   color: var(--text);
 }

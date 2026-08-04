@@ -6,7 +6,7 @@
 }
 .ks h1 {
   font-family: var(--font-head);
-  font-weight: 600;
+  font-weight: 500;
   font-size: var(--fs-2xl);
   letter-spacing: 0;
   margin-bottom: var(--sp-8);

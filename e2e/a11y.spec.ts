@@ -17,6 +17,13 @@ const EXCLUDED_RULES: string[] = [];
 // cãi được, rồi kết cục là ai đó tắt cả cổng.
 const BLOCKING = ["critical", "serious"];
 
+// Quét khi hiệu ứng đã tắt. Hero mở bằng animation opacity 0→1 dài 480ms; máy
+// CI chạy song song nên axe từng chộp đúng lúc nó mới tới ~86%, và báo trắng
+// trên đỏ là 4,33:1 trong khi màu thật đạt 4,72:1 — một lỗi tương phản không
+// có thật, chỉ xuất hiện khi máy chậm. CSS của app vốn đã tôn trọng
+// prefers-reduced-motion, nên bật cờ này là quét đúng màu cuối.
+test.use({ reducedMotion: "reduce" });
+
 async function scan(page: Page, name: string) {
   const { violations } = await new AxeBuilder({ page })
     .disableRules(EXCLUDED_RULES)

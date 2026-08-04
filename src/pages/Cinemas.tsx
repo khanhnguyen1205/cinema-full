@@ -3,14 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
-import {
-  Container,
-  Grid,
-  KineticHeading,
-  Tag,
-  Skeleton,
-  Button,
-} from "components/ui";
+import { Container, Grid, Tag, Skeleton, Button } from "components/ui";
 import { useCities, useCinemas, useRooms } from "queries/catalog";
 import "./Cinemas.css";
 
@@ -52,9 +45,7 @@ export default function Cinemas() {
       <Container>
         <header className="cinemas-k__header">
           <span className="cinemas-k__label">{t("cinemas.eyebrow")}</span>
-          <h1 className="cinemas-k__title">
-            <KineticHeading text={t("cinemas.title")} />
-          </h1>
+          <h1 className="cinemas-k__title">{t("cinemas.title")}</h1>
           {!isLoading && !isError && (
             <span className="cinemas-k__count">
               {t("cinemas.count", { count: visible.length })}

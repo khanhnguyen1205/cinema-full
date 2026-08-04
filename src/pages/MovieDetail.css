@@ -92,7 +92,7 @@
 .detail-k__title {
   font-family: var(--font-display);
   text-transform: uppercase;
-  font-size: clamp(48px, 8vw, 108px);
+  font-size: clamp(36px, 5vw, 66px);
   line-height: 0.9;
   letter-spacing: 1px;
   color: var(--text);
@@ -121,9 +121,9 @@
 
 .book-k__head {
   font-family: var(--font-head);
-  font-weight: 600;
-  font-size: 30px;
-  letter-spacing: 1px;
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: 0;
   color: var(--text-invert);
   margin-bottom: 18px;
 }
@@ -311,15 +311,15 @@
 
 .spec-k__num {
   font-family: var(--font-mono);
-  font-size: 52px;
+  font-size: 36px;
   line-height: 0.9;
   color: var(--amber);
 }
 
 .spec-k__val {
   font-family: var(--font-head);
-  font-weight: 600;
-  font-size: 30px;
+  font-weight: 500;
+  font-size: 24px;
   letter-spacing: 0;
   color: var(--text);
 }
@@ -446,7 +446,7 @@
 }
 .rev-k__avg {
   font-family: var(--font-display);
-  font-size: var(--fs-2xl);
+  font-size: clamp(40px, 5vw, 62px);
   line-height: 0.85;
   color: var(--amber);
 }
@@ -565,9 +565,9 @@
 }
 .rev-k__name {
   font-family: var(--font-head);
-  font-weight: 600;
+  font-weight: 500;
   font-size: var(--fs-lg);
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
 }
 .rev-k__badge {
   background: var(--surface-invert);

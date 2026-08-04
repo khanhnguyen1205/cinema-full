@@ -22,10 +22,10 @@
 .hero-k {
   position: relative;
   overflow: hidden;
-  min-height: clamp(460px, 78vh, 720px);
+  min-height: clamp(420px, 64vh, 600px);
   display: flex;
   align-items: flex-end;
-  padding-block: var(--sp-16) var(--sp-12);
+  padding-block: var(--sp-12) var(--sp-10);
   border-bottom: var(--bw-1) solid var(--border);
 }
 .hero-k__poster {
@@ -183,7 +183,7 @@
 }
 .tonight-k__title {
   font-family: var(--font-head);
-  font-weight: 600;
+  font-weight: 500;
   font-size: var(--fs-lg);
   letter-spacing: 0;
   color: var(--text);
@@ -285,7 +285,7 @@
 }
 .home-head__title {
   font-family: var(--font-head);
-  font-weight: 600;
+  font-weight: 500;
   font-size: var(--fs-xl);
   letter-spacing: 0;
   line-height: 1;
@@ -426,7 +426,7 @@
 /* ===== Responsive ===== */
 @media (max-width: 720px) {
   .hero-k {
-    min-height: clamp(420px, 70vh, 560px);
+    min-height: clamp(380px, 58vh, 480px);
   }
   .hero-k__poster {
     background-position: center;

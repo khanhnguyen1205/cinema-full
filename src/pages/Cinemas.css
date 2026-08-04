@@ -29,10 +29,10 @@
 
 .cinemas-k__title {
   font-family: var(--font-head);
-  font-weight: 600;
-  font-size: clamp(44px, 7vw, 88px);
+  font-weight: 500;
+  font-size: clamp(28px, 3.6vw, 46px);
   line-height: 0.92;
-  letter-spacing: 1px;
+  letter-spacing: 0;
   color: var(--text);
 }
 
@@ -123,9 +123,9 @@
   position: relative;
   z-index: 1;
   font-family: var(--font-head);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 28px;
-  letter-spacing: 1px;
+  letter-spacing: 0;
   color: var(--text);
 }
 
@@ -165,9 +165,9 @@
 
 .cinemas-k__empty-title {
   font-family: var(--font-head);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 32px;
-  letter-spacing: 1px;
+  letter-spacing: 0;
   color: var(--text);
 }
 

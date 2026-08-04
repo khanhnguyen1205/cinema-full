@@ -367,9 +367,9 @@
 }
 .ui-modal__title {
   font-family: var(--font-head);
-  font-weight: 600;
+  font-weight: 500;
   font-size: var(--fs-lg);
-  letter-spacing: var(--tr-wide);
+  letter-spacing: 0;
 }
 .ui-modal__body {
   display: flex;
@@ -386,14 +386,17 @@
 }
 
 /* ===== Section ===== */
+/* Khoảng nghỉ giữa các mục đi xuống cùng cỡ chữ: 64px trên/dưới là nhịp của
+   thang chữ cũ (tiêu đề mục 56px). Chữ nhỏ lại mà khoảng cách giữ nguyên thì
+   trang rời rạc, mỗi mục trôi một mình giữa bãi đen. */
 .ui-section {
-  padding-block: var(--sp-16);
+  padding-block: var(--sp-12);
 }
 .ui-section__head {
   display: flex;
   align-items: center;
   gap: var(--sp-4);
-  margin-bottom: var(--sp-8);
+  margin-bottom: var(--sp-6);
 }
 .ui-section__label {
   font-family: var(--font-mono);

@@ -66,14 +66,20 @@
   --font-head: "Barlow Condensed", sans-serif;
   --font-body: "Barlow", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
+  /* Thang cỡ chữ đã HẠ một bậc so với bản đầu. Cũ: tiêu đề mục 56px, tên phim
+     ở hero 120px, tiêu đề trang 88px — to tới mức mỗi khu đều đòi được đọc
+     trước, mà chữ to thì cũng chỉ là một cách hét khác. Cỡ bây giờ vẫn giữ
+     đúng thứ bậc (tên phim > tiêu đề trang > tiêu đề mục) nhưng nhỏ lại đủ để
+     poster và nội dung mới là thứ bắt mắt. Tiêu đề dùng --font-head ở
+     weight 500, không phải 600. */
   --fs-label: 11px;
   --fs-sm: 13px;
   --fs-base: 15px;
   --fs-md: 18px;
-  --fs-lg: 24px;
-  --fs-xl: clamp(32px, 5vw, 56px);
-  --fs-2xl: clamp(48px, 9vw, 120px);
-  --fs-display: clamp(64px, 14vw, 200px);
+  --fs-lg: 21px;
+  --fs-xl: clamp(26px, 3.2vw, 38px); /* tiêu đề mục */
+  --fs-2xl: clamp(36px, 5.2vw, 68px); /* tên phim ở hero */
+  --fs-display: clamp(48px, 8vw, 110px);
   --tr-tight: -0.02em;
   --tr-wide: 0.15em;
   --tr-wider: 0.3em;

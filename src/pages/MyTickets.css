@@ -22,10 +22,10 @@
 }
 .mytk-k__title {
   font-family: var(--font-head);
-  font-weight: 600;
-  font-size: clamp(44px, 7vw, 88px);
+  font-weight: 500;
+  font-size: clamp(28px, 3.6vw, 46px);
   line-height: 0.9;
-  letter-spacing: 1px;
+  letter-spacing: 0;
 }
 .mytk-k__hello {
   font-family: var(--font-body);
@@ -80,7 +80,7 @@
 }
 .mytk-k__empty-title {
   font-family: var(--font-head);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 32px;
   color: var(--text);
 }

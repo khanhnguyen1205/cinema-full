@@ -20,7 +20,13 @@
 .nav-k__logo {
   font-family: var(--font-display);
   text-transform: uppercase;
-  font-size: var(--fs-lg);
+  /* 26px chứ không phải --fs-lg. Chữ "MA" dùng --red (#e63030), mà sắc đỏ đó
+     chỉ đạt 4.49:1 trên nền — dưới ngưỡng 4.5 của chữ THƯỜNG. Nó hợp lệ nhờ
+     là chữ LỚN (≥18pt = 24px, ngưỡng 3:1). Hạ thang chữ xuống --fs-lg 21px đã
+     kéo logo ra khỏi diện "chữ lớn" và làm đỏ cổng a11y trên MỌI trang. Đổi
+     sang --red-text thì được, nhưng đó là sắc đỏ nhạt dành cho chữ nhỏ, không
+     phải dấu nhận diện. Giữ cỡ, giữ màu. */
+  font-size: 26px;
   letter-spacing: var(--tr-wide);
   color: var(--text);
 }

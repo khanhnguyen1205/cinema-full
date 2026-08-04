@@ -78,8 +78,7 @@
 }
 .adm-k__title {
   font-family: var(--font-head);
-  font-weight: 600;
-  font-weight: 400;
+  font-weight: 500;
   font-size: var(--fs-lg);
   line-height: 1;
   letter-spacing: 0;
@@ -268,7 +267,7 @@
 }
 .adm-k__stat-num {
   font-family: var(--font-mono);
-  font-size: 44px;
+  font-size: 30px;
   line-height: 0.9;
   color: var(--red);
   font-variant-numeric: tabular-nums;

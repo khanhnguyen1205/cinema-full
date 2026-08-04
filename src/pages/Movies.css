@@ -29,10 +29,10 @@
 
 .movies-k__title {
   font-family: var(--font-head);
-  font-weight: 600;
-  font-size: clamp(44px, 7vw, 88px);
+  font-weight: 500;
+  font-size: clamp(28px, 3.6vw, 46px);
   line-height: 0.92;
-  letter-spacing: 1px;
+  letter-spacing: 0;
   color: var(--text);
 }
 
@@ -95,8 +95,11 @@
   gap: 12px;
 }
 
-.movies-k__selects select {
-  flex: 1 1 160px;
+/* Gộp cả select ở hàng lọc nâng cao. Trước đây quy tắc này chỉ nhắm
+   `.movies-k__selects select`, nên ô "Mọi thời lượng" nằm ngoài phạm vi và
+   hiện ra là select trắng mặc định của trình duyệt giữa một hàng nút tối. */
+.movies-k__selects select,
+.movies-k__advrow select {
   background: var(--surface);
   border: 1px solid var(--border);
   color: var(--text);
@@ -113,8 +116,13 @@
   transition: border-color 0.2s;
 }
 
+.movies-k__selects select {
+  flex: 1 1 160px;
+}
 .movies-k__selects select:hover,
-.movies-k__selects select:focus-visible {
+.movies-k__selects select:focus-visible,
+.movies-k__advrow select:hover,
+.movies-k__advrow select:focus-visible {
   border-color: var(--red);
 }
 
@@ -178,9 +186,9 @@
 
 .movies-k__empty-title {
   font-family: var(--font-head);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 32px;
-  letter-spacing: 1px;
+  letter-spacing: 0;
   color: var(--text);
 }
 

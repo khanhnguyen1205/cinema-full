@@ -168,7 +168,9 @@ export default function Search() {
             {movieHits.length > 0 && (
               <Section>
                 <div className="search-k__sechd">
-                  <KineticHeading text={t("search.sectionMovies")} />
+                  <h2 className="search-k__sectitle">
+                    {t("search.sectionMovies")}
+                  </h2>
                   <span className="search-k__seccount">{movieHits.length}</span>
                   <Link
                     to={`/movies?q=${encodeURIComponent(q)}`}
@@ -188,7 +190,9 @@ export default function Search() {
             {cinemaHits.length > 0 && (
               <Section>
                 <div className="search-k__sechd">
-                  <KineticHeading text={t("search.sectionCinemas")} />
+                  <h2 className="search-k__sectitle">
+                    {t("search.sectionCinemas")}
+                  </h2>
                   <span className="search-k__seccount">
                     {cinemaHits.length}
                   </span>
@@ -220,7 +224,9 @@ export default function Search() {
             {showHits.length > 0 && (
               <Section>
                 <div className="search-k__sechd">
-                  <KineticHeading text={t("search.sectionShowtimes")} />
+                  <h2 className="search-k__sectitle">
+                    {t("search.sectionShowtimes")}
+                  </h2>
                   <span className="search-k__seccount">{showHits.length}</span>
                 </div>
                 <ul className="search-k__shows">

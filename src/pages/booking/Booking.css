@@ -169,10 +169,10 @@
 }
 .os-k__title {
   font-family: var(--font-head);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 28px;
   line-height: 1;
-  letter-spacing: 0.5px;
+  letter-spacing: 0;
 }
 .os-k__meta {
   font-family: var(--font-mono);
@@ -586,9 +586,9 @@
 }
 .fnb-k__title {
   font-family: var(--font-head);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 32px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0;
 }
 .fnb-k__sub {
   font-family: var(--font-body);
@@ -689,9 +689,9 @@
 }
 .pay-k__title {
   font-family: var(--font-head);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 32px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0;
 }
 .pay-k__sub {
   font-family: var(--font-body);
@@ -796,9 +796,9 @@
 }
 .ticket-k__successtitle {
   font-family: var(--font-head);
-  font-weight: 600;
-  font-size: 40px;
-  letter-spacing: 0.5px;
+  font-weight: 500;
+  font-size: 28px;
+  letter-spacing: 0;
 }
 .ticket-k__successsub {
   font-family: var(--font-body);
