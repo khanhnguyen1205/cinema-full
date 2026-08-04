@@ -14,7 +14,7 @@
   color: var(--text-invert);
   border: var(--bw-2) solid var(--text-invert);
   border-radius: var(--r-sm);
-  box-shadow: var(--shadow-hard);
+  box-shadow: var(--shadow-hard-brand);
   animation: pwa-rise var(--dur-base) var(--ease-out) both;
 }
 .pwa-k__msg {

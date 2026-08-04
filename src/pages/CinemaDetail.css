@@ -39,7 +39,7 @@
 }
 
 .venue-hero__addr {
-  font-family: "Barlow", sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   color: var(--text-muted);
 }
@@ -65,11 +65,10 @@
 }
 
 .stat-k__num {
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: 48px;
+  font-family: var(--font-mono);
+  font-size: 44px;
   line-height: 0.9;
-  color: var(--red);
+  color: var(--text);
 }
 
 .stat-k__label {
@@ -186,7 +185,8 @@
   gap: 8px;
 }
 
-/* Nút giờ — scope trong .sched-k__times để không đụng .time-k-btn (nền bone) của MovieDetail */
+/* Nút giờ — vẫn scope trong .sched-k__times vì hai trang khác nền (--surface vs
+   --surface-2), dù cả hai giờ đều nền tối. */
 .sched-k__times .time-k-btn {
   display: flex;
   flex-direction: column;
@@ -208,22 +208,18 @@
 }
 
 .sched-k__times .time-k-btn__t {
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: 20px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 19px;
   line-height: 1;
-  letter-spacing: 1px;
+  letter-spacing: 0;
+  color: var(--amber);
 }
 
 .sched-k__times .time-k-btn__meta {
   font-family: var(--font-mono);
   font-size: 10px;
   color: var(--text-muted);
-  /* Huỷ opacity 0.75 kế thừa từ MovieDetail.css (CSS nạp toàn cục): nút giờ ở
-     đây nền TỐI nên 0.75 kéo #a3a3a3 xuống #757575 = 4.12:1, không đạt. Bên
-     MovieDetail nút nền bone chữ đen nên độ mờ đó vẫn đọc được — vì thế chỉ
-     ghi đè trong phạm vi này. */
-  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {

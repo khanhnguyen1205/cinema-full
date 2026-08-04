@@ -63,8 +63,7 @@
   border-right: none;
 }
 .stepper-k__no {
-  font-family: var(--font-display);
-  text-transform: uppercase;
+  font-family: var(--font-mono);
   font-size: 18px;
   letter-spacing: 1px;
   color: var(--red-text);
@@ -99,8 +98,7 @@
   color: var(--text-muted);
 }
 .hold-k__time {
-  font-family: var(--font-display);
-  text-transform: uppercase;
+  font-family: var(--font-mono);
   font-size: 20px;
   letter-spacing: 1px;
   color: var(--text);
@@ -170,8 +168,8 @@
   gap: 14px;
 }
 .os-k__title {
-  font-family: var(--font-display);
-  text-transform: uppercase;
+  font-family: var(--font-head);
+  font-weight: 600;
   font-size: 28px;
   line-height: 1;
   letter-spacing: 0.5px;
@@ -184,7 +182,7 @@
   color: var(--text-muted);
 }
 .os-k__cinema {
-  font-family: "Barlow", sans-serif;
+  font-family: var(--font-body);
   font-size: 13px;
   color: var(--text-muted);
 }
@@ -202,7 +200,7 @@
   color: var(--text-muted);
 }
 .os-k__value {
-  font-family: "Barlow", sans-serif;
+  font-family: var(--font-body);
   font-size: 14px;
   color: var(--text);
 }
@@ -587,13 +585,13 @@
   margin-bottom: 20px;
 }
 .fnb-k__title {
-  font-family: var(--font-display);
-  text-transform: uppercase;
+  font-family: var(--font-head);
+  font-weight: 600;
   font-size: 32px;
   letter-spacing: 0.5px;
 }
 .fnb-k__sub {
-  font-family: "Barlow", sans-serif;
+  font-family: var(--font-body);
   font-size: 14px;
   color: var(--text-muted);
 }
@@ -637,7 +635,7 @@
   min-width: 0;
 }
 .fnb-k__name {
-  font-family: "Barlow", sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   font-weight: 600;
 }
@@ -690,13 +688,13 @@
   margin-bottom: 20px;
 }
 .pay-k__title {
-  font-family: var(--font-display);
-  text-transform: uppercase;
+  font-family: var(--font-head);
+  font-weight: 600;
   font-size: 32px;
   letter-spacing: 0.5px;
 }
 .pay-k__sub {
-  font-family: "Barlow", sans-serif;
+  font-family: var(--font-body);
   font-size: 14px;
   color: var(--text-muted);
 }
@@ -742,7 +740,7 @@
   gap: 2px;
 }
 .pay-k__name {
-  font-family: "Barlow", sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   font-weight: 600;
 }
@@ -797,13 +795,13 @@
   margin: 0 auto 12px;
 }
 .ticket-k__successtitle {
-  font-family: var(--font-display);
-  text-transform: uppercase;
+  font-family: var(--font-head);
+  font-weight: 600;
   font-size: 40px;
   letter-spacing: 0.5px;
 }
 .ticket-k__successsub {
-  font-family: "Barlow", sans-serif;
+  font-family: var(--font-body);
   font-size: 14px;
   color: var(--text-muted);
 }

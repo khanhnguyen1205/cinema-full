@@ -32,7 +32,6 @@
     "back": "Quay lại"
   },
   "footer": {
-    "brand": "THE CINEMATIC EDITORIAL",
     "privacy": "Chính sách bảo mật",
     "terms": "Điều khoản dịch vụ",
     "help": "Trung tâm trợ giúp",
@@ -55,22 +54,17 @@
     "nextMovie": "Phim sau",
     "book": "Đặt vé",
     "details": "Chi tiết",
-    "todayShowtimes": "Suất chiếu hôm nay",
     "nowShowing": "Phim đang chiếu",
     "seeAll": "Xem tất cả →",
-    "explore": "Khám phá",
     "browseByGenre": "Duyệt theo thể loại",
     "movieCount": "{{count}} phim",
-    "statMovies": "Phim",
-    "statCinemas": "Rạp chiếu",
-    "statCities": "Thành phố",
-    "statShowtimes": "Suất chiếu",
-    "nationwide": "Toàn quốc",
     "cinemaSystem": "Hệ thống rạp",
     "allCinemas": "Tất cả rạp →",
-    "ctaTitle": "Sẵn sàng cho suất chiếu tiếp theo?",
-    "ctaSub": "Chọn phim, chọn ghế và đặt vé chỉ trong vài bước.",
-    "ctaButton": "Đặt vé ngay"
+    "soonToday": "Suất chiếu hôm nay",
+    "soonNext": "Suất chiếu gần nhất",
+    "soonSlotAria": "{{day}} {{time}} — {{movie}} tại {{cinema}}, chọn ghế",
+    "labelBookable": "{{count}} phim còn suất",
+    "labelNetwork": "{{cinemas}} rạp tại {{cities}} thành phố"
   },
   "movies": {
     "eyebrow": "Danh mục phim",
@@ -253,13 +247,13 @@
     "eScan": "Quét để soát vé",
     "payMomo": "Ví Momo",
     "payCard": "Thẻ ATM / Visa",
-    "payCounter": "Tại quầy"
+    "payCounter": "Tại quầy",
+    "browse": "Xem phim đang chiếu"
   },
   "auth": {
     "fillAll": "Vui lòng nhập đầy đủ thông tin.",
     "passMin": "Mật khẩu phải có ít nhất 6 ký tự.",
     "passMismatch": "Mật khẩu xác nhận không khớp.",
-    "marquee": "ĐẶT VÉ · CHỌN GHẾ · BẮP NƯỚC · QUÉT MÃ · ",
     "loginStatement": "Xem phim\nbắt đầu\ntừ đây",
     "loginSub": "Đăng nhập để tiếp tục giữ ghế, chọn suất và soát vé bằng mã QR.",
     "loginEyebrow": "Đăng nhập",
@@ -281,7 +275,11 @@
     "noAccount": "Chưa có tài khoản?",
     "registerNow": "Đăng ký ngay",
     "haveAccount": "Đã có tài khoản?",
-    "loginNow": "Đăng nhập"
+    "loginNow": "Đăng nhập",
+    "stepBook": "Đặt vé",
+    "stepSeat": "Chọn ghế",
+    "stepFnb": "Bắp nước",
+    "stepQr": "Quét mã"
   },
   "admin": {
     "role": "Quản trị",

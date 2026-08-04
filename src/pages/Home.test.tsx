@@ -90,6 +90,17 @@ describe("Home", () => {
   });
 
   it("ô thể loại mang genre sang trang Phim", async () => {
+    // Fixture chung có ba phim ba thể loại khác nhau, mà ô thể loại chỉ hiện
+    // thể loại từ HAI phim trở lên — nên phải cho Sci-Fi một phim thứ hai thì
+    // mới có ô để bấm. Ghi đè tại chỗ, không đụng fixture của các test khác.
+    server.use(
+      http.get(`${API}/movies`, () =>
+        HttpResponse.json([
+          ...fx.movies,
+          { ...fx.movies[1], id: 99, title: "Endgame II" },
+        ]),
+      ),
+    );
     const { container } = await setup();
     // Nhãn hiển thị là bản đã dịch, còn state mang MÃ thể loại của DB.
     // Thẻ phim cũng in nhãn thể loại -> chỉ soi trong lưới ô thể loại.
@@ -100,18 +111,29 @@ describe("Home", () => {
     expect(screen.getByTestId("path")).toHaveTextContent("/movies#Sci-Fi");
   });
 
-  it("dải thống kê đếm đúng số phim/rạp/thành phố/suất chiếu", async () => {
+  it("thể loại chỉ có một phim thì không dựng ô — bấm vào sẽ ra trang gần trống", async () => {
     const { container } = await setup();
-    const nums = Array.from(
-      container.querySelectorAll(".stats-k__num"),
-      (n) => n.textContent,
-    );
-    expect(nums).toEqual([
-      String(fx.movies.length),
-      String(fx.cinemas.length),
-      String(fx.cities.length),
-      String(fx.showtimes.length),
-    ]);
+    // Cả ba phim của fixture đều một mình một thể loại => không ô nào cả, và
+    // khu "Duyệt theo thể loại" tự biến mất chứ không để lại tiêu đề trơ trọi.
+    expect(container.querySelector(".genre-k-grid")).toBeNull();
+    expect(screen.queryByText("Duyệt theo thể loại")).not.toBeInTheDocument();
+  });
+
+  it("dải lịch chiếu liệt kê suất sắp tới, bấm vào là sang chọn ghế", async () => {
+    const { container } = await setup();
+    const slots = container.querySelectorAll(".tonight-k__slot");
+    // fixture có 3 suất: một QUÁ KHỨ phải bị loại, hai tương lai được giữ và
+    // xếp sớm-trước (suất +48h đứng trước suất +72h).
+    expect(slots.length).toBe(2);
+    expect(
+      within(slots[0] as HTMLElement).getByText("Điện Biên Phủ"),
+    ).toBeInTheDocument();
+    expect(
+      within(slots[1] as HTMLElement).getByText("Endgame"),
+    ).toBeInTheDocument();
+
+    await userEvent.click(slots[0] as HTMLElement);
+    expect(screen.getByTestId("path")).toHaveTextContent("/seats/1");
   });
 
   it("bấm một rạp mở trang rạp đó", async () => {

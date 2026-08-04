@@ -277,10 +277,33 @@ test("chuyển ngôn ngữ sang EN đổi nhãn điều hướng", async ({ page
 // Đã thử `document.fonts.check()` trước — nó trả true cho cả chữ Hán trong
 // Anton lẫn một font không tồn tại, tức chỉ kiểm "face đã tải chưa" chứ không
 // kiểm glyph. Không dùng được.
+//
+// PHẢI `document.fonts.load()` trước khi đo. @fontsource chia mỗi bộ chữ thành
+// nhiều @font-face theo `unicode-range`, và trình duyệt chỉ tải subset nào màn
+// hình thật sự cần. Bản đầu của test này đo thẳng, nên nó chỉ đúng chừng nào
+// trang chủ TÌNH CỜ có sẵn chữ tiếng Việt đúng bộ chữ đó — lúc các tiêu đề mục
+// chuyển từ Anton sang Barlow Condensed, subset `vietnamese` của Anton không
+// còn ai gọi, phép đo rơi về mốc và test tố cáo nhầm là font thiếu glyph.
 test("font hiển thị và font nhãn có glyph tiếng Việt", async ({ page }) => {
   await page.goto("/");
   await page.waitForLoadState("networkidle");
-  const thieu = await page.evaluate(() => {
+  const thieu = await page.evaluate(async () => {
+    const KY_TU = "ỆẾỀỘẬỌƯỞỹ";
+    const css = getComputedStyle(document.documentElement);
+    const dau = (v: string) => v.split(",")[0].trim();
+    const vaiTro = {
+      display: dau(css.getPropertyValue("--font-display")),
+      head: dau(css.getPropertyValue("--font-head")),
+      mono: dau(css.getPropertyValue("--font-mono")),
+      body: dau(css.getPropertyValue("--font-body")),
+    };
+    // Ép tải đúng subset chứa các ký tự này, rồi mới đo.
+    await Promise.all(
+      Object.values(vaiTro).map((f) =>
+        document.fonts.load(`100px ${f}`, KY_TU),
+      ),
+    );
+
     const rong = (ch: string, family: string) => {
       const s = document.createElement("span");
       s.style.cssText = `position:absolute;visibility:hidden;font-size:100px;font-family:${family}`;
@@ -290,17 +313,10 @@ test("font hiển thị và font nhãn có glyph tiếng Việt", async ({ page 
       s.remove();
       return w;
     };
-    const css = getComputedStyle(document.documentElement);
-    const dau = (v: string) => v.split(",")[0].trim();
     const MOC = ["monospace", "serif"];
-    const vaiTro = {
-      display: dau(css.getPropertyValue("--font-display")),
-      mono: dau(css.getPropertyValue("--font-mono")),
-      body: dau(css.getPropertyValue("--font-body")),
-    };
     const out: string[] = [];
     for (const [ten, font] of Object.entries(vaiTro))
-      for (const ch of "ỆẾỀỘẬỌƯỞỹ") {
+      for (const ch of KY_TU) {
         const roiVe = MOC.every(
           (m) => Math.abs(rong(ch, `${font}, ${m}`) - rong(ch, m)) < 0.5,
         );

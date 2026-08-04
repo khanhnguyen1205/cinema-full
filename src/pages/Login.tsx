@@ -43,11 +43,7 @@ export default function Login() {
   };
 
   return (
-    <AuthLayout
-      codeNo="01"
-      statement={t("auth.loginStatement")}
-      sub={t("auth.loginSub")}
-    >
+    <AuthLayout statement={t("auth.loginStatement")} sub={t("auth.loginSub")}>
       <div className="authf-k">
         <Link to="/" className="auth-k__logo">
           CINEMA

@@ -61,18 +61,13 @@
   border-bottom: var(--bw-2) solid var(--text-invert);
   padding-bottom: var(--sp-3);
 }
-.auth-k__code {
-  font-family: var(--font-mono);
-  font-size: var(--fs-sm);
-  letter-spacing: var(--tr-wide);
-}
 .auth-k__brand {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: var(--tr-wide);
-  text-transform: uppercase;
-  opacity: 0.7;
-  text-align: right;
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  letter-spacing: 0.02em;
+}
+.auth-k__brand b {
+  color: var(--red-dark);
 }
 .auth-k__statement {
   margin: auto 0;
@@ -93,14 +88,28 @@
   opacity: 0.75;
   margin-bottom: var(--sp-6);
 }
-.auth-k__marquee {
-  border-top: var(--bw-1) solid rgba(10, 10, 10, 0.25);
-  border-bottom: var(--bw-1) solid rgba(10, 10, 10, 0.25);
-  padding: var(--sp-3) 0;
+/* Bốn bước trên cuống vé: đánh số bằng chính counter của <ol>, nên thứ tự
+   nằm trong cấu trúc chứ không phải trong chuỗi ký tự viết tay. */
+.auth-k__steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-5);
+  list-style: none;
+  counter-reset: authstep;
+  border-top: var(--bw-1) solid rgba(13, 12, 11, 0.25);
+  padding-top: var(--sp-4);
   font-family: var(--font-mono);
   font-size: var(--fs-label);
   letter-spacing: var(--tr-wide);
   text-transform: uppercase;
+}
+.auth-k__steps li {
+  counter-increment: authstep;
+}
+.auth-k__steps li::before {
+  content: counter(authstep) " ";
+  color: var(--red-dark);
+  font-weight: 700;
 }
 
 /* ===== Panel phải (form) ===== */
@@ -139,12 +148,12 @@
   color: var(--red-text);
 }
 .authf-k__title {
-  font-family: var(--font-display);
+  font-family: var(--font-head);
+  font-weight: 600;
   font-weight: 400;
   font-size: var(--fs-xl);
   line-height: 1;
-  letter-spacing: var(--tr-tight);
-  text-transform: uppercase;
+  letter-spacing: 0;
   margin: var(--sp-2) 0 var(--sp-8);
 }
 
@@ -304,7 +313,7 @@
 .authf-k__spinner {
   width: 18px;
   height: 18px;
-  border: var(--bw-2) solid rgba(10, 10, 10, 0.3);
+  border: var(--bw-2) solid rgba(13, 12, 11, 0.3);
   border-top-color: var(--text-invert);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;

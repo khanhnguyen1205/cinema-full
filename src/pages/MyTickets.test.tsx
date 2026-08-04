@@ -114,7 +114,9 @@ describe("MyTickets", () => {
     await setup();
 
     expect(await screen.findByText("Chưa có vé sắp tới")).toBeInTheDocument();
-    await userEvent.click(screen.getByRole("button", { name: "Đặt vé ngay" }));
+    await userEvent.click(
+      screen.getByRole("button", { name: "Xem phim đang chiếu" }),
+    );
     expect(screen.getByTestId("path")).toHaveTextContent("/movies");
 
     await userEvent.click(screen.getByRole("tab", { name: "Đã xem" }));

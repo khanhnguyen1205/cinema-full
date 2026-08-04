@@ -1,21 +1,21 @@
 import { Fragment, type ChangeEvent, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { Marquee, TicketEdge } from "components/ui";
+import { TicketEdge } from "components/ui";
 import "./Auth.css";
 
+// Bốn việc tấm vé này cho phép làm — đúng theo thứ tự người ta làm chúng.
+const STEPS = ["auth.stepBook", "auth.stepSeat", "auth.stepFnb", "auth.stepQr"];
+
 export default function AuthLayout({
-  codeNo,
   statement,
   sub,
   children,
 }: {
-  codeNo: string;
   statement: string;
   sub: string;
   children: ReactNode;
 }) {
   const { t } = useTranslation();
-  const marquee = t("auth.marquee");
   return (
     <div className="auth-k">
       <div className="auth-k__bg" aria-hidden="true">
@@ -26,8 +26,9 @@ export default function AuthLayout({
       <aside className="auth-k__side">
         <TicketEdge className="auth-k__ticket">
           <div className="auth-k__side-top">
-            <span className="auth-k__code">N°{codeNo}</span>
-            <span className="auth-k__brand">THE CINEMATIC EDITORIAL</span>
+            <span className="auth-k__brand">
+              CINE<b>MA</b>
+            </span>
           </div>
           <h2 className="auth-k__statement">
             {statement.split("\n").map((line, i) => (
@@ -38,9 +39,14 @@ export default function AuthLayout({
             ))}
           </h2>
           <p className="auth-k__sub">{sub}</p>
-          <Marquee className="auth-k__marquee" speed={42}>
-            <span>{marquee.repeat(4)}</span>
-          </Marquee>
+          {/* Trước đây bốn việc này chạy vòng trong một marquee, tức là lấy một
+              trình tự có thật rồi xoá mất thứ tự của nó. Đứng yên thành danh
+              sách đánh số thì nó nói đúng điều nó vốn nói. */}
+          <ol className="auth-k__steps">
+            {STEPS.map((key) => (
+              <li key={key}>{t(key)}</li>
+            ))}
+          </ol>
         </TicketEdge>
       </aside>
 

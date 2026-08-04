@@ -166,7 +166,7 @@ export default function MovieDetail() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enriched]);
 
-  // Rạp có suất cho phim (khu N°02)
+  // Rạp có suất cho phim
   const cinemasShowing = useMemo(() => {
     const seen = new Map<number, { id: number; name: string; city?: string }>();
     enriched.forEach((e) => {
@@ -189,7 +189,7 @@ export default function MovieDetail() {
     [enriched],
   );
 
-  // Phim cùng thể loại (khu N°03)
+  // Phim cùng thể loại
   const related = useMemo(
     () =>
       movie
@@ -379,9 +379,9 @@ export default function MovieDetail() {
 
       {/* CHI TIẾT */}
       <Container>
-        {/* N°01 — Tóm tắt + thông số */}
+        {/* Tóm tắt + thông số */}
         <Reveal>
-          <Section label={t("movieDetail.secSummary")} index={1}>
+          <Section label={t("movieDetail.secSummary")}>
             <div className="detail-k__about">
               <p className="detail-k__synopsis">
                 {movie.description || t("movieDetail.noDesc")}
@@ -422,21 +422,18 @@ export default function MovieDetail() {
           </Section>
         </Reveal>
 
-        {/* N°02 — Rạp đang chiếu */}
+        {/* Rạp đang chiếu */}
         {cinemasShowing.length > 0 && (
           <Reveal>
-            <Section label={t("movieDetail.secShowingAt")} index={2}>
+            <Section label={t("movieDetail.secShowingAt")}>
               <div className="detail-k__cinemas">
-                {cinemasShowing.map((c, i) => (
+                {cinemasShowing.map((c) => (
                   <button
                     key={c.id}
                     type="button"
                     className="cinema-k"
                     onClick={() => navigate(`/cinema/${c.id}`)}
                   >
-                    <span className="cinema-k__no">
-                      N°{String(i + 1).padStart(2, "0")}
-                    </span>
                     <span className="cinema-k__body">
                       <span className="cinema-k__name">{c.name}</span>
                       <span className="cinema-k__city">{c.city ?? "—"}</span>
@@ -449,10 +446,10 @@ export default function MovieDetail() {
           </Reveal>
         )}
 
-        {/* N°03 — Phim cùng thể loại */}
+        {/* Phim cùng thể loại */}
         {related.length > 0 && (
           <Reveal>
-            <Section label={t("movieDetail.secSameGenre")} index={3}>
+            <Section label={t("movieDetail.secSameGenre")}>
               <div className="detail-k__related">
                 {related.map((m) => (
                   <MovieCard key={m.id} movie={m} />
@@ -462,9 +459,9 @@ export default function MovieDetail() {
           </Reveal>
         )}
 
-        {/* N°04 — Đánh giá của khán giả */}
+        {/* Đánh giá của khán giả */}
         <Reveal>
-          <Section label={t("movieDetail.secReviews")} index={4}>
+          <Section label={t("movieDetail.secReviews")}>
             <ReviewsSection movieId={movie.id} />
           </Section>
         </Reveal>

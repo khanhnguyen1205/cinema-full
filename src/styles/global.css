@@ -10,7 +10,7 @@
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: "Barlow", sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
   min-height: 100vh;
   overflow-x: hidden;
@@ -23,7 +23,7 @@ a {
 
 button {
   cursor: pointer;
-  font-family: "Barlow", sans-serif;
+  font-family: var(--font-body);
 }
 
 /* SCROLLBAR */

@@ -64,7 +64,6 @@ export default function Register() {
 
   return (
     <AuthLayout
-      codeNo="02"
       statement={t("auth.registerStatement")}
       sub={t("auth.registerSub")}
     >

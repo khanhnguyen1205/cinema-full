@@ -1,29 +1,26 @@
 import type { ReactNode } from "react";
 import { cx } from "lib/cx";
-import Numbered from "./Numbered";
 import Rule from "./Rule";
 import "./ui.css";
 
+// Cố tình KHÔNG có prop `index`. Trước đây mỗi mục đeo một số "N°01/02/03",
+// nhưng các mục trên một trang không phải một trình tự — không ai đọc mục 2
+// trước mục 3, và cái số ấy chẳng cho biết điều gì. N° chỉ còn ở hai chỗ thứ tự
+// là thật: chấm chuyển phim ở hero và bốn bước đặt vé.
 export default function Section({
   label,
-  index,
   children,
   className,
 }: {
   label?: string;
-  index?: number;
   children: ReactNode;
   className?: string;
 }) {
-  const hasHead = label !== undefined || index !== undefined;
   return (
     <section className={cx("ui-section", className)}>
-      {hasHead && (
+      {label !== undefined && (
         <div className="ui-section__head">
-          {index !== undefined && <Numbered n={index} />}
-          {label !== undefined && (
-            <span className="ui-section__label">{label}</span>
-          )}
+          <span className="ui-section__label">{label}</span>
           <Rule />
         </div>
       )}

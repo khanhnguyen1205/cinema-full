@@ -13,7 +13,8 @@ import "@fontsource/barlow/600.css";
 import "@fontsource/barlow/700.css";
 import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/700.css";
-// Barlow Condensed: các trang hiện tại đang dùng (giữ để 2a không đổi diện mạo cũ).
+// Barlow Condensed = --font-head: tiêu đề trang/mục/hộp thoại. Anton chỉ còn
+// dành cho tên phim, logo và số tiền lớn — xem khối Typography trong tokens.css.
 import "@fontsource/barlow-condensed/300.css";
 import "@fontsource/barlow-condensed/400.css";
 import "@fontsource/barlow-condensed/500.css";

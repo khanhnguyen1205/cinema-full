@@ -122,7 +122,7 @@ export default function MyTickets() {
               className="mytk-k__cta"
               onClick={() => navigate("/movies")}
             >
-              {t("home.ctaButton")}
+              {t("tickets.browse")}
             </button>
           </div>
         ) : (

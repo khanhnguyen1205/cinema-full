@@ -32,7 +32,6 @@
     "back": "Back"
   },
   "footer": {
-    "brand": "THE CINEMATIC EDITORIAL",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "help": "Help Center",
@@ -55,22 +54,17 @@
     "nextMovie": "Next movie",
     "book": "Book tickets",
     "details": "Details",
-    "todayShowtimes": "Today's showtimes",
     "nowShowing": "Now showing",
     "seeAll": "See all →",
-    "explore": "Explore",
     "browseByGenre": "Browse by genre",
     "movieCount": "{{count}} movies",
-    "statMovies": "Movies",
-    "statCinemas": "Cinemas",
-    "statCities": "Cities",
-    "statShowtimes": "Showtimes",
-    "nationwide": "Nationwide",
     "cinemaSystem": "Cinema network",
     "allCinemas": "All cinemas →",
-    "ctaTitle": "Ready for your next showtime?",
-    "ctaSub": "Pick a movie, choose your seats and book in just a few steps.",
-    "ctaButton": "Book now"
+    "soonToday": "Today's showtimes",
+    "soonNext": "Next showtimes",
+    "soonSlotAria": "{{day}} {{time}} — {{movie}} at {{cinema}}, pick seats",
+    "labelBookable": "{{count}} films with showtimes",
+    "labelNetwork": "{{cinemas}} cinemas in {{cities}} cities"
   },
   "movies": {
     "eyebrow": "Movie catalogue",
@@ -253,13 +247,13 @@
     "eScan": "Scan to check in",
     "payMomo": "Momo Wallet",
     "payCard": "ATM / Visa card",
-    "payCounter": "At counter"
+    "payCounter": "At counter",
+    "browse": "Browse now showing"
   },
   "auth": {
     "fillAll": "Please fill in all fields.",
     "passMin": "Password must be at least 6 characters.",
     "passMismatch": "Passwords don't match.",
-    "marquee": "BOOK · PICK SEATS · SNACKS · SCAN · ",
     "loginStatement": "Watch films\nstart\nhere",
     "loginSub": "Sign in to keep holding seats, choose showtimes and check in with a QR code.",
     "loginEyebrow": "Sign in",
@@ -281,7 +275,11 @@
     "noAccount": "No account yet?",
     "registerNow": "Sign up now",
     "haveAccount": "Already have an account?",
-    "loginNow": "Sign in"
+    "loginNow": "Sign in",
+    "stepBook": "Book",
+    "stepSeat": "Pick seats",
+    "stepFnb": "Snacks",
+    "stepQr": "Scan code"
   },
   "admin": {
     "role": "Admin",

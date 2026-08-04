@@ -5,10 +5,10 @@
   padding: var(--sp-12) 0;
 }
 .ks h1 {
-  font-family: var(--font-display);
-  text-transform: uppercase;
+  font-family: var(--font-head);
+  font-weight: 600;
   font-size: var(--fs-2xl);
-  letter-spacing: var(--tr-tight);
+  letter-spacing: 0;
   margin-bottom: var(--sp-8);
 }
 .ks-row {

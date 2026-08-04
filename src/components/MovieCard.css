@@ -50,6 +50,8 @@
   right: var(--sp-2);
   background: color-mix(in srgb, var(--bg) 78%, transparent);
   backdrop-filter: blur(4px);
+  color: var(--amber);
+  border-color: var(--amber-dim);
 }
 .movie-k__tag {
   position: absolute;

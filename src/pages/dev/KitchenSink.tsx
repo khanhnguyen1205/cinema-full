@@ -76,7 +76,7 @@ export default function KitchenSink() {
           </span>
         </Marquee>
 
-        <Section label="Đang chiếu" index={2}>
+        <Section label="Đang chiếu">
           <Grid min="200px">
             <Card style={{ height: 120 }} />
             <Card style={{ height: 120 }} />

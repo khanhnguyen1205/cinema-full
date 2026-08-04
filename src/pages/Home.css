@@ -75,7 +75,7 @@
   font-weight: 700;
 }
 .hero-k__rating {
-  color: var(--red-text);
+  color: var(--amber);
   font-weight: 700;
 }
 .hero-k__genre {
@@ -169,18 +169,110 @@
   right: var(--gutter);
 }
 
-/* ===== Marquee ticker ===== */
-.home-ticker {
+/* ===== Dải lịch chiếu (thứ duy nhất được phép nổi trên trang này) ===== */
+.tonight-k {
   border-bottom: var(--bw-1) solid var(--border);
-  padding-block: var(--sp-3);
   background: var(--surface);
+  padding-block: var(--sp-5);
 }
-.home-ticker__inner {
-  font-family: var(--font-display);
-  text-transform: uppercase;
+.tonight-k__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+.tonight-k__title {
+  font-family: var(--font-head);
+  font-weight: 600;
   font-size: var(--fs-lg);
+  letter-spacing: 0;
+  color: var(--text);
+}
+.tonight-k__day {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
   letter-spacing: var(--tr-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+/* Cuộn ngang do NGƯỜI DÙNG điều khiển, không tự trôi. Một dãy nút trôi ngang
+   là mục tiêu di động: khó bấm bằng chuột và vô dụng với bàn phím. */
+.tonight-k__strip {
+  display: flex;
+  gap: var(--sp-3);
+  overflow-x: auto;
+  padding-bottom: var(--sp-2);
+  scroll-snap-type: x proximity;
+  list-style: none;
+}
+.tonight-k__slot {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: flex-start;
+  text-align: left;
+  min-width: 168px;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--bg);
+  border: var(--bw-1) solid var(--border-strong);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition:
+    border-color var(--dur-fast),
+    transform var(--dur-fast) var(--ease-out);
+}
+.tonight-k__slot:hover {
+  border-color: var(--amber);
+  transform: translateY(-2px);
+}
+.tonight-k__slot:focus-visible {
+  outline: var(--bw-2) solid var(--focus);
+  outline-offset: 2px;
+}
+.tonight-k__when {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+}
+.tonight-k__date {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--text-dim);
+}
+.tonight-k__time {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--amber);
+}
+.tonight-k__movie {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-base);
+  color: var(--text);
+  max-width: 22ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tonight-k__where {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  max-width: 24ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tonight-k__slot:hover {
+    transform: none;
+  }
 }
 
 /* ===== Section head ===== */
@@ -192,10 +284,10 @@
   margin-bottom: var(--sp-6);
 }
 .home-head__title {
-  font-family: var(--font-display);
-  text-transform: uppercase;
+  font-family: var(--font-head);
+  font-weight: 600;
   font-size: var(--fs-xl);
-  letter-spacing: var(--tr-tight);
+  letter-spacing: 0;
   line-height: 1;
   color: var(--text);
 }
@@ -218,7 +310,7 @@
 /* ===== Genre tiles ===== */
 .genre-k-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   gap: var(--sp-3);
 }
 .genre-k {
@@ -259,34 +351,6 @@
   color: var(--text-muted);
 }
 
-/* ===== Stats ===== */
-.stats-k {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--sp-4);
-  padding-block: var(--sp-8);
-  border-block: var(--bw-1) solid var(--border);
-}
-.stats-k__item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-1);
-}
-.stats-k__num {
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: var(--fs-2xl);
-  line-height: 0.9;
-  color: var(--red);
-}
-.stats-k__label {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: var(--tr-wide);
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
 /* ===== Cinema list ===== */
 .cinema-k-grid {
   display: grid;
@@ -316,11 +380,6 @@
   outline: var(--bw-2) solid var(--focus);
   outline-offset: 2px;
 }
-.cinema-k__no {
-  font-family: var(--font-mono);
-  font-size: var(--fs-sm);
-  color: var(--red-text);
-}
 .cinema-k__body {
   display: flex;
   flex-direction: column;
@@ -342,31 +401,6 @@
 .cinema-k__arrow {
   color: var(--text-dim);
   font-size: var(--fs-md);
-}
-
-/* ===== CTA (bone) ===== */
-.cta-k {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-6);
-  margin-block: var(--sp-16);
-  padding: var(--sp-10) var(--sp-8);
-  border-radius: var(--r-sm);
-}
-.cta-k__title {
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: var(--fs-xl);
-  line-height: 1;
-  letter-spacing: var(--tr-tight);
-}
-.cta-k__sub {
-  font-family: var(--font-body);
-  color: var(--text-invert);
-  opacity: 0.7;
-  margin-top: var(--sp-2);
 }
 
 /* ===== Animations ===== */
@@ -403,14 +437,13 @@
     height: 36px;
     font-size: 20px;
   }
-  .stats-k {
-    grid-template-columns: repeat(2, 1fr);
-  }
   .home-head {
     flex-wrap: wrap;
   }
-  .cta-k {
-    padding: var(--sp-8) var(--sp-6);
+  /* Nhãn thể loại ngắn, một ô chiếm cả bề ngang điện thoại là phí — hai cột
+     đọc vẫn thoải mái và cắt đôi đoạn cuộn. */
+  .genre-k-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

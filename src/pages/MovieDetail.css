@@ -78,7 +78,7 @@
   font-family: var(--font-mono);
   font-size: 14px;
   font-weight: 700;
-  color: var(--red-text);
+  color: var(--amber);
 }
 
 .detail-k__genre {
@@ -101,7 +101,7 @@
 
 .detail-k__desc {
   max-width: 60ch;
-  font-family: "Barlow", sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.7;
   color: var(--text-muted);
@@ -120,8 +120,8 @@
 }
 
 .book-k__head {
-  font-family: var(--font-display);
-  text-transform: uppercase;
+  font-family: var(--font-head);
+  font-weight: 600;
   font-size: 30px;
   letter-spacing: 1px;
   color: var(--text-invert);
@@ -216,9 +216,9 @@
   flex-direction: column;
   gap: 2px;
   align-items: flex-start;
-  background: #fff;
-  border: 1px solid rgba(10, 10, 10, 0.2);
-  color: var(--text-invert);
+  background: var(--surface-2);
+  border: var(--bw-1) solid var(--border-strong);
+  color: var(--text);
   padding: 8px 10px;
   cursor: pointer;
   transition:
@@ -237,19 +237,30 @@
   color: #fff;
 }
 
+/* Giờ là dữ liệu, không phải khẩu hiệu: chữ máy, màu hổ phách (đèn sảnh). Cả
+   trang chỉ có một chỗ dùng màu này nên mắt tìm ra giờ chiếu ngay. */
 .time-k-btn__t {
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: 20px;
-  letter-spacing: 1px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: 0;
   line-height: 1;
+  color: var(--amber);
+}
+
+.time-k-btn.is-active .time-k-btn__t {
+  color: #fff;
 }
 
 .time-k-btn__meta {
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.5px;
-  opacity: 0.75;
+  color: var(--text-muted);
+}
+
+.time-k-btn.is-active .time-k-btn__meta {
+  color: #fff;
 }
 
 .book-k__cta {
@@ -278,7 +289,7 @@
 }
 
 .detail-k__synopsis {
-  font-family: "Barlow", sans-serif;
+  font-family: var(--font-body);
   font-size: 18px;
   line-height: 1.8;
   color: var(--text);
@@ -299,18 +310,17 @@
 }
 
 .spec-k__num {
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: 56px;
+  font-family: var(--font-mono);
+  font-size: 52px;
   line-height: 0.9;
-  color: var(--red);
+  color: var(--amber);
 }
 
 .spec-k__val {
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: 32px;
-  letter-spacing: 1px;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 30px;
+  letter-spacing: 0;
   color: var(--text);
 }
 
@@ -348,7 +358,7 @@
   box-shadow: var(--shadow-hard);
 }
 .detail-k__cinemas .cinema-k:focus-visible {
-  outline: 2px solid var(--focus, var(--red));
+  outline: var(--bw-2) solid var(--focus);
   outline-offset: 2px;
 }
 .detail-k__cinemas .cinema-k__no {
@@ -415,7 +425,7 @@
   }
 }
 
-/* ===== N°04 Đánh giá của khán giả ===== */
+/* ===== Đánh giá của khán giả ===== */
 .rev-k {
   display: flex;
   flex-direction: column;
@@ -436,17 +446,15 @@
 }
 .rev-k__avg {
   font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: var(--fs-display);
+  font-size: var(--fs-2xl);
   line-height: 0.85;
-  color: var(--red);
+  color: var(--amber);
 }
 .rev-k__count {
   font-family: var(--font-mono);
   font-size: var(--fs-sm);
-  text-transform: uppercase;
   letter-spacing: 0.06em;
-  opacity: 0.7;
+  color: var(--text-muted);
 }
 .rev-k__dist {
   display: flex;
@@ -503,7 +511,7 @@
   resize: vertical;
 }
 .rev-k__textarea:focus-visible {
-  outline: var(--bw-2) solid var(--red);
+  outline: var(--bw-2) solid var(--focus);
   outline-offset: 2px;
 }
 .rev-k__form-foot {
@@ -556,8 +564,8 @@
   flex-wrap: wrap;
 }
 .rev-k__name {
-  font-family: var(--font-display);
-  text-transform: uppercase;
+  font-family: var(--font-head);
+  font-weight: 600;
   font-size: var(--fs-lg);
   letter-spacing: 0.02em;
 }

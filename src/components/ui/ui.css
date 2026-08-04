@@ -66,7 +66,7 @@
   color: var(--text-invert);
 }
 .ui-btn--invert:not(:disabled):hover {
-  box-shadow: var(--shadow-hard);
+  box-shadow: var(--shadow-hard-brand);
   transform: translate(-2px, -2px);
 }
 
@@ -366,8 +366,8 @@
   margin-bottom: var(--sp-4);
 }
 .ui-modal__title {
-  font-family: var(--font-display);
-  text-transform: uppercase;
+  font-family: var(--font-head);
+  font-weight: 600;
   font-size: var(--fs-lg);
   letter-spacing: var(--tr-wide);
 }
@@ -414,6 +414,17 @@
   gap: var(--sp-4);
 }
 
+/* Trên điện thoại `minmax(200px, …)` không đủ chỗ cho cột thứ hai nên lưới rơi
+   về MỘT poster mỗi hàng: trang chủ dài 8.194px, khoảng 21 màn hình cho 8 phim,
+   và cuộn mãi không tới đâu. Hai cột cứng lấy lại đúng một nửa chiều dài đó và
+   poster 2:3 ở khổ này vẫn đọc được tên phim. */
+@media (max-width: 640px) {
+  .ui-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-3);
+  }
+}
+
 /* StarRating */
 .ui-stars {
   display: inline-flex;
@@ -430,8 +441,10 @@
 .ui-stars--lg .ui-stars__star {
   font-size: 1.6rem;
 }
+/* Sao vàng hổ phách, không phải đỏ: đỏ đã là màu của hành động, mà điểm đánh
+   giá thì không phải hành động. Vàng cũng là quy ước ai cũng đọc được ngay. */
 .ui-stars__star.is-on {
-  color: var(--red-text);
+  color: var(--amber);
 }
 .ui-stars--input {
   cursor: pointer;
@@ -445,6 +458,6 @@
   font: inherit;
 }
 .ui-stars--input:focus-visible {
-  outline: var(--bw-2) solid var(--red);
+  outline: var(--bw-2) solid var(--focus);
   outline-offset: 2px;
 }

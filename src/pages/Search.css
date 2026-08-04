@@ -65,8 +65,8 @@
   color: var(--text-muted);
 }
 .search-k__empty-title {
-  font-family: var(--font-display);
-  text-transform: uppercase;
+  font-family: var(--font-head);
+  font-weight: 600;
   font-size: var(--fs-xl);
   color: var(--text);
   margin-bottom: var(--sp-2);
@@ -142,7 +142,7 @@
   box-shadow: var(--shadow-hard);
 }
 .venue-k:focus-visible {
-  outline: 2px solid var(--red);
+  outline: var(--bw-2) solid var(--focus);
   outline-offset: 2px;
 }
 .venue-k__city {
@@ -153,14 +153,14 @@
 .venue-k__name {
   position: relative;
   z-index: 1;
-  font-family: var(--font-display);
-  text-transform: uppercase;
+  font-family: var(--font-head);
+  font-weight: 600;
   font-size: 28px;
   letter-spacing: 1px;
   color: var(--text);
 }
 .venue-k__addr {
-  font-family: "Barlow", sans-serif;
+  font-family: var(--font-body);
   font-size: 14px;
   color: var(--text-muted);
 }

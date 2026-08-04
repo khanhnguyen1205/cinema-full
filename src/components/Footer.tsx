@@ -7,8 +7,12 @@ export default function Footer() {
   return (
     <footer className="foot-k">
       <div className="foot-k__top">
+        {/* Trước đây ở đây là "CINEMA — THE CINEMATIC EDITORIAL". Câu ấy mô tả
+            phong cách của chính trang web chứ không nói gì về việc đặt vé, và
+            nó bằng tiếng Anh trên một sản phẩm mặc định tiếng Việt. Tên thương
+            hiệu tự đứng một mình là đủ. */}
         <div className="foot-k__brand">
-          CINE<b>MA</b> — {t("footer.brand")}
+          CINE<b>MA</b>
         </div>
         <div className="foot-k__links">
           <a href="#">{t("footer.privacy")}</a>
@@ -17,9 +21,7 @@ export default function Footer() {
         </div>
       </div>
       <Rule />
-      <div className="foot-k__copy">
-        N°2026 · © THE CINEMATIC EDITORIAL · {t("footer.rights")}
-      </div>
+      <div className="foot-k__copy">© 2026 Cinema · {t("footer.rights")}</div>
     </footer>
   );
 }

@@ -107,16 +107,13 @@ export default function Cinemas() {
           </div>
         ) : (
           <Grid min="280px">
-            {visible.map((c, i) => (
+            {visible.map((c) => (
               <button
                 key={c.id}
                 type="button"
                 className="venue-k"
                 onClick={() => navigate(`/cinema/${c.id}`)}
               >
-                <span className="venue-k__no" aria-hidden="true">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
                 <Tag className="venue-k__city">{cityName[c.cityId] ?? "—"}</Tag>
                 <span className="venue-k__name">{c.name}</span>
                 {c.address && (

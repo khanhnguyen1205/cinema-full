@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { formatIndex } from "components/ui";
 
 const BOOKING_STEPS = [
   { n: 1, key: "booking.stepSeats" },
@@ -36,7 +37,11 @@ export default function BookingStepper({
             }
             aria-current={n === step ? "step" : undefined}
           >
-            <span className="stepper-k__no">{n < step ? "✓" : `N°0${n}`}</span>
+            {/* Chỗ N° thứ hai và cuối cùng còn được giữ: bốn bước đặt vé là
+                trình tự thật, phải làm bước 2 xong mới sang bước 3. */}
+            <span className="stepper-k__no">
+              {n < step ? "✓" : formatIndex(n)}
+            </span>
             <span className="stepper-k__label">{t(key)}</span>
           </li>
         ))}

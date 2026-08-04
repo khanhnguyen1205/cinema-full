@@ -8,15 +8,23 @@ describe("layout", () => {
     expect(screen.getByText("x")).toHaveClass("ui-container");
   });
 
-  it("Section hiển thị label và index", () => {
+  it("Section hiển thị label", () => {
     render(
-      <Section label="Đang chiếu" index={1}>
+      <Section label="Đang chiếu">
         <p>body</p>
       </Section>,
     );
     expect(screen.getByText("Đang chiếu")).toHaveClass("ui-section__label");
-    expect(screen.getByText("N°01")).toBeInTheDocument();
     expect(screen.getByText("body")).toBeInTheDocument();
+  });
+
+  it("Section không có label thì không dựng phần đầu mục", () => {
+    const { container } = render(
+      <Section>
+        <p>body</p>
+      </Section>,
+    );
+    expect(container.querySelector(".ui-section__head")).toBeNull();
   });
 
   it("Grid đặt biến --grid-min", () => {

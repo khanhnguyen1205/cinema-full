@@ -28,8 +28,8 @@
 }
 
 .cinemas-k__title {
-  font-family: var(--font-display);
-  text-transform: uppercase;
+  font-family: var(--font-head);
+  font-weight: 600;
   font-size: clamp(44px, 7vw, 88px);
   line-height: 0.92;
   letter-spacing: 1px;
@@ -109,21 +109,8 @@
 }
 
 .venue-k:focus-visible {
-  outline: 2px solid var(--red);
+  outline: var(--bw-2) solid var(--focus);
   outline-offset: 2px;
-}
-
-.venue-k__no {
-  position: absolute;
-  top: 2px;
-  right: 12px;
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: 96px;
-  line-height: 1;
-  color: var(--text);
-  opacity: 0.06;
-  pointer-events: none;
 }
 
 .venue-k__city {
@@ -135,15 +122,15 @@
 .venue-k__name {
   position: relative;
   z-index: 1;
-  font-family: var(--font-display);
-  text-transform: uppercase;
+  font-family: var(--font-head);
+  font-weight: 600;
   font-size: 28px;
   letter-spacing: 1px;
   color: var(--text);
 }
 
 .venue-k__addr {
-  font-family: "Barlow", sans-serif;
+  font-family: var(--font-body);
   font-size: 14px;
   color: var(--text-muted);
 }
@@ -177,8 +164,8 @@
 }
 
 .cinemas-k__empty-title {
-  font-family: var(--font-display);
-  text-transform: uppercase;
+  font-family: var(--font-head);
+  font-weight: 600;
   font-size: 32px;
   letter-spacing: 1px;
   color: var(--text);

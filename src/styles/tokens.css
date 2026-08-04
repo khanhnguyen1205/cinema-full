@@ -1,26 +1,37 @@
 :root {
-  /* ===== Màu (GIỮ NGUYÊN giá trị cũ) ===== */
-  --bg: #0a0a0a;
-  --border: rgba(255, 255, 255, 0.07);
+  /* ===== Màu =====
+     Nền tối là có gốc: rạp thì tối thật. Nhưng đen TUYỆT ĐỐI lạnh (#0a0a0a cũ)
+     cộng đúng một màu nhấn chói là công thức mặc định, không phải lựa chọn —
+     nên nền ngả nâu ấm về phía buồng chiếu, và chữ/viền ngả ngà theo. */
+  --bg: #0d0c0b;
+  --border: rgba(255, 246, 232, 0.08);
   /* Ba sắc đỏ vì một màu KHÔNG phục vụ được cả hai vai trò: chữ trắng trên nền
      đỏ cần đỏ TỐI hơn, chữ đỏ trên nền tối cần đỏ SÁNG hơn. #e63030 hỏng cả
      hai chiều (4.34:1, cần 4.5). Đừng gộp lại — sẽ làm đỏ cổng a11y.
      Chỉ có ĐÚNG ba sắc này; đừng thêm bí danh mới trỏ vào cùng mã màu, vì bí
-     danh là cách #e63030 lẻn ngược vào vai trò nền/chữ mà nó không đạt chuẩn. */
-  --red: #e63030; /* nhận diện: viền, bóng cứng, số lớn trang trí */
+     danh là cách #e63030 lẻn ngược vào vai trò nền/chữ mà nó không đạt chuẩn.
+     ĐỎ CHỈ CÓ MỘT NGHĨA: hành động và cảnh báo — nút đặt vé, ghế đã bán, mục
+     đang mở. Trước đây đỏ vừa là nhận diện, vừa là nút, vừa là số trang trí,
+     nên nó chẳng còn báo hiệu gì. Thông tin thời gian đã chuyển sang --amber. */
+  --red: #e63030; /* nhận diện: viền, gạch chân mục đang mở */
   --red-bg: #dd2b2b; /* nền có chữ trắng đè lên — 4.72:1 */
-  --red-text: #ff5a5a; /* chữ đỏ trên nền tối — 6.2:1 */
+  --red-text: #ff5a5a; /* chữ đỏ trên nền tối — 6.39:1 */
   --red-dark: #b52424;
-  --text: #f0f0f0;
-  --text-muted: #a3a3a3; /* cũ #888 — nâng để giữ bậc với --text-dim */
-  --text-dim: #8a8a8a; /* cũ #555 = 2.65:1, chữ nhỏ không đọc nổi */
+  /* Hổ phách = đèn sảnh / luồng máy chiếu. Gánh MỌI thông tin thời gian (giờ
+     chiếu, dải suất tối nay) và sao đánh giá. 9.64:1 trên --bg nên dùng được
+     cho cả chữ nhỏ lẫn nền có chữ đen đè lên. */
+  --amber: #f0a830;
+  --amber-dim: #8a6420; /* viền/gạch mờ cùng họ, không dùng cho chữ */
+  --text: #f2efe9;
+  --text-muted: #a8a29a; /* 7.73:1 */
+  --text-dim: #8c867e; /* 5.43:1 — cũ #555 = 2.65:1, chữ nhỏ không đọc nổi */
 
   /* ===== Màu bổ sung (kinetic) ===== */
-  --surface: #111111;
-  --surface-2: #161616;
-  --surface-invert: #ece7dd; /* bone: khối đảo màu chữ đen */
-  --text-invert: #0a0a0a;
-  --border-strong: rgba(255, 255, 255, 0.22);
+  --surface: #141210;
+  --surface-2: #1b1815;
+  --surface-invert: #ece7dd; /* bone: giấy vé, khối đảo màu chữ đen */
+  --text-invert: #0d0c0b;
+  --border-strong: rgba(255, 246, 232, 0.22);
   --focus: #4c9aff;
 
   /* ===== Spacing (thang 4px) ===== */
@@ -38,10 +49,21 @@
   --sp-24: 96px;
 
   /* ===== Typography =====
-     Cả ba bộ chữ đều phải có subset `vietnamese` — xem src/styles/fonts.ts.
+     Cả bốn bộ chữ đều phải có subset `vietnamese` — xem src/styles/fonts.ts.
      Luôn dùng biến, đừng viết thẳng tên font vào CSS: có 28 chỗ từng làm vậy
-     và khi cần đổi font thì phải sửa cả 28. */
+     và khi cần đổi font thì phải sửa cả 28.
+
+     BỐN VAI TRÒ, ĐỪNG TRỘN. Trước đây chỉ có ba biến nhưng --font-display bị
+     dùng ở 53 chỗ — từ tên phim tới tiêu đề bảng quản trị — nên trang hét ở
+     mọi cấp, mà hét ở mọi cấp thì không còn cấp nào:
+       display : CHỈ tên phim, logo, và số tiền lớn trên vé. Poster và tấm vé
+                 mới là chỗ của chữ to. IN HOA (Anton có chữ thường thật).
+       head    : tiêu đề trang/mục/hộp thoại. Chữ thường, không giãn chữ.
+       body    : văn xuôi, nhãn form, nút.
+       mono    : CHỈ dữ liệu máy — giờ, mã ghế, mã vé, giá. Đúng như chữ in
+                 trên tấm vé nhiệt. Không dùng cho mọi cái nhãn nữa. */
   --font-display: "Anton", sans-serif;
+  --font-head: "Barlow Condensed", sans-serif;
   --font-body: "Barlow", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
   --fs-label: 11px;
@@ -64,7 +86,12 @@
   --bw-2: 2px;
 
   /* ===== Shadow ===== */
-  --shadow-hard: 4px 4px 0 var(--red);
+  /* Bóng cứng lệch là hình học của hệ này, giữ. Nhưng bóng ĐỎ dưới mọi thẻ khi
+     rê chuột thì đỏ hoá ra nằm khắp nơi mà chẳng chỉ hành động nào — nên bóng
+     trên nền tối là ngà mờ, còn đỏ chỉ còn trên khối bone (nút đảo màu, toast),
+     nơi đỏ-trên-kem đúng là dấu nhận diện. */
+  --shadow-hard: 4px 4px 0 rgba(242, 239, 233, 0.14);
+  --shadow-hard-brand: 4px 4px 0 var(--red);
   --shadow-hard-dark: 4px 4px 0 rgba(0, 0, 0, 0.6);
   --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.6);
 
