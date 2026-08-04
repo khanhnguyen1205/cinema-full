@@ -216,20 +216,32 @@ export default function MovieDetail() {
 
       {/* HERO chia đôi */}
       <section className="detail-k__hero">
+        {/* Cùng lý do như hero trang chủ: poster dọc 2:3 bị `cover` cắt mất
+            phần lớn. Nền thành lớp mờ làm không khí, poster thật hiện đủ trong
+            khung riêng. */}
         <div
           className="detail-k__poster"
           style={
             movie.poster
-              ? {
-                  backgroundImage: `linear-gradient(to right, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.72) 55%, rgba(10,10,10,0.4) 100%), url(${movie.poster})`,
-                }
+              ? { backgroundImage: `url(${movie.poster})` }
               : undefined
           }
           aria-hidden="true"
         />
+        <div className="detail-k__scrim" aria-hidden="true" />
         <div className="detail-k__scanline" aria-hidden="true" />
         <Container>
           <div className="detail-k__grid">
+            {movie.poster && (
+              <div className="detail-k__art">
+                <img
+                  src={movie.poster}
+                  alt=""
+                  className="detail-k__artimg"
+                  loading="eager"
+                />
+              </div>
+            )}
             <div className="detail-k__info">
               <div className="detail-k__meta">
                 <span className="detail-k__tag">

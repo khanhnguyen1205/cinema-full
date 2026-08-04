@@ -166,64 +166,84 @@ export default function Home() {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
+        {/* Nền chỉ là KHÔNG KHÍ, không phải nội dung. Poster là ảnh dọc 2:3;
+            nhét nó vào một dải ngang bằng `cover` thì chỉ còn một lát mỏng
+            giữa ảnh, tức là xem poster mà không thấy poster. Nên nền được làm
+            mờ hẳn — mờ thì mắt đọc nó là chất liệu chứ không đi tìm chi tiết —
+            còn poster ĐẦY ĐỦ, không cắt, nằm trong khung riêng bên phải. */}
         <div
           className="hero-k__poster"
           key={"bg" + active.id}
           style={
             active.poster
-              ? {
-                  backgroundImage: `linear-gradient(to left, rgba(10,10,10,0) 0%, rgba(10,10,10,0.65) 45%, rgba(10,10,10,1) 82%), url(${active.poster})`,
-                }
+              ? { backgroundImage: `url(${active.poster})` }
               : undefined
           }
+          aria-hidden="true"
         />
+        <div className="hero-k__scrim" aria-hidden="true" />
         <div className="hero-k__scanline" aria-hidden="true" />
         <Container>
-          <div className="hero-k__content" key={active.id}>
-            <div className="hero-k__meta">
-              <span className="hero-k__label">{t("home.featured")}</span>
-              {active.rating != null && (
-                <span className="hero-k__rating">
-                  ★ {active.rating.toFixed(1)}
+          <div className="hero-k__row" key={active.id}>
+            {/* Chữ đứng TRƯỚC poster: scrim tối dần về bên trái, nên chữ phải ở
+                bên trái mới đủ tương phản. Khổ hẹp thì CSS đẩy poster lên trên
+                bằng `order: -1`. */}
+            <div className="hero-k__content">
+              <div className="hero-k__meta">
+                <span className="hero-k__label">{t("home.featured")}</span>
+                {active.rating != null && (
+                  <span className="hero-k__rating">
+                    ★ {active.rating.toFixed(1)}
+                  </span>
+                )}
+                <span className="hero-k__genre">
+                  {genreLabel(active.genre)} · {active.duration}{" "}
+                  {t("common.minutes")}
                 </span>
-              )}
-              <span className="hero-k__genre">
-                {genreLabel(active.genre)} · {active.duration}{" "}
-                {t("common.minutes")}
-              </span>
-            </div>
-            <h1 className="hero-k__title">
-              <KineticHeading text={active.title} />
-            </h1>
-            <p className="hero-k__desc">{active.description}</p>
-            <div className="hero-k__actions">
-              <Button size="lg" onClick={() => navigate(`/movie/${active.id}`)}>
-                ▶ {t("home.book")}
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => navigate(`/movie/${active.id}`)}
-              >
-                {t("home.details")}
-              </Button>
-            </div>
-            <div className="hero-k__tabs">
-              {featured.map((m, i) => (
-                <button
-                  key={m.id}
-                  className={
-                    "hero-k__tab" + (i === heroIndex ? " is-active" : "")
-                  }
-                  aria-label={t("home.featuredN", { n: i + 1 })}
-                  onClick={() => setHeroIndex(i)}
+              </div>
+              <h1 className="hero-k__title">
+                <KineticHeading text={active.title} />
+              </h1>
+              <p className="hero-k__desc">{active.description}</p>
+              <div className="hero-k__actions">
+                <Button
+                  size="lg"
+                  onClick={() => navigate(`/movie/${active.id}`)}
                 >
-                  {/* Một trong hai chỗ N° còn được giữ: đây là thứ tự thật,
+                  ▶ {t("home.book")}
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={() => navigate(`/movie/${active.id}`)}
+                >
+                  {t("home.details")}
+                </Button>
+              </div>
+              <div className="hero-k__tabs">
+                {featured.map((m, i) => (
+                  <button
+                    key={m.id}
+                    className={
+                      "hero-k__tab" + (i === heroIndex ? " is-active" : "")
+                    }
+                    aria-label={t("home.featuredN", { n: i + 1 })}
+                    onClick={() => setHeroIndex(i)}
+                  >
+                    {/* Một trong hai chỗ N° còn được giữ: đây là thứ tự thật,
                       chấm số 3 nằm giữa chấm 2 và 4. */}
-                  {formatIndex(i + 1)}
-                </button>
-              ))}
+                    {formatIndex(i + 1)}
+                  </button>
+                ))}
+              </div>
             </div>
+            {active.poster && (
+              <div className="hero-k__art">
+                {/* alt rỗng có chủ đích: tên phim là <h1> ngay cạnh, trình đọc
+                    màn hình đọc lại lần nữa là thừa. */}
+                <img src={active.poster} alt="" className="hero-k__artimg" />
+              </div>
+            )}
           </div>
         </Container>
         <button

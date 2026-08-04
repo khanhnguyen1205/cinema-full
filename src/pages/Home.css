@@ -28,12 +28,64 @@
   padding-block: var(--sp-12) var(--sp-10);
   border-bottom: var(--bw-1) solid var(--border);
 }
+/* Nền: poster phóng to, làm mờ mạnh. `scale(1.12)` để mép ảnh không bị blur
+   ăn vào thành viền sáng. Không còn gradient nướng vào inline style bằng
+   rgba(10,10,10) — màu nền đã đổi sang #0d0c0b, và scrim giờ nằm ở lớp riêng
+   bên dưới nên nó dùng đúng --bg. */
 .hero-k__poster {
   position: absolute;
   inset: 0;
   background-size: cover;
-  background-position: center right;
+  background-position: center;
+  filter: blur(28px) saturate(125%);
+  transform: scale(1.12);
+  opacity: 0.6;
   animation: hero-fade var(--dur-slow) var(--ease-out) both;
+}
+.hero-k__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to left,
+      transparent 0%,
+      color-mix(in srgb, var(--bg) 55%, transparent) 42%,
+      color-mix(in srgb, var(--bg) 88%, transparent) 100%
+    ),
+    linear-gradient(
+      to top,
+      var(--bg) 0%,
+      color-mix(in srgb, var(--bg) 35%, transparent) 45%,
+      transparent 100%
+    );
+}
+
+/* Poster ĐẦY ĐỦ. `contain` chứ không `cover`: nguồn ảnh không phải cái nào
+   cũng đúng 2:3, mà yêu cầu ở đây là không mất một phần nào của poster. */
+.hero-k__row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-10);
+}
+.hero-k__art {
+  flex: 0 0 auto;
+  width: clamp(170px, 17vw, 250px);
+  aspect-ratio: 2 / 3;
+  border: var(--bw-1) solid var(--border-strong);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  animation: hero-rise var(--dur-slow) var(--ease-out) both;
+}
+.hero-k__artimg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 .hero-k__scanline {
   position: absolute;
@@ -50,8 +102,6 @@
   mix-blend-mode: overlay;
 }
 .hero-k__content {
-  position: relative;
-  z-index: 1;
   max-width: 680px;
   display: flex;
   flex-direction: column;
@@ -429,13 +479,25 @@
     min-height: clamp(380px, 58vh, 480px);
   }
   .hero-k__poster {
-    background-position: center;
-    opacity: 0.5;
+    opacity: 0.45;
   }
+  /* Khổ hẹp không đủ chỗ cho hai cột: poster lên trên, chữ xuống dưới. Poster
+     nhỏ lại nhưng vẫn NGUYÊN VẸN — đó mới là điều đang sửa. */
+  .hero-k__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-5);
+  }
+  .hero-k__art {
+    order: -1;
+    width: 132px;
+  }
+  /* Poster giờ nằm trên cùng nên hai mũi tên (canh giữa theo chiều dọc) rơi
+     đúng vào dòng "PHIM NỔI BẬT · 8.4 · HÀNH ĐỘNG · 180 PHÚT" và che mất chữ.
+     Ẩn chúng ở khổ hẹp: dải N°01–N°05 ngay bên dưới làm đúng việc đó, nút to
+     hơn, lại cho biết luôn đang ở phim thứ mấy. Không mất chức năng nào. */
   .hero-k__arrow {
-    width: 36px;
-    height: 36px;
-    font-size: 20px;
+    display: none;
   }
   .home-head {
     flex-wrap: wrap;

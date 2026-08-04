@@ -92,6 +92,9 @@
   background: var(--red-bg);
   padding: var(--sp-2) var(--sp-4);
   border-radius: var(--r-sm);
+  /* Trên trang có nút quay lại (chi tiết phim/rạp), thanh điều hướng ở khổ
+     390px hết chỗ và "ĐĂNG NHẬP" xuống dòng thành "ĐĂNG / NHẬP". */
+  white-space: nowrap;
   transition: background var(--dur-fast);
 }
 .nav-k__login:hover {
