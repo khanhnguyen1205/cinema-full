@@ -404,5 +404,11 @@
     "updateReady": "Có bản mới",
     "reload": "Tải lại",
     "dismiss": "Đóng"
+  },
+  "notFound": {
+    "title": "Không có trang nào ở địa chỉ này",
+    "desc": "Đường dẫn bạn mở không dẫn tới đâu cả. Có thể nó đã đổi, hoặc bị gõ nhầm một ký tự.",
+    "home": "Về trang chủ",
+    "movies": "Xem phim đang chiếu"
   }
 }

@@ -65,6 +65,16 @@
   font-family: var(--font-display);
   font-size: var(--fs-md);
   letter-spacing: 0.02em;
+  color: var(--text-invert);
+  transition: opacity var(--dur-fast);
+}
+.auth-k__brand:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.auth-k__brand:focus-visible {
+  outline: var(--bw-2) solid var(--focus);
+  outline-offset: 3px;
 }
 .auth-k__brand b {
   color: var(--red-dark);
@@ -129,15 +139,22 @@
 }
 
 /* Logo (chỉ hiện mobile) */
-.auth-k__logo {
-  display: none;
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: 26px;
+.auth-k__back {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
   letter-spacing: var(--tr-wide);
-  color: var(--red);
-  text-decoration: none;
-  margin-bottom: var(--sp-8);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--sp-6);
+  transition: color var(--dur-fast);
+}
+.auth-k__back:hover {
+  color: var(--text);
+}
+.auth-k__back:focus-visible {
+  outline: var(--bw-2) solid var(--focus);
+  outline-offset: 2px;
 }
 
 .authf-k__eyebrow {
@@ -370,9 +387,6 @@
   }
   .auth-k__side {
     display: none;
-  }
-  .auth-k__logo {
-    display: inline-block;
   }
   .auth-k__panel {
     padding: var(--sp-10) var(--sp-5);

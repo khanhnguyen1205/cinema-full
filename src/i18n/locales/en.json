@@ -404,5 +404,11 @@
     "updateReady": "New version available",
     "reload": "Reload",
     "dismiss": "Dismiss"
+  },
+  "notFound": {
+    "title": "Nothing lives at this address",
+    "desc": "The link you opened leads nowhere. It may have moved, or a character got mistyped.",
+    "home": "Go to home",
+    "movies": "Browse now showing"
   }
 }

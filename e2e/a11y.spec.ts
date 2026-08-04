@@ -126,6 +126,14 @@ test("a11y: trang tìm kiếm", async ({ page }) => {
   await scan(page, "/search");
 });
 
+// Trang 404 cũng phải quét: nó là màn hình DUY NHẤT người dùng thấy khi đi
+// lạc, nên đây là chỗ tệ nhất để có lỗi trợ năng.
+test("a11y: trang 404", async ({ page }) => {
+  await page.goto("/duong-dan-khong-ton-tai");
+  await expect(page.locator(".nf-k__title")).toBeVisible();
+  await scan(page, "/404");
+});
+
 test("a11y: đăng nhập", async ({ page }) => {
   await page.goto("/login");
   await expect(page.getByPlaceholder("your@email.com")).toBeVisible();
@@ -158,7 +166,12 @@ test("a11y: ba bước đầu của luồng đặt vé", async ({ page }) => {
   await expect(page.locator(".seatmap-k__grid")).toBeVisible();
   await scan(page, "/seats/:id bước ① chọn ghế");
 
-  await page.locator(".seatmap-k__seat:not(.is-booked)").first().click();
+  // Ghế CUỐI, không phải ghế đầu. smoke.spec.ts cũng vào đúng rạp đầu / suất
+  // đầu và cũng bấm ghế đầu tiên còn trống; Playwright chạy hai spec song song
+  // nên ai giữ ghế trước thì người kia ăn 409, wizard bỏ ghế trùng, và
+  // .os-k__seatlist đứng yên ở "Chưa chọn". Đây là chỗ chập chờn có sẵn, chỉ
+  // chưa nổ vì lịch chạy cũ; hai spec phải giành hai ghế khác nhau.
+  await page.locator(".seatmap-k__seat:not(.is-booked)").last().click();
   await expect(page.locator(".os-k__seatlist")).not.toHaveText("Chưa chọn");
 
   // ② bắp nước

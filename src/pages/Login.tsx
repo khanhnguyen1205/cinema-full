@@ -45,8 +45,12 @@ export default function Login() {
   return (
     <AuthLayout statement={t("auth.loginStatement")} sub={t("auth.loginSub")}>
       <div className="authf-k">
-        <Link to="/" className="auth-k__logo">
-          CINEMA
+        {/* Lối về trang chủ, hiện ở MỌI khổ màn hình. Trước đây link này chỉ
+            bật từ 900px trở xuống, còn trên desktop thì cuống vé bên trái chỉ
+            là <span> — nên cả trang đăng nhập lẫn đăng ký không có đường nào
+            quay lại ngoài nút Back của trình duyệt. */}
+        <Link to="/" className="auth-k__back">
+          ← {t("notFound.home")}
         </Link>
 
         <p className="authf-k__eyebrow">{t("auth.loginEyebrow")}</p>

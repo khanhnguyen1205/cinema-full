@@ -236,6 +236,28 @@ test("Movies: lọc định dạng đồng bộ URL", async ({ page }) => {
   await expect(page.locator(".movie-k").first()).toBeVisible();
 });
 
+// Không màn hình nào được là ngõ cụt.
+//
+// Hai lỗ đã bị bịt và đây là chốt chặn: (1) thiếu route bắt-tất-cả nên một
+// đường dẫn lạ dựng ra trang ĐEN TRỐNG TRƠN — không điều hướng, không chữ,
+// không lối ra; (2) trang đăng nhập/đăng ký không có thanh điều hướng, còn
+// link về trang chủ thì chỉ bật ở khổ ≤900px, nên trên desktop không có đường
+// nào quay lại ngoài nút Back của trình duyệt.
+test("đường dẫn lạ ra trang 404 có lối về trang chủ", async ({ page }) => {
+  await page.goto("/duong-dan-khong-ton-tai");
+  await expect(page.getByText("/duong-dan-khong-ton-tai")).toBeVisible();
+  await page.getByRole("button", { name: "Về trang chủ" }).click();
+  await expect(page).toHaveURL("/");
+});
+
+test("trang đăng nhập và đăng ký đều có lối về trang chủ", async ({ page }) => {
+  for (const path of ["/login", "/register"]) {
+    await page.goto(path);
+    await page.locator(".auth-k__back").click();
+    await expect(page).toHaveURL("/");
+  }
+});
+
 // PWA: head có icon links + theme-color (tĩnh trong index.html, có ở cả dev).
 test("head có apple-touch-icon + theme-color cho PWA", async ({ page }) => {
   await page.goto("/");

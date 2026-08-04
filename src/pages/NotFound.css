@@ -1,0 +1,57 @@
+.nf-k {
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+}
+.nf-k .ui-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.nf-k__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  padding-block: var(--sp-20);
+  max-width: 56ch;
+}
+.nf-k__code {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--tr-wider);
+  color: var(--text-muted);
+}
+.nf-k__title {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: var(--fs-xl);
+  letter-spacing: 0;
+  line-height: 1.05;
+}
+.nf-k__desc {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.nf-k__path {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  background: var(--surface);
+  border: var(--bw-1) solid var(--border);
+  border-radius: var(--r-sm);
+  padding: var(--sp-2) var(--sp-3);
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.nf-k__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+}

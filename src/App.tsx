@@ -17,6 +17,7 @@ import MovieDetail from "pages/MovieDetail";
 import MyTickets from "pages/MyTickets";
 import Login from "pages/Login";
 import Register from "pages/Register";
+import NotFound from "pages/NotFound";
 import AdminRoute from "routes/AdminRoute";
 import KitchenSink from "pages/dev/KitchenSink";
 import PWAUpdatePrompt from "components/PWAUpdatePrompt";
@@ -102,6 +103,9 @@ function AppShell() {
             <Route path="bookings" element={<AdminBookings />} />
             <Route path="reviews" element={<AdminReviews />} />
           </Route>
+          {/* Bắt-tất-cả. Thiếu nó thì đường dẫn lạ không khớp route nào và
+              <Routes> dựng RỖNG — nền đen, không điều hướng, không lối ra. */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
       <PWAUpdatePrompt />

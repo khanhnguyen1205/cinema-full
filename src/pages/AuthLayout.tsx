@@ -1,4 +1,5 @@
 import { Fragment, type ChangeEvent, type ReactNode } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { TicketEdge } from "components/ui";
 import "./Auth.css";
@@ -26,9 +27,9 @@ export default function AuthLayout({
       <aside className="auth-k__side">
         <TicketEdge className="auth-k__ticket">
           <div className="auth-k__side-top">
-            <span className="auth-k__brand">
+            <Link to="/" className="auth-k__brand">
               CINE<b>MA</b>
-            </span>
+            </Link>
           </div>
           <h2 className="auth-k__statement">
             {statement.split("\n").map((line, i) => (
