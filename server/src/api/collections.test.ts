@@ -34,6 +34,18 @@ describe("parseFilters", () => {
 });
 
 describe("pickWritable", () => {
+  it("phim nhận cả poster lẫn backdrop — hai ảnh, hai việc khác nhau", () => {
+    expect(
+      pickWritable("movies", {
+        id: 3,
+        title: "X",
+        poster: "p.jpg",
+        backdrop: "b.jpg",
+        junk: 1,
+      }),
+    ).toEqual({ title: "X", poster: "p.jpg", backdrop: "b.jpg" });
+  });
+
   it("chỉ giữ trường thuộc schema, bỏ id và rác", () => {
     expect(
       pickWritable("bookings", {

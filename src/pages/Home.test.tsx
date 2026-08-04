@@ -70,6 +70,23 @@ describe("Home", () => {
     expect(heroTitle()).toBe("Endgame");
   });
 
+  it("hero dùng ảnh backdrop ngang, không phải poster dọc", async () => {
+    const { container } = await setup();
+    const img = container.querySelector(".hero-k__backdrop");
+    expect(img).toHaveAttribute("src", "https://cdn.test/backdrop-1.jpg");
+    // Poster dọc không được dùng làm nền nữa — đó là cả lý do có trường này.
+    expect(container.querySelector(".hero-k__poster")).toBeNull();
+  });
+
+  it("phim chưa có backdrop thì hero rơi về poster làm mờ, không để trống", async () => {
+    const { container } = await setup();
+    // fx.movies[1] (Endgame) cố tình không có backdrop -> sang phim thứ hai.
+    await userEvent.click(screen.getByRole("button", { name: "Phim sau" }));
+    expect(heroTitle()).toBe("Endgame");
+    expect(container.querySelector(".hero-k__backdrop")).toBeNull();
+    expect(container.querySelector(".hero-k__poster")).not.toBeNull();
+  });
+
   it("mũi tên tiến/lùi xoay vòng qua danh sách nổi bật", async () => {
     await setup();
     await userEvent.click(screen.getByRole("button", { name: "Phim sau" }));

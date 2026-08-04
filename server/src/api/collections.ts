@@ -22,7 +22,15 @@ type CollectionSpec = {
 export const COLLECTIONS: Record<CollectionName, CollectionSpec> = {
   movies: {
     filterable: { id: "int" },
-    writable: ["title", "poster", "description", "duration", "genre", "rating"],
+    writable: [
+      "title",
+      "poster",
+      "backdrop",
+      "description",
+      "duration",
+      "genre",
+      "rating",
+    ],
     json: [],
   },
   showtimes: {

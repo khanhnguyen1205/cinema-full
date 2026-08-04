@@ -322,6 +322,8 @@
     "fDurationMin": "Duration (min)",
     "fDescription": "Description",
     "fPoster": "Poster (URL, optional)",
+    "fBackdrop": "Hero backdrop (16:9)",
+    "fBackdropPh": "Leave empty to fall back to a blurred poster",
     "confirmDeleteMovie": "Are you sure you want to delete this movie?",
     "roomsTitle": "Rooms",
     "roomSearchPh": "Search rooms or cinemas...",

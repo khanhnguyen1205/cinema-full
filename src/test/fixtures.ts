@@ -61,6 +61,9 @@ export const fx = {
       id: 1,
       title: "Điện Biên Phủ",
       poster: "",
+      // Chỉ phim này có backdrop: hai phim kia bỏ trống để test luôn đường lui
+      // "không có backdrop thì hero dùng poster làm mờ".
+      backdrop: "https://cdn.test/backdrop-1.jpg",
       description: "Phim thử nghiệm số một.",
       duration: 120,
       genre: "Action",

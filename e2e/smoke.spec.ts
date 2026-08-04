@@ -236,6 +236,26 @@ test("Movies: lọc định dạng đồng bộ URL", async ({ page }) => {
   await expect(page.locator(".movie-k").first()).toBeVisible();
 });
 
+// Nền hero phải là ảnh NGANG thật, không phải poster dọc bị cắt.
+//
+// Chốt chặn cả chuỗi: cột Movie.backdrop -> gateway trả về -> client dựng <img>.
+// Rơi mất một mắt xích nào cũng đưa hero về đường lui poster-làm-mờ, mà đường
+// lui thì trông vẫn "chạy được" nên không có test này thì không ai biết.
+test("nền hero dùng ảnh backdrop ngang", async ({ page }) => {
+  await page.goto("/");
+  const bg = page.locator(".hero-k__backdrop");
+  await expect(bg).toBeVisible();
+  const box = await bg.boundingBox();
+  const kich = await bg.evaluate((el) => ({
+    w: (el as HTMLImageElement).naturalWidth,
+    h: (el as HTMLImageElement).naturalHeight,
+  }));
+  expect(box).not.toBeNull();
+  // Ảnh tải được thật (naturalWidth > 0) và là khung ngang.
+  expect(kich.w).toBeGreaterThan(0);
+  expect(kich.w / kich.h).toBeGreaterThan(1.5);
+});
+
 // Không màn hình nào được là ngõ cụt.
 //
 // Hai lỗ đã bị bịt và đây là chốt chặn: (1) thiếu route bắt-tất-cả nên một

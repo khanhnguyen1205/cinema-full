@@ -216,18 +216,29 @@ export default function MovieDetail() {
 
       {/* HERO chia đôi */}
       <section className="detail-k__hero">
-        {/* Cùng lý do như hero trang chủ: poster dọc 2:3 bị `cover` cắt mất
-            phần lớn. Nền thành lớp mờ làm không khí, poster thật hiện đủ trong
-            khung riêng. */}
-        <div
-          className="detail-k__poster"
-          style={
-            movie.poster
-              ? { backgroundImage: `url(${movie.poster})` }
-              : undefined
-          }
-          aria-hidden="true"
-        />
+        {/* Backdrop 16:9 làm banner, poster giữ nguyên trong khung riêng bên
+            cạnh — poster LÀ danh tính bộ phim, bỏ đi là mất thông tin. Đây đúng
+            là cách TMDB/Letterboxd dựng trang phim. Không có backdrop thì rơi
+            về poster-làm-mờ. */}
+        {movie.backdrop ? (
+          <img
+            className="detail-k__backdrop"
+            src={movie.backdrop}
+            alt=""
+            fetchPriority="high"
+            decoding="async"
+          />
+        ) : (
+          <div
+            className="detail-k__poster"
+            style={
+              movie.poster
+                ? { backgroundImage: `url(${movie.poster})` }
+                : undefined
+            }
+            aria-hidden="true"
+          />
+        )}
         <div className="detail-k__scrim" aria-hidden="true" />
         <div className="detail-k__scanline" aria-hidden="true" />
         <Container>

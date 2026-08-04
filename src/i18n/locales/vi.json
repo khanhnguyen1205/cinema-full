@@ -322,6 +322,8 @@
     "fDurationMin": "Thời lượng (phút)",
     "fDescription": "Mô tả",
     "fPoster": "Poster (URL, tùy chọn)",
+    "fBackdrop": "Ảnh nền hero (16:9)",
+    "fBackdropPh": "Bỏ trống thì hero dùng poster làm mờ",
     "confirmDeleteMovie": "Bạn chắc chắn muốn xóa phim này?",
     "roomsTitle": "Phòng",
     "roomSearchPh": "Tìm phòng hoặc rạp...",

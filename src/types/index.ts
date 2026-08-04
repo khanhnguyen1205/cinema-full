@@ -14,6 +14,7 @@ export interface Movie {
   id: number;
   title: string;
   poster?: string;
+  backdrop?: string; // anh ngang 16:9 cho nen hero; thieu thi rot ve poster
   description?: string;
   duration: number;
   genre: string;

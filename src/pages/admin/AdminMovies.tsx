@@ -22,6 +22,7 @@ const EMPTY = {
   duration: "",
   description: "",
   poster: "",
+  backdrop: "",
 };
 
 const toForm = (m: Movie): typeof EMPTY => ({
@@ -30,6 +31,7 @@ const toForm = (m: Movie): typeof EMPTY => ({
   duration: String(m.duration),
   description: m.description || "",
   poster: m.poster || "",
+  backdrop: m.backdrop || "",
 });
 
 export default function AdminMovies() {
@@ -66,6 +68,7 @@ export default function AdminMovies() {
       duration: Number(form.duration),
       description: form.description,
       poster: form.poster || "",
+      backdrop: form.backdrop || "",
     };
     if (editing === "new") await createM.mutateAsync(body);
     else if (editing) await updateM.mutateAsync({ id: editing.id, body });
@@ -191,6 +194,15 @@ export default function AdminMovies() {
               id="adm-movie-poster"
               value={form.poster}
               onChange={set("poster")}
+            />
+          </div>
+          <div className="adm-k__field">
+            <label htmlFor="adm-movie-backdrop">{t("admin.fBackdrop")}</label>
+            <input
+              id="adm-movie-backdrop"
+              value={form.backdrop}
+              onChange={set("backdrop")}
+              placeholder={t("admin.fBackdropPh")}
             />
           </div>
           {error && <div className="adm-k__formerr">{error}</div>}

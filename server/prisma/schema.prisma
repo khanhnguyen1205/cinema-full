@@ -49,6 +49,10 @@ model Movie {
   id          Int        @id @default(autoincrement())
   title       String
   poster      String
+  // Anh NGANG 16:9 dung lam nen hero. Rieng voi poster doc 2:3 vi hai anh phuc
+  // vu hai viec khac nhau: poster de NHAN DIEN, backdrop de LAM NEN. Nullable —
+  // phim khong co thi hero tu rot ve poster lam mo.
+  backdrop    String?
   description String
   duration    Int
   genre       String
