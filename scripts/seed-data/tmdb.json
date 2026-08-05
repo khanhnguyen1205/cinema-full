@@ -1,0 +1,385 @@
+{
+  "fetchedAt": "2026-08-05T15:37:22.141Z",
+  "movies": [
+    {
+      "title": "Mad Max: Fury Road",
+      "genre": "Action",
+      "description": "A rebel warrior and a runaway queen flee a tyrant across the wasteland.",
+      "tmdb": "76341-mad-max-fury-road",
+      "poster": "https://image.tmdb.org/t/p/w500/ulcAi4dKpAjHwYGS08vNyx9H6I9.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/uT895WNwm0aIJRtGizcQhrejWUo.jpg",
+      "rating": 7.6,
+      "duration": 121
+    },
+    {
+      "title": "Gladiator",
+      "genre": "Action",
+      "description": "A betrayed Roman general fights his way back from slavery to face the emperor.",
+      "tmdb": "98-gladiator",
+      "poster": "https://image.tmdb.org/t/p/w500/wN2xWp1eIwCKOD0BHTcErTBv1Uq.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/jhk6D8pim3yaByu1801kMoxXFaX.jpg",
+      "rating": 8.2,
+      "duration": 155
+    },
+    {
+      "title": "The Matrix",
+      "genre": "Action",
+      "description": "A hacker learns his world is a simulation and joins the war to break it.",
+      "tmdb": "603-the-matrix",
+      "poster": "https://image.tmdb.org/t/p/w500/dXNAPwY7VrqMAo51EKhhCJfaGb5.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/tlm8UkiQsitc8rSuIAscQDCnP8d.jpg",
+      "rating": 8.3,
+      "duration": 136
+    },
+    {
+      "title": "Mission: Impossible - Fallout",
+      "genre": "Action",
+      "description": "Ethan Hunt races to recover stolen plutonium before it ends three cities.",
+      "tmdb": "353081-mission-impossible-fallout",
+      "poster": "https://image.tmdb.org/t/p/w500/AkJQpZp9WoNdj7pLYSj1L0RcMMN.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/3IzR3VhZAyhxVnuRRUHFLkfK4hT.jpg",
+      "rating": 7.5,
+      "duration": 147
+    },
+    {
+      "title": "Casino Royale",
+      "genre": "Action",
+      "description": "A newly promoted 007 must bankrupt a terrorist financier at the poker table.",
+      "tmdb": "36557-casino-royale",
+      "poster": "https://image.tmdb.org/t/p/w500/lMrxYKKhd4lqRzwUHAy5gcx9PSO.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/klJMCIblHLFwCuGjKz7tyOpekIC.jpg",
+      "rating": 7.6,
+      "duration": 144
+    },
+    {
+      "title": "Blade Runner 2049",
+      "genre": "Sci-Fi",
+      "description": "A replicant hunter uncovers a secret that could end the fragile peace.",
+      "tmdb": "335984-blade-runner-2049",
+      "poster": "https://image.tmdb.org/t/p/w500/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/gNdLJU9TxrpGx4dkZidjys3fyy0.jpg",
+      "rating": 7.6,
+      "duration": 164
+    },
+    {
+      "title": "Arrival",
+      "genre": "Sci-Fi",
+      "description": "A linguist must learn an alien language before the world goes to war.",
+      "tmdb": "329865-arrival",
+      "poster": "https://image.tmdb.org/t/p/w500/x2FJsf1ElAgr63Y3PNPtJrcmpoe.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/8MUZz7oPXQftFTslZpRP3CVMOoq.jpg",
+      "rating": 7.6,
+      "duration": 116
+    },
+    {
+      "title": "The Martian",
+      "genre": "Sci-Fi",
+      "description": "Stranded alone on Mars, an astronaut has to grow food and signal home.",
+      "tmdb": "286217-the-martian",
+      "poster": "https://image.tmdb.org/t/p/w500/pjYWdykADVLTCh5g475RnI2hWIN.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/lzMS0CI3FLQYC5EgJoWeIaEt0lm.jpg",
+      "rating": 7.7,
+      "duration": 141
+    },
+    {
+      "title": "Edge of Tomorrow",
+      "genre": "Sci-Fi",
+      "description": "A soldier relives the same losing battle until he learns how to win it.",
+      "tmdb": "137113-edge-of-tomorrow",
+      "poster": "https://image.tmdb.org/t/p/w500/nBM9MMa2WCwvMG4IJ3eiGUdbPe6.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/4V1yIoAKPMRQwGBaSses8Bp2nsi.jpg",
+      "rating": 7.6,
+      "duration": 114
+    },
+    {
+      "title": "Ex Machina",
+      "genre": "Sci-Fi",
+      "description": "A programmer is invited to test an android — and to be tested by her.",
+      "tmdb": "264660-ex-machina",
+      "poster": "https://image.tmdb.org/t/p/w500/dmJW8IAKHKxFNiUnoDR7JfsK7Rp.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/uqOuJ50EtTj7kkDIXP8LCg7G45D.jpg",
+      "rating": 7.6,
+      "duration": 108
+    },
+    {
+      "title": "Get Out",
+      "genre": "Horror",
+      "description": "A weekend with his girlfriend's family turns into a nightmare he can't leave.",
+      "tmdb": "419430-get-out",
+      "poster": "https://image.tmdb.org/t/p/w500/tFXcEccSQMf3lfhfXKSU9iRBpa3.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/o8dPH0ZSIyyViP6rjRX1djwCUwI.jpg",
+      "rating": 7.6,
+      "duration": 104
+    },
+    {
+      "title": "A Quiet Place",
+      "genre": "Horror",
+      "description": "A family survives blind predators that hunt by sound — one noise is fatal.",
+      "tmdb": "447332-a-quiet-place",
+      "poster": "https://image.tmdb.org/t/p/w500/nAU74GmpUk7t5iklEp3bufwDq4n.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/nHRUtBwFNnNN70vcQ7lAsjc2T6S.jpg",
+      "rating": 7.4,
+      "duration": 91
+    },
+    {
+      "title": "Hereditary",
+      "genre": "Horror",
+      "description": "After a death in the family, a household unravels into something inherited.",
+      "tmdb": "493922-hereditary",
+      "poster": "https://image.tmdb.org/t/p/w500/4GFPuL14eXi66V96xBWY73Y9PfR.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/gJbTXKNTL6O7r7PzF6ZRkJGBlPp.jpg",
+      "rating": 7.3,
+      "duration": 128
+    },
+    {
+      "title": "The Shining",
+      "genre": "Horror",
+      "description": "A winter caretaker and his family are alone in a hotel that is not empty.",
+      "tmdb": "694-the-shining",
+      "poster": "https://image.tmdb.org/t/p/w500/uAR0AWqhQL1hQa69UDEbb2rE5Wx.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/mmd1HnuvAzFc4iuVJcnBrhDNEKr.jpg",
+      "rating": 8.2,
+      "duration": 144
+    },
+    {
+      "title": "It",
+      "genre": "Horror",
+      "description": "Seven outcast kids face the thing that takes children from their town.",
+      "tmdb": "346364-it",
+      "poster": "https://image.tmdb.org/t/p/w500/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/qVGpxnjrGlHaSTCqTQI6viBDSfp.jpg",
+      "rating": 7.2,
+      "duration": 135
+    },
+    {
+      "title": "Forrest Gump",
+      "genre": "Drama",
+      "description": "An ordinary man keeps running through three decades of American history.",
+      "tmdb": "13-forrest-gump",
+      "poster": "https://image.tmdb.org/t/p/w500/Cw4hIUIAmSYfK9QfaUW5igp9La.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/66Kn4XWhkuPkJxOJyPEx4U2CUfN.jpg",
+      "rating": 8.5,
+      "duration": 142
+    },
+    {
+      "title": "The Shawshank Redemption",
+      "genre": "Drama",
+      "description": "A banker sentenced to life keeps hope alive inside Shawshank prison.",
+      "tmdb": "278-the-shawshank-redemption",
+      "poster": "https://image.tmdb.org/t/p/w500/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/zfbjgQE1uSd9wiPTX4VzsLi0rGG.jpg",
+      "rating": 8.7,
+      "duration": 142
+    },
+    {
+      "title": "Whiplash",
+      "genre": "Drama",
+      "description": "A young drummer and a ruthless teacher push each other past breaking.",
+      "tmdb": "244786-whiplash",
+      "poster": "https://image.tmdb.org/t/p/w500/7fn624j5lj3xTme2SgiLCeuedmO.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/wbQa0EnWUyRzQ5d1pHLNRlmsCUP.jpg",
+      "rating": 8.4,
+      "duration": 107
+    },
+    {
+      "title": "The Green Mile",
+      "genre": "Drama",
+      "description": "Death row guards meet an inmate with an inexplicable gift for healing.",
+      "tmdb": "497-the-green-mile",
+      "poster": "https://image.tmdb.org/t/p/w500/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/amZavErrjrdgDwhsIdpWxHNenIx.jpg",
+      "rating": 8.5,
+      "duration": 189
+    },
+    {
+      "title": "Fight Club",
+      "genre": "Drama",
+      "description": "An insomniac and a soap salesman start a club that gets out of hand.",
+      "tmdb": "550-fight-club",
+      "poster": "https://image.tmdb.org/t/p/w500/jSziioSwPVrOy9Yow3XhWIBDjq1.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/c6OLXfKAk5BKeR6broC8pYiCquX.jpg",
+      "rating": 8.4,
+      "duration": 139
+    },
+    {
+      "title": "The Grand Budapest Hotel",
+      "genre": "Comedy",
+      "description": "A legendary concierge and his lobby boy are framed for murder.",
+      "tmdb": "120467-the-grand-budapest-hotel",
+      "poster": "https://image.tmdb.org/t/p/w500/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/9udCLTxTFl28RxnK8Q05E154ZGa.jpg",
+      "rating": 8,
+      "duration": 100
+    },
+    {
+      "title": "Deadpool",
+      "genre": "Comedy",
+      "description": "A wisecracking mercenary hunts the man who wrecked his life and his face.",
+      "tmdb": "293660-deadpool",
+      "poster": "https://image.tmdb.org/t/p/w500/3E53WEZJqP6aM84D8CckXx4pIHw.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/en971MEXui9diirXlogOrPKmsEn.jpg",
+      "rating": 7.6,
+      "duration": 108
+    },
+    {
+      "title": "Knives Out",
+      "genre": "Comedy",
+      "description": "A detective sorts through a rich family's lies after the patriarch dies.",
+      "tmdb": "546554-knives-out",
+      "poster": "https://image.tmdb.org/t/p/w500/pThyQovXQrw2m0s9x82twj48Jq4.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/4HWAQu28e2yaWrtupFPGFkdNU7V.jpg",
+      "rating": 7.8,
+      "duration": 131
+    },
+    {
+      "title": "Superbad",
+      "genre": "Comedy",
+      "description": "Two friends plan one last party before high school ends.",
+      "tmdb": "8363-superbad",
+      "poster": "https://image.tmdb.org/t/p/w500/ek8e8txUyUwd2BNqj6lFEerJfbq.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/coru98UcFBzJIU7bxZguxaePgu0.jpg",
+      "rating": 7.3,
+      "duration": 113
+    },
+    {
+      "title": "Pulp Fiction",
+      "genre": "Crime",
+      "description": "Hitmen, a boxer and a gangster's wife cross paths in interlocking stories.",
+      "tmdb": "680-pulp-fiction",
+      "poster": "https://image.tmdb.org/t/p/w500/vQWk5YBFWF4bZaofAbv0tShwBvQ.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/suaEOtk1N1sgg2MTM7oZd2cfVp3.jpg",
+      "rating": 8.5,
+      "duration": 154
+    },
+    {
+      "title": "The Godfather",
+      "genre": "Crime",
+      "description": "The youngest son of a mafia dynasty takes over the family business.",
+      "tmdb": "238-the-godfather",
+      "poster": "https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/tSPT36ZKlP2WVHJLM4cQPLSzv3b.jpg",
+      "rating": 8.7,
+      "duration": 175
+    },
+    {
+      "title": "Goodfellas",
+      "genre": "Crime",
+      "description": "Three decades of mob life, told from the inside until it turns on him.",
+      "tmdb": "769-goodfellas",
+      "poster": "https://image.tmdb.org/t/p/w500/9OkCLM73MIU2CrKZbqiT8Ln1wY2.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/gILte6Zd7m1YneIr6MVhh30S9pr.jpg",
+      "rating": 8.5,
+      "duration": 145
+    },
+    {
+      "title": "Se7en",
+      "genre": "Crime",
+      "description": "Two detectives track a killer staging murders after the deadly sins.",
+      "tmdb": "807-se7en",
+      "poster": "https://image.tmdb.org/t/p/w500/191nKfP0ehp3uIvWqgPbFmI4lv9.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/i5H7zusQGsysGQ8i6P361Vnr0n2.jpg",
+      "rating": 8.4,
+      "duration": 127
+    },
+    {
+      "title": "The Departed",
+      "genre": "Crime",
+      "description": "A cop infiltrates the mob while a mole infiltrates the cops.",
+      "tmdb": "1422-the-departed",
+      "poster": "https://image.tmdb.org/t/p/w500/nT97ifVT2J1yMQmeq20Qblg61T.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/6WRrGYalXXveItfpnipYdayFkQB.jpg",
+      "rating": 8.2,
+      "duration": 151
+    },
+    {
+      "title": "Spirited Away",
+      "genre": "Animation",
+      "description": "A girl must work in a spirit bathhouse to win her parents back.",
+      "tmdb": "129",
+      "poster": "https://image.tmdb.org/t/p/w500/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/dyJvKsNs2KP8qQnAXbRwDjblViy.jpg",
+      "rating": 8.5,
+      "duration": 125
+    },
+    {
+      "title": "Toy Story",
+      "genre": "Animation",
+      "description": "A cowboy doll fears being replaced by a new space-ranger toy.",
+      "tmdb": "1084244-toy-story-5",
+      "poster": "https://image.tmdb.org/t/p/w500/sfQtVlIHljToOwYjhe21KPGzZWK.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/8sSKdEmlmqF4kJUd28SqthXC4yZ.jpg",
+      "rating": 7.4,
+      "duration": 102
+    },
+    {
+      "title": "Coco",
+      "genre": "Animation",
+      "description": "A boy crosses into the Land of the Dead to find his family's real story.",
+      "tmdb": "354912-coco",
+      "poster": "https://image.tmdb.org/t/p/w500/6Ryitt95xrO8KXuqRGm1fUuNwqF.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/g7CHF8gTLGooTbP4GznIGwaqAGL.jpg",
+      "rating": 8.2,
+      "duration": 105
+    },
+    {
+      "title": "Spider-Man: Into the Spider-Verse",
+      "genre": "Animation",
+      "description": "Miles Morales meets Spider-People from other dimensions to save his own.",
+      "tmdb": "324857-spider-man-into-the-spider-verse",
+      "poster": "https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/8mnXR9rey5uQ08rZAvzojKWbDQS.jpg",
+      "rating": 8.4,
+      "duration": 117
+    },
+    {
+      "title": "Your Name",
+      "genre": "Animation",
+      "description": "Two teenagers keep waking up in each other's bodies, and cannot say why.",
+      "tmdb": "372058",
+      "poster": "https://image.tmdb.org/t/p/w500/q719jXXEzOoYaps6babgKnONONX.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/8x9iKH8kWA0zdkgNdpAew7OstYe.jpg",
+      "rating": 8.5,
+      "duration": 106
+    },
+    {
+      "title": "Titanic",
+      "genre": "Romance",
+      "description": "Two passengers from different classes fall in love on a doomed crossing.",
+      "tmdb": "597-titanic",
+      "poster": "https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/xnHVX37XZEp33hhCbYlQFq7ux1J.jpg",
+      "rating": 7.9,
+      "duration": 194
+    },
+    {
+      "title": "Eternal Sunshine of the Spotless Mind",
+      "genre": "Romance",
+      "description": "A couple erase each other from memory, then fight to keep what is left.",
+      "tmdb": "38-eternal-sunshine-of-the-spotless-mind",
+      "poster": "https://image.tmdb.org/t/p/w500/5MwkWH9tYHv3mV9OdYTMR5qreIz.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/W1ffLQGHoxfAOq0ZYdPtJlvAdb.jpg",
+      "rating": 8.1,
+      "duration": 108
+    },
+    {
+      "title": "Call Me by Your Name",
+      "genre": "Romance",
+      "description": "One Italian summer changes a boy and his father's houseguest.",
+      "tmdb": "398818-call-me-by-your-name",
+      "poster": "https://image.tmdb.org/t/p/w500/mZ4gBdfkhP9tvLH1DO4m4HYtiyi.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/4Xh2a1WeTp6b8Ksvug0pAMbX3dT.jpg",
+      "rating": 8.1,
+      "duration": 132
+    },
+    {
+      "title": "Before Sunrise",
+      "genre": "Romance",
+      "description": "Two strangers get off a train in Vienna and talk until morning.",
+      "tmdb": "76-before-sunrise",
+      "poster": "https://image.tmdb.org/t/p/w500/kf1Jb1c2JAOqjuzA3H4oDM263uB.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/qA2TyqPldTtoTVY3LKrNIG5g6bH.jpg",
+      "rating": 8,
+      "duration": 101
+    }
+  ]
+}

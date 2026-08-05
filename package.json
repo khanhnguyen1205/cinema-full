@@ -53,6 +53,10 @@
     "prisma:deploy": "prisma migrate deploy --schema server/prisma/schema.prisma",
     "prisma:seed": "prisma db seed",
     "backfill:backdrops": "tsx server/prisma/backfill-backdrops.ts",
+    "seed:fetch-tmdb": "node scripts/fetch-tmdb.mjs",
+    "seed:verify-images": "node scripts/verify-images.mjs",
+    "seed:generate": "node scripts/gen-seed-data.mjs",
+    "backfill:seed-data": "tsx server/prisma/backfill-seed-data.ts",
     "prisma:studio": "prisma studio --schema server/prisma/schema.prisma"
   },
   "prisma": {
