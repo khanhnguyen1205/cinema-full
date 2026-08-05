@@ -227,7 +227,78 @@ for (let n = 0; n < TARGET_BOOKINGS; n++) {
   });
 }
 
+// --- 5. Đánh giá ---
+// Ba ràng buộc, cái nào cũng chặn bằng mã chứ không bằng ý thức:
+//
+//  1. @@unique([movieId, userId]) — một user chỉ đánh giá một phim một lần.
+//  2. KHÔNG được sinh (movieId 7, userId 1). e2e/reviews.spec.ts chọn đúng cặp
+//     đó VÌ NÓ TRỐNG, để test tự đăng review mà không dính 409. Sinh vào là test
+//     đỏ, mà nguyên nhân nhìn rất giống lỗi ứng dụng.
+//  3. verified chỉ true khi user đó THẬT SỰ có đơn phim đó, đặt TRƯỚC ngày đánh
+//     giá — đúng nghĩa badge "Đã xem", bắt chước cách gateway tính lúc tạo.
+const pairs = new Set(db.reviews.map((r) => `${r.movieId}|${r.userId}`));
+pairs.add("7|1");
+
+const boughtOn = new Map();
+for (const b of db.bookings) {
+  const k = `${b.userId}|${b.movieId}`;
+  const day = b.createdAt.slice(0, 10);
+  if (!boughtOn.has(k) || day < boughtOn.get(k)) boughtOn.set(k, day);
+}
+
+const REVIEW_DAYS = Array.from({ length: 28 }, (_, i) =>
+  new Date(Date.UTC(2026, 5, 16) + i * 86400000).toISOString().slice(0, 10),
+);
+// Lệch về 4-5 sao cho thật: khán giả chịu khó viết đánh giá thường là người thích.
+const STARS = [5, 5, 5, 5, 4, 4, 4, 3, 3, 2, 1];
+
+// Ai đã mua vé phim nào — dùng để ưu tiên người đánh giá.
+const buyersOf = new Map();
+for (const b of db.bookings) {
+  if (!buyersOf.has(b.movieId)) buyersOf.set(b.movieId, new Set());
+  buyersOf.get(b.movieId).add(b.userId);
+}
+
+const nextReviewId = counter(db.reviews);
+for (const movie of db.movies) {
+  const want = rng.int(3, 8);
+  // Ưu tiên người ĐÃ ĐẶT VÉ phim này rồi mới lấy thêm người khác. Đời thật cũng
+  // vậy: người bỏ công viết đánh giá thường là người đã xem. Nếu chọn thuần ngẫu
+  // nhiên trên 29 người thì badge "Đã xem" gần như không bao giờ xuất hiện, và
+  // một tính năng có thật trông như không chạy.
+  const watched = buyers.filter((u) => buyersOf.get(movie.id)?.has(u.id));
+  const others = buyers.filter((u) => !buyersOf.get(movie.id)?.has(u.id));
+  const picked = [
+    ...rng.sample(watched, Math.min(watched.length, want)),
+    ...rng.sample(others, Math.max(0, want - watched.length)),
+  ];
+
+  for (const user of picked) {
+    const key = `${movie.id}|${user.id}`;
+    if (pairs.has(key)) continue;
+    pairs.add(key);
+
+    const rating = rng.pick(STARS);
+    const bought = boughtOn.get(`${user.id}|${movie.id}`);
+    // Đã mua thì viết đánh giá SAU ngày mua — không thì cờ verified vô nghĩa và
+    // dòng thời gian trên trang phim đọc ra vô lý.
+    const after = bought ? REVIEW_DAYS.filter((d) => d >= bought) : REVIEW_DAYS;
+    const day = rng.pick(after.length ? after : REVIEW_DAYS);
+    const hh = String(rng.int(8, 22)).padStart(2, "0");
+    db.reviews.push({
+      id: nextReviewId(),
+      movieId: movie.id,
+      userId: user.id,
+      userName: user.fullName,
+      rating,
+      comment: rng.pick(COMMENTS[rating]),
+      verified: Boolean(bought && bought <= day),
+      createdAt: `${day}T${hh}:${rng.pick(["04", "19", "27", "45", "51"])}:00.000Z`,
+    });
+  }
+}
+
 writeFileSync(DB_PATH, JSON.stringify(db, null, 2) + "\n");
 console.log(
-  `phim ${db.movies.length} · tp ${db.cities.length} · rạp ${db.cinemas.length} · phòng ${db.rooms.length} · suất ${db.showtimes.length} · user ${db.users.length} · đơn ${db.bookings.length}`,
+  `phim ${db.movies.length} · tp ${db.cities.length} · rạp ${db.cinemas.length} · phòng ${db.rooms.length} · suất ${db.showtimes.length} · user ${db.users.length} · đơn ${db.bookings.length} · đánh giá ${db.reviews.length}`,
 );

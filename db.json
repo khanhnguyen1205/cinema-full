@@ -21104,6 +21104,2336 @@
       "comment": "Hù dọa ổn nhưng mô-típ hơi quen thuộc.",
       "verified": false,
       "createdAt": "2026-06-09T22:10:00.000Z"
+    },
+    {
+      "id": 10,
+      "movieId": 1,
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "rating": 4,
+      "comment": "Đi xem cuối tuần rất hợp. Ghế VIP ngồi thoải mái.",
+      "verified": true,
+      "createdAt": "2026-07-04T12:27:00.000Z"
+    },
+    {
+      "id": 11,
+      "movieId": 1,
+      "userId": 16,
+      "userName": "Phan Trọng Nghĩa",
+      "rating": 4,
+      "comment": "Phần hình ảnh trên cả mong đợi, kịch bản thì vừa phải.",
+      "verified": false,
+      "createdAt": "2026-06-26T11:45:00.000Z"
+    },
+    {
+      "id": 12,
+      "movieId": 1,
+      "userId": 6,
+      "userName": "Lê Hoàng Nam",
+      "rating": 2,
+      "comment": "Xem được nửa là đoán ra kết. Nhạt.",
+      "verified": false,
+      "createdAt": "2026-07-02T19:51:00.000Z"
+    },
+    {
+      "id": 13,
+      "movieId": 1,
+      "userId": 13,
+      "userName": "Đặng Thị Hương",
+      "rating": 4,
+      "comment": "Phần hình ảnh trên cả mong đợi, kịch bản thì vừa phải.",
+      "verified": false,
+      "createdAt": "2026-06-27T19:45:00.000Z"
+    },
+    {
+      "id": 14,
+      "movieId": 1,
+      "userId": 26,
+      "userName": "Trương Công Định",
+      "rating": 5,
+      "comment": "Xem xong còn ngồi lại hết credit. Đáng từng đồng tiền vé.",
+      "verified": false,
+      "createdAt": "2026-06-24T19:04:00.000Z"
+    },
+    {
+      "id": 15,
+      "movieId": 1,
+      "userId": 24,
+      "userName": "Nguyễn Tiến Đạt",
+      "rating": 3,
+      "comment": "Xem một lần là đủ. Chờ lên nền tảng cũng được.",
+      "verified": false,
+      "createdAt": "2026-06-26T20:45:00.000Z"
+    },
+    {
+      "id": 16,
+      "movieId": 2,
+      "userId": 30,
+      "userName": "Cao Mỹ Duyên",
+      "rating": 4,
+      "comment": "Tốt hơn mình nghĩ. Sẽ giới thiệu cho bạn bè.",
+      "verified": true,
+      "createdAt": "2026-07-04T19:04:00.000Z"
+    },
+    {
+      "id": 17,
+      "movieId": 2,
+      "userId": 21,
+      "userName": "Mai Thị Lan",
+      "rating": 4,
+      "comment": "Phim hay, diễn viên tròn vai. Đoạn giữa hơi dài nhưng vẫn đáng xem.",
+      "verified": true,
+      "createdAt": "2026-07-05T13:04:00.000Z"
+    },
+    {
+      "id": 18,
+      "movieId": 3,
+      "userId": 24,
+      "userName": "Nguyễn Tiến Đạt",
+      "rating": 2,
+      "comment": "Dài dòng quá, ngồi hết phim khá mệt.",
+      "verified": true,
+      "createdAt": "2026-06-24T14:27:00.000Z"
+    },
+    {
+      "id": 19,
+      "movieId": 3,
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "rating": 5,
+      "comment": "Diễn viên chính gánh cả phim. Xem xong ám ảnh mấy hôm.",
+      "verified": true,
+      "createdAt": "2026-07-01T12:04:00.000Z"
+    },
+    {
+      "id": 20,
+      "movieId": 3,
+      "userId": 12,
+      "userName": "Hoàng Minh Tuấn",
+      "rating": 3,
+      "comment": "Xem một lần là đủ. Chờ lên nền tảng cũng được.",
+      "verified": true,
+      "createdAt": "2026-07-08T15:51:00.000Z"
+    },
+    {
+      "id": 21,
+      "movieId": 3,
+      "userId": 18,
+      "userName": "Dương Hải Đăng",
+      "rating": 3,
+      "comment": "Kỹ xảo đẹp nhưng câu chuyện thì nhạt.",
+      "verified": true,
+      "createdAt": "2026-07-10T12:27:00.000Z"
+    },
+    {
+      "id": 22,
+      "movieId": 3,
+      "userId": 25,
+      "userName": "Lâm Bảo Châu",
+      "rating": 5,
+      "comment": "Đi xem suất khuya mà tỉnh như sáo. Quá hay.",
+      "verified": true,
+      "createdAt": "2026-07-13T15:04:00.000Z"
+    },
+    {
+      "id": 23,
+      "movieId": 3,
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "rating": 2,
+      "comment": "Trailer hay hơn phim. Hụt hẫng.",
+      "verified": true,
+      "createdAt": "2026-07-08T09:51:00.000Z"
+    },
+    {
+      "id": 24,
+      "movieId": 3,
+      "userId": 17,
+      "userName": "Võ Thị Kim Ngân",
+      "rating": 3,
+      "comment": "Diễn viên cố gắng nhưng kịch bản chưa tới.",
+      "verified": true,
+      "createdAt": "2026-07-11T09:27:00.000Z"
+    },
+    {
+      "id": 25,
+      "movieId": 4,
+      "userId": 23,
+      "userName": "Hồ Yến Nhi",
+      "rating": 1,
+      "comment": "Thật sự không xem nổi, mình ra về sớm.",
+      "verified": true,
+      "createdAt": "2026-07-12T18:04:00.000Z"
+    },
+    {
+      "id": 26,
+      "movieId": 4,
+      "userId": 19,
+      "userName": "Tạ Phương Thảo",
+      "rating": 5,
+      "comment": "Đi xem suất khuya mà tỉnh như sáo. Quá hay.",
+      "verified": true,
+      "createdAt": "2026-06-25T12:04:00.000Z"
+    },
+    {
+      "id": 27,
+      "movieId": 4,
+      "userId": 18,
+      "userName": "Dương Hải Đăng",
+      "rating": 5,
+      "comment": "Rủ cả nhà đi xem, ai cũng khen. Rạp kín ghế mà im phăng phắc.",
+      "verified": true,
+      "createdAt": "2026-07-03T20:19:00.000Z"
+    },
+    {
+      "id": 28,
+      "movieId": 4,
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "rating": 5,
+      "comment": "Đầu tư chỉn chu từ hình ảnh tới nhạc nền. Xuất sắc.",
+      "verified": true,
+      "createdAt": "2026-07-13T09:27:00.000Z"
+    },
+    {
+      "id": 29,
+      "movieId": 4,
+      "userId": 21,
+      "userName": "Mai Thị Lan",
+      "rating": 4,
+      "comment": "Mạch phim ổn định, vài chỗ hơi lê thê nhưng tổng thể tốt.",
+      "verified": false,
+      "createdAt": "2026-07-02T15:19:00.000Z"
+    },
+    {
+      "id": 30,
+      "movieId": 4,
+      "userId": 16,
+      "userName": "Phan Trọng Nghĩa",
+      "rating": 5,
+      "comment": "Đầu tư chỉn chu từ hình ảnh tới nhạc nền. Xuất sắc.",
+      "verified": false,
+      "createdAt": "2026-06-24T11:04:00.000Z"
+    },
+    {
+      "id": 31,
+      "movieId": 4,
+      "userId": 8,
+      "userName": "Vũ Đức Anh",
+      "rating": 4,
+      "comment": "Hình ảnh đẹp, nhạc hay. Nội dung dễ đoán một chút thôi.",
+      "verified": false,
+      "createdAt": "2026-07-08T09:19:00.000Z"
+    },
+    {
+      "id": 32,
+      "movieId": 4,
+      "userId": 11,
+      "userName": "Ngô Thanh Trúc",
+      "rating": 4,
+      "comment": "Xem thoải mái, không phải suy nghĩ nhiều. Ổn.",
+      "verified": false,
+      "createdAt": "2026-07-01T13:45:00.000Z"
+    },
+    {
+      "id": 33,
+      "movieId": 5,
+      "userId": 16,
+      "userName": "Phan Trọng Nghĩa",
+      "rating": 5,
+      "comment": "Đi xem suất khuya mà tỉnh như sáo. Quá hay.",
+      "verified": true,
+      "createdAt": "2026-07-01T18:45:00.000Z"
+    },
+    {
+      "id": 34,
+      "movieId": 5,
+      "userId": 22,
+      "userName": "Đinh Bá Lộc",
+      "rating": 3,
+      "comment": "Xem một lần là đủ. Chờ lên nền tảng cũng được.",
+      "verified": false,
+      "createdAt": "2026-07-06T19:04:00.000Z"
+    },
+    {
+      "id": 35,
+      "movieId": 5,
+      "userId": 12,
+      "userName": "Hoàng Minh Tuấn",
+      "rating": 5,
+      "comment": "Phim hay nhất mình xem năm nay, không nói quá.",
+      "verified": false,
+      "createdAt": "2026-06-20T15:51:00.000Z"
+    },
+    {
+      "id": 36,
+      "movieId": 5,
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "rating": 4,
+      "comment": "Phần hình ảnh trên cả mong đợi, kịch bản thì vừa phải.",
+      "verified": false,
+      "createdAt": "2026-07-03T20:04:00.000Z"
+    },
+    {
+      "id": 37,
+      "movieId": 5,
+      "userId": 6,
+      "userName": "Lê Hoàng Nam",
+      "rating": 5,
+      "comment": "Bản thân mình không dễ tính nhưng phim này không chê được chỗ nào.",
+      "verified": false,
+      "createdAt": "2026-07-09T20:04:00.000Z"
+    },
+    {
+      "id": 38,
+      "movieId": 6,
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "rating": 4,
+      "comment": "Phim hay, diễn viên tròn vai. Đoạn giữa hơi dài nhưng vẫn đáng xem.",
+      "verified": true,
+      "createdAt": "2026-06-23T09:19:00.000Z"
+    },
+    {
+      "id": 39,
+      "movieId": 6,
+      "userId": 15,
+      "userName": "Trịnh Khánh Vy",
+      "rating": 4,
+      "comment": "Phần hình ảnh trên cả mong đợi, kịch bản thì vừa phải.",
+      "verified": true,
+      "createdAt": "2026-07-07T08:19:00.000Z"
+    },
+    {
+      "id": 40,
+      "movieId": 6,
+      "userId": 18,
+      "userName": "Dương Hải Đăng",
+      "rating": 5,
+      "comment": "Âm thanh phòng IMAX làm cả người rung theo. Nên xem màn hình lớn.",
+      "verified": false,
+      "createdAt": "2026-07-09T20:45:00.000Z"
+    },
+    {
+      "id": 41,
+      "movieId": 6,
+      "userId": 22,
+      "userName": "Đinh Bá Lộc",
+      "rating": 5,
+      "comment": "Đầu tư chỉn chu từ hình ảnh tới nhạc nền. Xuất sắc.",
+      "verified": false,
+      "createdAt": "2026-06-30T17:27:00.000Z"
+    },
+    {
+      "id": 42,
+      "movieId": 6,
+      "userId": 17,
+      "userName": "Võ Thị Kim Ngân",
+      "rating": 4,
+      "comment": "Xem lần đầu thấy hay, chắc xem lại sẽ còn thấy nhiều chi tiết.",
+      "verified": false,
+      "createdAt": "2026-06-18T16:27:00.000Z"
+    },
+    {
+      "id": 43,
+      "movieId": 6,
+      "userId": 30,
+      "userName": "Cao Mỹ Duyên",
+      "rating": 5,
+      "comment": "Kịch bản chặt, diễn xuất tốt, không có một phút thừa.",
+      "verified": false,
+      "createdAt": "2026-07-11T18:19:00.000Z"
+    },
+    {
+      "id": 44,
+      "movieId": 6,
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "rating": 5,
+      "comment": "Rủ cả nhà đi xem, ai cũng khen. Rạp kín ghế mà im phăng phắc.",
+      "verified": false,
+      "createdAt": "2026-06-22T17:04:00.000Z"
+    },
+    {
+      "id": 45,
+      "movieId": 6,
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "rating": 2,
+      "comment": "Trailer hay hơn phim. Hụt hẫng.",
+      "verified": false,
+      "createdAt": "2026-07-07T20:45:00.000Z"
+    },
+    {
+      "id": 46,
+      "movieId": 7,
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "rating": 5,
+      "comment": "Cốt truyện cuốn từ phút đầu, hai tiếng trôi cái vèo.",
+      "verified": true,
+      "createdAt": "2026-06-26T10:45:00.000Z"
+    },
+    {
+      "id": 47,
+      "movieId": 7,
+      "userId": 15,
+      "userName": "Trịnh Khánh Vy",
+      "rating": 3,
+      "comment": "Diễn viên cố gắng nhưng kịch bản chưa tới.",
+      "verified": true,
+      "createdAt": "2026-06-22T21:45:00.000Z"
+    },
+    {
+      "id": 48,
+      "movieId": 7,
+      "userId": 12,
+      "userName": "Hoàng Minh Tuấn",
+      "rating": 4,
+      "comment": "Phần hình ảnh trên cả mong đợi, kịch bản thì vừa phải.",
+      "verified": true,
+      "createdAt": "2026-07-07T20:27:00.000Z"
+    },
+    {
+      "id": 49,
+      "movieId": 7,
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "rating": 1,
+      "comment": "Diễn xuất gượng, thoại thì sáo rỗng.",
+      "verified": true,
+      "createdAt": "2026-07-11T10:04:00.000Z"
+    },
+    {
+      "id": 50,
+      "movieId": 7,
+      "userId": 23,
+      "userName": "Hồ Yến Nhi",
+      "rating": 4,
+      "comment": "Vai phụ diễn hay hơn cả vai chính, cũng thú vị.",
+      "verified": false,
+      "createdAt": "2026-06-30T20:45:00.000Z"
+    },
+    {
+      "id": 51,
+      "movieId": 7,
+      "userId": 3,
+      "userName": "Dương Quang Minh",
+      "rating": 4,
+      "comment": "Đi xem cuối tuần rất hợp. Ghế VIP ngồi thoải mái.",
+      "verified": false,
+      "createdAt": "2026-06-20T08:04:00.000Z"
+    },
+    {
+      "id": 52,
+      "movieId": 7,
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "rating": 4,
+      "comment": "Xem thoải mái, không phải suy nghĩ nhiều. Ổn.",
+      "verified": false,
+      "createdAt": "2026-07-08T08:19:00.000Z"
+    },
+    {
+      "id": 53,
+      "movieId": 8,
+      "userId": 7,
+      "userName": "Phạm Thu Hà",
+      "rating": 1,
+      "comment": "Lộn xộn từ đầu đến cuối, không hiểu phim muốn nói gì.",
+      "verified": false,
+      "createdAt": "2026-06-22T16:04:00.000Z"
+    },
+    {
+      "id": 54,
+      "movieId": 8,
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "rating": 5,
+      "comment": "Đi xem suất khuya mà tỉnh như sáo. Quá hay.",
+      "verified": false,
+      "createdAt": "2026-07-02T18:27:00.000Z"
+    },
+    {
+      "id": 55,
+      "movieId": 8,
+      "userId": 25,
+      "userName": "Lâm Bảo Châu",
+      "rating": 4,
+      "comment": "Đi xem cuối tuần rất hợp. Ghế VIP ngồi thoải mái.",
+      "verified": false,
+      "createdAt": "2026-06-18T09:19:00.000Z"
+    },
+    {
+      "id": 56,
+      "movieId": 8,
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "rating": 3,
+      "comment": "Bình thường. Chờ đợi hơi nhiều nên hơi hụt.",
+      "verified": false,
+      "createdAt": "2026-06-29T10:51:00.000Z"
+    },
+    {
+      "id": 57,
+      "movieId": 8,
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "rating": 5,
+      "comment": "Cảnh cuối nổi da gà thật sự. Sẽ đi xem lại lần nữa.",
+      "verified": false,
+      "createdAt": "2026-07-06T18:27:00.000Z"
+    },
+    {
+      "id": 58,
+      "movieId": 8,
+      "userId": 15,
+      "userName": "Trịnh Khánh Vy",
+      "rating": 1,
+      "comment": "Đây là phim tệ nhất mình xem ở rạp năm nay.",
+      "verified": false,
+      "createdAt": "2026-06-30T21:45:00.000Z"
+    },
+    {
+      "id": 59,
+      "movieId": 8,
+      "userId": 20,
+      "userName": "Chu Việt Hùng",
+      "rating": 1,
+      "comment": "Thật sự không xem nổi, mình ra về sớm.",
+      "verified": false,
+      "createdAt": "2026-07-10T19:19:00.000Z"
+    },
+    {
+      "id": 60,
+      "movieId": 8,
+      "userId": 24,
+      "userName": "Nguyễn Tiến Đạt",
+      "rating": 2,
+      "comment": "Không hợp gu mình, chắc do kỳ vọng cao quá.",
+      "verified": false,
+      "createdAt": "2026-06-26T21:51:00.000Z"
+    },
+    {
+      "id": 61,
+      "movieId": 9,
+      "userId": 24,
+      "userName": "Nguyễn Tiến Đạt",
+      "rating": 5,
+      "comment": "Diễn viên chính gánh cả phim. Xem xong ám ảnh mấy hôm.",
+      "verified": true,
+      "createdAt": "2026-07-12T12:45:00.000Z"
+    },
+    {
+      "id": 62,
+      "movieId": 9,
+      "userId": 25,
+      "userName": "Lâm Bảo Châu",
+      "rating": 4,
+      "comment": "Tốt hơn mình nghĩ. Sẽ giới thiệu cho bạn bè.",
+      "verified": true,
+      "createdAt": "2026-06-24T11:27:00.000Z"
+    },
+    {
+      "id": 63,
+      "movieId": 9,
+      "userId": 26,
+      "userName": "Trương Công Định",
+      "rating": 4,
+      "comment": "Hình ảnh đẹp, nhạc hay. Nội dung dễ đoán một chút thôi.",
+      "verified": true,
+      "createdAt": "2026-06-20T18:27:00.000Z"
+    },
+    {
+      "id": 64,
+      "movieId": 9,
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "rating": 2,
+      "comment": "Nhiều chi tiết vô lý, khó vào được phim.",
+      "verified": false,
+      "createdAt": "2026-06-30T22:04:00.000Z"
+    },
+    {
+      "id": 65,
+      "movieId": 9,
+      "userId": 12,
+      "userName": "Hoàng Minh Tuấn",
+      "rating": 2,
+      "comment": "Kỹ xảo ổn nhưng nội dung rời rạc.",
+      "verified": false,
+      "createdAt": "2026-06-22T21:51:00.000Z"
+    },
+    {
+      "id": 66,
+      "movieId": 10,
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "rating": 5,
+      "comment": "Quá đã! Hình ảnh và âm thanh ngoài rạp đúng là khác hẳn xem ở nhà.",
+      "verified": true,
+      "createdAt": "2026-06-17T12:45:00.000Z"
+    },
+    {
+      "id": 67,
+      "movieId": 10,
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "rating": 4,
+      "comment": "Vai phụ diễn hay hơn cả vai chính, cũng thú vị.",
+      "verified": true,
+      "createdAt": "2026-07-12T09:04:00.000Z"
+    },
+    {
+      "id": 68,
+      "movieId": 10,
+      "userId": 22,
+      "userName": "Đinh Bá Lộc",
+      "rating": 5,
+      "comment": "Cảnh cuối nổi da gà thật sự. Sẽ đi xem lại lần nữa.",
+      "verified": true,
+      "createdAt": "2026-07-13T19:51:00.000Z"
+    },
+    {
+      "id": 69,
+      "movieId": 11,
+      "userId": 17,
+      "userName": "Võ Thị Kim Ngân",
+      "rating": 5,
+      "comment": "Cốt truyện cuốn từ phút đầu, hai tiếng trôi cái vèo.",
+      "verified": true,
+      "createdAt": "2026-07-13T13:19:00.000Z"
+    },
+    {
+      "id": 70,
+      "movieId": 11,
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "rating": 4,
+      "comment": "Không tiếc tiền vé. Trừ điểm vì đoạn mở đầu hơi chậm.",
+      "verified": true,
+      "createdAt": "2026-07-07T20:45:00.000Z"
+    },
+    {
+      "id": 71,
+      "movieId": 11,
+      "userId": 21,
+      "userName": "Mai Thị Lan",
+      "rating": 4,
+      "comment": "Chất lượng ổn định, đúng kiểu phim đáng ra rạp.",
+      "verified": true,
+      "createdAt": "2026-07-03T22:19:00.000Z"
+    },
+    {
+      "id": 72,
+      "movieId": 11,
+      "userId": 24,
+      "userName": "Nguyễn Tiến Đạt",
+      "rating": 3,
+      "comment": "Bình thường. Chờ đợi hơi nhiều nên hơi hụt.",
+      "verified": true,
+      "createdAt": "2026-07-13T22:04:00.000Z"
+    },
+    {
+      "id": 73,
+      "movieId": 11,
+      "userId": 6,
+      "userName": "Lê Hoàng Nam",
+      "rating": 5,
+      "comment": "Đầu tư chỉn chu từ hình ảnh tới nhạc nền. Xuất sắc.",
+      "verified": true,
+      "createdAt": "2026-07-09T15:19:00.000Z"
+    },
+    {
+      "id": 74,
+      "movieId": 11,
+      "userId": 14,
+      "userName": "Lý Gia Bảo",
+      "rating": 2,
+      "comment": "Xem được nửa là đoán ra kết. Nhạt.",
+      "verified": true,
+      "createdAt": "2026-07-12T12:04:00.000Z"
+    },
+    {
+      "id": 75,
+      "movieId": 11,
+      "userId": 26,
+      "userName": "Trương Công Định",
+      "rating": 5,
+      "comment": "Rủ cả nhà đi xem, ai cũng khen. Rạp kín ghế mà im phăng phắc.",
+      "verified": false,
+      "createdAt": "2026-06-27T20:04:00.000Z"
+    },
+    {
+      "id": 76,
+      "movieId": 12,
+      "userId": 22,
+      "userName": "Đinh Bá Lộc",
+      "rating": 5,
+      "comment": "Đầu tư chỉn chu từ hình ảnh tới nhạc nền. Xuất sắc.",
+      "verified": true,
+      "createdAt": "2026-07-13T22:19:00.000Z"
+    },
+    {
+      "id": 77,
+      "movieId": 12,
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "rating": 4,
+      "comment": "Phim hay, diễn viên tròn vai. Đoạn giữa hơi dài nhưng vẫn đáng xem.",
+      "verified": true,
+      "createdAt": "2026-07-10T18:51:00.000Z"
+    },
+    {
+      "id": 78,
+      "movieId": 12,
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "rating": 5,
+      "comment": "Bản thân mình không dễ tính nhưng phim này không chê được chỗ nào.",
+      "verified": true,
+      "createdAt": "2026-06-30T22:51:00.000Z"
+    },
+    {
+      "id": 79,
+      "movieId": 12,
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "rating": 2,
+      "comment": "Trailer hay hơn phim. Hụt hẫng.",
+      "verified": true,
+      "createdAt": "2026-07-11T15:19:00.000Z"
+    },
+    {
+      "id": 80,
+      "movieId": 12,
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "rating": 4,
+      "comment": "Vai phụ diễn hay hơn cả vai chính, cũng thú vị.",
+      "verified": true,
+      "createdAt": "2026-07-09T09:27:00.000Z"
+    },
+    {
+      "id": 81,
+      "movieId": 12,
+      "userId": 7,
+      "userName": "Phạm Thu Hà",
+      "rating": 4,
+      "comment": "Mạch phim ổn định, vài chỗ hơi lê thê nhưng tổng thể tốt.",
+      "verified": false,
+      "createdAt": "2026-06-17T10:45:00.000Z"
+    },
+    {
+      "id": 82,
+      "movieId": 12,
+      "userId": 18,
+      "userName": "Dương Hải Đăng",
+      "rating": 2,
+      "comment": "Dài dòng quá, ngồi hết phim khá mệt.",
+      "verified": false,
+      "createdAt": "2026-07-04T11:51:00.000Z"
+    },
+    {
+      "id": 83,
+      "movieId": 13,
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "rating": 5,
+      "comment": "Rủ cả nhà đi xem, ai cũng khen. Rạp kín ghế mà im phăng phắc.",
+      "verified": false,
+      "createdAt": "2026-06-20T19:45:00.000Z"
+    },
+    {
+      "id": 84,
+      "movieId": 13,
+      "userId": 30,
+      "userName": "Cao Mỹ Duyên",
+      "rating": 4,
+      "comment": "Đi xem cuối tuần rất hợp. Ghế VIP ngồi thoải mái.",
+      "verified": false,
+      "createdAt": "2026-06-27T14:51:00.000Z"
+    },
+    {
+      "id": 85,
+      "movieId": 13,
+      "userId": 14,
+      "userName": "Lý Gia Bảo",
+      "rating": 2,
+      "comment": "Kỹ xảo ổn nhưng nội dung rời rạc.",
+      "verified": false,
+      "createdAt": "2026-07-09T15:27:00.000Z"
+    },
+    {
+      "id": 86,
+      "movieId": 13,
+      "userId": 23,
+      "userName": "Hồ Yến Nhi",
+      "rating": 3,
+      "comment": "Xem được, không xuất sắc. Đi cho biết thì ổn.",
+      "verified": false,
+      "createdAt": "2026-06-24T11:19:00.000Z"
+    },
+    {
+      "id": 87,
+      "movieId": 13,
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "rating": 4,
+      "comment": "Phim hay, diễn viên tròn vai. Đoạn giữa hơi dài nhưng vẫn đáng xem.",
+      "verified": false,
+      "createdAt": "2026-07-09T12:45:00.000Z"
+    },
+    {
+      "id": 88,
+      "movieId": 13,
+      "userId": 16,
+      "userName": "Phan Trọng Nghĩa",
+      "rating": 1,
+      "comment": "Lộn xộn từ đầu đến cuối, không hiểu phim muốn nói gì.",
+      "verified": false,
+      "createdAt": "2026-06-29T22:51:00.000Z"
+    },
+    {
+      "id": 89,
+      "movieId": 13,
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "rating": 4,
+      "comment": "Đáng tiền vé. Chỉ tiếc cái kết hơi vội.",
+      "verified": false,
+      "createdAt": "2026-06-23T13:45:00.000Z"
+    },
+    {
+      "id": 90,
+      "movieId": 14,
+      "userId": 19,
+      "userName": "Tạ Phương Thảo",
+      "rating": 4,
+      "comment": "Phim hay, diễn viên tròn vai. Đoạn giữa hơi dài nhưng vẫn đáng xem.",
+      "verified": true,
+      "createdAt": "2026-06-28T16:27:00.000Z"
+    },
+    {
+      "id": 91,
+      "movieId": 14,
+      "userId": 23,
+      "userName": "Hồ Yến Nhi",
+      "rating": 4,
+      "comment": "Đáng tiền vé. Chỉ tiếc cái kết hơi vội.",
+      "verified": true,
+      "createdAt": "2026-07-12T14:27:00.000Z"
+    },
+    {
+      "id": 92,
+      "movieId": 14,
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "rating": 5,
+      "comment": "Kịch bản chặt, diễn xuất tốt, không có một phút thừa.",
+      "verified": true,
+      "createdAt": "2026-07-12T18:27:00.000Z"
+    },
+    {
+      "id": 93,
+      "movieId": 14,
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "rating": 3,
+      "comment": "Diễn viên cố gắng nhưng kịch bản chưa tới.",
+      "verified": true,
+      "createdAt": "2026-07-08T18:45:00.000Z"
+    },
+    {
+      "id": 94,
+      "movieId": 14,
+      "userId": 7,
+      "userName": "Phạm Thu Hà",
+      "rating": 5,
+      "comment": "Phim hay nhất mình xem năm nay, không nói quá.",
+      "verified": false,
+      "createdAt": "2026-07-03T19:19:00.000Z"
+    },
+    {
+      "id": 95,
+      "movieId": 14,
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "rating": 4,
+      "comment": "Đáng tiền vé. Chỉ tiếc cái kết hơi vội.",
+      "verified": false,
+      "createdAt": "2026-07-13T10:04:00.000Z"
+    },
+    {
+      "id": 96,
+      "movieId": 14,
+      "userId": 8,
+      "userName": "Vũ Đức Anh",
+      "rating": 3,
+      "comment": "Xem một lần là đủ. Chờ lên nền tảng cũng được.",
+      "verified": false,
+      "createdAt": "2026-06-25T22:04:00.000Z"
+    },
+    {
+      "id": 97,
+      "movieId": 14,
+      "userId": 25,
+      "userName": "Lâm Bảo Châu",
+      "rating": 3,
+      "comment": "Nửa đầu cuốn, nửa sau đuối dần.",
+      "verified": false,
+      "createdAt": "2026-07-01T15:27:00.000Z"
+    },
+    {
+      "id": 98,
+      "movieId": 15,
+      "userId": 27,
+      "userName": "Kiều Thị Diễm",
+      "rating": 3,
+      "comment": "Kỹ xảo đẹp nhưng câu chuyện thì nhạt.",
+      "verified": true,
+      "createdAt": "2026-07-01T14:19:00.000Z"
+    },
+    {
+      "id": 99,
+      "movieId": 15,
+      "userId": 18,
+      "userName": "Dương Hải Đăng",
+      "rating": 5,
+      "comment": "Phim hay nhất mình xem năm nay, không nói quá.",
+      "verified": true,
+      "createdAt": "2026-07-05T21:27:00.000Z"
+    },
+    {
+      "id": 100,
+      "movieId": 15,
+      "userId": 13,
+      "userName": "Đặng Thị Hương",
+      "rating": 1,
+      "comment": "Đây là phim tệ nhất mình xem ở rạp năm nay.",
+      "verified": true,
+      "createdAt": "2026-07-10T08:51:00.000Z"
+    },
+    {
+      "id": 101,
+      "movieId": 15,
+      "userId": 23,
+      "userName": "Hồ Yến Nhi",
+      "rating": 4,
+      "comment": "Hình ảnh đẹp, nhạc hay. Nội dung dễ đoán một chút thôi.",
+      "verified": true,
+      "createdAt": "2026-07-11T15:04:00.000Z"
+    },
+    {
+      "id": 102,
+      "movieId": 15,
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "rating": 3,
+      "comment": "Kỹ xảo đẹp nhưng câu chuyện thì nhạt.",
+      "verified": true,
+      "createdAt": "2026-07-06T20:19:00.000Z"
+    },
+    {
+      "id": 103,
+      "movieId": 15,
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "rating": 1,
+      "comment": "Lộn xộn từ đầu đến cuối, không hiểu phim muốn nói gì.",
+      "verified": true,
+      "createdAt": "2026-07-07T08:45:00.000Z"
+    },
+    {
+      "id": 104,
+      "movieId": 15,
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "rating": 4,
+      "comment": "Xem thoải mái, không phải suy nghĩ nhiều. Ổn.",
+      "verified": true,
+      "createdAt": "2026-07-09T08:45:00.000Z"
+    },
+    {
+      "id": 105,
+      "movieId": 16,
+      "userId": 7,
+      "userName": "Phạm Thu Hà",
+      "rating": 3,
+      "comment": "Xem được, không xuất sắc. Đi cho biết thì ổn.",
+      "verified": true,
+      "createdAt": "2026-07-13T16:04:00.000Z"
+    },
+    {
+      "id": 106,
+      "movieId": 16,
+      "userId": 16,
+      "userName": "Phan Trọng Nghĩa",
+      "rating": 2,
+      "comment": "Trailer hay hơn phim. Hụt hẫng.",
+      "verified": true,
+      "createdAt": "2026-07-08T19:27:00.000Z"
+    },
+    {
+      "id": 107,
+      "movieId": 16,
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "rating": 5,
+      "comment": "Xem xong còn ngồi lại hết credit. Đáng từng đồng tiền vé.",
+      "verified": true,
+      "createdAt": "2026-07-13T19:45:00.000Z"
+    },
+    {
+      "id": 108,
+      "movieId": 16,
+      "userId": 3,
+      "userName": "Dương Quang Minh",
+      "rating": 1,
+      "comment": "Thật sự không xem nổi, mình ra về sớm.",
+      "verified": false,
+      "createdAt": "2026-06-22T18:27:00.000Z"
+    },
+    {
+      "id": 109,
+      "movieId": 16,
+      "userId": 22,
+      "userName": "Đinh Bá Lộc",
+      "rating": 5,
+      "comment": "Quá đã! Hình ảnh và âm thanh ngoài rạp đúng là khác hẳn xem ở nhà.",
+      "verified": false,
+      "createdAt": "2026-06-17T12:51:00.000Z"
+    },
+    {
+      "id": 110,
+      "movieId": 16,
+      "userId": 13,
+      "userName": "Đặng Thị Hương",
+      "rating": 4,
+      "comment": "Đáng tiền vé. Chỉ tiếc cái kết hơi vội.",
+      "verified": false,
+      "createdAt": "2026-07-01T08:04:00.000Z"
+    },
+    {
+      "id": 111,
+      "movieId": 17,
+      "userId": 26,
+      "userName": "Trương Công Định",
+      "rating": 5,
+      "comment": "Cảnh cuối nổi da gà thật sự. Sẽ đi xem lại lần nữa.",
+      "verified": true,
+      "createdAt": "2026-07-09T22:04:00.000Z"
+    },
+    {
+      "id": 112,
+      "movieId": 17,
+      "userId": 30,
+      "userName": "Cao Mỹ Duyên",
+      "rating": 5,
+      "comment": "Bản thân mình không dễ tính nhưng phim này không chê được chỗ nào.",
+      "verified": true,
+      "createdAt": "2026-07-08T14:27:00.000Z"
+    },
+    {
+      "id": 113,
+      "movieId": 17,
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "rating": 5,
+      "comment": "Đầu tư chỉn chu từ hình ảnh tới nhạc nền. Xuất sắc.",
+      "verified": true,
+      "createdAt": "2026-07-13T13:04:00.000Z"
+    },
+    {
+      "id": 114,
+      "movieId": 17,
+      "userId": 13,
+      "userName": "Đặng Thị Hương",
+      "rating": 5,
+      "comment": "Bản thân mình không dễ tính nhưng phim này không chê được chỗ nào.",
+      "verified": true,
+      "createdAt": "2026-07-07T16:19:00.000Z"
+    },
+    {
+      "id": 115,
+      "movieId": 17,
+      "userId": 8,
+      "userName": "Vũ Đức Anh",
+      "rating": 2,
+      "comment": "Dài dòng quá, ngồi hết phim khá mệt.",
+      "verified": false,
+      "createdAt": "2026-07-08T14:19:00.000Z"
+    },
+    {
+      "id": 116,
+      "movieId": 17,
+      "userId": 14,
+      "userName": "Lý Gia Bảo",
+      "rating": 5,
+      "comment": "Đi xem suất khuya mà tỉnh như sáo. Quá hay.",
+      "verified": false,
+      "createdAt": "2026-06-27T13:45:00.000Z"
+    },
+    {
+      "id": 117,
+      "movieId": 18,
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "rating": 4,
+      "comment": "Đi xem cuối tuần rất hợp. Ghế VIP ngồi thoải mái.",
+      "verified": true,
+      "createdAt": "2026-07-03T20:51:00.000Z"
+    },
+    {
+      "id": 118,
+      "movieId": 18,
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "rating": 3,
+      "comment": "Tạm ổn cho một buổi tối rảnh rỗi.",
+      "verified": true,
+      "createdAt": "2026-07-09T18:19:00.000Z"
+    },
+    {
+      "id": 119,
+      "movieId": 18,
+      "userId": 14,
+      "userName": "Lý Gia Bảo",
+      "rating": 4,
+      "comment": "Xem lần đầu thấy hay, chắc xem lại sẽ còn thấy nhiều chi tiết.",
+      "verified": true,
+      "createdAt": "2026-07-12T22:45:00.000Z"
+    },
+    {
+      "id": 120,
+      "movieId": 18,
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "rating": 4,
+      "comment": "Đi xem cuối tuần rất hợp. Ghế VIP ngồi thoải mái.",
+      "verified": true,
+      "createdAt": "2026-07-08T15:19:00.000Z"
+    },
+    {
+      "id": 121,
+      "movieId": 19,
+      "userId": 20,
+      "userName": "Chu Việt Hùng",
+      "rating": 5,
+      "comment": "Xem xong còn ngồi lại hết credit. Đáng từng đồng tiền vé.",
+      "verified": true,
+      "createdAt": "2026-07-13T17:51:00.000Z"
+    },
+    {
+      "id": 122,
+      "movieId": 19,
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "rating": 5,
+      "comment": "Âm thanh phòng IMAX làm cả người rung theo. Nên xem màn hình lớn.",
+      "verified": true,
+      "createdAt": "2026-06-21T14:19:00.000Z"
+    },
+    {
+      "id": 123,
+      "movieId": 19,
+      "userId": 12,
+      "userName": "Hoàng Minh Tuấn",
+      "rating": 1,
+      "comment": "Mất tiền vé. Không giới thiệu cho ai.",
+      "verified": true,
+      "createdAt": "2026-07-12T13:04:00.000Z"
+    },
+    {
+      "id": 124,
+      "movieId": 19,
+      "userId": 17,
+      "userName": "Võ Thị Kim Ngân",
+      "rating": 4,
+      "comment": "Đi xem cuối tuần rất hợp. Ghế VIP ngồi thoải mái.",
+      "verified": true,
+      "createdAt": "2026-07-04T12:51:00.000Z"
+    },
+    {
+      "id": 125,
+      "movieId": 19,
+      "userId": 7,
+      "userName": "Phạm Thu Hà",
+      "rating": 3,
+      "comment": "Được cái nhạc hay, còn lại thì tạm.",
+      "verified": true,
+      "createdAt": "2026-07-09T08:51:00.000Z"
+    },
+    {
+      "id": 126,
+      "movieId": 20,
+      "userId": 19,
+      "userName": "Tạ Phương Thảo",
+      "rating": 3,
+      "comment": "Có vài cảnh hay, tiếc là không đủ để cứu cả phim.",
+      "verified": true,
+      "createdAt": "2026-07-12T22:51:00.000Z"
+    },
+    {
+      "id": 127,
+      "movieId": 20,
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "rating": 5,
+      "comment": "Cốt truyện cuốn từ phút đầu, hai tiếng trôi cái vèo.",
+      "verified": false,
+      "createdAt": "2026-07-10T14:19:00.000Z"
+    },
+    {
+      "id": 128,
+      "movieId": 20,
+      "userId": 30,
+      "userName": "Cao Mỹ Duyên",
+      "rating": 2,
+      "comment": "Nhiều chi tiết vô lý, khó vào được phim.",
+      "verified": false,
+      "createdAt": "2026-07-12T16:27:00.000Z"
+    },
+    {
+      "id": 129,
+      "movieId": 21,
+      "userId": 20,
+      "userName": "Chu Việt Hùng",
+      "rating": 4,
+      "comment": "Hình ảnh đẹp, nhạc hay. Nội dung dễ đoán một chút thôi.",
+      "verified": true,
+      "createdAt": "2026-07-05T20:51:00.000Z"
+    },
+    {
+      "id": 130,
+      "movieId": 21,
+      "userId": 21,
+      "userName": "Mai Thị Lan",
+      "rating": 2,
+      "comment": "Không hợp gu mình, chắc do kỳ vọng cao quá.",
+      "verified": true,
+      "createdAt": "2026-07-10T18:27:00.000Z"
+    },
+    {
+      "id": 131,
+      "movieId": 21,
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "rating": 5,
+      "comment": "Đầu tư chỉn chu từ hình ảnh tới nhạc nền. Xuất sắc.",
+      "verified": true,
+      "createdAt": "2026-06-27T11:04:00.000Z"
+    },
+    {
+      "id": 132,
+      "movieId": 21,
+      "userId": 25,
+      "userName": "Lâm Bảo Châu",
+      "rating": 2,
+      "comment": "Xem được nửa là đoán ra kết. Nhạt.",
+      "verified": false,
+      "createdAt": "2026-06-16T13:04:00.000Z"
+    },
+    {
+      "id": 133,
+      "movieId": 21,
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "rating": 4,
+      "comment": "Tốt hơn mình nghĩ. Sẽ giới thiệu cho bạn bè.",
+      "verified": false,
+      "createdAt": "2026-07-07T20:51:00.000Z"
+    },
+    {
+      "id": 134,
+      "movieId": 21,
+      "userId": 30,
+      "userName": "Cao Mỹ Duyên",
+      "rating": 4,
+      "comment": "Chất lượng ổn định, đúng kiểu phim đáng ra rạp.",
+      "verified": false,
+      "createdAt": "2026-06-29T18:45:00.000Z"
+    },
+    {
+      "id": 135,
+      "movieId": 22,
+      "userId": 17,
+      "userName": "Võ Thị Kim Ngân",
+      "rating": 4,
+      "comment": "Không tiếc tiền vé. Trừ điểm vì đoạn mở đầu hơi chậm.",
+      "verified": true,
+      "createdAt": "2026-07-05T19:27:00.000Z"
+    },
+    {
+      "id": 136,
+      "movieId": 22,
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "rating": 3,
+      "comment": "Nửa đầu cuốn, nửa sau đuối dần.",
+      "verified": true,
+      "createdAt": "2026-07-13T09:04:00.000Z"
+    },
+    {
+      "id": 137,
+      "movieId": 22,
+      "userId": 11,
+      "userName": "Ngô Thanh Trúc",
+      "rating": 1,
+      "comment": "Đây là phim tệ nhất mình xem ở rạp năm nay.",
+      "verified": true,
+      "createdAt": "2026-07-13T12:04:00.000Z"
+    },
+    {
+      "id": 138,
+      "movieId": 22,
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "rating": 3,
+      "comment": "Không dở, cũng không có gì đáng nhớ.",
+      "verified": true,
+      "createdAt": "2026-07-13T13:45:00.000Z"
+    },
+    {
+      "id": 139,
+      "movieId": 23,
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "rating": 5,
+      "comment": "Rủ cả nhà đi xem, ai cũng khen. Rạp kín ghế mà im phăng phắc.",
+      "verified": true,
+      "createdAt": "2026-07-11T10:27:00.000Z"
+    },
+    {
+      "id": 140,
+      "movieId": 23,
+      "userId": 22,
+      "userName": "Đinh Bá Lộc",
+      "rating": 3,
+      "comment": "Diễn viên cố gắng nhưng kịch bản chưa tới.",
+      "verified": true,
+      "createdAt": "2026-07-13T09:51:00.000Z"
+    },
+    {
+      "id": 141,
+      "movieId": 23,
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "rating": 5,
+      "comment": "Đi xem suất khuya mà tỉnh như sáo. Quá hay.",
+      "verified": true,
+      "createdAt": "2026-07-13T20:45:00.000Z"
+    },
+    {
+      "id": 142,
+      "movieId": 23,
+      "userId": 6,
+      "userName": "Lê Hoàng Nam",
+      "rating": 2,
+      "comment": "Nhiều chi tiết vô lý, khó vào được phim.",
+      "verified": true,
+      "createdAt": "2026-06-25T17:45:00.000Z"
+    },
+    {
+      "id": 143,
+      "movieId": 23,
+      "userId": 30,
+      "userName": "Cao Mỹ Duyên",
+      "rating": 5,
+      "comment": "Đi xem suất khuya mà tỉnh như sáo. Quá hay.",
+      "verified": false,
+      "createdAt": "2026-07-08T15:04:00.000Z"
+    },
+    {
+      "id": 144,
+      "movieId": 23,
+      "userId": 25,
+      "userName": "Lâm Bảo Châu",
+      "rating": 5,
+      "comment": "Cảnh cuối nổi da gà thật sự. Sẽ đi xem lại lần nữa.",
+      "verified": false,
+      "createdAt": "2026-07-06T11:27:00.000Z"
+    },
+    {
+      "id": 145,
+      "movieId": 24,
+      "userId": 24,
+      "userName": "Nguyễn Tiến Đạt",
+      "rating": 1,
+      "comment": "Thật sự không xem nổi, mình ra về sớm.",
+      "verified": true,
+      "createdAt": "2026-07-07T18:04:00.000Z"
+    },
+    {
+      "id": 146,
+      "movieId": 24,
+      "userId": 16,
+      "userName": "Phan Trọng Nghĩa",
+      "rating": 2,
+      "comment": "Xem được nửa là đoán ra kết. Nhạt.",
+      "verified": true,
+      "createdAt": "2026-07-09T17:27:00.000Z"
+    },
+    {
+      "id": 147,
+      "movieId": 24,
+      "userId": 27,
+      "userName": "Kiều Thị Diễm",
+      "rating": 5,
+      "comment": "Phim hay nhất mình xem năm nay, không nói quá.",
+      "verified": false,
+      "createdAt": "2026-07-11T13:19:00.000Z"
+    },
+    {
+      "id": 148,
+      "movieId": 24,
+      "userId": 30,
+      "userName": "Cao Mỹ Duyên",
+      "rating": 5,
+      "comment": "Đi xem suất khuya mà tỉnh như sáo. Quá hay.",
+      "verified": false,
+      "createdAt": "2026-07-10T11:45:00.000Z"
+    },
+    {
+      "id": 149,
+      "movieId": 24,
+      "userId": 8,
+      "userName": "Vũ Đức Anh",
+      "rating": 5,
+      "comment": "Xem xong còn ngồi lại hết credit. Đáng từng đồng tiền vé.",
+      "verified": false,
+      "createdAt": "2026-06-21T14:51:00.000Z"
+    },
+    {
+      "id": 150,
+      "movieId": 24,
+      "userId": 18,
+      "userName": "Dương Hải Đăng",
+      "rating": 4,
+      "comment": "Phần hình ảnh trên cả mong đợi, kịch bản thì vừa phải.",
+      "verified": false,
+      "createdAt": "2026-07-04T12:27:00.000Z"
+    },
+    {
+      "id": 151,
+      "movieId": 24,
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "rating": 5,
+      "comment": "Diễn viên chính gánh cả phim. Xem xong ám ảnh mấy hôm.",
+      "verified": false,
+      "createdAt": "2026-07-10T09:19:00.000Z"
+    },
+    {
+      "id": 152,
+      "movieId": 25,
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "rating": 4,
+      "comment": "Tốt hơn mình nghĩ. Sẽ giới thiệu cho bạn bè.",
+      "verified": true,
+      "createdAt": "2026-07-03T17:45:00.000Z"
+    },
+    {
+      "id": 153,
+      "movieId": 25,
+      "userId": 11,
+      "userName": "Ngô Thanh Trúc",
+      "rating": 5,
+      "comment": "Cốt truyện cuốn từ phút đầu, hai tiếng trôi cái vèo.",
+      "verified": false,
+      "createdAt": "2026-06-29T18:51:00.000Z"
+    },
+    {
+      "id": 154,
+      "movieId": 25,
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "rating": 5,
+      "comment": "Rủ cả nhà đi xem, ai cũng khen. Rạp kín ghế mà im phăng phắc.",
+      "verified": false,
+      "createdAt": "2026-07-05T13:04:00.000Z"
+    },
+    {
+      "id": 155,
+      "movieId": 25,
+      "userId": 26,
+      "userName": "Trương Công Định",
+      "rating": 5,
+      "comment": "Cốt truyện cuốn từ phút đầu, hai tiếng trôi cái vèo.",
+      "verified": false,
+      "createdAt": "2026-06-23T08:51:00.000Z"
+    },
+    {
+      "id": 156,
+      "movieId": 25,
+      "userId": 16,
+      "userName": "Phan Trọng Nghĩa",
+      "rating": 5,
+      "comment": "Cảnh cuối nổi da gà thật sự. Sẽ đi xem lại lần nữa.",
+      "verified": false,
+      "createdAt": "2026-06-16T21:19:00.000Z"
+    },
+    {
+      "id": 157,
+      "movieId": 25,
+      "userId": 12,
+      "userName": "Hoàng Minh Tuấn",
+      "rating": 5,
+      "comment": "Bản thân mình không dễ tính nhưng phim này không chê được chỗ nào.",
+      "verified": false,
+      "createdAt": "2026-07-06T19:51:00.000Z"
+    },
+    {
+      "id": 158,
+      "movieId": 25,
+      "userId": 20,
+      "userName": "Chu Việt Hùng",
+      "rating": 5,
+      "comment": "Kịch bản chặt, diễn xuất tốt, không có một phút thừa.",
+      "verified": false,
+      "createdAt": "2026-06-28T15:19:00.000Z"
+    },
+    {
+      "id": 159,
+      "movieId": 26,
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "rating": 4,
+      "comment": "Xem lần đầu thấy hay, chắc xem lại sẽ còn thấy nhiều chi tiết.",
+      "verified": true,
+      "createdAt": "2026-07-09T22:04:00.000Z"
+    },
+    {
+      "id": 160,
+      "movieId": 26,
+      "userId": 16,
+      "userName": "Phan Trọng Nghĩa",
+      "rating": 3,
+      "comment": "Tạm ổn cho một buổi tối rảnh rỗi.",
+      "verified": false,
+      "createdAt": "2026-07-11T17:51:00.000Z"
+    },
+    {
+      "id": 161,
+      "movieId": 26,
+      "userId": 11,
+      "userName": "Ngô Thanh Trúc",
+      "rating": 4,
+      "comment": "Phần hình ảnh trên cả mong đợi, kịch bản thì vừa phải.",
+      "verified": false,
+      "createdAt": "2026-06-22T22:04:00.000Z"
+    },
+    {
+      "id": 162,
+      "movieId": 26,
+      "userId": 24,
+      "userName": "Nguyễn Tiến Đạt",
+      "rating": 3,
+      "comment": "Diễn viên cố gắng nhưng kịch bản chưa tới.",
+      "verified": false,
+      "createdAt": "2026-06-23T09:04:00.000Z"
+    },
+    {
+      "id": 163,
+      "movieId": 26,
+      "userId": 23,
+      "userName": "Hồ Yến Nhi",
+      "rating": 4,
+      "comment": "Vai phụ diễn hay hơn cả vai chính, cũng thú vị.",
+      "verified": false,
+      "createdAt": "2026-07-02T19:45:00.000Z"
+    },
+    {
+      "id": 164,
+      "movieId": 26,
+      "userId": 21,
+      "userName": "Mai Thị Lan",
+      "rating": 5,
+      "comment": "Quá đã! Hình ảnh và âm thanh ngoài rạp đúng là khác hẳn xem ở nhà.",
+      "verified": false,
+      "createdAt": "2026-06-19T15:04:00.000Z"
+    },
+    {
+      "id": 165,
+      "movieId": 26,
+      "userId": 25,
+      "userName": "Lâm Bảo Châu",
+      "rating": 3,
+      "comment": "Không dở, cũng không có gì đáng nhớ.",
+      "verified": false,
+      "createdAt": "2026-06-20T20:19:00.000Z"
+    },
+    {
+      "id": 166,
+      "movieId": 27,
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "rating": 5,
+      "comment": "Đi xem suất khuya mà tỉnh như sáo. Quá hay.",
+      "verified": true,
+      "createdAt": "2026-07-13T15:19:00.000Z"
+    },
+    {
+      "id": 167,
+      "movieId": 27,
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "rating": 5,
+      "comment": "Cốt truyện cuốn từ phút đầu, hai tiếng trôi cái vèo.",
+      "verified": true,
+      "createdAt": "2026-06-21T10:45:00.000Z"
+    },
+    {
+      "id": 168,
+      "movieId": 27,
+      "userId": 20,
+      "userName": "Chu Việt Hùng",
+      "rating": 4,
+      "comment": "Phim hay, diễn viên tròn vai. Đoạn giữa hơi dài nhưng vẫn đáng xem.",
+      "verified": true,
+      "createdAt": "2026-07-06T13:51:00.000Z"
+    },
+    {
+      "id": 169,
+      "movieId": 28,
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "rating": 5,
+      "comment": "Kịch bản chặt, diễn xuất tốt, không có một phút thừa.",
+      "verified": true,
+      "createdAt": "2026-07-13T19:45:00.000Z"
+    },
+    {
+      "id": 170,
+      "movieId": 28,
+      "userId": 22,
+      "userName": "Đinh Bá Lộc",
+      "rating": 4,
+      "comment": "Chất lượng ổn định, đúng kiểu phim đáng ra rạp.",
+      "verified": true,
+      "createdAt": "2026-07-10T16:51:00.000Z"
+    },
+    {
+      "id": 171,
+      "movieId": 28,
+      "userId": 12,
+      "userName": "Hoàng Minh Tuấn",
+      "rating": 5,
+      "comment": "Kịch bản chặt, diễn xuất tốt, không có một phút thừa.",
+      "verified": true,
+      "createdAt": "2026-07-07T21:04:00.000Z"
+    },
+    {
+      "id": 172,
+      "movieId": 28,
+      "userId": 18,
+      "userName": "Dương Hải Đăng",
+      "rating": 5,
+      "comment": "Đi xem suất khuya mà tỉnh như sáo. Quá hay.",
+      "verified": false,
+      "createdAt": "2026-06-29T22:45:00.000Z"
+    },
+    {
+      "id": 173,
+      "movieId": 28,
+      "userId": 15,
+      "userName": "Trịnh Khánh Vy",
+      "rating": 3,
+      "comment": "Bình thường. Chờ đợi hơi nhiều nên hơi hụt.",
+      "verified": false,
+      "createdAt": "2026-07-08T12:19:00.000Z"
+    },
+    {
+      "id": 174,
+      "movieId": 28,
+      "userId": 21,
+      "userName": "Mai Thị Lan",
+      "rating": 3,
+      "comment": "Xem một lần là đủ. Chờ lên nền tảng cũng được.",
+      "verified": false,
+      "createdAt": "2026-07-02T18:27:00.000Z"
+    },
+    {
+      "id": 175,
+      "movieId": 28,
+      "userId": 3,
+      "userName": "Dương Quang Minh",
+      "rating": 1,
+      "comment": "Mất tiền vé. Không giới thiệu cho ai.",
+      "verified": false,
+      "createdAt": "2026-07-03T18:19:00.000Z"
+    },
+    {
+      "id": 176,
+      "movieId": 29,
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "rating": 1,
+      "comment": "Mất tiền vé. Không giới thiệu cho ai.",
+      "verified": true,
+      "createdAt": "2026-06-30T12:51:00.000Z"
+    },
+    {
+      "id": 177,
+      "movieId": 29,
+      "userId": 13,
+      "userName": "Đặng Thị Hương",
+      "rating": 4,
+      "comment": "Mạch phim ổn định, vài chỗ hơi lê thê nhưng tổng thể tốt.",
+      "verified": true,
+      "createdAt": "2026-07-07T12:27:00.000Z"
+    },
+    {
+      "id": 178,
+      "movieId": 29,
+      "userId": 26,
+      "userName": "Trương Công Định",
+      "rating": 4,
+      "comment": "Tốt hơn mình nghĩ. Sẽ giới thiệu cho bạn bè.",
+      "verified": true,
+      "createdAt": "2026-07-06T16:04:00.000Z"
+    },
+    {
+      "id": 179,
+      "movieId": 29,
+      "userId": 24,
+      "userName": "Nguyễn Tiến Đạt",
+      "rating": 2,
+      "comment": "Kỹ xảo ổn nhưng nội dung rời rạc.",
+      "verified": false,
+      "createdAt": "2026-06-26T12:04:00.000Z"
+    },
+    {
+      "id": 180,
+      "movieId": 29,
+      "userId": 21,
+      "userName": "Mai Thị Lan",
+      "rating": 3,
+      "comment": "Xem được, không xuất sắc. Đi cho biết thì ổn.",
+      "verified": false,
+      "createdAt": "2026-07-01T17:19:00.000Z"
+    },
+    {
+      "id": 181,
+      "movieId": 29,
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "rating": 5,
+      "comment": "Cảnh cuối nổi da gà thật sự. Sẽ đi xem lại lần nữa.",
+      "verified": false,
+      "createdAt": "2026-06-23T16:19:00.000Z"
+    },
+    {
+      "id": 182,
+      "movieId": 30,
+      "userId": 18,
+      "userName": "Dương Hải Đăng",
+      "rating": 1,
+      "comment": "Diễn xuất gượng, thoại thì sáo rỗng.",
+      "verified": true,
+      "createdAt": "2026-07-10T20:04:00.000Z"
+    },
+    {
+      "id": 183,
+      "movieId": 30,
+      "userId": 14,
+      "userName": "Lý Gia Bảo",
+      "rating": 4,
+      "comment": "Đáng tiền vé. Chỉ tiếc cái kết hơi vội.",
+      "verified": true,
+      "createdAt": "2026-06-21T10:51:00.000Z"
+    },
+    {
+      "id": 184,
+      "movieId": 30,
+      "userId": 15,
+      "userName": "Trịnh Khánh Vy",
+      "rating": 3,
+      "comment": "Không dở, cũng không có gì đáng nhớ.",
+      "verified": false,
+      "createdAt": "2026-06-24T11:04:00.000Z"
+    },
+    {
+      "id": 185,
+      "movieId": 30,
+      "userId": 8,
+      "userName": "Vũ Đức Anh",
+      "rating": 5,
+      "comment": "Bản thân mình không dễ tính nhưng phim này không chê được chỗ nào.",
+      "verified": false,
+      "createdAt": "2026-07-10T15:27:00.000Z"
+    },
+    {
+      "id": 186,
+      "movieId": 31,
+      "userId": 14,
+      "userName": "Lý Gia Bảo",
+      "rating": 5,
+      "comment": "Diễn viên chính gánh cả phim. Xem xong ám ảnh mấy hôm.",
+      "verified": true,
+      "createdAt": "2026-06-24T10:51:00.000Z"
+    },
+    {
+      "id": 187,
+      "movieId": 31,
+      "userId": 15,
+      "userName": "Trịnh Khánh Vy",
+      "rating": 4,
+      "comment": "Xem thoải mái, không phải suy nghĩ nhiều. Ổn.",
+      "verified": true,
+      "createdAt": "2026-07-12T10:51:00.000Z"
+    },
+    {
+      "id": 188,
+      "movieId": 31,
+      "userId": 11,
+      "userName": "Ngô Thanh Trúc",
+      "rating": 1,
+      "comment": "Diễn xuất gượng, thoại thì sáo rỗng.",
+      "verified": true,
+      "createdAt": "2026-07-08T08:51:00.000Z"
+    },
+    {
+      "id": 189,
+      "movieId": 32,
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "rating": 3,
+      "comment": "Có vài cảnh hay, tiếc là không đủ để cứu cả phim.",
+      "verified": true,
+      "createdAt": "2026-07-05T09:51:00.000Z"
+    },
+    {
+      "id": 190,
+      "movieId": 32,
+      "userId": 27,
+      "userName": "Kiều Thị Diễm",
+      "rating": 2,
+      "comment": "Nhiều chi tiết vô lý, khó vào được phim.",
+      "verified": true,
+      "createdAt": "2026-06-26T16:27:00.000Z"
+    },
+    {
+      "id": 191,
+      "movieId": 32,
+      "userId": 8,
+      "userName": "Vũ Đức Anh",
+      "rating": 4,
+      "comment": "Đáng tiền vé. Chỉ tiếc cái kết hơi vội.",
+      "verified": true,
+      "createdAt": "2026-07-10T13:45:00.000Z"
+    },
+    {
+      "id": 192,
+      "movieId": 32,
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "rating": 3,
+      "comment": "Diễn viên cố gắng nhưng kịch bản chưa tới.",
+      "verified": false,
+      "createdAt": "2026-06-28T22:51:00.000Z"
+    },
+    {
+      "id": 193,
+      "movieId": 32,
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "rating": 4,
+      "comment": "Tốt hơn mình nghĩ. Sẽ giới thiệu cho bạn bè.",
+      "verified": false,
+      "createdAt": "2026-07-10T18:45:00.000Z"
+    },
+    {
+      "id": 194,
+      "movieId": 32,
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "rating": 1,
+      "comment": "Diễn xuất gượng, thoại thì sáo rỗng.",
+      "verified": false,
+      "createdAt": "2026-06-30T11:19:00.000Z"
+    },
+    {
+      "id": 195,
+      "movieId": 32,
+      "userId": 26,
+      "userName": "Trương Công Định",
+      "rating": 5,
+      "comment": "Diễn viên chính gánh cả phim. Xem xong ám ảnh mấy hôm.",
+      "verified": false,
+      "createdAt": "2026-06-25T13:19:00.000Z"
+    },
+    {
+      "id": 196,
+      "movieId": 32,
+      "userId": 30,
+      "userName": "Cao Mỹ Duyên",
+      "rating": 5,
+      "comment": "Phim hay nhất mình xem năm nay, không nói quá.",
+      "verified": false,
+      "createdAt": "2026-06-19T14:19:00.000Z"
+    },
+    {
+      "id": 197,
+      "movieId": 33,
+      "userId": 22,
+      "userName": "Đinh Bá Lộc",
+      "rating": 3,
+      "comment": "Kỹ xảo đẹp nhưng câu chuyện thì nhạt.",
+      "verified": true,
+      "createdAt": "2026-07-02T08:27:00.000Z"
+    },
+    {
+      "id": 198,
+      "movieId": 33,
+      "userId": 24,
+      "userName": "Nguyễn Tiến Đạt",
+      "rating": 3,
+      "comment": "Bình thường. Chờ đợi hơi nhiều nên hơi hụt.",
+      "verified": true,
+      "createdAt": "2026-07-03T22:45:00.000Z"
+    },
+    {
+      "id": 199,
+      "movieId": 33,
+      "userId": 19,
+      "userName": "Tạ Phương Thảo",
+      "rating": 5,
+      "comment": "Kịch bản chặt, diễn xuất tốt, không có một phút thừa.",
+      "verified": true,
+      "createdAt": "2026-07-05T22:45:00.000Z"
+    },
+    {
+      "id": 200,
+      "movieId": 33,
+      "userId": 30,
+      "userName": "Cao Mỹ Duyên",
+      "rating": 2,
+      "comment": "Không hợp gu mình, chắc do kỳ vọng cao quá.",
+      "verified": false,
+      "createdAt": "2026-07-10T10:19:00.000Z"
+    },
+    {
+      "id": 201,
+      "movieId": 33,
+      "userId": 17,
+      "userName": "Võ Thị Kim Ngân",
+      "rating": 4,
+      "comment": "Mạch phim ổn định, vài chỗ hơi lê thê nhưng tổng thể tốt.",
+      "verified": false,
+      "createdAt": "2026-07-10T18:27:00.000Z"
+    },
+    {
+      "id": 202,
+      "movieId": 33,
+      "userId": 21,
+      "userName": "Mai Thị Lan",
+      "rating": 5,
+      "comment": "Quá đã! Hình ảnh và âm thanh ngoài rạp đúng là khác hẳn xem ở nhà.",
+      "verified": false,
+      "createdAt": "2026-06-24T08:04:00.000Z"
+    },
+    {
+      "id": 203,
+      "movieId": 34,
+      "userId": 12,
+      "userName": "Hoàng Minh Tuấn",
+      "rating": 4,
+      "comment": "Xem lần đầu thấy hay, chắc xem lại sẽ còn thấy nhiều chi tiết.",
+      "verified": true,
+      "createdAt": "2026-07-05T14:45:00.000Z"
+    },
+    {
+      "id": 204,
+      "movieId": 34,
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "rating": 4,
+      "comment": "Phần hình ảnh trên cả mong đợi, kịch bản thì vừa phải.",
+      "verified": false,
+      "createdAt": "2026-06-28T18:04:00.000Z"
+    },
+    {
+      "id": 205,
+      "movieId": 34,
+      "userId": 8,
+      "userName": "Vũ Đức Anh",
+      "rating": 2,
+      "comment": "Không hợp gu mình, chắc do kỳ vọng cao quá.",
+      "verified": false,
+      "createdAt": "2026-06-26T18:45:00.000Z"
+    },
+    {
+      "id": 206,
+      "movieId": 35,
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "rating": 5,
+      "comment": "Phim hay nhất mình xem năm nay, không nói quá.",
+      "verified": true,
+      "createdAt": "2026-07-12T17:27:00.000Z"
+    },
+    {
+      "id": 207,
+      "movieId": 35,
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "rating": 5,
+      "comment": "Cốt truyện cuốn từ phút đầu, hai tiếng trôi cái vèo.",
+      "verified": true,
+      "createdAt": "2026-07-12T16:45:00.000Z"
+    },
+    {
+      "id": 208,
+      "movieId": 35,
+      "userId": 8,
+      "userName": "Vũ Đức Anh",
+      "rating": 5,
+      "comment": "Quá đã! Hình ảnh và âm thanh ngoài rạp đúng là khác hẳn xem ở nhà.",
+      "verified": true,
+      "createdAt": "2026-07-07T20:45:00.000Z"
+    },
+    {
+      "id": 209,
+      "movieId": 35,
+      "userId": 15,
+      "userName": "Trịnh Khánh Vy",
+      "rating": 4,
+      "comment": "Xem lần đầu thấy hay, chắc xem lại sẽ còn thấy nhiều chi tiết.",
+      "verified": false,
+      "createdAt": "2026-07-10T13:19:00.000Z"
+    },
+    {
+      "id": 210,
+      "movieId": 36,
+      "userId": 11,
+      "userName": "Ngô Thanh Trúc",
+      "rating": 5,
+      "comment": "Xem xong còn ngồi lại hết credit. Đáng từng đồng tiền vé.",
+      "verified": true,
+      "createdAt": "2026-07-12T22:19:00.000Z"
+    },
+    {
+      "id": 211,
+      "movieId": 36,
+      "userId": 23,
+      "userName": "Hồ Yến Nhi",
+      "rating": 3,
+      "comment": "Diễn viên cố gắng nhưng kịch bản chưa tới.",
+      "verified": true,
+      "createdAt": "2026-07-09T14:27:00.000Z"
+    },
+    {
+      "id": 212,
+      "movieId": 36,
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "rating": 3,
+      "comment": "Bình thường. Chờ đợi hơi nhiều nên hơi hụt.",
+      "verified": true,
+      "createdAt": "2026-07-09T17:19:00.000Z"
+    },
+    {
+      "id": 213,
+      "movieId": 36,
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "rating": 3,
+      "comment": "Xem được, không xuất sắc. Đi cho biết thì ổn.",
+      "verified": true,
+      "createdAt": "2026-07-11T08:19:00.000Z"
+    },
+    {
+      "id": 214,
+      "movieId": 36,
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "rating": 5,
+      "comment": "Kịch bản chặt, diễn xuất tốt, không có một phút thừa.",
+      "verified": true,
+      "createdAt": "2026-06-26T08:19:00.000Z"
+    },
+    {
+      "id": 215,
+      "movieId": 36,
+      "userId": 27,
+      "userName": "Kiều Thị Diễm",
+      "rating": 5,
+      "comment": "Xem xong còn ngồi lại hết credit. Đáng từng đồng tiền vé.",
+      "verified": true,
+      "createdAt": "2026-07-04T16:19:00.000Z"
+    },
+    {
+      "id": 216,
+      "movieId": 37,
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "rating": 5,
+      "comment": "Cốt truyện cuốn từ phút đầu, hai tiếng trôi cái vèo.",
+      "verified": true,
+      "createdAt": "2026-07-13T10:27:00.000Z"
+    },
+    {
+      "id": 217,
+      "movieId": 37,
+      "userId": 7,
+      "userName": "Phạm Thu Hà",
+      "rating": 5,
+      "comment": "Diễn viên chính gánh cả phim. Xem xong ám ảnh mấy hôm.",
+      "verified": true,
+      "createdAt": "2026-07-07T16:27:00.000Z"
+    },
+    {
+      "id": 218,
+      "movieId": 37,
+      "userId": 16,
+      "userName": "Phan Trọng Nghĩa",
+      "rating": 5,
+      "comment": "Âm thanh phòng IMAX làm cả người rung theo. Nên xem màn hình lớn.",
+      "verified": true,
+      "createdAt": "2026-07-13T18:04:00.000Z"
+    },
+    {
+      "id": 219,
+      "movieId": 37,
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "rating": 5,
+      "comment": "Xem xong còn ngồi lại hết credit. Đáng từng đồng tiền vé.",
+      "verified": true,
+      "createdAt": "2026-07-13T19:45:00.000Z"
+    },
+    {
+      "id": 220,
+      "movieId": 37,
+      "userId": 14,
+      "userName": "Lý Gia Bảo",
+      "rating": 3,
+      "comment": "Diễn viên cố gắng nhưng kịch bản chưa tới.",
+      "verified": true,
+      "createdAt": "2026-07-10T14:27:00.000Z"
+    },
+    {
+      "id": 221,
+      "movieId": 37,
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "rating": 3,
+      "comment": "Xem được, không xuất sắc. Đi cho biết thì ổn.",
+      "verified": false,
+      "createdAt": "2026-07-08T14:04:00.000Z"
+    },
+    {
+      "id": 222,
+      "movieId": 37,
+      "userId": 22,
+      "userName": "Đinh Bá Lộc",
+      "rating": 4,
+      "comment": "Đáng tiền vé. Chỉ tiếc cái kết hơi vội.",
+      "verified": false,
+      "createdAt": "2026-07-12T15:51:00.000Z"
+    },
+    {
+      "id": 223,
+      "movieId": 38,
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "rating": 5,
+      "comment": "Rủ cả nhà đi xem, ai cũng khen. Rạp kín ghế mà im phăng phắc.",
+      "verified": true,
+      "createdAt": "2026-07-11T08:04:00.000Z"
+    },
+    {
+      "id": 224,
+      "movieId": 38,
+      "userId": 22,
+      "userName": "Đinh Bá Lộc",
+      "rating": 5,
+      "comment": "Phim hay nhất mình xem năm nay, không nói quá.",
+      "verified": false,
+      "createdAt": "2026-07-13T18:45:00.000Z"
+    },
+    {
+      "id": 225,
+      "movieId": 38,
+      "userId": 20,
+      "userName": "Chu Việt Hùng",
+      "rating": 4,
+      "comment": "Xem lần đầu thấy hay, chắc xem lại sẽ còn thấy nhiều chi tiết.",
+      "verified": false,
+      "createdAt": "2026-07-09T10:27:00.000Z"
+    },
+    {
+      "id": 226,
+      "movieId": 38,
+      "userId": 18,
+      "userName": "Dương Hải Đăng",
+      "rating": 4,
+      "comment": "Xem lần đầu thấy hay, chắc xem lại sẽ còn thấy nhiều chi tiết.",
+      "verified": false,
+      "createdAt": "2026-07-05T17:04:00.000Z"
+    },
+    {
+      "id": 227,
+      "movieId": 38,
+      "userId": 6,
+      "userName": "Lê Hoàng Nam",
+      "rating": 5,
+      "comment": "Kịch bản chặt, diễn xuất tốt, không có một phút thừa.",
+      "verified": false,
+      "createdAt": "2026-07-03T12:51:00.000Z"
+    },
+    {
+      "id": 228,
+      "movieId": 39,
+      "userId": 23,
+      "userName": "Hồ Yến Nhi",
+      "rating": 2,
+      "comment": "Nhiều chi tiết vô lý, khó vào được phim.",
+      "verified": true,
+      "createdAt": "2026-06-29T22:27:00.000Z"
+    },
+    {
+      "id": 229,
+      "movieId": 39,
+      "userId": 21,
+      "userName": "Mai Thị Lan",
+      "rating": 2,
+      "comment": "Trailer hay hơn phim. Hụt hẫng.",
+      "verified": true,
+      "createdAt": "2026-06-21T09:45:00.000Z"
+    },
+    {
+      "id": 230,
+      "movieId": 39,
+      "userId": 20,
+      "userName": "Chu Việt Hùng",
+      "rating": 5,
+      "comment": "Cảnh cuối nổi da gà thật sự. Sẽ đi xem lại lần nữa.",
+      "verified": true,
+      "createdAt": "2026-07-05T16:04:00.000Z"
+    },
+    {
+      "id": 231,
+      "movieId": 39,
+      "userId": 14,
+      "userName": "Lý Gia Bảo",
+      "rating": 3,
+      "comment": "Được cái nhạc hay, còn lại thì tạm.",
+      "verified": false,
+      "createdAt": "2026-06-28T08:45:00.000Z"
+    },
+    {
+      "id": 232,
+      "movieId": 39,
+      "userId": 17,
+      "userName": "Võ Thị Kim Ngân",
+      "rating": 4,
+      "comment": "Mạch phim ổn định, vài chỗ hơi lê thê nhưng tổng thể tốt.",
+      "verified": false,
+      "createdAt": "2026-06-18T22:45:00.000Z"
+    },
+    {
+      "id": 233,
+      "movieId": 39,
+      "userId": 15,
+      "userName": "Trịnh Khánh Vy",
+      "rating": 4,
+      "comment": "Phần hình ảnh trên cả mong đợi, kịch bản thì vừa phải.",
+      "verified": false,
+      "createdAt": "2026-07-07T12:51:00.000Z"
+    },
+    {
+      "id": 234,
+      "movieId": 39,
+      "userId": 11,
+      "userName": "Ngô Thanh Trúc",
+      "rating": 3,
+      "comment": "Có vài cảnh hay, tiếc là không đủ để cứu cả phim.",
+      "verified": false,
+      "createdAt": "2026-06-27T14:04:00.000Z"
+    },
+    {
+      "id": 235,
+      "movieId": 40,
+      "userId": 16,
+      "userName": "Phan Trọng Nghĩa",
+      "rating": 5,
+      "comment": "Bản thân mình không dễ tính nhưng phim này không chê được chỗ nào.",
+      "verified": true,
+      "createdAt": "2026-07-13T18:19:00.000Z"
+    },
+    {
+      "id": 236,
+      "movieId": 40,
+      "userId": 20,
+      "userName": "Chu Việt Hùng",
+      "rating": 4,
+      "comment": "Không tiếc tiền vé. Trừ điểm vì đoạn mở đầu hơi chậm.",
+      "verified": true,
+      "createdAt": "2026-07-07T10:45:00.000Z"
+    },
+    {
+      "id": 237,
+      "movieId": 40,
+      "userId": 8,
+      "userName": "Vũ Đức Anh",
+      "rating": 5,
+      "comment": "Quá đã! Hình ảnh và âm thanh ngoài rạp đúng là khác hẳn xem ở nhà.",
+      "verified": true,
+      "createdAt": "2026-07-01T14:51:00.000Z"
+    },
+    {
+      "id": 238,
+      "movieId": 40,
+      "userId": 13,
+      "userName": "Đặng Thị Hương",
+      "rating": 3,
+      "comment": "Được cái nhạc hay, còn lại thì tạm.",
+      "verified": false,
+      "createdAt": "2026-06-23T10:04:00.000Z"
+    },
+    {
+      "id": 239,
+      "movieId": 40,
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "rating": 5,
+      "comment": "Quá đã! Hình ảnh và âm thanh ngoài rạp đúng là khác hẳn xem ở nhà.",
+      "verified": false,
+      "createdAt": "2026-06-24T13:45:00.000Z"
+    },
+    {
+      "id": 240,
+      "movieId": 40,
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "rating": 4,
+      "comment": "Vai phụ diễn hay hơn cả vai chính, cũng thú vị.",
+      "verified": false,
+      "createdAt": "2026-07-04T21:04:00.000Z"
+    },
+    {
+      "id": 241,
+      "movieId": 40,
+      "userId": 3,
+      "userName": "Dương Quang Minh",
+      "rating": 1,
+      "comment": "Đây là phim tệ nhất mình xem ở rạp năm nay.",
+      "verified": false,
+      "createdAt": "2026-07-13T17:27:00.000Z"
+    },
+    {
+      "id": 242,
+      "movieId": 40,
+      "userId": 11,
+      "userName": "Ngô Thanh Trúc",
+      "rating": 5,
+      "comment": "Quá đã! Hình ảnh và âm thanh ngoài rạp đúng là khác hẳn xem ở nhà.",
+      "verified": false,
+      "createdAt": "2026-07-08T19:51:00.000Z"
     }
   ]
 }
