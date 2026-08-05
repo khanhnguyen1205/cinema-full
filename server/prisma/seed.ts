@@ -106,6 +106,13 @@ async function seed() {
         (b as { concessions?: Prisma.InputJsonValue }).concessions ?? undefined,
       userId: b.userId,
       userName: b.userName,
+      // Bốn cột này từng bị bỏ quên: fixture cũ chỉ có 3 đơn và không đơn nào
+      // mang chúng, nên không ai thấy. Generator tính đúng công thức giá rồi mà
+      // seed vứt đi thì bảng /admin/bookings hiện ô trống.
+      seatTotal: (b as { seatTotal?: number }).seatTotal ?? null,
+      fnbTotal: (b as { fnbTotal?: number }).fnbTotal ?? null,
+      serviceFee: (b as { serviceFee?: number }).serviceFee ?? null,
+      paymentMethod: (b as { paymentMethod?: string }).paymentMethod ?? null,
       totalPrice: b.totalPrice,
       createdAt: shift(b.createdAt),
     })),
