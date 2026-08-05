@@ -106,7 +106,16 @@ export default function ETicket({
 
       <div className="eticket-k__stub">
         <div className="eticket-k__qr">
-          <QRCodeSVG value={qrValue(booking)} size={qrSize} level="M" />
+          {/* `title` sinh ra <title> bên trong <svg>: qrcode.react gắn
+              role="img" cho svg, mà svg role=img không có tên thay thế là vi
+              phạm a11y mức serious (svg-img-alt). Trình đọc màn hình cần biết
+              đây là mã QR của vé nào chứ không phải một hình trang trí. */}
+          <QRCodeSVG
+            value={qrValue(booking)}
+            size={qrSize}
+            level="M"
+            title={t("tickets.eQrAlt", { code })}
+          />
         </div>
         <span className="eticket-k__stubcode">{code}</span>
         <span className="eticket-k__stubhint">{t("tickets.eScan")}</span>

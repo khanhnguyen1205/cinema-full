@@ -32,7 +32,11 @@
   letter-spacing: 2px;
 }
 .eticket-k__code {
-  color: var(--red-text);
+  /* --red-dark chứ KHÔNG phải --red-text: vé là khối "bone" nền sáng, mà
+     --red-text (#ff5a5a) là sắc đỏ dành cho chữ nhỏ trên nền TỐI — trên nền bone
+     nó chỉ được 2.48:1. --red-dark cho 5.26:1, và Auth.css đã dùng nó đúng vai
+     trò này. Xem quy tắc "ba sắc đỏ" trong CLAUDE.md. */
+  color: var(--red-dark);
   white-space: nowrap;
 }
 .eticket-k__title {
@@ -71,7 +75,8 @@
   font-weight: 600;
 }
 .eticket-k__seats {
-  color: var(--red-text);
+  /* Cùng lý do với .eticket-k__code ở trên: nền bone cần sắc đỏ TỐI. */
+  color: var(--red-dark);
 }
 .eticket-k__fnb {
   margin-top: 12px;

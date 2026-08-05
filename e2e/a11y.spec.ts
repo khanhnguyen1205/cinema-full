@@ -152,6 +152,14 @@ test("a11y: vé của tôi", async ({ page }) => {
   await login(page, "a@cinema.vn", "123456");
   await page.goto("/tickets");
   await expect(page.getByRole("heading", { name: "Vé của tôi" })).toBeVisible();
+  // Tiêu đề hiện NGAY, còn danh sách vé nạp bất đồng bộ — quét luôn là quét một
+  // trang chưa có nội dung. Chỗ này từng xanh ở máy dev (Neon ở xa, vé chưa kịp
+  // vẽ) và đỏ trên CI (Postgres localhost, vé hiện tức thì), tức cái xanh kia là
+  // may chứ không phải đúng. Chờ tới khi có vé HOẶC có ô "chưa có vé" rồi mới quét.
+  await page
+    .locator(".mytk-k__item, .mytk-k__empty")
+    .first()
+    .waitFor({ state: "visible", timeout: 15000 });
   await scan(page, "/tickets");
 });
 

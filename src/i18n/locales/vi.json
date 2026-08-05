@@ -245,6 +245,7 @@
     "eFnb": "Bắp nước",
     "eTotal": "Tổng cộng",
     "eScan": "Quét để soát vé",
+    "eQrAlt": "Mã QR của vé {{code}}",
     "payMomo": "Ví Momo",
     "payCard": "Thẻ ATM / Visa",
     "payCounter": "Tại quầy",
