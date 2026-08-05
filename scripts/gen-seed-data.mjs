@@ -10,7 +10,13 @@
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { makeRng } from "./lib/rng.mjs";
-import { ROOM_TYPE_PRICE, flatSeats } from "./lib/seed-pricing.mjs";
+import {
+  ROOM_TYPE_PRICE,
+  SERVICE_FEE,
+  flatSeats,
+  priceOf,
+  seatType,
+} from "./lib/seed-pricing.mjs";
 import { NEW_CONCESSIONS } from "./seed-data/concessions.mjs";
 import { COMMENTS, NEW_USERS, PASSWORD_HASH } from "./seed-data/people.mjs";
 import { NEW_CINEMAS, NEW_CITIES, NEW_ROOMS } from "./seed-data/venues.mjs";
@@ -151,7 +157,77 @@ for (const room of db.rooms) {
   }
 }
 
+// --- 4. Đơn đặt vé ---
+// createdAt rải 30 ngày TRƯỚC cửa sổ chiếu -> biểu đồ doanh thu admin có đường
+// cong thật. Trước đó cả 3 đơn cùng một ngày nên biểu đồ gần như phẳng.
+// Cùng một offset sẽ được seed.ts dịch cho mọi bảng nên quan hệ thời gian giữ
+// nguyên.
+const BOOK_DAYS = Array.from({ length: 30 }, (_, i) =>
+  new Date(Date.UTC(2026, 5, 14) + i * 86400000).toISOString().slice(0, 10),
+);
+
+const roomById = new Map(db.rooms.map((r) => [r.id, r]));
+const seatsUsed = new Map();
+for (const s of db.showtimes) seatsUsed.set(s.id, new Set(s.bookedSeats));
+for (const b of db.bookings) {
+  const set = seatsUsed.get(b.showtimeId) ?? new Set();
+  b.seats.forEach((x) => set.add(x));
+  seatsUsed.set(b.showtimeId, set);
+}
+
+const buyers = db.users.filter((u) => u.role !== "admin");
+const nextBookingId = counter(db.bookings);
+const TARGET_BOOKINGS = 150;
+
+for (let n = 0; n < TARGET_BOOKINGS; n++) {
+  const st = rng.pick(db.showtimes);
+  const room = roomById.get(st.roomId);
+  const used = seatsUsed.get(st.id);
+  const free = flatSeats(room).filter((s) => !used.has(s.seatNumber));
+  if (free.length < 4) continue;
+
+  const chosen = rng.sample(free, rng.int(1, 4));
+  chosen.forEach((s) => used.add(s.seatNumber));
+
+  const seatTypes = { standard: 0, vip: 0, couple: 0 };
+  let seatTotal = 0;
+  for (const s of chosen) {
+    seatTypes[seatType(s)]++;
+    seatTotal += priceOf(s, st.price);
+  }
+
+  // 0-2 món bắp nước, mỗi món 1-2 phần.
+  const fnb = {};
+  let fnbTotal = 0;
+  for (const c of rng.sample(db.concessions, rng.int(0, 2))) {
+    const qty = rng.int(1, 2);
+    fnb[c.id] = qty;
+    fnbTotal += c.price * qty;
+  }
+
+  const user = rng.pick(buyers);
+  const hh = String(rng.int(8, 22)).padStart(2, "0");
+  db.bookings.push({
+    id: nextBookingId(),
+    movieId: st.movieId,
+    showtimeId: st.id,
+    cinemaId: room.cinemaId,
+    roomId: st.roomId,
+    seats: chosen.map((s) => s.seatNumber).sort(),
+    seatTypes,
+    concessions: Object.keys(fnb).length ? fnb : undefined,
+    paymentMethod: rng.chance(0.45) ? "card" : "counter",
+    userId: user.id,
+    userName: user.fullName,
+    seatTotal,
+    fnbTotal,
+    serviceFee: SERVICE_FEE,
+    totalPrice: seatTotal + fnbTotal + SERVICE_FEE,
+    createdAt: `${rng.pick(BOOK_DAYS)}T${hh}:${rng.pick(["05", "17", "30", "42", "58"])}:00`,
+  });
+}
+
 writeFileSync(DB_PATH, JSON.stringify(db, null, 2) + "\n");
 console.log(
-  `phim ${db.movies.length} · tp ${db.cities.length} · rạp ${db.cinemas.length} · phòng ${db.rooms.length} · suất ${db.showtimes.length}`,
+  `phim ${db.movies.length} · tp ${db.cities.length} · rạp ${db.cinemas.length} · phòng ${db.rooms.length} · suất ${db.showtimes.length} · user ${db.users.length} · đơn ${db.bookings.length}`,
 );

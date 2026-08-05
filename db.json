@@ -16918,6 +16918,3986 @@
       "userName": "Nguyen Van A",
       "totalPrice": 90000,
       "createdAt": "2026-07-10T12:00:00"
+    },
+    {
+      "id": 4,
+      "movieId": 22,
+      "showtimeId": 108,
+      "cinemaId": 1,
+      "roomId": 2,
+      "seats": [
+        "D7",
+        "G6",
+        "H10",
+        "I10"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 2,
+        "couple": 0
+      },
+      "concessions": {
+        "4": 2,
+        "5": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 20,
+      "userName": "Chu Việt Hùng",
+      "seatTotal": 552000,
+      "fnbTotal": 208000,
+      "serviceFee": 15000,
+      "totalPrice": 775000,
+      "createdAt": "2026-06-18T21:30:00"
+    },
+    {
+      "id": 5,
+      "movieId": 18,
+      "showtimeId": 397,
+      "cinemaId": 6,
+      "roomId": 11,
+      "seats": [
+        "C1"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 14,
+      "userName": "Lý Gia Bảo",
+      "seatTotal": 75000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 90000,
+      "createdAt": "2026-07-10T13:42:00"
+    },
+    {
+      "id": 6,
+      "movieId": 27,
+      "showtimeId": 739,
+      "cinemaId": 10,
+      "roomId": 20,
+      "seats": [
+        "E11"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "14": 1
+      },
+      "paymentMethod": "card",
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "seatTotal": 98000,
+      "fnbTotal": 55000,
+      "serviceFee": 15000,
+      "totalPrice": 168000,
+      "createdAt": "2026-07-10T13:58:00"
+    },
+    {
+      "id": 7,
+      "movieId": 9,
+      "showtimeId": 132,
+      "cinemaId": 2,
+      "roomId": 3,
+      "seats": [
+        "A8",
+        "B10",
+        "C6"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "1": 1,
+        "2": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 25,
+      "userName": "Lâm Bảo Châu",
+      "seatTotal": 225000,
+      "fnbTotal": 407000,
+      "serviceFee": 15000,
+      "totalPrice": 647000,
+      "createdAt": "2026-06-19T19:17:00"
+    },
+    {
+      "id": 8,
+      "movieId": 3,
+      "showtimeId": 11,
+      "cinemaId": 3,
+      "roomId": 5,
+      "seats": [
+        "B10",
+        "E11"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "seatTotal": 173000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 188000,
+      "createdAt": "2026-06-15T13:30:00"
+    },
+    {
+      "id": 9,
+      "movieId": 22,
+      "showtimeId": 327,
+      "cinemaId": 5,
+      "roomId": 9,
+      "seats": [
+        "G7",
+        "H5"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "3": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 11,
+      "userName": "Ngô Thanh Trúc",
+      "seatTotal": 150000,
+      "fnbTotal": 65000,
+      "serviceFee": 15000,
+      "totalPrice": 230000,
+      "createdAt": "2026-07-13T18:17:00"
+    },
+    {
+      "id": 10,
+      "movieId": 19,
+      "showtimeId": 290,
+      "cinemaId": 4,
+      "roomId": 7,
+      "seats": [
+        "C11"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 12,
+      "userName": "Hoàng Minh Tuấn",
+      "seatTotal": 95000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 110000,
+      "createdAt": "2026-07-09T09:17:00"
+    },
+    {
+      "id": 11,
+      "movieId": 3,
+      "showtimeId": 459,
+      "cinemaId": 6,
+      "roomId": 12,
+      "seats": [
+        "G1"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "12": 1
+      },
+      "paymentMethod": "card",
+      "userId": 24,
+      "userName": "Nguyễn Tiến Đạt",
+      "seatTotal": 156000,
+      "fnbTotal": 28000,
+      "serviceFee": 15000,
+      "totalPrice": 199000,
+      "createdAt": "2026-06-18T11:58:00"
+    },
+    {
+      "id": 12,
+      "movieId": 17,
+      "showtimeId": 544,
+      "cinemaId": 8,
+      "roomId": 15,
+      "seats": [
+        "F12",
+        "G5"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "3": 1,
+        "12": 1
+      },
+      "paymentMethod": "card",
+      "userId": 30,
+      "userName": "Cao Mỹ Duyên",
+      "seatTotal": 173000,
+      "fnbTotal": 93000,
+      "serviceFee": 15000,
+      "totalPrice": 281000,
+      "createdAt": "2026-06-16T22:17:00"
+    },
+    {
+      "id": 13,
+      "movieId": 40,
+      "showtimeId": 786,
+      "cinemaId": 11,
+      "roomId": 22,
+      "seats": [
+        "B3",
+        "C12",
+        "D6"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 16,
+      "userName": "Phan Trọng Nghĩa",
+      "seatTotal": 285000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 300000,
+      "createdAt": "2026-07-12T18:05:00"
+    },
+    {
+      "id": 14,
+      "movieId": 35,
+      "showtimeId": 670,
+      "cinemaId": 10,
+      "roomId": 19,
+      "seats": [
+        "A8",
+        "F2",
+        "H8"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "6": 1,
+        "8": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "seatTotal": 314000,
+      "fnbTotal": 67000,
+      "serviceFee": 15000,
+      "totalPrice": 396000,
+      "createdAt": "2026-07-04T09:58:00"
+    },
+    {
+      "id": 15,
+      "movieId": 25,
+      "showtimeId": 845,
+      "cinemaId": 12,
+      "roomId": 24,
+      "seats": [
+        "E11",
+        "G2"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 2,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "seatTotal": 248000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 263000,
+      "createdAt": "2026-06-30T15:05:00"
+    },
+    {
+      "id": 16,
+      "movieId": 19,
+      "showtimeId": 105,
+      "cinemaId": 1,
+      "roomId": 2,
+      "seats": [
+        "A4",
+        "C11"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "1": 2,
+        "10": 1
+      },
+      "paymentMethod": "card",
+      "userId": 17,
+      "userName": "Võ Thị Kim Ngân",
+      "seatTotal": 240000,
+      "fnbTotal": 237000,
+      "serviceFee": 15000,
+      "totalPrice": 492000,
+      "createdAt": "2026-06-25T22:42:00"
+    },
+    {
+      "id": 17,
+      "movieId": 7,
+      "showtimeId": 867,
+      "cinemaId": 12,
+      "roomId": 24,
+      "seats": [
+        "D6",
+        "E3"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "seatTotal": 219000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 234000,
+      "createdAt": "2026-06-23T12:30:00"
+    },
+    {
+      "id": 18,
+      "movieId": 26,
+      "showtimeId": 590,
+      "cinemaId": 8,
+      "roomId": 16,
+      "seats": [
+        "B2",
+        "C4",
+        "E4",
+        "F2"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "seatTotal": 409000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 424000,
+      "createdAt": "2026-07-05T11:58:00"
+    },
+    {
+      "id": 19,
+      "movieId": 15,
+      "showtimeId": 653,
+      "cinemaId": 9,
+      "roomId": 18,
+      "seats": [
+        "C10"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "14": 2
+      },
+      "paymentMethod": "card",
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "seatTotal": 120000,
+      "fnbTotal": 110000,
+      "serviceFee": 15000,
+      "totalPrice": 245000,
+      "createdAt": "2026-07-08T18:30:00"
+    },
+    {
+      "id": 20,
+      "movieId": 22,
+      "showtimeId": 219,
+      "cinemaId": 3,
+      "roomId": 5,
+      "seats": [
+        "B10",
+        "F6",
+        "G4",
+        "H6"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 25,
+      "userName": "Lâm Bảo Châu",
+      "seatTotal": 323000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 338000,
+      "createdAt": "2026-07-09T21:17:00"
+    },
+    {
+      "id": 21,
+      "movieId": 24,
+      "showtimeId": 329,
+      "cinemaId": 5,
+      "roomId": 9,
+      "seats": [
+        "D6",
+        "F5",
+        "H6"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 16,
+      "userName": "Phan Trọng Nghĩa",
+      "seatTotal": 248000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 263000,
+      "createdAt": "2026-07-01T14:17:00"
+    },
+    {
+      "id": 22,
+      "movieId": 22,
+      "showtimeId": 219,
+      "cinemaId": 3,
+      "roomId": 5,
+      "seats": [
+        "D3",
+        "E5",
+        "H11"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "seatTotal": 248000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 263000,
+      "createdAt": "2026-06-23T17:58:00"
+    },
+    {
+      "id": 23,
+      "movieId": 37,
+      "showtimeId": 120,
+      "cinemaId": 2,
+      "roomId": 3,
+      "seats": [
+        "D3"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "13": 1
+      },
+      "paymentMethod": "card",
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "seatTotal": 75000,
+      "fnbTotal": 42000,
+      "serviceFee": 15000,
+      "totalPrice": 132000,
+      "createdAt": "2026-07-13T19:30:00"
+    },
+    {
+      "id": 24,
+      "movieId": 22,
+      "showtimeId": 327,
+      "cinemaId": 5,
+      "roomId": 9,
+      "seats": [
+        "A1",
+        "D2"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 25,
+      "userName": "Lâm Bảo Châu",
+      "seatTotal": 150000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 165000,
+      "createdAt": "2026-06-16T19:05:00"
+    },
+    {
+      "id": 25,
+      "movieId": 30,
+      "showtimeId": 776,
+      "cinemaId": 11,
+      "roomId": 22,
+      "seats": [
+        "B2",
+        "F10",
+        "G10",
+        "I4"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 2,
+        "couple": 1
+      },
+      "concessions": {
+        "2": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 18,
+      "userName": "Dương Hải Đăng",
+      "seatTotal": 495000,
+      "fnbTotal": 318000,
+      "serviceFee": 15000,
+      "totalPrice": 828000,
+      "createdAt": "2026-06-21T13:05:00"
+    },
+    {
+      "id": 26,
+      "movieId": 18,
+      "showtimeId": 434,
+      "cinemaId": 6,
+      "roomId": 12,
+      "seats": [
+        "G10"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 18,
+      "userName": "Dương Hải Đăng",
+      "seatTotal": 156000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 171000,
+      "createdAt": "2026-07-01T10:58:00"
+    },
+    {
+      "id": 27,
+      "movieId": 39,
+      "showtimeId": 344,
+      "cinemaId": 5,
+      "roomId": 9,
+      "seats": [
+        "C2"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 23,
+      "userName": "Hồ Yến Nhi",
+      "seatTotal": 75000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 90000,
+      "createdAt": "2026-06-20T18:58:00"
+    },
+    {
+      "id": 28,
+      "movieId": 31,
+      "showtimeId": 299,
+      "cinemaId": 4,
+      "roomId": 8,
+      "seats": [
+        "A7"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "5": 1
+      },
+      "paymentMethod": "card",
+      "userId": 15,
+      "userName": "Trịnh Khánh Vy",
+      "seatTotal": 120000,
+      "fnbTotal": 49000,
+      "serviceFee": 15000,
+      "totalPrice": 184000,
+      "createdAt": "2026-07-11T17:58:00"
+    },
+    {
+      "id": 29,
+      "movieId": 11,
+      "showtimeId": 834,
+      "cinemaId": 12,
+      "roomId": 23,
+      "seats": [
+        "C10",
+        "C3"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "3": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 17,
+      "userName": "Võ Thị Kim Ngân",
+      "seatTotal": 150000,
+      "fnbTotal": 130000,
+      "serviceFee": 15000,
+      "totalPrice": 295000,
+      "createdAt": "2026-06-21T20:30:00"
+    },
+    {
+      "id": 30,
+      "movieId": 3,
+      "showtimeId": 200,
+      "cinemaId": 3,
+      "roomId": 5,
+      "seats": [
+        "A8"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "4": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 3,
+      "userName": "Dương Quang Minh",
+      "seatTotal": 75000,
+      "fnbTotal": 110000,
+      "serviceFee": 15000,
+      "totalPrice": 200000,
+      "createdAt": "2026-06-28T08:58:00"
+    },
+    {
+      "id": 31,
+      "movieId": 29,
+      "showtimeId": 152,
+      "cinemaId": 2,
+      "roomId": 3,
+      "seats": [
+        "A7",
+        "E10"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 26,
+      "userName": "Trương Công Định",
+      "seatTotal": 173000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 188000,
+      "createdAt": "2026-06-16T10:58:00"
+    },
+    {
+      "id": 32,
+      "movieId": 11,
+      "showtimeId": 797,
+      "cinemaId": 11,
+      "roomId": 22,
+      "seats": [
+        "C2",
+        "D12",
+        "F10"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 14,
+      "userName": "Lý Gia Bảo",
+      "seatTotal": 314000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 329000,
+      "createdAt": "2026-06-24T16:42:00"
+    },
+    {
+      "id": 33,
+      "movieId": 3,
+      "showtimeId": 348,
+      "cinemaId": 5,
+      "roomId": 9,
+      "seats": [
+        "C4",
+        "D7",
+        "E1"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "seatTotal": 248000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 263000,
+      "createdAt": "2026-06-23T17:17:00"
+    },
+    {
+      "id": 34,
+      "movieId": 12,
+      "showtimeId": 613,
+      "cinemaId": 9,
+      "roomId": 17,
+      "seats": [
+        "B6",
+        "B7",
+        "D8",
+        "F7"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "6": 2,
+        "11": 2
+      },
+      "paymentMethod": "card",
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "seatTotal": 323000,
+      "fnbTotal": 142000,
+      "serviceFee": 15000,
+      "totalPrice": 480000,
+      "createdAt": "2026-07-06T11:17:00"
+    },
+    {
+      "id": 35,
+      "movieId": 15,
+      "showtimeId": 64,
+      "cinemaId": 1,
+      "roomId": 1,
+      "seats": [
+        "A9",
+        "E2"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "3": 2,
+        "10": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 26,
+      "userName": "Trương Công Định",
+      "seatTotal": 173000,
+      "fnbTotal": 189000,
+      "serviceFee": 15000,
+      "totalPrice": 377000,
+      "createdAt": "2026-06-24T14:42:00"
+    },
+    {
+      "id": 36,
+      "movieId": 40,
+      "showtimeId": 638,
+      "cinemaId": 9,
+      "roomId": 18,
+      "seats": [
+        "C7",
+        "H10",
+        "H11",
+        "J7"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 2,
+        "couple": 1
+      },
+      "paymentMethod": "card",
+      "userId": 8,
+      "userName": "Vũ Đức Anh",
+      "seatTotal": 624000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 639000,
+      "createdAt": "2026-06-21T16:17:00"
+    },
+    {
+      "id": 37,
+      "movieId": 3,
+      "showtimeId": 163,
+      "cinemaId": 2,
+      "roomId": 4,
+      "seats": [
+        "A8",
+        "D2",
+        "E4",
+        "F3"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 2,
+        "couple": 0
+      },
+      "concessions": {
+        "6": 2
+      },
+      "paymentMethod": "card",
+      "userId": 12,
+      "userName": "Hoàng Minh Tuấn",
+      "seatTotal": 438000,
+      "fnbTotal": 64000,
+      "serviceFee": 15000,
+      "totalPrice": 517000,
+      "createdAt": "2026-06-25T09:58:00"
+    },
+    {
+      "id": 38,
+      "movieId": 7,
+      "showtimeId": 534,
+      "cinemaId": 8,
+      "roomId": 15,
+      "seats": [
+        "B10",
+        "B12"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 12,
+      "userName": "Hoàng Minh Tuấn",
+      "seatTotal": 150000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 165000,
+      "createdAt": "2026-06-24T22:42:00"
+    },
+    {
+      "id": 39,
+      "movieId": 4,
+      "showtimeId": 531,
+      "cinemaId": 8,
+      "roomId": 15,
+      "seats": [
+        "G5"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "2": 1,
+        "6": 1
+      },
+      "paymentMethod": "card",
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "seatTotal": 75000,
+      "fnbTotal": 191000,
+      "serviceFee": 15000,
+      "totalPrice": 281000,
+      "createdAt": "2026-07-11T22:58:00"
+    },
+    {
+      "id": 40,
+      "movieId": 15,
+      "showtimeId": 394,
+      "cinemaId": 6,
+      "roomId": 11,
+      "seats": [
+        "C1",
+        "C10",
+        "D2",
+        "F6"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "12": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 18,
+      "userName": "Dương Hải Đăng",
+      "seatTotal": 323000,
+      "fnbTotal": 56000,
+      "serviceFee": 15000,
+      "totalPrice": 394000,
+      "createdAt": "2026-06-27T17:58:00"
+    },
+    {
+      "id": 41,
+      "movieId": 35,
+      "showtimeId": 855,
+      "cinemaId": 12,
+      "roomId": 24,
+      "seats": [
+        "C9",
+        "D3"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "3": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "seatTotal": 190000,
+      "fnbTotal": 65000,
+      "serviceFee": 15000,
+      "totalPrice": 270000,
+      "createdAt": "2026-07-08T20:05:00"
+    },
+    {
+      "id": 42,
+      "movieId": 12,
+      "showtimeId": 209,
+      "cinemaId": 3,
+      "roomId": 5,
+      "seats": [
+        "F10",
+        "F11"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 2,
+        "couple": 0
+      },
+      "concessions": {
+        "12": 2,
+        "13": 1
+      },
+      "paymentMethod": "card",
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "seatTotal": 196000,
+      "fnbTotal": 98000,
+      "serviceFee": 15000,
+      "totalPrice": 309000,
+      "createdAt": "2026-06-18T14:17:00"
+    },
+    {
+      "id": 43,
+      "movieId": 40,
+      "showtimeId": 456,
+      "cinemaId": 6,
+      "roomId": 12,
+      "seats": [
+        "H13",
+        "I4",
+        "I9"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "7": 2,
+        "12": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 20,
+      "userName": "Chu Việt Hùng",
+      "seatTotal": 396000,
+      "fnbTotal": 96000,
+      "serviceFee": 15000,
+      "totalPrice": 507000,
+      "createdAt": "2026-07-05T18:30:00"
+    },
+    {
+      "id": 44,
+      "movieId": 11,
+      "showtimeId": 760,
+      "cinemaId": 11,
+      "roomId": 21,
+      "seats": [
+        "D11",
+        "G2"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "1": 2
+      },
+      "paymentMethod": "card",
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "seatTotal": 150000,
+      "fnbTotal": 178000,
+      "serviceFee": 15000,
+      "totalPrice": 343000,
+      "createdAt": "2026-06-25T18:17:00"
+    },
+    {
+      "id": 45,
+      "movieId": 9,
+      "showtimeId": 462,
+      "cinemaId": 7,
+      "roomId": 13,
+      "seats": [
+        "C5",
+        "C8",
+        "D10"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 26,
+      "userName": "Trương Công Định",
+      "seatTotal": 225000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 240000,
+      "createdAt": "2026-06-19T08:17:00"
+    },
+    {
+      "id": 46,
+      "movieId": 22,
+      "showtimeId": 623,
+      "cinemaId": 9,
+      "roomId": 17,
+      "seats": [
+        "B7",
+        "G1"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "6": 2,
+        "10": 2
+      },
+      "paymentMethod": "card",
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "seatTotal": 150000,
+      "fnbTotal": 182000,
+      "serviceFee": 15000,
+      "totalPrice": 347000,
+      "createdAt": "2026-06-30T22:42:00"
+    },
+    {
+      "id": 47,
+      "movieId": 16,
+      "showtimeId": 765,
+      "cinemaId": 11,
+      "roomId": 21,
+      "seats": [
+        "A6",
+        "B10",
+        "C11"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "9": 2,
+        "14": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 7,
+      "userName": "Phạm Thu Hà",
+      "seatTotal": 225000,
+      "fnbTotal": 548000,
+      "serviceFee": 15000,
+      "totalPrice": 788000,
+      "createdAt": "2026-06-24T09:30:00"
+    },
+    {
+      "id": 48,
+      "movieId": 15,
+      "showtimeId": 138,
+      "cinemaId": 2,
+      "roomId": 3,
+      "seats": [
+        "E12"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 18,
+      "userName": "Dương Hải Đăng",
+      "seatTotal": 98000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 113000,
+      "createdAt": "2026-06-27T21:42:00"
+    },
+    {
+      "id": 49,
+      "movieId": 22,
+      "showtimeId": 108,
+      "cinemaId": 1,
+      "roomId": 2,
+      "seats": [
+        "D12",
+        "E12",
+        "E13",
+        "E9"
+      ],
+      "seatTypes": {
+        "standard": 4,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 20,
+      "userName": "Chu Việt Hùng",
+      "seatTotal": 480000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 495000,
+      "createdAt": "2026-06-24T22:58:00"
+    },
+    {
+      "id": 50,
+      "movieId": 33,
+      "showtimeId": 227,
+      "cinemaId": 3,
+      "roomId": 6,
+      "seats": [
+        "C10",
+        "C5",
+        "G12"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "9": 1
+      },
+      "paymentMethod": "card",
+      "userId": 24,
+      "userName": "Nguyễn Tiến Đạt",
+      "seatTotal": 314000,
+      "fnbTotal": 219000,
+      "serviceFee": 15000,
+      "totalPrice": 548000,
+      "createdAt": "2026-07-01T13:05:00"
+    },
+    {
+      "id": 51,
+      "movieId": 33,
+      "showtimeId": 82,
+      "cinemaId": 1,
+      "roomId": 1,
+      "seats": [
+        "A9"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "9": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 19,
+      "userName": "Tạ Phương Thảo",
+      "seatTotal": 75000,
+      "fnbTotal": 219000,
+      "serviceFee": 15000,
+      "totalPrice": 309000,
+      "createdAt": "2026-06-26T08:17:00"
+    },
+    {
+      "id": 52,
+      "movieId": 14,
+      "showtimeId": 100,
+      "cinemaId": 1,
+      "roomId": 2,
+      "seats": [
+        "D1",
+        "G12",
+        "G14",
+        "H9"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 3,
+        "couple": 0
+      },
+      "concessions": {
+        "9": 1
+      },
+      "paymentMethod": "card",
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "seatTotal": 588000,
+      "fnbTotal": 219000,
+      "serviceFee": 15000,
+      "totalPrice": 822000,
+      "createdAt": "2026-07-06T16:30:00"
+    },
+    {
+      "id": 53,
+      "movieId": 18,
+      "showtimeId": 656,
+      "cinemaId": 9,
+      "roomId": 18,
+      "seats": [
+        "D9",
+        "E10",
+        "I7"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "12": 1
+      },
+      "paymentMethod": "card",
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "seatTotal": 360000,
+      "fnbTotal": 28000,
+      "serviceFee": 15000,
+      "totalPrice": 403000,
+      "createdAt": "2026-07-06T11:58:00"
+    },
+    {
+      "id": 54,
+      "movieId": 28,
+      "showtimeId": 592,
+      "cinemaId": 8,
+      "roomId": 16,
+      "seats": [
+        "G11",
+        "G6",
+        "H8"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 2,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "seatTotal": 343000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 358000,
+      "createdAt": "2026-07-04T09:30:00"
+    },
+    {
+      "id": 55,
+      "movieId": 14,
+      "showtimeId": 285,
+      "cinemaId": 4,
+      "roomId": 7,
+      "seats": [
+        "A3",
+        "C3",
+        "C8"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "14": 1
+      },
+      "paymentMethod": "card",
+      "userId": 23,
+      "userName": "Hồ Yến Nhi",
+      "seatTotal": 285000,
+      "fnbTotal": 55000,
+      "serviceFee": 15000,
+      "totalPrice": 355000,
+      "createdAt": "2026-06-21T10:58:00"
+    },
+    {
+      "id": 56,
+      "movieId": 26,
+      "showtimeId": 516,
+      "cinemaId": 7,
+      "roomId": 14,
+      "seats": [
+        "G2",
+        "H3"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 1
+      },
+      "concessions": {
+        "2": 2,
+        "10": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "seatTotal": 276000,
+      "fnbTotal": 436000,
+      "serviceFee": 15000,
+      "totalPrice": 727000,
+      "createdAt": "2026-06-20T19:30:00"
+    },
+    {
+      "id": 57,
+      "movieId": 4,
+      "showtimeId": 386,
+      "cinemaId": 5,
+      "roomId": 10,
+      "seats": [
+        "G8"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "10": 1
+      },
+      "paymentMethod": "card",
+      "userId": 18,
+      "userName": "Dương Hải Đăng",
+      "seatTotal": 124000,
+      "fnbTotal": 59000,
+      "serviceFee": 15000,
+      "totalPrice": 198000,
+      "createdAt": "2026-07-03T08:05:00"
+    },
+    {
+      "id": 58,
+      "movieId": 21,
+      "showtimeId": 255,
+      "cinemaId": 3,
+      "roomId": 6,
+      "seats": [
+        "C7"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "5": 1,
+        "7": 1
+      },
+      "paymentMethod": "card",
+      "userId": 21,
+      "userName": "Mai Thị Lan",
+      "seatTotal": 95000,
+      "fnbTotal": 69000,
+      "serviceFee": 15000,
+      "totalPrice": 179000,
+      "createdAt": "2026-07-08T12:05:00"
+    },
+    {
+      "id": 59,
+      "movieId": 15,
+      "showtimeId": 431,
+      "cinemaId": 6,
+      "roomId": 12,
+      "seats": [
+        "D5",
+        "F5",
+        "G10",
+        "G2"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 3,
+        "couple": 0
+      },
+      "concessions": {
+        "12": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 27,
+      "userName": "Kiều Thị Diễm",
+      "seatTotal": 588000,
+      "fnbTotal": 56000,
+      "serviceFee": 15000,
+      "totalPrice": 659000,
+      "createdAt": "2026-06-22T14:30:00"
+    },
+    {
+      "id": 60,
+      "movieId": 2,
+      "showtimeId": 677,
+      "cinemaId": 10,
+      "roomId": 19,
+      "seats": [
+        "D1",
+        "F5"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 26,
+      "userName": "Trương Công Định",
+      "seatTotal": 219000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 234000,
+      "createdAt": "2026-07-08T14:58:00"
+    },
+    {
+      "id": 61,
+      "movieId": 37,
+      "showtimeId": 379,
+      "cinemaId": 5,
+      "roomId": 10,
+      "seats": [
+        "A7"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "seatTotal": 95000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 110000,
+      "createdAt": "2026-07-13T14:17:00"
+    },
+    {
+      "id": 62,
+      "movieId": 28,
+      "showtimeId": 481,
+      "cinemaId": 7,
+      "roomId": 13,
+      "seats": [
+        "C3",
+        "D10",
+        "E6",
+        "G11"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "4": 2,
+        "10": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 22,
+      "userName": "Đinh Bá Lộc",
+      "seatTotal": 323000,
+      "fnbTotal": 169000,
+      "serviceFee": 15000,
+      "totalPrice": 507000,
+      "createdAt": "2026-07-07T08:58:00"
+    },
+    {
+      "id": 63,
+      "movieId": 20,
+      "showtimeId": 325,
+      "cinemaId": 5,
+      "roomId": 9,
+      "seats": [
+        "B2",
+        "B7",
+        "C3",
+        "E11"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "4": 1
+      },
+      "paymentMethod": "card",
+      "userId": 19,
+      "userName": "Tạ Phương Thảo",
+      "seatTotal": 323000,
+      "fnbTotal": 55000,
+      "serviceFee": 15000,
+      "totalPrice": 393000,
+      "createdAt": "2026-07-05T15:05:00"
+    },
+    {
+      "id": 64,
+      "movieId": 17,
+      "showtimeId": 692,
+      "cinemaId": 10,
+      "roomId": 19,
+      "seats": [
+        "A8",
+        "B11",
+        "E3",
+        "G5"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 2,
+        "couple": 0
+      },
+      "concessions": {
+        "5": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "seatTotal": 438000,
+      "fnbTotal": 49000,
+      "serviceFee": 15000,
+      "totalPrice": 502000,
+      "createdAt": "2026-07-07T08:58:00"
+    },
+    {
+      "id": 65,
+      "movieId": 22,
+      "showtimeId": 623,
+      "cinemaId": 9,
+      "roomId": 17,
+      "seats": [
+        "H6",
+        "H8"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "4": 2,
+        "6": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 17,
+      "userName": "Võ Thị Kim Ngân",
+      "seatTotal": 150000,
+      "fnbTotal": 174000,
+      "serviceFee": 15000,
+      "totalPrice": 339000,
+      "createdAt": "2026-06-21T22:17:00"
+    },
+    {
+      "id": 66,
+      "movieId": 37,
+      "showtimeId": 820,
+      "cinemaId": 12,
+      "roomId": 23,
+      "seats": [
+        "E1",
+        "G5"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "1": 2,
+        "10": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 7,
+      "userName": "Phạm Thu Hà",
+      "seatTotal": 173000,
+      "fnbTotal": 296000,
+      "serviceFee": 15000,
+      "totalPrice": 484000,
+      "createdAt": "2026-07-04T19:42:00"
+    },
+    {
+      "id": 67,
+      "movieId": 2,
+      "showtimeId": 236,
+      "cinemaId": 3,
+      "roomId": 6,
+      "seats": [
+        "A10",
+        "D8",
+        "H8"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "3": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 27,
+      "userName": "Kiều Thị Diễm",
+      "seatTotal": 285000,
+      "fnbTotal": 65000,
+      "serviceFee": 15000,
+      "totalPrice": 365000,
+      "createdAt": "2026-06-26T17:05:00"
+    },
+    {
+      "id": 68,
+      "movieId": 3,
+      "showtimeId": 789,
+      "cinemaId": 11,
+      "roomId": 22,
+      "seats": [
+        "A4",
+        "B4",
+        "C5",
+        "D7"
+      ],
+      "seatTypes": {
+        "standard": 4,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "13": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "seatTotal": 380000,
+      "fnbTotal": 84000,
+      "serviceFee": 15000,
+      "totalPrice": 479000,
+      "createdAt": "2026-06-22T08:58:00"
+    },
+    {
+      "id": 69,
+      "movieId": 3,
+      "showtimeId": 237,
+      "cinemaId": 3,
+      "roomId": 6,
+      "seats": [
+        "A6",
+        "E4",
+        "G2"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 2,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 18,
+      "userName": "Dương Hải Đăng",
+      "seatTotal": 343000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 358000,
+      "createdAt": "2026-07-08T12:05:00"
+    },
+    {
+      "id": 70,
+      "movieId": 9,
+      "showtimeId": 95,
+      "cinemaId": 1,
+      "roomId": 2,
+      "seats": [
+        "F9",
+        "J7"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 1
+      },
+      "concessions": {
+        "4": 1,
+        "6": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 24,
+      "userName": "Nguyễn Tiến Đạt",
+      "seatTotal": 348000,
+      "fnbTotal": 119000,
+      "serviceFee": 15000,
+      "totalPrice": 482000,
+      "createdAt": "2026-06-25T20:17:00"
+    },
+    {
+      "id": 71,
+      "movieId": 21,
+      "showtimeId": 844,
+      "cinemaId": 12,
+      "roomId": 23,
+      "seats": [
+        "B8",
+        "C5",
+        "F2"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "14": 1
+      },
+      "paymentMethod": "card",
+      "userId": 20,
+      "userName": "Chu Việt Hùng",
+      "seatTotal": 248000,
+      "fnbTotal": 55000,
+      "serviceFee": 15000,
+      "totalPrice": 318000,
+      "createdAt": "2026-06-21T16:42:00"
+    },
+    {
+      "id": 72,
+      "movieId": 28,
+      "showtimeId": 703,
+      "cinemaId": 10,
+      "roomId": 19,
+      "seats": [
+        "B10"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "5": 2
+      },
+      "paymentMethod": "card",
+      "userId": 12,
+      "userName": "Hoàng Minh Tuấn",
+      "seatTotal": 95000,
+      "fnbTotal": 98000,
+      "serviceFee": 15000,
+      "totalPrice": 208000,
+      "createdAt": "2026-06-22T12:05:00"
+    },
+    {
+      "id": 73,
+      "movieId": 23,
+      "showtimeId": 109,
+      "cinemaId": 1,
+      "roomId": 2,
+      "seats": [
+        "C9"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "13": 1
+      },
+      "paymentMethod": "card",
+      "userId": 6,
+      "userName": "Lê Hoàng Nam",
+      "seatTotal": 120000,
+      "fnbTotal": 42000,
+      "serviceFee": 15000,
+      "totalPrice": 177000,
+      "createdAt": "2026-06-18T17:42:00"
+    },
+    {
+      "id": 74,
+      "movieId": 27,
+      "showtimeId": 665,
+      "cinemaId": 9,
+      "roomId": 18,
+      "seats": [
+        "D6",
+        "I10",
+        "I13"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "4": 1,
+        "10": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 20,
+      "userName": "Chu Việt Hùng",
+      "seatTotal": 360000,
+      "fnbTotal": 173000,
+      "serviceFee": 15000,
+      "totalPrice": 548000,
+      "createdAt": "2026-07-06T10:17:00"
+    },
+    {
+      "id": 75,
+      "movieId": 23,
+      "showtimeId": 183,
+      "cinemaId": 2,
+      "roomId": 4,
+      "seats": [
+        "A9",
+        "H2"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "7": 2,
+        "13": 2
+      },
+      "paymentMethod": "card",
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "seatTotal": 190000,
+      "fnbTotal": 124000,
+      "serviceFee": 15000,
+      "totalPrice": 329000,
+      "createdAt": "2026-07-12T18:58:00"
+    },
+    {
+      "id": 76,
+      "movieId": 1,
+      "showtimeId": 457,
+      "cinemaId": 6,
+      "roomId": 12,
+      "seats": [
+        "A11",
+        "D2",
+        "E11"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "7": 1,
+        "9": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "seatTotal": 360000,
+      "fnbTotal": 458000,
+      "serviceFee": 15000,
+      "totalPrice": 833000,
+      "createdAt": "2026-07-02T21:58:00"
+    },
+    {
+      "id": 77,
+      "movieId": 15,
+      "showtimeId": 505,
+      "cinemaId": 7,
+      "roomId": 14,
+      "seats": [
+        "H5"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 0,
+        "couple": 1
+      },
+      "concessions": {
+        "14": 2
+      },
+      "paymentMethod": "card",
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "seatTotal": 152000,
+      "fnbTotal": 110000,
+      "serviceFee": 15000,
+      "totalPrice": 277000,
+      "createdAt": "2026-06-15T08:42:00"
+    },
+    {
+      "id": 78,
+      "movieId": 17,
+      "showtimeId": 692,
+      "cinemaId": 10,
+      "roomId": 19,
+      "seats": [
+        "F8"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 30,
+      "userName": "Cao Mỹ Duyên",
+      "seatTotal": 124000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 139000,
+      "createdAt": "2026-06-18T15:17:00"
+    },
+    {
+      "id": 79,
+      "movieId": 2,
+      "showtimeId": 603,
+      "cinemaId": 9,
+      "roomId": 17,
+      "seats": [
+        "A1",
+        "B1",
+        "D9",
+        "F8"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "8": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 21,
+      "userName": "Mai Thị Lan",
+      "seatTotal": 323000,
+      "fnbTotal": 35000,
+      "serviceFee": 15000,
+      "totalPrice": 373000,
+      "createdAt": "2026-06-28T22:30:00"
+    },
+    {
+      "id": 80,
+      "movieId": 14,
+      "showtimeId": 652,
+      "cinemaId": 9,
+      "roomId": 18,
+      "seats": [
+        "A3",
+        "A6",
+        "H10"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "13": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "seatTotal": 396000,
+      "fnbTotal": 84000,
+      "serviceFee": 15000,
+      "totalPrice": 495000,
+      "createdAt": "2026-06-29T20:17:00"
+    },
+    {
+      "id": 81,
+      "movieId": 17,
+      "showtimeId": 840,
+      "cinemaId": 12,
+      "roomId": 23,
+      "seats": [
+        "A10",
+        "C12",
+        "D11"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 13,
+      "userName": "Đặng Thị Hương",
+      "seatTotal": 225000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 240000,
+      "createdAt": "2026-07-01T15:05:00"
+    },
+    {
+      "id": 82,
+      "movieId": 4,
+      "showtimeId": 90,
+      "cinemaId": 1,
+      "roomId": 2,
+      "seats": [
+        "C7"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "5": 1,
+        "9": 1
+      },
+      "paymentMethod": "card",
+      "userId": 23,
+      "userName": "Hồ Yến Nhi",
+      "seatTotal": 120000,
+      "fnbTotal": 268000,
+      "serviceFee": 15000,
+      "totalPrice": 403000,
+      "createdAt": "2026-07-05T08:30:00"
+    },
+    {
+      "id": 83,
+      "movieId": 15,
+      "showtimeId": 394,
+      "cinemaId": 6,
+      "roomId": 11,
+      "seats": [
+        "D10"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 21,
+      "userName": "Mai Thị Lan",
+      "seatTotal": 75000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 90000,
+      "createdAt": "2026-07-01T15:17:00"
+    },
+    {
+      "id": 84,
+      "movieId": 29,
+      "showtimeId": 593,
+      "cinemaId": 8,
+      "roomId": 16,
+      "seats": [
+        "C5",
+        "E10",
+        "F12",
+        "G12"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 2,
+        "couple": 0
+      },
+      "concessions": {
+        "4": 2,
+        "6": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 13,
+      "userName": "Đặng Thị Hương",
+      "seatTotal": 438000,
+      "fnbTotal": 142000,
+      "serviceFee": 15000,
+      "totalPrice": 595000,
+      "createdAt": "2026-07-07T20:17:00"
+    },
+    {
+      "id": 85,
+      "movieId": 31,
+      "showtimeId": 299,
+      "cinemaId": 4,
+      "roomId": 8,
+      "seats": [
+        "D10",
+        "E11",
+        "F14",
+        "G11"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 2,
+        "couple": 0
+      },
+      "concessions": {
+        "14": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 14,
+      "userName": "Lý Gia Bảo",
+      "seatTotal": 552000,
+      "fnbTotal": 110000,
+      "serviceFee": 15000,
+      "totalPrice": 677000,
+      "createdAt": "2026-06-19T20:42:00"
+    },
+    {
+      "id": 86,
+      "movieId": 19,
+      "showtimeId": 179,
+      "cinemaId": 2,
+      "roomId": 4,
+      "seats": [
+        "B8",
+        "D3"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "4": 2,
+        "11": 1
+      },
+      "paymentMethod": "card",
+      "userId": 7,
+      "userName": "Phạm Thu Hà",
+      "seatTotal": 190000,
+      "fnbTotal": 149000,
+      "serviceFee": 15000,
+      "totalPrice": 354000,
+      "createdAt": "2026-07-07T11:42:00"
+    },
+    {
+      "id": 87,
+      "movieId": 36,
+      "showtimeId": 819,
+      "cinemaId": 12,
+      "roomId": 23,
+      "seats": [
+        "B12",
+        "C9",
+        "G8",
+        "H5"
+      ],
+      "seatTypes": {
+        "standard": 4,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 9,
+      "userName": "Đỗ Ngọc Linh",
+      "seatTotal": 300000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 315000,
+      "createdAt": "2026-06-14T16:17:00"
+    },
+    {
+      "id": 88,
+      "movieId": 29,
+      "showtimeId": 297,
+      "cinemaId": 4,
+      "roomId": 8,
+      "seats": [
+        "C4",
+        "D2",
+        "G4",
+        "I7"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "seatTotal": 516000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 531000,
+      "createdAt": "2026-06-23T15:30:00"
+    },
+    {
+      "id": 89,
+      "movieId": 7,
+      "showtimeId": 497,
+      "cinemaId": 7,
+      "roomId": 14,
+      "seats": [
+        "D1",
+        "G11",
+        "G7",
+        "H5"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 2,
+        "couple": 1
+      },
+      "concessions": {
+        "9": 1,
+        "10": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "seatTotal": 495000,
+      "fnbTotal": 337000,
+      "serviceFee": 15000,
+      "totalPrice": 847000,
+      "createdAt": "2026-06-30T21:42:00"
+    },
+    {
+      "id": 90,
+      "movieId": 10,
+      "showtimeId": 33,
+      "cinemaId": 4,
+      "roomId": 7,
+      "seats": [
+        "C6",
+        "D3",
+        "F4",
+        "F6"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 2,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "seatTotal": 414000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 429000,
+      "createdAt": "2026-06-18T09:58:00"
+    },
+    {
+      "id": 91,
+      "movieId": 10,
+      "showtimeId": 870,
+      "cinemaId": 12,
+      "roomId": 24,
+      "seats": [
+        "D5",
+        "E1",
+        "G3"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 2,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 22,
+      "userName": "Đinh Bá Lộc",
+      "seatTotal": 343000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 358000,
+      "createdAt": "2026-07-11T22:42:00"
+    },
+    {
+      "id": 92,
+      "movieId": 39,
+      "showtimeId": 233,
+      "cinemaId": 3,
+      "roomId": 6,
+      "seats": [
+        "C5",
+        "F3",
+        "G9"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 2,
+        "couple": 0
+      },
+      "concessions": {
+        "12": 1,
+        "13": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 20,
+      "userName": "Chu Việt Hùng",
+      "seatTotal": 343000,
+      "fnbTotal": 112000,
+      "serviceFee": 15000,
+      "totalPrice": 470000,
+      "createdAt": "2026-07-01T13:05:00"
+    },
+    {
+      "id": 93,
+      "movieId": 38,
+      "showtimeId": 232,
+      "cinemaId": 3,
+      "roomId": 6,
+      "seats": [
+        "A10",
+        "C12"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "8": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "seatTotal": 190000,
+      "fnbTotal": 70000,
+      "serviceFee": 15000,
+      "totalPrice": 275000,
+      "createdAt": "2026-07-10T20:58:00"
+    },
+    {
+      "id": 94,
+      "movieId": 3,
+      "showtimeId": 789,
+      "cinemaId": 11,
+      "roomId": 22,
+      "seats": [
+        "A12"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 17,
+      "userName": "Võ Thị Kim Ngân",
+      "seatTotal": 95000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 110000,
+      "createdAt": "2026-07-08T18:17:00"
+    },
+    {
+      "id": 95,
+      "movieId": 16,
+      "showtimeId": 506,
+      "cinemaId": 7,
+      "roomId": 14,
+      "seats": [
+        "C9",
+        "F7"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 16,
+      "userName": "Phan Trọng Nghĩa",
+      "seatTotal": 219000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 234000,
+      "createdAt": "2026-06-27T10:30:00"
+    },
+    {
+      "id": 96,
+      "movieId": 15,
+      "showtimeId": 579,
+      "cinemaId": 8,
+      "roomId": 16,
+      "seats": [
+        "D12",
+        "E7",
+        "H2",
+        "H8"
+      ],
+      "seatTypes": {
+        "standard": 4,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "seatTotal": 380000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 395000,
+      "createdAt": "2026-06-15T15:30:00"
+    },
+    {
+      "id": 97,
+      "movieId": 18,
+      "showtimeId": 878,
+      "cinemaId": 12,
+      "roomId": 24,
+      "seats": [
+        "A5",
+        "H2",
+        "H3"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 2
+      },
+      "concessions": {
+        "5": 1
+      },
+      "paymentMethod": "card",
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "seatTotal": 399000,
+      "fnbTotal": 49000,
+      "serviceFee": 15000,
+      "totalPrice": 463000,
+      "createdAt": "2026-07-01T10:17:00"
+    },
+    {
+      "id": 98,
+      "movieId": 27,
+      "showtimeId": 702,
+      "cinemaId": 10,
+      "roomId": 19,
+      "seats": [
+        "E5"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "7": 2,
+        "9": 2
+      },
+      "paymentMethod": "card",
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "seatTotal": 124000,
+      "fnbTotal": 478000,
+      "serviceFee": 15000,
+      "totalPrice": 617000,
+      "createdAt": "2026-07-04T19:17:00"
+    },
+    {
+      "id": 99,
+      "movieId": 7,
+      "showtimeId": 241,
+      "cinemaId": 3,
+      "roomId": 6,
+      "seats": [
+        "G3"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 15,
+      "userName": "Trịnh Khánh Vy",
+      "seatTotal": 124000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 139000,
+      "createdAt": "2026-06-18T16:17:00"
+    },
+    {
+      "id": 100,
+      "movieId": 32,
+      "showtimeId": 596,
+      "cinemaId": 8,
+      "roomId": 16,
+      "seats": [
+        "A9",
+        "G2",
+        "G8"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 2,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 8,
+      "userName": "Vũ Đức Anh",
+      "seatTotal": 343000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 358000,
+      "createdAt": "2026-07-09T19:58:00"
+    },
+    {
+      "id": 101,
+      "movieId": 11,
+      "showtimeId": 797,
+      "cinemaId": 11,
+      "roomId": 22,
+      "seats": [
+        "C12",
+        "C9",
+        "E10"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "14": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 21,
+      "userName": "Mai Thị Lan",
+      "seatTotal": 285000,
+      "fnbTotal": 110000,
+      "serviceFee": 15000,
+      "totalPrice": 410000,
+      "createdAt": "2026-07-03T16:42:00"
+    },
+    {
+      "id": 102,
+      "movieId": 12,
+      "showtimeId": 835,
+      "cinemaId": 12,
+      "roomId": 23,
+      "seats": [
+        "D11",
+        "D3",
+        "G5",
+        "H9"
+      ],
+      "seatTypes": {
+        "standard": 4,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "14": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "seatTotal": 300000,
+      "fnbTotal": 55000,
+      "serviceFee": 15000,
+      "totalPrice": 370000,
+      "createdAt": "2026-07-08T19:05:00"
+    },
+    {
+      "id": 103,
+      "movieId": 12,
+      "showtimeId": 320,
+      "cinemaId": 4,
+      "roomId": 8,
+      "seats": [
+        "A3",
+        "C6",
+        "H3"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "seatTotal": 396000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 411000,
+      "createdAt": "2026-07-07T15:30:00"
+    },
+    {
+      "id": 104,
+      "movieId": 15,
+      "showtimeId": 468,
+      "cinemaId": 7,
+      "roomId": 13,
+      "seats": [
+        "B6",
+        "C6"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "5": 2,
+        "12": 1
+      },
+      "paymentMethod": "card",
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "seatTotal": 150000,
+      "fnbTotal": 126000,
+      "serviceFee": 15000,
+      "totalPrice": 291000,
+      "createdAt": "2026-07-05T14:05:00"
+    },
+    {
+      "id": 105,
+      "movieId": 32,
+      "showtimeId": 226,
+      "cinemaId": 3,
+      "roomId": 6,
+      "seats": [
+        "C11"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 27,
+      "userName": "Kiều Thị Diễm",
+      "seatTotal": 95000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 110000,
+      "createdAt": "2026-06-16T19:05:00"
+    },
+    {
+      "id": 106,
+      "movieId": 27,
+      "showtimeId": 76,
+      "cinemaId": 1,
+      "roomId": 1,
+      "seats": [
+        "G5"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "6": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "seatTotal": 75000,
+      "fnbTotal": 64000,
+      "serviceFee": 15000,
+      "totalPrice": 154000,
+      "createdAt": "2026-06-16T10:05:00"
+    },
+    {
+      "id": 107,
+      "movieId": 21,
+      "showtimeId": 585,
+      "cinemaId": 8,
+      "roomId": 16,
+      "seats": [
+        "C1",
+        "D8",
+        "F7",
+        "G5"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 2,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "seatTotal": 438000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 453000,
+      "createdAt": "2026-06-27T13:05:00"
+    },
+    {
+      "id": 108,
+      "movieId": 31,
+      "showtimeId": 814,
+      "cinemaId": 12,
+      "roomId": 23,
+      "seats": [
+        "F10"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "12": 2
+      },
+      "paymentMethod": "card",
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "seatTotal": 98000,
+      "fnbTotal": 56000,
+      "serviceFee": 15000,
+      "totalPrice": 169000,
+      "createdAt": "2026-07-12T12:58:00"
+    },
+    {
+      "id": 109,
+      "movieId": 15,
+      "showtimeId": 47,
+      "cinemaId": 1,
+      "roomId": 1,
+      "seats": [
+        "B7"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "8": 2,
+        "9": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 13,
+      "userName": "Đặng Thị Hương",
+      "seatTotal": 75000,
+      "fnbTotal": 289000,
+      "serviceFee": 15000,
+      "totalPrice": 379000,
+      "createdAt": "2026-07-07T19:17:00"
+    },
+    {
+      "id": 110,
+      "movieId": 15,
+      "showtimeId": 64,
+      "cinemaId": 1,
+      "roomId": 1,
+      "seats": [
+        "D4"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "11": 2
+      },
+      "paymentMethod": "card",
+      "userId": 24,
+      "userName": "Nguyễn Tiến Đạt",
+      "seatTotal": 75000,
+      "fnbTotal": 78000,
+      "serviceFee": 15000,
+      "totalPrice": 168000,
+      "createdAt": "2026-07-08T19:17:00"
+    },
+    {
+      "id": 111,
+      "movieId": 11,
+      "showtimeId": 35,
+      "cinemaId": 5,
+      "roomId": 9,
+      "seats": [
+        "D2"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "1": 2,
+        "11": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 24,
+      "userName": "Nguyễn Tiến Đạt",
+      "seatTotal": 75000,
+      "fnbTotal": 256000,
+      "serviceFee": 15000,
+      "totalPrice": 346000,
+      "createdAt": "2026-07-06T18:42:00"
+    },
+    {
+      "id": 112,
+      "movieId": 4,
+      "showtimeId": 716,
+      "cinemaId": 10,
+      "roomId": 20,
+      "seats": [
+        "F11"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "4": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 19,
+      "userName": "Tạ Phương Thảo",
+      "seatTotal": 98000,
+      "fnbTotal": 110000,
+      "serviceFee": 15000,
+      "totalPrice": 223000,
+      "createdAt": "2026-06-22T09:42:00"
+    },
+    {
+      "id": 113,
+      "movieId": 36,
+      "showtimeId": 415,
+      "cinemaId": 6,
+      "roomId": 11,
+      "seats": [
+        "B7",
+        "D8",
+        "G5"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "5": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "seatTotal": 225000,
+      "fnbTotal": 98000,
+      "serviceFee": 15000,
+      "totalPrice": 338000,
+      "createdAt": "2026-06-26T10:42:00"
+    },
+    {
+      "id": 114,
+      "movieId": 14,
+      "showtimeId": 837,
+      "cinemaId": 12,
+      "roomId": 23,
+      "seats": [
+        "C5",
+        "E6",
+        "E8",
+        "H6"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 2,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 19,
+      "userName": "Tạ Phương Thảo",
+      "seatTotal": 346000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 361000,
+      "createdAt": "2026-06-25T09:42:00"
+    },
+    {
+      "id": 115,
+      "movieId": 27,
+      "showtimeId": 628,
+      "cinemaId": 9,
+      "roomId": 17,
+      "seats": [
+        "D11",
+        "F1",
+        "G12"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 20,
+      "userName": "Chu Việt Hùng",
+      "seatTotal": 248000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 263000,
+      "createdAt": "2026-06-17T13:17:00"
+    },
+    {
+      "id": 116,
+      "movieId": 23,
+      "showtimeId": 624,
+      "cinemaId": 9,
+      "roomId": 17,
+      "seats": [
+        "A4",
+        "B5",
+        "D1",
+        "E11"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "10": 2
+      },
+      "paymentMethod": "card",
+      "userId": 22,
+      "userName": "Đinh Bá Lộc",
+      "seatTotal": 323000,
+      "fnbTotal": 118000,
+      "serviceFee": 15000,
+      "totalPrice": 456000,
+      "createdAt": "2026-07-13T08:58:00"
+    },
+    {
+      "id": 117,
+      "movieId": 36,
+      "showtimeId": 782,
+      "cinemaId": 11,
+      "roomId": 22,
+      "seats": [
+        "F9"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "3": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 27,
+      "userName": "Kiều Thị Diễm",
+      "seatTotal": 124000,
+      "fnbTotal": 65000,
+      "serviceFee": 15000,
+      "totalPrice": 204000,
+      "createdAt": "2026-07-01T20:30:00"
+    },
+    {
+      "id": 118,
+      "movieId": 27,
+      "showtimeId": 258,
+      "cinemaId": 4,
+      "roomId": 7,
+      "seats": [
+        "D10",
+        "H9"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "seatTotal": 190000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 205000,
+      "createdAt": "2026-06-19T22:30:00"
+    },
+    {
+      "id": 119,
+      "movieId": 7,
+      "showtimeId": 719,
+      "cinemaId": 10,
+      "roomId": 20,
+      "seats": [
+        "E8"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "seatTotal": 98000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 113000,
+      "createdAt": "2026-07-06T16:17:00"
+    },
+    {
+      "id": 120,
+      "movieId": 37,
+      "showtimeId": 820,
+      "cinemaId": 12,
+      "roomId": 23,
+      "seats": [
+        "D1"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 16,
+      "userName": "Phan Trọng Nghĩa",
+      "seatTotal": 75000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 90000,
+      "createdAt": "2026-07-06T12:05:00"
+    },
+    {
+      "id": 121,
+      "movieId": 22,
+      "showtimeId": 438,
+      "cinemaId": 6,
+      "roomId": 12,
+      "seats": [
+        "C1"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "12": 1
+      },
+      "paymentMethod": "card",
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "seatTotal": 120000,
+      "fnbTotal": 28000,
+      "serviceFee": 15000,
+      "totalPrice": 163000,
+      "createdAt": "2026-07-12T09:17:00"
+    },
+    {
+      "id": 122,
+      "movieId": 24,
+      "showtimeId": 73,
+      "cinemaId": 1,
+      "roomId": 1,
+      "seats": [
+        "A3",
+        "F12"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 24,
+      "userName": "Nguyễn Tiến Đạt",
+      "seatTotal": 173000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 188000,
+      "createdAt": "2026-06-23T16:30:00"
+    },
+    {
+      "id": 123,
+      "movieId": 19,
+      "showtimeId": 657,
+      "cinemaId": 9,
+      "roomId": 18,
+      "seats": [
+        "A14",
+        "A7",
+        "C9"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "11": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 20,
+      "userName": "Chu Việt Hùng",
+      "seatTotal": 360000,
+      "fnbTotal": 78000,
+      "serviceFee": 15000,
+      "totalPrice": 453000,
+      "createdAt": "2026-07-03T20:30:00"
+    },
+    {
+      "id": 124,
+      "movieId": 36,
+      "showtimeId": 156,
+      "cinemaId": 2,
+      "roomId": 4,
+      "seats": [
+        "E2"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 11,
+      "userName": "Ngô Thanh Trúc",
+      "seatTotal": 124000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 139000,
+      "createdAt": "2026-06-29T13:30:00"
+    },
+    {
+      "id": 125,
+      "movieId": 18,
+      "showtimeId": 471,
+      "cinemaId": 7,
+      "roomId": 13,
+      "seats": [
+        "A5",
+        "C4",
+        "G12"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "4": 1,
+        "5": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "seatTotal": 225000,
+      "fnbTotal": 104000,
+      "serviceFee": 15000,
+      "totalPrice": 344000,
+      "createdAt": "2026-06-23T08:42:00"
+    },
+    {
+      "id": 126,
+      "movieId": 32,
+      "showtimeId": 778,
+      "cinemaId": 11,
+      "roomId": 22,
+      "seats": [
+        "A4",
+        "F5",
+        "G12",
+        "H7"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 2,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "seatTotal": 438000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 453000,
+      "createdAt": "2026-06-29T11:05:00"
+    },
+    {
+      "id": 127,
+      "movieId": 18,
+      "showtimeId": 508,
+      "cinemaId": 7,
+      "roomId": 14,
+      "seats": [
+        "A7",
+        "C11"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "7": 2
+      },
+      "paymentMethod": "card",
+      "userId": 18,
+      "userName": "Dương Hải Đăng",
+      "seatTotal": 190000,
+      "fnbTotal": 40000,
+      "serviceFee": 15000,
+      "totalPrice": 245000,
+      "createdAt": "2026-06-15T08:42:00"
+    },
+    {
+      "id": 128,
+      "movieId": 10,
+      "showtimeId": 722,
+      "cinemaId": 10,
+      "roomId": 20,
+      "seats": [
+        "B10"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "seatTotal": 75000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 90000,
+      "createdAt": "2026-07-06T17:17:00"
+    },
+    {
+      "id": 129,
+      "movieId": 12,
+      "showtimeId": 357,
+      "cinemaId": 5,
+      "roomId": 9,
+      "seats": [
+        "E1",
+        "E9"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 2,
+        "couple": 0
+      },
+      "concessions": {
+        "14": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 22,
+      "userName": "Đinh Bá Lộc",
+      "seatTotal": 196000,
+      "fnbTotal": 110000,
+      "serviceFee": 15000,
+      "totalPrice": 321000,
+      "createdAt": "2026-07-13T11:05:00"
+    },
+    {
+      "id": 130,
+      "movieId": 37,
+      "showtimeId": 342,
+      "cinemaId": 5,
+      "roomId": 9,
+      "seats": [
+        "C9",
+        "F1",
+        "F6"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 2,
+        "couple": 0
+      },
+      "concessions": {
+        "11": 1,
+        "14": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 14,
+      "userName": "Lý Gia Bảo",
+      "seatTotal": 271000,
+      "fnbTotal": 94000,
+      "serviceFee": 15000,
+      "totalPrice": 380000,
+      "createdAt": "2026-07-10T09:42:00"
+    },
+    {
+      "id": 131,
+      "movieId": 34,
+      "showtimeId": 817,
+      "cinemaId": 12,
+      "roomId": 23,
+      "seats": [
+        "B4",
+        "F10"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "5": 2,
+        "10": 2
+      },
+      "paymentMethod": "card",
+      "userId": 12,
+      "userName": "Hoàng Minh Tuấn",
+      "seatTotal": 173000,
+      "fnbTotal": 216000,
+      "serviceFee": 15000,
+      "totalPrice": 404000,
+      "createdAt": "2026-06-15T21:58:00"
+    },
+    {
+      "id": 132,
+      "movieId": 17,
+      "showtimeId": 470,
+      "cinemaId": 7,
+      "roomId": 13,
+      "seats": [
+        "G10",
+        "G11",
+        "G8"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "6": 1,
+        "11": 2
+      },
+      "paymentMethod": "card",
+      "userId": 26,
+      "userName": "Trương Công Định",
+      "seatTotal": 225000,
+      "fnbTotal": 110000,
+      "serviceFee": 15000,
+      "totalPrice": 350000,
+      "createdAt": "2026-07-06T21:17:00"
+    },
+    {
+      "id": 133,
+      "movieId": 33,
+      "showtimeId": 375,
+      "cinemaId": 5,
+      "roomId": 10,
+      "seats": [
+        "B12",
+        "H7"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 22,
+      "userName": "Đinh Bá Lộc",
+      "seatTotal": 190000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 205000,
+      "createdAt": "2026-06-26T21:42:00"
+    },
+    {
+      "id": 134,
+      "movieId": 31,
+      "showtimeId": 740,
+      "cinemaId": 11,
+      "roomId": 21,
+      "seats": [
+        "A6",
+        "D6",
+        "D8"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "11": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 11,
+      "userName": "Ngô Thanh Trúc",
+      "seatTotal": 225000,
+      "fnbTotal": 78000,
+      "serviceFee": 15000,
+      "totalPrice": 318000,
+      "createdAt": "2026-06-15T11:42:00"
+    },
+    {
+      "id": 135,
+      "movieId": 2,
+      "showtimeId": 9,
+      "cinemaId": 4,
+      "roomId": 8,
+      "seats": [
+        "G14",
+        "G6",
+        "J2"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 2,
+        "couple": 0
+      },
+      "concessions": {
+        "11": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 30,
+      "userName": "Cao Mỹ Duyên",
+      "seatTotal": 432000,
+      "fnbTotal": 78000,
+      "serviceFee": 15000,
+      "totalPrice": 525000,
+      "createdAt": "2026-06-26T11:42:00"
+    },
+    {
+      "id": 136,
+      "movieId": 16,
+      "showtimeId": 358,
+      "cinemaId": 5,
+      "roomId": 10,
+      "seats": [
+        "A7",
+        "B5",
+        "E11",
+        "G10"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 2,
+        "couple": 0
+      },
+      "concessions": {
+        "2": 1
+      },
+      "paymentMethod": "card",
+      "userId": 10,
+      "userName": "Bùi Quang Huy",
+      "seatTotal": 438000,
+      "fnbTotal": 159000,
+      "serviceFee": 15000,
+      "totalPrice": 612000,
+      "createdAt": "2026-07-04T14:58:00"
+    },
+    {
+      "id": 137,
+      "movieId": 36,
+      "showtimeId": 708,
+      "cinemaId": 10,
+      "roomId": 20,
+      "seats": [
+        "E9",
+        "H2"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 23,
+      "userName": "Hồ Yến Nhi",
+      "seatTotal": 218000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 233000,
+      "createdAt": "2026-07-08T16:30:00"
+    },
+    {
+      "id": 138,
+      "movieId": 35,
+      "showtimeId": 707,
+      "cinemaId": 10,
+      "roomId": 20,
+      "seats": [
+        "G1"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "8": 1,
+        "14": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 8,
+      "userName": "Vũ Đức Anh",
+      "seatTotal": 75000,
+      "fnbTotal": 90000,
+      "serviceFee": 15000,
+      "totalPrice": 180000,
+      "createdAt": "2026-07-04T16:05:00"
+    },
+    {
+      "id": 139,
+      "movieId": 15,
+      "showtimeId": 764,
+      "cinemaId": 11,
+      "roomId": 21,
+      "seats": [
+        "A11",
+        "C9",
+        "G2"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "1": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 23,
+      "userName": "Hồ Yến Nhi",
+      "seatTotal": 225000,
+      "fnbTotal": 89000,
+      "serviceFee": 15000,
+      "totalPrice": 329000,
+      "createdAt": "2026-06-16T10:42:00"
+    },
+    {
+      "id": 140,
+      "movieId": 11,
+      "showtimeId": 612,
+      "cinemaId": 9,
+      "roomId": 17,
+      "seats": [
+        "B9",
+        "G1",
+        "H9"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "4": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 6,
+      "userName": "Lê Hoàng Nam",
+      "seatTotal": 225000,
+      "fnbTotal": 55000,
+      "serviceFee": 15000,
+      "totalPrice": 295000,
+      "createdAt": "2026-07-07T21:58:00"
+    },
+    {
+      "id": 141,
+      "movieId": 23,
+      "showtimeId": 72,
+      "cinemaId": 1,
+      "roomId": 1,
+      "seats": [
+        "D7"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "5": 1,
+        "8": 2
+      },
+      "paymentMethod": "card",
+      "userId": 4,
+      "userName": "Nguyễn Phong Kiên",
+      "seatTotal": 75000,
+      "fnbTotal": 119000,
+      "serviceFee": 15000,
+      "totalPrice": 209000,
+      "createdAt": "2026-07-03T21:30:00"
+    },
+    {
+      "id": 142,
+      "movieId": 5,
+      "showtimeId": 18,
+      "cinemaId": 1,
+      "roomId": 2,
+      "seats": [
+        "B3"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "13": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 16,
+      "userName": "Phan Trọng Nghĩa",
+      "seatTotal": 120000,
+      "fnbTotal": 42000,
+      "serviceFee": 15000,
+      "totalPrice": 177000,
+      "createdAt": "2026-06-23T09:58:00"
+    },
+    {
+      "id": 143,
+      "movieId": 10,
+      "showtimeId": 574,
+      "cinemaId": 8,
+      "roomId": 16,
+      "seats": [
+        "B12",
+        "C4",
+        "C7",
+        "D4"
+      ],
+      "seatTypes": {
+        "standard": 4,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "11": 2,
+        "14": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "seatTotal": 380000,
+      "fnbTotal": 133000,
+      "serviceFee": 15000,
+      "totalPrice": 528000,
+      "createdAt": "2026-06-14T15:17:00"
+    },
+    {
+      "id": 144,
+      "movieId": 36,
+      "showtimeId": 193,
+      "cinemaId": 3,
+      "roomId": 5,
+      "seats": [
+        "D6",
+        "F2",
+        "G11"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "2": 2,
+        "6": 2
+      },
+      "paymentMethod": "card",
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "seatTotal": 248000,
+      "fnbTotal": 382000,
+      "serviceFee": 15000,
+      "totalPrice": 645000,
+      "createdAt": "2026-07-08T15:17:00"
+    },
+    {
+      "id": 145,
+      "movieId": 5,
+      "showtimeId": 569,
+      "cinemaId": 8,
+      "roomId": 16,
+      "seats": [
+        "A4",
+        "G10"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 3,
+      "userName": "Dương Quang Minh",
+      "seatTotal": 219000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 234000,
+      "createdAt": "2026-06-26T19:30:00"
+    },
+    {
+      "id": 146,
+      "movieId": 30,
+      "showtimeId": 261,
+      "cinemaId": 4,
+      "roomId": 7,
+      "seats": [
+        "G1"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 14,
+      "userName": "Lý Gia Bảo",
+      "seatTotal": 124000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 139000,
+      "createdAt": "2026-06-15T19:05:00"
+    },
+    {
+      "id": 147,
+      "movieId": 6,
+      "showtimeId": 22,
+      "cinemaId": 3,
+      "roomId": 6,
+      "seats": [
+        "A4",
+        "C4",
+        "D10",
+        "G5"
+      ],
+      "seatTypes": {
+        "standard": 3,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "2": 2,
+        "8": 2
+      },
+      "paymentMethod": "counter",
+      "userId": 15,
+      "userName": "Trịnh Khánh Vy",
+      "seatTotal": 387000,
+      "fnbTotal": 388000,
+      "serviceFee": 15000,
+      "totalPrice": 790000,
+      "createdAt": "2026-06-28T10:42:00"
+    },
+    {
+      "id": 148,
+      "movieId": 39,
+      "showtimeId": 529,
+      "cinemaId": 7,
+      "roomId": 14,
+      "seats": [
+        "H5"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 0,
+        "couple": 1
+      },
+      "concessions": {
+        "1": 1
+      },
+      "paymentMethod": "card",
+      "userId": 21,
+      "userName": "Mai Thị Lan",
+      "seatTotal": 152000,
+      "fnbTotal": 89000,
+      "serviceFee": 15000,
+      "totalPrice": 256000,
+      "createdAt": "2026-06-14T18:42:00"
+    },
+    {
+      "id": 149,
+      "movieId": 15,
+      "showtimeId": 727,
+      "cinemaId": 10,
+      "roomId": 20,
+      "seats": [
+        "A4",
+        "G10",
+        "G2",
+        "G7"
+      ],
+      "seatTypes": {
+        "standard": 4,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 5,
+      "userName": "Trần Thị Mai",
+      "seatTotal": 300000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 315000,
+      "createdAt": "2026-07-03T09:05:00"
+    },
+    {
+      "id": 150,
+      "movieId": 3,
+      "showtimeId": 678,
+      "cinemaId": 10,
+      "roomId": 19,
+      "seats": [
+        "F6"
+      ],
+      "seatTypes": {
+        "standard": 0,
+        "vip": 1,
+        "couple": 0
+      },
+      "concessions": {
+        "9": 1,
+        "12": 1
+      },
+      "paymentMethod": "counter",
+      "userId": 25,
+      "userName": "Lâm Bảo Châu",
+      "seatTotal": 124000,
+      "fnbTotal": 247000,
+      "serviceFee": 15000,
+      "totalPrice": 386000,
+      "createdAt": "2026-06-21T18:58:00"
+    },
+    {
+      "id": 151,
+      "movieId": 19,
+      "showtimeId": 216,
+      "cinemaId": 3,
+      "roomId": 5,
+      "seats": [
+        "H10"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "paymentMethod": "counter",
+      "userId": 28,
+      "userName": "Đoàn Nhật Minh",
+      "seatTotal": 75000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 90000,
+      "createdAt": "2026-06-16T17:17:00"
+    },
+    {
+      "id": 152,
+      "movieId": 6,
+      "showtimeId": 20,
+      "cinemaId": 2,
+      "roomId": 4,
+      "seats": [
+        "C1",
+        "D1",
+        "E3"
+      ],
+      "seatTypes": {
+        "standard": 2,
+        "vip": 1,
+        "couple": 0
+      },
+      "paymentMethod": "card",
+      "userId": 29,
+      "userName": "Huỳnh Tấn Phát",
+      "seatTotal": 297000,
+      "fnbTotal": 0,
+      "serviceFee": 15000,
+      "totalPrice": 312000,
+      "createdAt": "2026-06-15T13:58:00"
+    },
+    {
+      "id": 153,
+      "movieId": 22,
+      "showtimeId": 108,
+      "cinemaId": 1,
+      "roomId": 2,
+      "seats": [
+        "A9"
+      ],
+      "seatTypes": {
+        "standard": 1,
+        "vip": 0,
+        "couple": 0
+      },
+      "concessions": {
+        "6": 2,
+        "12": 1
+      },
+      "paymentMethod": "card",
+      "userId": 1,
+      "userName": "Nguyen Van A",
+      "seatTotal": 120000,
+      "fnbTotal": 92000,
+      "serviceFee": 15000,
+      "totalPrice": 227000,
+      "createdAt": "2026-06-16T12:17:00"
     }
   ],
   "concessions": [
