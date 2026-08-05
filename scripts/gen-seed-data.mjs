@@ -32,6 +32,19 @@ const verified = JSON.parse(
 
 const rng = makeRng(20260805);
 
+// Chặn chạy chồng. Script CHỈ NỐI THÊM nên chạy lần hai sẽ nhân đôi mọi thứ
+// trong im lặng — đã tự dính một lần: 40 phim thành 64, 879 suất thành 2136.
+// Nhận biết bằng chính dữ liệu biên tập: phim đầu tiên của đợt này đã có chưa.
+const MARKER = verified.movies[0]?.title;
+if (MARKER && db.movies.some((m) => m.title === MARKER)) {
+  console.error(
+    `\n❌ db.json da chua du lieu sinh san ("${MARKER}"). Script nay chi NOI THEM nen chay lai se nhan doi.\n` +
+      `   Muon sinh lai: khoi phuc db.json goc truoc, vi du\n` +
+      `     git checkout <commit truoc dot sinh> -- db.json\n`,
+  );
+  process.exit(1);
+}
+
 // Bộ đếm id, KHÔNG gọi lại max() mỗi vòng: với ~840 suất chiếu thì
 // Math.max(...mang) vừa là O(n²) vừa tràn stack khi mảng đủ lớn.
 const counter = (rows) => {
@@ -123,6 +136,17 @@ const DAYS = [
 ];
 const SLOTS = ["09:30", "12:15", "15:00", "18:00", "21:00"];
 
+// Mỗi phòng lệch giờ một chút. Không có cái này thì cả 24 phòng chiếu đúng cùng
+// 5 khung giờ, và dải "Suất chiếu gần nhất" ở trang chủ hiện 6 thẻ đều ghi
+// 09:30 — nhìn là biết dữ liệu máy sinh. Rạp thật cũng so le để khách ra vào
+// không dồn một lúc.
+const ROOM_OFFSETS = [0, 25, 10, 40, 5, 30, 15, 45, 20, 35, 50, 55];
+const addMinutes = (hhmm, mins) => {
+  const [h, m] = hhmm.split(":").map(Number);
+  const t = (h * 60 + m + mins) % (24 * 60);
+  return `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`;
+};
+
 // 11 suất cũ đã ở 21:00. Bỏ qua cặp (phòng, giờ) đã tồn tại, nếu không một phòng
 // chiếu hai phim cùng lúc.
 const takenSlot = new Set(db.showtimes.map((s) => `${s.roomId}|${s.time}`));
@@ -135,9 +159,10 @@ for (const room of db.rooms) {
   // nhau, và mỗi phim có suất ở nhiều rạp.
   cursor += 3;
   const seats = flatSeats(room).map((s) => s.seatNumber);
+  const offset = ROOM_OFFSETS[room.id % ROOM_OFFSETS.length];
   for (const day of DAYS) {
     for (const slot of SLOTS) {
-      const time = `${day}T${slot}:00`;
+      const time = `${day}T${addMinutes(slot, offset)}:00`;
       const key = `${room.id}|${time}`;
       if (takenSlot.has(key)) continue;
       takenSlot.add(key);
