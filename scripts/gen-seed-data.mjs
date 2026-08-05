@@ -11,6 +11,8 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { makeRng } from "./lib/rng.mjs";
 import { ROOM_TYPE_PRICE, flatSeats } from "./lib/seed-pricing.mjs";
+import { NEW_CONCESSIONS } from "./seed-data/concessions.mjs";
+import { COMMENTS, NEW_USERS, PASSWORD_HASH } from "./seed-data/people.mjs";
 import { NEW_CINEMAS, NEW_CITIES, NEW_ROOMS } from "./seed-data/venues.mjs";
 
 const DB_PATH = new URL("../db.json", import.meta.url);
@@ -82,7 +84,26 @@ for (const m of verified.movies) {
   });
 }
 
-// --- 2. Suất chiếu ---
+// --- 2. Người dùng và bắp nước ---
+// Không phải để cho đông: @@unique([movieId, userId]) đặt trần CỨNG ở số user.
+// 4 user nghĩa là tối đa 4 đánh giá mỗi phim, sinh bao nhiêu review cũng vô ích.
+const nextUserId = counter(db.users);
+for (const u of NEW_USERS) {
+  db.users.push({
+    id: nextUserId(),
+    fullName: u.fullName,
+    email: u.email,
+    password: PASSWORD_HASH,
+    role: "user",
+  });
+}
+
+const nextConcessionId = counter(db.concessions);
+for (const c of NEW_CONCESSIONS) {
+  db.concessions.push({ id: nextConcessionId(), ...c });
+}
+
+// --- 3. Suất chiếu ---
 // NGÀY CỨNG phải giữ đúng 7 ngày này: planShift neo theo ngày SỚM NHẤT để đẩy nó
 // về hôm nay−2. Rơi ra ngoài là lệch toàn bộ cửa sổ lịch chiếu.
 const DAYS = [

@@ -26,6 +26,188 @@
       "password": "$2b$10$jKeoGPDJ18B5lPQDwnKTYuqcYXObr55zedZCZ5XfWd/j4k9sZXlPq",
       "role": "user",
       "id": 4
+    },
+    {
+      "id": 5,
+      "fullName": "Trần Thị Mai",
+      "email": "mai.tran@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 6,
+      "fullName": "Lê Hoàng Nam",
+      "email": "nam.le@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 7,
+      "fullName": "Phạm Thu Hà",
+      "email": "ha.pham@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 8,
+      "fullName": "Vũ Đức Anh",
+      "email": "anh.vu@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 9,
+      "fullName": "Đỗ Ngọc Linh",
+      "email": "linh.do@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 10,
+      "fullName": "Bùi Quang Huy",
+      "email": "huy.bui@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 11,
+      "fullName": "Ngô Thanh Trúc",
+      "email": "truc.ngo@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 12,
+      "fullName": "Hoàng Minh Tuấn",
+      "email": "tuan.hoang@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 13,
+      "fullName": "Đặng Thị Hương",
+      "email": "huong.dang@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 14,
+      "fullName": "Lý Gia Bảo",
+      "email": "bao.ly@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 15,
+      "fullName": "Trịnh Khánh Vy",
+      "email": "vy.trinh@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 16,
+      "fullName": "Phan Trọng Nghĩa",
+      "email": "nghia.phan@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 17,
+      "fullName": "Võ Thị Kim Ngân",
+      "email": "ngan.vo@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 18,
+      "fullName": "Dương Hải Đăng",
+      "email": "dang.duong@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 19,
+      "fullName": "Tạ Phương Thảo",
+      "email": "thao.ta@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 20,
+      "fullName": "Chu Việt Hùng",
+      "email": "hung.chu@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 21,
+      "fullName": "Mai Thị Lan",
+      "email": "lan.mai@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 22,
+      "fullName": "Đinh Bá Lộc",
+      "email": "loc.dinh@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 23,
+      "fullName": "Hồ Yến Nhi",
+      "email": "nhi.ho@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 24,
+      "fullName": "Nguyễn Tiến Đạt",
+      "email": "dat.nguyen@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 25,
+      "fullName": "Lâm Bảo Châu",
+      "email": "chau.lam@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 26,
+      "fullName": "Trương Công Định",
+      "email": "dinh.truong@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 27,
+      "fullName": "Kiều Thị Diễm",
+      "email": "diem.kieu@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 28,
+      "fullName": "Đoàn Nhật Minh",
+      "email": "minh.doan@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 29,
+      "fullName": "Huỳnh Tấn Phát",
+      "email": "phat.huynh@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
+    },
+    {
+      "id": 30,
+      "fullName": "Cao Mỹ Duyên",
+      "email": "duyen.cao@cinema.vn",
+      "password": "$2b$10$eDDZNg9F.L9W3hpGQpKDoecLPAR.ut7f7mssHJlKzk9W4zK8NFeRK",
+      "role": "user"
     }
   ],
   "movies": [
@@ -16802,6 +16984,54 @@
       "price": 35000,
       "description": "Khoai tây chiên giòn vị BBQ",
       "image": "🍟"
+    },
+    {
+      "id": 9,
+      "name": "Combo Nhóm 4 Người",
+      "category": "combo",
+      "price": 219000,
+      "description": "4 nước ngọt lớn + 2 bắp lớn",
+      "image": "🍿"
+    },
+    {
+      "id": 10,
+      "name": "Bắp Caramel (Lớn)",
+      "category": "popcorn",
+      "price": 59000,
+      "description": "Bắp rang caramel giòn tan",
+      "image": "🍿"
+    },
+    {
+      "id": 11,
+      "name": "Trà Đào Cam Sả",
+      "category": "drink",
+      "price": 39000,
+      "description": "Ly 500ml, đá riêng",
+      "image": "🥤"
+    },
+    {
+      "id": 12,
+      "name": "Pepsi (Vừa)",
+      "category": "drink",
+      "price": 28000,
+      "description": "Ly 32oz",
+      "image": "🥤"
+    },
+    {
+      "id": 13,
+      "name": "Xúc Xích Nướng",
+      "category": "snack",
+      "price": 42000,
+      "description": "Xúc xích Đức nướng kèm tương",
+      "image": "🌭"
+    },
+    {
+      "id": 14,
+      "name": "Nachos Phô Mai",
+      "category": "snack",
+      "price": 55000,
+      "description": "Bánh ngô giòn kèm sốt phô mai",
+      "image": "🧀"
     }
   ],
   "reviews": [
