@@ -38,7 +38,23 @@ const cinemaKey = (name: string, address: string) =>
   `${norm(name)}|${norm(address)}`;
 const roomKey = (cinemaId: number, name: string) => `${cinemaId}|${norm(name)}`;
 
+// In HOST của DB đang nối tới, không in user/password.
+//
+// Đây là chốt chặn quan trọng nhất của script: bẫy đã cắn một lần là chạy nhầm
+// vào DB dev mà output vẫn đẹp như thường. Biến môi trường đặt sai chỗ thì
+// Prisma âm thầm rơi về `.env`, và không có dòng này thì không cách nào biết.
+function dbHost(): string {
+  const raw = process.env.DATABASE_URL;
+  if (!raw) return "(KHONG CO DATABASE_URL)";
+  try {
+    return new URL(raw).host;
+  } catch {
+    return "(DATABASE_URL sai dinh dang)";
+  }
+}
+
 async function main() {
+  console.log(`\nDang noi toi: ${dbHost()}`);
   const [cities, movies, cinemas, users, concessions, rooms] =
     await Promise.all([
       prisma.city.findMany(),
