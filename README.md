@@ -27,8 +27,11 @@ npm install          # postinstall runs `prisma generate`
 Copy `.env.example` → `.env` and fill in `DATABASE_URL` (pooled) + `DIRECT_URL` (direct) from any Postgres — a free [Neon](https://neon.com) project works well. Then create the schema and load the sample data:
 ```bash
 npm run prisma:migrate    # apply migrations
-npm run prisma:seed       # load db.json (16 movies, 5 cinemas, 52 showtimes…)
+npm run prisma:seed       # load db.json: 40 movies · 12 cinemas · 24 rooms · 889 showtimes
+                          #               30 users · 153 bookings · 215 reviews
 ```
+
+`db.json` is committed, so a fresh clone gets the full catalogue from that one command — you never need the `seed:*` scripts, which only exist to *regenerate* the fixture. The fixture's dates are fixed in the file but **shifted at seed time** so the 7-day showtime window always lands around today: clone this in six months, seed, and there are still bookable screenings. Log in as `admin@cinema.vn` / `admin123`, or as any seeded customer (e.g. `mai.tran@cinema.vn`) with `123456`. Stripe and Resend keys are optional — without them the card payment method and the "resend ticket" button simply don't render.
 
 ### 3. Start
 ```bash
